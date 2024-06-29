@@ -1,3 +1,111 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'font-pretendard';
+}
+
+body {
+  width: 100%;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  -ms-overflow-style: none;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+.bold1 {
+  @apply text-[32px] font-bold leading-[1.2] tracking-[-0.03em];
+}
+.bold2 {
+  @apply text-[26px] font-bold leading-[1] tracking-[-0.03em];
+}
+.bold3 {
+  @apply text-[24px] font-bold leading-[1.2] tracking-[-0.03em];
+}
+.bold4 {
+  @apply text-[18px] font-bold leading-[1] tracking-[-0.03em];
+}
+.bold5 {
+  @apply text-[24px] font-bold leading-[1] tracking-[-0.03em];
+}
+.semibold1 {
+  @apply text-[30px] font-semibold leading-[1] tracking-[-0.03em];
+}
+.semibold2 {
+  @apply text-[24px] font-semibold leading-[1.2] tracking-[-0.03em];
+}
+.semibold3 {
+  @apply text-[22px] font-semibold leading-[1.2] tracking-[-0.03em];
+}
+.semibold4 {
+  @apply text-[22px] font-semibold leading-[1] tracking-[-0.03em];
+}
+.semibold5 {
+  @apply text-[20px] font-semibold leading-[1.2] tracking-[-0.03em];
+}
+.semibold6 {
+  @apply text-[18px] font-semibold leading-[1.3] tracking-[-0.03em];
+}
+.semibold7 {
+  @apply text-[16px] font-semibold leading-[1] tracking-[-0.03em];
+}
+.semibold8 {
+  @apply text-[14px] font-semibold leading-[1] tracking-[-0.03em];
+}
+.semibold9 {
+  @apply text-[12px] font-semibold leading-[1.4] tracking-[-0.03em];
+}
+.medium1 {
+  @apply text-[22px] font-medium leading-[1] tracking-[-0.03em];
+}
+.medium2 {
+  @apply text-[20px] font-medium leading-[1.2] tracking-[-0.03em];
+}
+.medium3 {
+  @apply text-[18px] font-medium leading-[1.3] tracking-[-0.03em];
+}
+.medium4 {
+  @apply text-[16px] font-medium leading-[1] tracking-[-0.03em];
+}
+.medium5 {
+  @apply text-[14px] font-medium leading-[1.4] tracking-[-0.03em];
+}
+.medium6 {
+  @apply text-[14px] font-medium leading-[1] tracking-[-0.03em];
+}
+.medium7 {
+  @apply text-[12px] font-medium leading-[1.4] tracking-[-0.03em];
+}
+.regular1 {
+  @apply text-[22px] font-normal leading-[1.2] tracking-[-0.03em];
+}
+.regular2 {
+  @apply text-[20px] font-normal leading-[1.6] tracking-[-0.03em];
+}
+.regular3 {
+  @apply text-[18px] font-normal leading-[1.5] tracking-[-0.03em];
+}
+.regular4 {
+  @apply text-[16px] font-normal leading-[1.4] tracking-[-0.03em];
+}
+.regular5 {
+  @apply text-[14px] font-normal leading-[1.4] tracking-[-0.03em];
+}
+.regular6 {
+  @apply text-[12px] font-normal leading-[1.4] tracking-[-0.03em];
+}
+.regular7 {
+  @apply text-[12px] font-normal leading-[1.6] tracking-[-0.03em];
+}
+.regular8 {
+  @apply text-[10px] font-normal leading-[1.4] tracking-[-0.03em];
+}
