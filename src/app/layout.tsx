@@ -7,6 +7,9 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   title: "TIG Frontend",
   description: "This is TIG frontend Project",
+  icons: {
+    icon: '/svg/tig.svg',
+  },
 };
 
 export default function RootLayout({
