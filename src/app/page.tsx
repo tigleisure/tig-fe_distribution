@@ -1,3 +1,3 @@
 export default function Home() {
-  return <div>This is home</div>;
+  return <div className="medium1">This is home</div>;
 }
