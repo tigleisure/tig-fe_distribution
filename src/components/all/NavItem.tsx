@@ -1,21 +1,24 @@
 'use client';
-
 import { usePathname } from 'next/navigation';
-
-interface NavItemProps {
-  ActiveIcon: any;
-  InactiveIcon: any;
-  path: string;
-}
+import { useRouter } from 'next/navigation';
+import { type NavItemType } from 'types/all/NavTypes';
 
 export default function NavItem({
   ActiveIcon,
   InactiveIcon,
   path,
-}: NavItemProps) {
+}: NavItemType) {
+  const router = useRouter();
   const pathname = usePathname();
   const isActive = pathname === path;
-  return <div>
-    {isActive ? <ActiveIcon /> : <InactiveIcon />}
-  </div>;
+  return (
+    <div
+      className="cursor-pointer"
+      onClick={() => {
+        router.push(path);
+      }}
+    >
+      {isActive ? <ActiveIcon /> : <InactiveIcon />}
+    </div>
+  );
 }
