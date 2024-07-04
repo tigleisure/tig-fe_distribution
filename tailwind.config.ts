@@ -26,6 +26,11 @@ const config: Config = {
       },
       width: {
         loginWidth: 'calc(100% * (8/9))',
+        mypageWidth: 'calc(100% * (8/9))',
+      },
+      boxShadow: {
+        mypageButton: '0 0 0 1px #292A2B inset',
+        myPageLogoutButton: '0 0 0 1px #A9AFB3 inset',
       },
     },
   },
