@@ -24,6 +24,7 @@
       "@styles/*": ["./styles/*"],
       "@store/*": ["./store/*"],
       "@context/*": ["./context/*"],
+      "@constant/*": ["./constant/*"],
       "@hooks/*": ["./hooks/*"],
       "@utils/*": ["./utils/*"],
       "@apis/*": ["./apis/*"],
