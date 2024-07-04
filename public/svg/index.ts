@@ -8,4 +8,5 @@ export { default as InActiveHomeSVG } from './inActiveHome.svg';
 export { default as InActiveListSVG } from './inActiveList.svg';
 export { default as InActiveMypageSVG } from './inActiveMypage.svg';
 export { default as InActiveSearchSVG } from './inActiveSearch.svg';
-
+export { default as ArrowLeftSVG } from './arrowLeft.svg';
+export { default as CloseSVG } from './close.svg';
