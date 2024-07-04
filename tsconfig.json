@@ -22,6 +22,7 @@
       "@components/*": ["./components/*"],
       "@assets/*": ["./assets/*"],
       "@styles/*": ["./styles/*"],
+      "@store/*": ["./store/*"],
       "@context/*": ["./context/*"],
       "@hooks/*": ["./hooks/*"],
       "@utils/*": ["./utils/*"],
