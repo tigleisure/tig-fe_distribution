@@ -1,5 +1,6 @@
 'use client';
-import { ArrowLeftSVG, CloseSVG } from '@public/svg';
+import ArrowLeftSVG from '@public/svg/arrowLeft.svg';
+import CloseSVG from '@public/svg/close.svg';
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 
