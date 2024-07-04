@@ -1,5 +1,6 @@
 import MyProfileDefaultImage from '@public/svg/myProfileDefaultImage.svg';
 import ProfileInformation from './ProfileInformation';
+import ToastUI from './ToastUI';
 
 export default function My() {
   return (
@@ -14,6 +15,7 @@ export default function My() {
           로그아웃
         </button>
       </div>
+      <ToastUI />
     </div>
   );
 }
