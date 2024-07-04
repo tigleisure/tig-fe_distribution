@@ -3,10 +3,12 @@ import { cn } from '@utils/cn';
 
 interface SearchInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   result?: boolean;
+  className?: string;
 }
 
 export default function SearchInput({
   result = false,
+  className,
   ...props
 }: SearchInputProps) {
   return (
@@ -17,7 +19,7 @@ export default function SearchInput({
         className={cn('grow bg-grey2', {
           'placeholder-grey7': result,
           'placeholder-grey5': !result,
-        })}
+        },className)}
         {...props}
       />
     </div>
