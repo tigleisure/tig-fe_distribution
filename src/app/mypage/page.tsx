@@ -1,4 +1,4 @@
-import NavBar from '@components/all/NavBar';
+import NavBar from "@components/all/NavBar/NavBar";
 
 export default function page() {
   return (

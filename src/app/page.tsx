@@ -1,4 +1,4 @@
-import NavBar from '@components/all/NavBar';
+import NavBar from "@components/all/NavBar/NavBar";
 import Tabs from '@components/all/Tabs/Tabs';
 import { homeleisureArray } from '@constant/constant';
 
