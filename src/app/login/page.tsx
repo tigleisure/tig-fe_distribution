@@ -1,4 +1,4 @@
-import NavBar from '@components/all/NavBar';
+import NavBar from "@components/all/NavBar/NavBar";
 import Login from '@components/login/Login';
 
 export default function page() {

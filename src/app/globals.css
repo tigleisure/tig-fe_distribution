@@ -27,6 +27,10 @@ body {
   display: none;
 }
 
+input {
+  outline: none;
+}
+
 .headline1 {
   @apply text-[18px] font-bold leading-[1] tracking-[-0.02em];
 }
