@@ -1,16 +1,14 @@
 'use client';
-import {
-  ActiveHeartSVG,
-  ActiveHomeSVG,
-  ActiveSearchSVG,
-  ActiveListSVG,
-  ActiveMypageSVG,
-  InActiveHeartSVG,
-  InActiveHomeSVG,
-  InActiveSearchSVG,
-  InActiveListSVG,
-  InActiveMypageSVG,
-} from '@public/svg';
+import ActiveHeartSVG from '@public/svg/activeHeart.svg';
+import ActiveSearchSVG from '@public/svg/activeSearch.svg';
+import ActiveHomeSVG from '@public/svg/activeHome.svg';
+import ActiveListSVG from '@public/svg/activeList.svg';
+import ActiveMypageSVG from '@public/svg/activeMypage.svg';
+import InActiveHeartSVG from '@public/svg/inactiveHeart.svg';
+import InActiveSearchSVG from '@public/svg/inactiveSearch.svg';
+import InActiveHomeSVG from '@public/svg/inactiveHome.svg';
+import InActiveListSVG from '@public/svg/inactiveList.svg';
+import InActiveMypageSVG from '@public/svg/inactiveMypage.svg';
 import { type NavItemType } from 'types/all/NavTypes';
 import NavItem from './NavItem';
 
