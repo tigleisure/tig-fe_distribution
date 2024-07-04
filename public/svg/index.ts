@@ -10,6 +10,7 @@ import InActiveMypageSVG from './inActiveMypage.svg';
 import InActiveSearchSVG from './inActiveSearch.svg';
 import ArrowLeftSVG from './arrowLeft.svg';
 import CloseSVG from './close.svg';
+import SearchInputSVG from './searchInput.svg';
 
 export {
   ActiveHeartSVG,
@@ -24,4 +25,5 @@ export {
   InActiveSearchSVG,
   ArrowLeftSVG,
   CloseSVG,
+  SearchInputSVG,
 };
