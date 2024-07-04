@@ -37,8 +37,8 @@ export default function Modal({
     >
       <WarningSVG />
       <div className="w-full flex flex-col gap-2 items-center">
-        <p className="title3 text-grey5">{title}</p>
-        {subTitle && <p className="body4">{subTitle}</p>}
+        <p className="title3">{title}</p>
+        {subTitle && <p className="body4 text-grey5">{subTitle}</p>}
       </div>
       <div className="flex gap-[10px] title3 w-full">
         {button2Content && (
