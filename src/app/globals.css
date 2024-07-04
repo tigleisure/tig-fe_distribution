@@ -9,10 +9,6 @@
   font-family: 'font-pretendard';
 }
 
-html {
-  background-color: #f8f9fa;
-}
-
 body {
   width: 100%;
   min-width: 360px;
@@ -24,6 +20,7 @@ body {
   align-items: center;
   -ms-overflow-style: none;
   position: relative;
+  box-shadow: 0 5px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 ::-webkit-scrollbar {
