@@ -4,12 +4,12 @@ import FullButton from '@components/all/FullButton';
 import NavBar from '@components/all/NavBar/NavBar';
 import Tabs from '@components/all/Tabs/Tabs';
 import { homeleisureArray } from '@constant/constant';
-import useReservationModal from '@store/modalStore';
+import useModal from '@store/modalStore';
 
 export default function Home() {
   const homeArray = homeleisureArray;
-  const setReservationModal = useReservationModal(
-    (state) => state.setSelectedIsReservationModalOpen
+  const setModal = useModal(
+    (state) => state.setSelectedIsModalOpen
   );
   return (
     <div>
@@ -19,7 +19,7 @@ export default function Home() {
         bgColor="primary_orange1"
         color="white"
         content="예약하기"
-        onClick={() => setReservationModal(true)}
+        onClick={() => setModal(true)}
       />
       <Modal
         size="lg"

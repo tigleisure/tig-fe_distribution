@@ -1,14 +1,14 @@
 import { create } from 'zustand';
 
 interface Store {
-  selectedIsReservationModalOpen: boolean;
-  setSelectedIsReservationModalOpen: (status: boolean) => void;
+  selectedIsModalOpen: boolean;
+  setSelectedIsModalOpen: (status: boolean) => void;
 }
 
-const useReservationModal = create<Store>((set) => ({
-  selectedIsReservationModalOpen: false,
-  setSelectedIsReservationModalOpen: (status) =>
-    set({ selectedIsReservationModalOpen: status }),
+const useModal = create<Store>((set) => ({
+  selectedIsModalOpen: false,
+  setSelectedIsModalOpen: (status) =>
+    set({ selectedIsModalOpen: status }),
 }));
 
-export default useReservationModal;
+export default useModal;

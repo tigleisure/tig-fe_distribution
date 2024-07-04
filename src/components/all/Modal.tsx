@@ -1,4 +1,4 @@
-import useReservationModal from '@store/modalStore';
+import useModal from '@store/modalStore';
 import ReactModal from 'react-modal';
 import WarningSVG from '@public/svg/warning.svg';
 import FullButton from './FullButton';
@@ -18,19 +18,19 @@ export default function Modal({
   title,
   subTitle,
 }: ModalProps) {
-  const isReservationModalOpen = useReservationModal(
-    (state) => state.selectedIsReservationModalOpen
+  const isModalOpen = useModal(
+    (state) => state.selectedIsModalOpen
   );
-  const setReservationModal = useReservationModal(
-    (state) => state.setSelectedIsReservationModalOpen
+  const setModal = useModal(
+    (state) => state.setSelectedIsModalOpen
   );
 
   const customModalStyles = getCustomModalStyles(size);
 
   return (
     <ReactModal
-      isOpen={isReservationModalOpen}
-      onRequestClose={() => setReservationModal(false)}
+      isOpen={isModalOpen}
+      onRequestClose={() => setModal(false)}
       ariaHideApp={false}
       style={customModalStyles}
       contentLabel="Pop up Message"
@@ -48,7 +48,7 @@ export default function Modal({
             content={button2Content}
             size="md"
             className="shadow-myPageLogoutButton"
-            onClick={() => setReservationModal(false)}
+            onClick={() => setModal(false)}
           />
         )}
         <FullButton
@@ -56,7 +56,7 @@ export default function Modal({
           color="white"
           content={button1Content}
           size="md"
-          onClick={() => setReservationModal(false)}
+          onClick={() => setModal(false)}
         />
       </div>
     </ReactModal>
