@@ -27,10 +27,13 @@ const config: Config = {
       width: {
         loginWidth: 'calc(100% * (8/9))',
         mypageWidth: 'calc(100% * (8/9))',
+        eightNineWidth: 'calc(100% * (8/9))',
+        sevenEightWidth: 'calc(100% * (7/8))',
       },
       boxShadow: {
         mypageButton: '0 0 0 1px #292A2B inset',
         myPageLogoutButton: '0 0 0 1px #A9AFB3 inset',
+        cancelButton: '0 0 0 1px #F45858 inset',
       },
     },
   },
