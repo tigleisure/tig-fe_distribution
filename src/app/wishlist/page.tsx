@@ -117,7 +117,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
 export default function page() {
   const tabArray = allleisureArray;
   return (
-    <div className="flex flex-col h-full items-center relative">
+    <div className="flex flex-col h-full mb-[54px] items-center ">
       <NoneArrowHeader title="위시리스트" />
       <Tabs
         tabArray={tabArray}
@@ -126,7 +126,7 @@ export default function page() {
         className="w-fit px-5 top-[44px] border-b-[1px] border-grey2"
       />
 
-      <main className="w-full h-full absolute top-[97px] mt-5 overflow-y-scroll">
+      <main className="w-full max-h-wishListMain  absolute top-[97px] mt-5 pb-5 overflow-y-scroll">
         {DUMMYRESULTS.map((data, index) => (
           <ResultCard key={index} {...data} />
         ))}
