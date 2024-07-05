@@ -1,9 +1,10 @@
+import { useState } from 'react';
 import NavBar from '@components/all/NavBar/NavBar';
 import HistoryHead from '@components/reservation-list/HistoryHead';
 import HistoryInProgressItem from '@components/reservation-list/HistoryInProgressItem';
 import { HistoryInProgressItemProps } from 'types/reservation-list/ReservationListPageTypes';
 
-const MockReservationDataArray: HistoryInProgressItemProps[] = [
+const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
     companyName: '스카이락볼링장',
     companyAddress: '서울 서대문구 신촌로 73',
@@ -56,7 +57,7 @@ export default function page() {
     <div className="h-full pb-[54px] overflow-y-scroll">
       <HistoryHead totalCount={5} inProgressCount={3} completedCount={2} />
       <main className="w-full h-full flex flex-col justify-start items-center gap-y-[10px] overflow-y-scroll">
-        {MockReservationDataArray.map((data, index) => (
+        {MockReservationInProgressDataArray.map((data, index) => (
           <HistoryInProgressItem
             key={index}
             companyName={data.companyName}

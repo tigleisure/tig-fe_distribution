@@ -10,3 +10,6 @@ export interface HistoryInProgressItemProps {
   kidCount?: number;
   reservationStatus: 'inProgress' | 'canceled' | 'confirmed' | 'denied';
 }
+
+export interface ReservationCommonInfoProps
+  extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {}
