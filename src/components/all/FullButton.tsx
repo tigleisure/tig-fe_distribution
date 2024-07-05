@@ -1,14 +1,35 @@
 import { cn } from '@utils/cn';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  size: 'sm' | 'md' | 'lg'
-  color: 'status_red1' | 'primary_orange1' | 'white' | 'grey5' | 'black'| 'grey4';
-  bgColor: 'primary_orange1' | 'primary_orange2' | 'black' | 'grey2' | 'white' | 'status_red1';
+  size: 'sm' | 'md' | 'lg';
+  color:
+    | 'status_red1'
+    | 'primary_orange1'
+    | 'white'
+    | 'grey5'
+    | 'black'
+    | 'grey4';
+  bgColor:
+    | 'primary_orange1'
+    | 'primary_orange2'
+    | 'black'
+    | 'grey2'
+    | 'grey3'
+    | 'white'
+    | 'status_red1'
+    | 'status_red1_opacity';
   content: string;
   className?: string;
 }
 
-export default function FullButton({ size, color, bgColor, content, className, ...props }: ButtonProps) {
+export default function FullButton({
+  size,
+  color,
+  bgColor,
+  content,
+  className,
+  ...props
+}: ButtonProps) {
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
@@ -23,8 +44,10 @@ export default function FullButton({ size, color, bgColor, content, className, .
     primary_orange2: 'bg-primary_orange2',
     black: 'bg-black',
     grey2: 'bg-grey2',
+    grey3: 'bg-grey3',
     white: 'bg-white',
     status_red1: 'bg-status_red1',
+    status_red1_opacity: 'bg-[#fdeeed]',
   };
   return (
     <button className={cn(`w-full flex justify-center items-center rounded-md`,
