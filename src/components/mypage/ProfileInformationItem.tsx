@@ -12,10 +12,18 @@ export default function ProfileInformationItem({
 }: ProfileInformationItemProps) {
   return (
     <div
-      className={`w-full h-fit flex justify-between items-center gap-x-[${wholeGap}px]`}
+      className={cn('w-full h-fit flex justify-between items-center', {
+        'gap-x-[156px]': wholeGap === 156,
+        'gap-x-[59px]': wholeGap === 59,
+        'gap-x-[108px]': wholeGap === 108,
+      })}
     >
       <div
-        className={`flex justify-between items-center gap-x-[${labelGap}px]`}
+        className={cn('flex justify-between items-center', {
+          'gap-x-[63px]': labelGap === 63,
+          'gap-x-[33px]': labelGap === 33,
+          'gap-x-[53px]': labelGap === 53,
+        })}
       >
         <span className="caption2 text-grey5">{labelName}</span>
         <span
