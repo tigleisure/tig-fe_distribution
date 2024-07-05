@@ -27,7 +27,7 @@ export default function FullButton({ size, color, bgColor, content, className, .
     status_red1: 'bg-status_red1',
   };
   return (
-    <button className={cn(`w-full cursor-pointer flex justify-center items-center rounded-md`,
+    <button className={cn(`w-full flex justify-center items-center rounded-md`,
       {
         'body4 h-[37px]': size === 'sm',
         'title3 h-[44px]': size === 'md',
