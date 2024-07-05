@@ -1,17 +1,9 @@
 import { cn } from '@utils/cn';
 import Image from 'next/image';
 import Link from 'next/link';
+import { type HomeCardProps } from 'types/home/HomeTypes';
 
-interface HomeCardProps {
-  isEventCard?: boolean;
-  clubName: string;
-  subtitle: string;
-  gameType: string;
-  image: string;
-  id: string;
-}
-
-export default function  HomeCard({
+export default function HomeCard({
   isEventCard = false,
   clubName,
   subtitle,
@@ -21,7 +13,7 @@ export default function  HomeCard({
 }: HomeCardProps) {
   return (
     <Link
-      className="w-[152px] flex flex-col gap-[6px]"
+      className="w-[152px] flex flex-col gap-[6px] shrink-0"
       href={`/detail-page/${id}`}
     >
       <Image src={image} alt={clubName} width={152} height={152} />
