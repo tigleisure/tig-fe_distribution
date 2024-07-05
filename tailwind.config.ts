@@ -36,6 +36,7 @@ const config: Config = {
         cancelButton: '0 0 0 1px #F45858 inset',
         watchReviewButton: '0 0 0 1px #878D91 inset',
         absoluteButton: '0 5px 20px rgba(0, 0, 0, 0.1)',
+        filter: '0 0 30px rgba(0, 0, 0, 0.1)',
       },
     },
   },
