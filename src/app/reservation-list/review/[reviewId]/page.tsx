@@ -22,7 +22,7 @@ export default function page() {
       <div id="header-wrapper" className="w-full h-fit absolute top-0">
         <Header buttonType="back" title="작성한 리뷰" />
       </div>
-      <main className="pt-[44px] w-full h-fit flex justify-center ">
+      <main className="pt-[44px] w-full h-fit flex justify-center">
         <Review {...DUMMYREVIEWDATA} />
       </main>
       <NavBar />
