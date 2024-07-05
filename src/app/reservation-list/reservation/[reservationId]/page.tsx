@@ -24,9 +24,8 @@ export default function page() {
 
   return (
     <div className="flex flex-col h-full relative ">
-      <div id="header-wrapper" className="w-full absolute top-0">
-        <Header buttonType="back" title="예약 상세" />
-      </div>
+      <Header buttonType="back" title="예약 상세" />
+
       <main className="mt-[44px] mb-[54px] w-full h-full flex justify-center overflow-y-scroll">
         <HistoryDetail {...DUMMYRESERVATIONDATA} />
       </main>
