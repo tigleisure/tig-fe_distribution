@@ -22,7 +22,7 @@ export default function HistoryComponentUpperSection({
       <NullImageSVG />
       <div className="w-fit h-fit flex flex-col justify-between items-start gap-y-3">
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
-          <span className="title3 text-grey3">{companyName}</span>
+          <span className="title3 text-grey7">{companyName}</span>
           <span className="body4 text-grey5">{companyAddress}</span>
         </div>
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
