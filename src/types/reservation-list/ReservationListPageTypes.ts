@@ -11,5 +11,10 @@ export interface HistoryInProgressItemProps {
   reservationStatus: 'inProgress' | 'canceled' | 'confirmed' | 'denied';
 }
 
-export interface ReservationCommonInfoProps
+export interface HistoryComponentUpperSectionProps
   extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {}
+
+export interface HistoryEndItemProps
+  extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {
+  isReviewed: boolean;
+}

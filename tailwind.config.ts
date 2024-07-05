@@ -34,6 +34,7 @@ const config: Config = {
         mypageButton: '0 0 0 1px #292A2B inset',
         myPageLogoutButton: '0 0 0 1px #A9AFB3 inset',
         cancelButton: '0 0 0 1px #F45858 inset',
+        watchReviewButton: '0 0 0 1px #878D91 inset',
       },
     },
   },

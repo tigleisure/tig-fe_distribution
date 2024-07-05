@@ -2,7 +2,7 @@ import NullImageSVG from '@public/svg/nullImage.svg';
 import SmallCalendarSVG from '@public/svg/smallCalendar.svg';
 import SmallClockSVG from '@public/svg/smallClock.svg';
 import SmallPersonSVG from '@public/svg/smallPerson.svg';
-import { ReservationCommonInfoProps } from 'types/reservation-list/ReservationListPageTypes';
+import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
 
 export default function HistoryComponentUpperSection({
   companyName,
@@ -13,7 +13,7 @@ export default function HistoryComponentUpperSection({
   adultCount,
   youngManCount,
   kidCount,
-}: ReservationCommonInfoProps) {
+}: HistoryComponentUpperSectionProps) {
   return (
     <section
       id="this-is-upper-section"

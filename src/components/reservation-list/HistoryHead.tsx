@@ -1,18 +1,19 @@
 // 해당 컴포넌트는 전체, 진행중, 종료된을 보여주는 UI이기에 내역의 대가리라는 의미에서 Head라고 명명함
 'use client';
-import { useState } from 'react';
 import { cn } from '@utils/cn';
 interface reservationHistoryCountProps {
   totalCount: number;
   inProgressCount: number;
   completedCount: number;
+  historyHeadState: string;
+  handleHeadState: (st: '전체' | '진행중' | '종료된') => void;
 }
 
 interface historyItemProps {
-  label: string;
+  label: '전체' | '진행중' | '종료된';
   count: number;
   isFocused: boolean;
-  handleReservationState: (st: string) => void;
+  handleReservationState: (st: '전체' | '진행중' | '종료된') => void;
 }
 
 function HistoryHeadItem({
@@ -50,29 +51,30 @@ export default function HistoryHead({
   totalCount,
   inProgressCount,
   completedCount,
+  historyHeadState,
+  handleHeadState,
 }: reservationHistoryCountProps) {
   // 현재 각 아이템을 클릭하며 테스트하기 위한 용도이고, 추후에 전역 상태로 바뀌어 관련 다른 UI과 조화될 수 있음
-  const [reservationState, setReservationState] = useState<string>('전체');
 
   return (
     <div className="w-full h-[49px] px-5 flex justify-start items-center gap-x-5">
       <HistoryHeadItem
         label="전체"
         count={totalCount}
-        isFocused={reservationState === '전체'}
-        handleReservationState={setReservationState}
+        isFocused={historyHeadState === '전체'}
+        handleReservationState={handleHeadState}
       />
       <HistoryHeadItem
         label="진행중"
         count={inProgressCount}
-        isFocused={reservationState === '진행중'}
-        handleReservationState={setReservationState}
+        isFocused={historyHeadState === '진행중'}
+        handleReservationState={handleHeadState}
       />
       <HistoryHeadItem
         label="종료된"
         count={completedCount}
-        isFocused={reservationState === '종료된'}
-        handleReservationState={setReservationState}
+        isFocused={historyHeadState === '종료된'}
+        handleReservationState={handleHeadState}
       />
     </div>
   );
