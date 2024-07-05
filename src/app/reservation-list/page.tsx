@@ -9,6 +9,7 @@ import {
   HistoryEndItemProps,
 } from 'types/reservation-list/ReservationListPageTypes';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
+import NoneArrowHeader from '@components/all/NoneArrowHeader';
 
 const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
@@ -77,13 +78,50 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     adultCount: 8,
     isReviewed: true,
   },
+  {
+    companyName: '스카이락볼링장',
+    companyAddress: '서울 서대문구 신촌로 73',
+    eventDate: '05.05 (일)',
+    eventStartTime: '오전 10:00',
+    eventEndTime: '오전 11:00',
+    adultCount: 8,
+    isReviewed: true,
+  },
+  {
+    companyName: '스카이락볼링장',
+    companyAddress: '서울 서대문구 신촌로 73',
+    eventDate: '05.05 (일)',
+    eventStartTime: '오전 10:00',
+    eventEndTime: '오전 11:00',
+    adultCount: 8,
+    isReviewed: true,
+  },
+  {
+    companyName: '스카이락볼링장',
+    companyAddress: '서울 서대문구 신촌로 73',
+    eventDate: '05.10 (수)',
+    eventStartTime: '오전 10:00',
+    eventEndTime: '오전 11:00',
+    adultCount: 8,
+    isReviewed: false,
+  },
+  {
+    companyName: '스카이락볼링장',
+    companyAddress: '서울 서대문구 신촌로 73',
+    eventDate: '05.05 (일)',
+    eventStartTime: '오전 10:00',
+    eventEndTime: '오전 11:00',
+    adultCount: 8,
+    isReviewed: true,
+  },
 ];
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
     '전체' | '진행중' | '종료된'
   >('전체');
   return (
-    <div className="h-full pb-[54px] overflow-y-scroll">
+    <div className="flex flex-col h-full pb-[54px] items-center">
+      <NoneArrowHeader title="예약내역" />
       <HistoryHead
         totalCount={5}
         inProgressCount={3}
@@ -92,7 +130,7 @@ export default function Page() {
         handleHeadState={setHistoryHeadState}
       />
       {historyHeadState === '전체' && (
-        <main className="w-full h-full mt-2 flex flex-col justify-start items-center gap-y-[10px] overflow-y-scroll">
+        <main className="w-full h-full flex flex-col top-[94px] justify-center items-center gap-y-[10px] overflow-y-scroll">
           <NoneResultUI
             message="예약 내역이 없어요"
             subMessage="마음에 드는 장소를 찾아 예약해보세요!"
@@ -100,7 +138,7 @@ export default function Page() {
         </main>
       )}
       {historyHeadState === '진행중' && (
-        <main className="w-full h-full flex flex-col justify-start items-center gap-y-[10px] overflow-y-scroll">
+        <main className="w-full max-h-reservationListMain py-5 flex flex-col top-[94px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
           {MockReservationInProgressDataArray.map((data, index) => (
             <HistoryInProgressItem
               key={index}
@@ -117,7 +155,7 @@ export default function Page() {
       )}
 
       {historyHeadState === '종료된' && (
-        <main className="w-full h-full flex flex-col justify-start items-center gap-y-[10px] overflow-y-scroll">
+        <main className="w-full max-h-reservationListMain py-5 flex flex-col top-[94px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
           {MockReservationEndDataArray.map((data, index) => (
             <HistoryEndItem
               key={index}

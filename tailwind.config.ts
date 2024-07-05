@@ -32,7 +32,9 @@ const config: Config = {
       },
       maxHeight: {
         wishListMain: 'calc(100% - 151px)',
+        reservationListMain: 'calc(100% - 148px)',
       },
+      minHeight: {},
       boxShadow: {
         mypageButton: '0 0 0 1px #292A2B inset',
         myPageLogoutButton: '0 0 0 1px #A9AFB3 inset',

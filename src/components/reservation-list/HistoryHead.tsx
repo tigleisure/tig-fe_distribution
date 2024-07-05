@@ -57,7 +57,7 @@ export default function HistoryHead({
   // 현재 각 아이템을 클릭하며 테스트하기 위한 용도이고, 추후에 전역 상태로 바뀌어 관련 다른 UI과 조화될 수 있음
 
   return (
-    <div className="w-full h-[49px] px-5 flex justify-start items-center gap-x-5">
+    <div className="w-full h-[49px] px-5 flex justify-start items-center gap-x-5 absolute top-[44px] border-b-[1px] border-grey2">
       <HistoryHeadItem
         label="전체"
         count={totalCount}

@@ -117,7 +117,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
 export default function page() {
   const tabArray = allleisureArray;
   return (
-    <div className="flex flex-col h-full mb-[54px] items-center ">
+    <div className="flex flex-col h-full mb-[54px] items-center">
       <NoneArrowHeader title="위시리스트" />
       <Tabs
         tabArray={tabArray}
