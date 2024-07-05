@@ -1,12 +1,17 @@
 import Header from '@components/all/Header';
-import SearchInput from '@components/all/SearchInput';
+import ButtonCard from '@components/search/ButtonCard';
+import DateCard from '@components/search/DateCard';
+import LocationCard from '@components/search/LocationCard';
+import PeopleCountCard from '@components/search/PeopleCountCard';
 
-export default function page() {
+export default function Page() {
   return (
-    <div>
+    <main className="w-full h-full overflow-y-scroll">
       <Header buttonType="close" isCenter={true} title="검색하기" />
-      <SearchInput placeholder="위치나 장소검색" />
-      merge
-    </div>
+      <LocationCard />
+      <DateCard />
+      <PeopleCountCard />
+      <ButtonCard />
+    </main>
   );
 }
