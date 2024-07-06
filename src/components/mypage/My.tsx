@@ -4,7 +4,7 @@ import ToastUI from './ToastUI';
 
 export default function My() {
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center absolute top-[44px] pt-5">
       <div className="w-mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
         <MyProfileDefaultImage />
         <ProfileInformation />
