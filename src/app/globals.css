@@ -76,3 +76,7 @@ input {
 .caption4 {
   @apply text-[10px] font-normal leading-[1.4] tracking-[-0.02em];
 }
+
+.writingReviewButton {
+  @apply w-eightNineWidth !important;
+}

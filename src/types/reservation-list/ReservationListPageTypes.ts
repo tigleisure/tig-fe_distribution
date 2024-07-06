@@ -12,7 +12,9 @@ export interface HistoryInProgressItemProps {
 }
 
 export interface HistoryComponentUpperSectionProps
-  extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {}
+  extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {
+  className?: string;
+}
 
 export interface HistoryEndItemProps
   extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {
