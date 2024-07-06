@@ -3,6 +3,7 @@ import SmallCalendarSVG from '@public/svg/smallCalendar.svg';
 import SmallClockSVG from '@public/svg/smallClock.svg';
 import SmallPersonSVG from '@public/svg/smallPerson.svg';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
+import { cn } from '@utils/cn';
 
 export default function HistoryComponentUpperSection({
   companyName,
@@ -13,11 +14,12 @@ export default function HistoryComponentUpperSection({
   adultCount,
   youngManCount,
   kidCount,
+  className,
 }: HistoryComponentUpperSectionProps) {
   return (
     <section
       id="this-is-upper-section"
-      className="w-sevenEightWidth h-fit flex  gap-x-4"
+      className={cn('w-sevenEightWidth h-fit flex  gap-x-4', className)}
     >
       <NullImageSVG />
       <div className="w-fit h-fit flex flex-col justify-between items-start gap-y-3">
