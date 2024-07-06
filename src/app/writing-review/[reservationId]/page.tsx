@@ -1,8 +1,8 @@
 import Header from '@components/all/Header';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
-import WritingReviewUnfilledStarSVG from '@public/svg/writingReviewUnFilledStar.svg';
-import WritingReviewFilledStarSVG from '@public/svg/writingReviewFilledStar.svg';
+import WritingReviewUnfilledStarSVG from '@public/svg/wrUnfilledStar.svg';
+import WritingReviewFilledStarSVG from '@public/svg/wrFilledStar.svg';
 import PencilSVG from '@public/svg/pencil.svg';
 import FullButton from '@components/all/FullButton';
 
