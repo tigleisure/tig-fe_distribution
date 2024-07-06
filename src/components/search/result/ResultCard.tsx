@@ -18,7 +18,7 @@ export default function ResultCard({
   image,
 }: ResultCardProps) {
   return (
-    <article className="w-full h-[168px] flex gap-4 p-5 border-b border-grey2">
+    <article className="w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px]">
       <div className="relative shrink-0">
         <Image
           src={image}
@@ -38,7 +38,7 @@ export default function ResultCard({
           <div className="w-full flex flex-col gap-1">
             <p className="title3 text-grey7">{clubName}</p>
             {/* max-w 조금 더 최적화 필요할 듯 */}
-            <p className="body4 text-grey5 truncate max-w-[250px]">{location}</p>
+            <p className="body4 text-grey5 truncate max-w-[180px]">{location}</p>
           </div>
           <div className="flex gap-[6px] h-[25px]">
             <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center">
