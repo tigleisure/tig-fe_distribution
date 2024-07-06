@@ -1,8 +1,8 @@
 import Header from '@components/all/Header';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
-import WritingReviewUnfilledStarSVG from '@public/svg/writingReviewUnFilledStar.svg';
-import WritingReviewFilledStarSVG from '@public/svg/writingReviewFilledStar.svg';
+import WritingReviewUnfilledStarSVG from '@public/svg/wrUnfilledStar.svg';
+import WritingReviewFilledStarSVG from '@public/svg/wrFilledStar.svg';
 import PencilSVG from '@public/svg/pencil.svg';
 import FullButton from '@components/all/FullButton';
 
@@ -37,7 +37,7 @@ export default function page() {
         <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
           <span className="title4 text-grey7">평점을 선택해주세요</span>
           <p className="flex justify-between items-end">
-            <WritingReviewUnfilledStarSVG />
+            <WritingReviewFilledStarSVG />
             <WritingReviewUnfilledStarSVG />
             <WritingReviewUnfilledStarSVG />
             <WritingReviewUnfilledStarSVG />
