@@ -37,7 +37,7 @@ export default function page() {
         <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
           <span className="title4 text-grey7">평점을 선택해주세요</span>
           <p className="flex justify-between items-end">
-            <WritingReviewUnfilledStarSVG />
+            <WritingReviewFilledStarSVG />
             <WritingReviewUnfilledStarSVG />
             <WritingReviewUnfilledStarSVG />
             <WritingReviewUnfilledStarSVG />
