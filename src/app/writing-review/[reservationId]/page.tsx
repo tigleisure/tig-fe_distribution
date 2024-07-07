@@ -1,10 +1,15 @@
-import Header from '@components/all/Header';
+'use client';
+import WritingReviewHeader from '@components/writing-review/WritingReviewHeader';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
 import WritingReviewUnfilledStarSVG from '@public/svg/wrUnfilledStar.svg';
 import WritingReviewFilledStarSVG from '@public/svg/wrFilledStar.svg';
 import PencilSVG from '@public/svg/pencil.svg';
 import FullButton from '@components/all/FullButton';
+import Modal from '@components/all/Modal';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
+import useModal from '@store/modalStore';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   companyName: '스카이락볼링장',
@@ -15,10 +20,22 @@ const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   adultCount: 8,
 };
 
-export default function page() {
+export default function Page() {
+  const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
+  const router = useRouter();
+  useEffect(() => {
+    return () => {
+      setIsOpen(false);
+    };
+  }, []);
   return (
     <div className="w-full flex flex-col items-center h-full bg-grey1">
-      <Header buttonType="close" isCenter title="리뷰작성" bgColor="grey" />
+      <WritingReviewHeader
+        buttonType="close"
+        isCenter
+        title="리뷰작성"
+        bgColor="grey"
+      />
       <div className="w-eightNineWidth h-full mb-[54px]  flex flex-col gap-y-[10px] mt-[44px] pt-5">
         <div className="w-full h-fit bg-white p-5 rounded-xl">
           <HistoryComponentUpperSection
@@ -67,6 +84,14 @@ export default function page() {
         bgColor="black"
         content="작성 완료"
         className="writingReviewButton relative bottom-[30px]"
+      />
+      <Modal
+        size="lg"
+        button1Content="이어서 작성"
+        button2Content="나가기"
+        title="리뷰 작성을 취소하고 나가시겠습니까?"
+        subTitle="작성한 내용은 모두 초기화됩니다."
+        secondButtonFunc={() => router.back()}
       />
     </div>
   );

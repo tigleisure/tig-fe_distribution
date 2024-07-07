@@ -9,7 +9,7 @@ interface ModalProps {
   button2Content?: string;
   title: string;
   subTitle?: string;
-  cancelButtonFunc?: () => void;
+  secondButtonFunc?: () => void;
 }
 
 export default function Modal({
@@ -18,7 +18,7 @@ export default function Modal({
   button2Content,
   title,
   subTitle,
-  cancelButtonFunc,
+  secondButtonFunc,
 }: ModalProps) {
   const isModalOpen = useModal((state) => state.selectedIsModalOpen);
   const setModal = useModal((state) => state.setSelectedIsModalOpen);
@@ -55,7 +55,7 @@ export default function Modal({
             color="white"
             content={button2Content}
             size="md"
-            onClick={() => (cancelButtonFunc ? cancelButtonFunc() : null)}
+            onClick={() => (secondButtonFunc ? secondButtonFunc() : null)}
           />
         )}
       </div>
