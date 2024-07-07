@@ -2,6 +2,7 @@ import FullButton from '@components/all/FullButton';
 import HistoryComponentUpperSection from './all/HistoryComponentUpperSection';
 import { HistoryInProgressItemProps } from 'types/reservation-list/ReservationListPageTypes';
 import useModal from '@store/modalStore';
+import Link from 'next/link';
 
 export default function HistoryInProgressItem({
   imageUrl,
@@ -14,12 +15,15 @@ export default function HistoryInProgressItem({
   youngManCount,
   kidCount,
   reservationStatus,
+  reservationId,
 }: HistoryInProgressItemProps) {
-  const isModalOpen = useModal((state) => state.selectedIsModalOpen);
   const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
 
   return (
-    <div className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]">
+    <Link
+      href={`/reservation-list/reservation/${reservationId}`}
+      className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
+    >
       <HistoryComponentUpperSection
         companyName={companyName}
         companyAddress={companyAddress}
@@ -38,7 +42,11 @@ export default function HistoryInProgressItem({
             size="sm"
             content="예약 취소"
             className="shadow-cancelButton"
-            onClick={() => setModalOpen(true)}
+            onClick={(ev) => {
+              setModalOpen(true);
+              ev.stopPropagation();
+              ev.preventDefault();
+            }}
           />
           <FullButton
             bgColor="primary_orange2"
@@ -57,6 +65,11 @@ export default function HistoryInProgressItem({
             size="sm"
             content="예약 취소"
             className="shadow-cancelButton"
+            onClick={(ev) => {
+              setModalOpen(true);
+              ev.stopPropagation();
+              ev.preventDefault();
+            }}
           />
           <FullButton
             bgColor="primary_orange1"
@@ -66,6 +79,6 @@ export default function HistoryInProgressItem({
           />
         </div>
       )}
-    </div>
+    </Link>
   );
 }

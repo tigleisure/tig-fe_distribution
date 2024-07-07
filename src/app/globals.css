@@ -31,6 +31,11 @@ input {
   outline: none;
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .headline1 {
   @apply text-[18px] font-bold leading-[1] tracking-[-0.02em];
 }

@@ -21,6 +21,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 2,
     reservationStatus: 'inProgress',
+    reservationId: 1,
   },
   {
     companyName: '스카이락볼링장',
@@ -30,6 +31,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     reservationStatus: 'inProgress',
+    reservationId: 2,
   },
   {
     companyName: '스카이락볼링장',
@@ -39,6 +41,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     reservationStatus: 'confirmed',
+    reservationId: 3,
   },
   {
     companyName: '스카이락볼링장',
@@ -48,6 +51,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     reservationStatus: 'confirmed',
+    reservationId: 4,
   },
   {
     companyName: '스카이락볼링장',
@@ -57,6 +61,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     reservationStatus: 'inProgress',
+    reservationId: 5,
   },
 ];
 
@@ -69,6 +74,8 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'alreadyReviewed',
+    reservationId: 1,
+    reviewId: 1,
   },
   {
     companyName: '스카이락볼링장',
@@ -78,6 +85,7 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'notYetReviewed',
+    reservationId: 2,
   },
   {
     companyName: '스카이락볼링장',
@@ -87,6 +95,7 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'denied',
+    reservationId: 3,
   },
   {
     companyName: '스카이락볼링장',
@@ -96,6 +105,7 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'canceled',
+    reservationId: 4,
   },
   {
     companyName: '스카이락볼링장',
@@ -105,6 +115,7 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'denied',
+    reservationId: 5,
   },
   {
     companyName: '스카이락볼링장',
@@ -114,6 +125,7 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     closedReservationStatus: 'notYetReviewed',
+    reservationId: 6,
   },
 ];
 export default function Page() {
@@ -151,6 +163,7 @@ export default function Page() {
               eventEndTime={data.eventEndTime}
               adultCount={data.adultCount}
               reservationStatus={data.reservationStatus}
+              reservationId={data.reservationId}
             />
           ))}
         </main>
@@ -168,6 +181,8 @@ export default function Page() {
               eventEndTime={data.eventEndTime}
               adultCount={data.adultCount}
               closedReservationStatus={data.closedReservationStatus}
+              reservationId={data.reservationId}
+              reviewId={data.reviewId}
             />
           ))}
         </main>

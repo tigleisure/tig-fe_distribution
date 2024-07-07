@@ -1,6 +1,7 @@
 import HistoryComponentUpperSection from './all/HistoryComponentUpperSection';
 import { HistoryEndItemProps } from 'types/reservation-list/ReservationListPageTypes';
 import FullButton from '@components/all/FullButton';
+import Link from 'next/link';
 
 export default function HistoryEndItem({
   imageUrl,
@@ -13,9 +14,15 @@ export default function HistoryEndItem({
   youngManCount,
   kidCount,
   closedReservationStatus,
+  reservationId,
+  reviewId,
 }: HistoryEndItemProps) {
+  console.log(reviewId);
   return (
-    <div className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]">
+    <Link
+      href={`/reservation-list/reservation/${reservationId}`}
+      className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
+    >
       <HistoryComponentUpperSection
         companyName={companyName}
         companyAddress={companyAddress}
@@ -27,21 +34,25 @@ export default function HistoryEndItem({
         kidCount={kidCount}
       />
       {closedReservationStatus === 'notYetReviewed' && (
-        <FullButton
-          size="sm"
-          color="white"
-          bgColor="black"
-          content="리뷰 작성하기"
-        />
+        <Link href={`/writing-review/${reservationId}`} className="w-full">
+          <FullButton
+            size="sm"
+            color="white"
+            bgColor="black"
+            content="리뷰 작성하기"
+          />
+        </Link>
       )}
       {closedReservationStatus === 'alreadyReviewed' && (
-        <FullButton
-          size="sm"
-          color="grey5"
-          bgColor="white"
-          content="작성한 리뷰 보기"
-          className="shadow-watchReviewButton"
-        />
+        <Link href={`/reservation-list/review/${reviewId}`} className="w-full">
+          <FullButton
+            size="sm"
+            color="grey5"
+            bgColor="white"
+            content="작성한 리뷰 보기"
+            className="shadow-watchReviewButton"
+          />
+        </Link>
       )}
       {closedReservationStatus === 'denied' && (
         <FullButton
@@ -59,6 +70,6 @@ export default function HistoryEndItem({
           content="예약 취소됨"
         />
       )}
-    </div>
+    </Link>
   );
 }
