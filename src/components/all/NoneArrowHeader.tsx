@@ -5,7 +5,7 @@ interface NoneArrowHeaderProps {
 
 export default function NoneArrowHeader({ title }: NoneArrowHeaderProps) {
   return (
-    <header className="w-full h-[44px] flex justify-start items-center pl-5 title1 text-grey7 absolute top-0">
+    <header className="w-full h-[68px] flex justify-start items-center pl-5 title1 text-grey7 absolute top-0">
       <span>{title}</span>
     </header>
   );

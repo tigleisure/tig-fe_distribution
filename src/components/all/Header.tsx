@@ -25,7 +25,7 @@ export default function Header({
   return (
     <header
       className={cn(
-        'w-full h-[44px] flex items-center absolute top-0 title2 text-grey7 text-base bg-white',
+        'w-full h-[68px] flex items-center absolute top-0 title2 text-grey7 text-base bg-white',
         {
           'justify-center': isCenter,
           'pl-[50px]': !isCenter,

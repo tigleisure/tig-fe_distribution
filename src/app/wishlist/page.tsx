@@ -123,10 +123,10 @@ export default function page() {
         tabArray={tabArray}
         rounded
         from="wishlist"
-        className="w-fit px-5 top-[44px] border-b-[1px] border-grey2"
+        className="w-fit px-5 top-[68px] border-b-[1px] border-grey2"
       />
 
-      <main className="w-full max-h-wishListMain  absolute top-[97px] mt-5 pb-5 overflow-y-scroll">
+      <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
         {DUMMYRESULTS.map((data, index) => (
           <ResultCard key={index} {...data} />
         ))}

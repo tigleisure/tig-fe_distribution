@@ -8,7 +8,7 @@ import useModal from '@store/modalStore';
 export default function My() {
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
   return (
-    <div className="w-full flex flex-col items-center absolute top-[44px] pt-5">
+    <div className="w-full flex flex-col items-center absolute top-[68px] pt-5">
       <div className="w-mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
         <MyProfileDefaultImage />
         <ProfileInformation />

@@ -21,7 +21,7 @@ export default function page() {
     <div className="flex flex-col h-full relative ">
       <Header buttonType="back" title="작성한 리뷰" />
 
-      <main className="pt-[44px] w-full h-fit flex justify-center">
+      <main className="pt-[68px] w-full h-fit flex justify-center">
         <Review {...DUMMYREVIEWDATA} />
       </main>
       <NavBar />
