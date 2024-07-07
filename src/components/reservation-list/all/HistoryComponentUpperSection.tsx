@@ -19,7 +19,7 @@ export default function HistoryComponentUpperSection({
   return (
     <section
       id="this-is-upper-section"
-      className={cn('w-sevenEightWidth h-fit flex  gap-x-4', className)}
+      className={cn('w-full h-fit flex  gap-x-4', className)}
     >
       <NullImageSVG />
       <div className="w-fit h-fit flex flex-col justify-between items-start gap-y-3">

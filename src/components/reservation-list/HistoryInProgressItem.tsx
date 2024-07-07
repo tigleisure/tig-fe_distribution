@@ -27,7 +27,7 @@ export default function HistoryInProgressItem({
         kidCount={kidCount}
       />
       {reservationStatus === 'inProgress' && (
-        <div className="w-sevenEightWidth h-fit flex gap-[10px]">
+        <div className="w-full h-fit flex gap-[10px]">
           <FullButton
             bgColor="white"
             color="status_red1"
@@ -43,33 +43,21 @@ export default function HistoryInProgressItem({
           />
         </div>
       )}
-      {reservationStatus === 'canceled' && (
-        <div className="w-sevenEightWidth h-fit">
+
+      {reservationStatus === 'confirmed' && (
+        <div className="w-full h-fit flex gap-[10px]">
           <FullButton
-            bgColor="status_red1_opacity"
+            bgColor="white"
             color="status_red1"
             size="sm"
-            content="예약 취소됨"
+            content="예약 취소"
+            className="shadow-cancelButton"
           />
-        </div>
-      )}
-      {reservationStatus === 'confirmed' && (
-        <div className="w-sevenEightWidth h-fit">
           <FullButton
             bgColor="primary_orange1"
             color="white"
             size="sm"
             content="예약 확정됨"
-          />
-        </div>
-      )}
-      {reservationStatus === 'denied' && (
-        <div className="w-sevenEightWidth h-fit">
-          <FullButton
-            bgColor="grey3"
-            color="white"
-            size="sm"
-            content="예약 거절됨"
           />
         </div>
       )}
