@@ -77,6 +77,7 @@ export default function HistoryInProgressItem({
             color="white"
             size="sm"
             content="예약 확정됨"
+            disabled
           />
         </div>
       )}
