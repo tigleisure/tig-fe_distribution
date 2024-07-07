@@ -34,25 +34,29 @@ export default function HistoryEndItem({
         kidCount={kidCount}
       />
       {closedReservationStatus === 'notYetReviewed' && (
-        <Link href={`/writing-review/${reservationId}`} className="w-full">
-          <FullButton
-            size="sm"
-            color="white"
-            bgColor="black"
-            content="리뷰 작성하기"
-          />
-        </Link>
+        <FullButton
+          size="sm"
+          color="white"
+          bgColor="black"
+          content="리뷰 작성하기"
+          clickTask="move-to-writing-review-page"
+          sendingData={{
+            reservationId: reservationId,
+          }}
+        />
       )}
       {closedReservationStatus === 'alreadyReviewed' && (
-        <Link href={`/reservation-list/review/${reviewId}`} className="w-full">
-          <FullButton
-            size="sm"
-            color="grey5"
-            bgColor="white"
-            content="작성한 리뷰 보기"
-            className="shadow-watchReviewButton"
-          />
-        </Link>
+        <FullButton
+          size="sm"
+          color="grey5"
+          bgColor="white"
+          content="작성한 리뷰 보기"
+          className="shadow-watchReviewButton"
+          clickTask="move-to-written-review-page"
+          sendingData={{
+            reviewId: reviewId,
+          }}
+        />
       )}
       {closedReservationStatus === 'denied' && (
         <FullButton

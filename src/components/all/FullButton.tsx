@@ -1,4 +1,6 @@
+'use client';
 import { cn } from '@utils/cn';
+import { useRouter } from 'next/navigation';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -20,6 +22,11 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'status_red1_opacity';
   content: string;
   className?: string;
+  clickTask?: 'move-to-writing-review-page' | 'move-to-written-review-page';
+  sendingData?: {
+    reviewId?: number;
+    reservationId?: number;
+  };
 }
 
 export default function FullButton({
@@ -28,8 +35,11 @@ export default function FullButton({
   bgColor,
   content,
   className,
+  clickTask,
+  sendingData,
   ...props
 }: ButtonProps) {
+  const router = useRouter();
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
@@ -49,15 +59,37 @@ export default function FullButton({
     status_red1: 'bg-status_red1',
     status_red1_opacity: 'bg-[#fdeeed]',
   };
+  function handleClickFullButton(ev: any) {
+    if (clickTask === 'move-to-writing-review-page') {
+      ev.stopPropagation();
+      ev.preventDefault();
+      router.push(`/writing-review/${sendingData?.reservationId}`);
+    }
+
+    if (clickTask === 'move-to-written-review-page') {
+      ev.stopPropagation();
+      ev.preventDefault();
+      router.push(`/reservation-list/review/${sendingData?.reviewId}`);
+    }
+  }
+
   return (
-    <button className={cn(`w-full flex justify-center items-center rounded-md`,
-      {
-        'body4 h-[37px]': size === 'sm',
-        'title3 h-[44px]': size === 'md',
-        'title3 h-[50px]': size === 'lg',
-        [colorClasses[color]]: color,
-        [bgColorClasses[bgColor]]: bgColor,
-      }
-    ,className)} {...props}>{content}</button>
-  )
+    <button
+      onClick={(ev) => handleClickFullButton(ev)}
+      className={cn(
+        `w-full flex justify-center items-center rounded-md`,
+        {
+          'body4 h-[37px]': size === 'sm',
+          'title3 h-[44px]': size === 'md',
+          'title3 h-[50px]': size === 'lg',
+          [colorClasses[color]]: color,
+          [bgColorClasses[bgColor]]: bgColor,
+        },
+        className
+      )}
+      {...props}
+    >
+      {content}
+    </button>
+  );
 }

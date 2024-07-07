@@ -53,6 +53,7 @@ export default function HistoryInProgressItem({
             color="primary_orange1"
             size="sm"
             content="예약 확인중"
+            disabled
           />
         </div>
       )}
