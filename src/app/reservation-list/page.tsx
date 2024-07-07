@@ -10,6 +10,7 @@ import {
 } from 'types/reservation-list/ReservationListPageTypes';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
+import Modal from '@components/all/Modal';
 
 const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
@@ -20,6 +21,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 2,
     reservationStatus: 'inProgress',
+    reservationId: 1,
   },
   {
     companyName: '스카이락볼링장',
@@ -28,7 +30,8 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    reservationStatus: 'canceled',
+    reservationStatus: 'inProgress',
+    reservationId: 2,
   },
   {
     companyName: '스카이락볼링장',
@@ -38,6 +41,7 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventEndTime: '오전 11:00',
     adultCount: 8,
     reservationStatus: 'confirmed',
+    reservationId: 3,
   },
   {
     companyName: '스카이락볼링장',
@@ -46,7 +50,8 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    reservationStatus: 'denied',
+    reservationStatus: 'confirmed',
+    reservationId: 4,
   },
   {
     companyName: '스카이락볼링장',
@@ -55,7 +60,8 @@ const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    reservationStatus: 'denied',
+    reservationStatus: 'inProgress',
+    reservationId: 5,
   },
 ];
 
@@ -67,7 +73,9 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: false,
+    closedReservationStatus: 'alreadyReviewed',
+    reservationId: 1,
+    reviewId: 1,
   },
   {
     companyName: '스카이락볼링장',
@@ -76,7 +84,8 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: true,
+    closedReservationStatus: 'notYetReviewed',
+    reservationId: 2,
   },
   {
     companyName: '스카이락볼링장',
@@ -85,7 +94,8 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: true,
+    closedReservationStatus: 'denied',
+    reservationId: 3,
   },
   {
     companyName: '스카이락볼링장',
@@ -94,7 +104,8 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: true,
+    closedReservationStatus: 'canceled',
+    reservationId: 4,
   },
   {
     companyName: '스카이락볼링장',
@@ -103,7 +114,8 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: false,
+    closedReservationStatus: 'denied',
+    reservationId: 5,
   },
   {
     companyName: '스카이락볼링장',
@@ -112,13 +124,15 @@ const MockReservationEndDataArray: HistoryEndItemProps[] = [
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
     adultCount: 8,
-    isReviewed: true,
+    closedReservationStatus: 'notYetReviewed',
+    reservationId: 6,
   },
 ];
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
     '전체' | '진행중' | '종료된'
   >('전체');
+
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="예약내역" />
@@ -149,6 +163,7 @@ export default function Page() {
               eventEndTime={data.eventEndTime}
               adultCount={data.adultCount}
               reservationStatus={data.reservationStatus}
+              reservationId={data.reservationId}
             />
           ))}
         </main>
@@ -165,12 +180,20 @@ export default function Page() {
               eventStartTime={data.eventStartTime}
               eventEndTime={data.eventEndTime}
               adultCount={data.adultCount}
-              isReviewed={data.isReviewed}
+              closedReservationStatus={data.closedReservationStatus}
+              reservationId={data.reservationId}
+              reviewId={data.reviewId}
             />
           ))}
         </main>
       )}
-
+      <Modal
+        size="lg"
+        button1Content="이전으로"
+        button2Content="취소하기"
+        title="예약을 취소하시겠습니까?"
+        subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
+      />
       <NavBar />
     </div>
   );

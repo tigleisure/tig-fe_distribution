@@ -9,6 +9,7 @@ interface ModalProps {
   button2Content?: string;
   title: string;
   subTitle?: string;
+  cancelButtonFunc?: () => void;
 }
 
 export default function Modal({
@@ -17,13 +18,10 @@ export default function Modal({
   button2Content,
   title,
   subTitle,
+  cancelButtonFunc,
 }: ModalProps) {
-  const isModalOpen = useModal(
-    (state) => state.selectedIsModalOpen
-  );
-  const setModal = useModal(
-    (state) => state.setSelectedIsModalOpen
-  );
+  const isModalOpen = useModal((state) => state.selectedIsModalOpen);
+  const setModal = useModal((state) => state.setSelectedIsModalOpen);
 
   const customModalStyles = getCustomModalStyles(size);
 
@@ -41,23 +39,25 @@ export default function Modal({
         {subTitle && <p className="body4 text-grey5">{subTitle}</p>}
       </div>
       <div className="flex gap-[10px] title3 w-full">
-        {button2Content && (
+        {button1Content && (
           <FullButton
             bgColor="grey2"
             color="grey4"
-            content={button2Content}
+            content={button1Content}
             size="md"
             className="shadow-myPageLogoutButton"
             onClick={() => setModal(false)}
           />
         )}
-        <FullButton
-          bgColor="black"
-          color="white"
-          content={button1Content}
-          size="md"
-          onClick={() => setModal(false)}
-        />
+        {button2Content && (
+          <FullButton
+            bgColor="black"
+            color="white"
+            content={button2Content}
+            size="md"
+            onClick={() => (cancelButtonFunc ? cancelButtonFunc() : null)}
+          />
+        )}
       </div>
     </ReactModal>
   );
@@ -68,7 +68,7 @@ const getCustomModalStyles = (size: 'sm' | 'lg'): ReactModal.Styles => ({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     width: '100%',
     height: '100vh',
-    zIndex: 10,
+    zIndex: 201,
     position: 'fixed',
     top: 0,
     left: 0,
@@ -80,7 +80,7 @@ const getCustomModalStyles = (size: 'sm' | 'lg'): ReactModal.Styles => ({
     alignItems: 'center',
     width: size === 'sm' ? '247px' : '296px',
     height: 'fit-content',
-    zIndex: 150,
+    zIndex: 202,
     position: 'absolute',
     top: '50%',
     left: '50%',

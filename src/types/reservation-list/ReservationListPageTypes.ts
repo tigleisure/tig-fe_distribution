@@ -8,15 +8,24 @@ export interface HistoryInProgressItemProps {
   adultCount?: number;
   youngManCount?: number;
   kidCount?: number;
-  reservationStatus: 'inProgress' | 'canceled' | 'confirmed' | 'denied';
+  reservationStatus: 'inProgress' | 'confirmed';
+  reservationId: number;
 }
 
 export interface HistoryComponentUpperSectionProps
-  extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {
+  extends Omit<
+    HistoryInProgressItemProps,
+    'reservationStatus' | 'reservationId'
+  > {
   className?: string;
 }
 
 export interface HistoryEndItemProps
   extends Omit<HistoryInProgressItemProps, 'reservationStatus'> {
-  isReviewed: boolean;
+  closedReservationStatus:
+    | 'alreadyReviewed'
+    | 'notYetReviewed'
+    | 'canceled'
+    | 'denied';
+  reviewId?: number;
 }

@@ -1,6 +1,8 @@
 import FullButton from '@components/all/FullButton';
 import HistoryComponentUpperSection from './all/HistoryComponentUpperSection';
 import { HistoryInProgressItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import useModal from '@store/modalStore';
+import Link from 'next/link';
 
 export default function HistoryInProgressItem({
   imageUrl,
@@ -13,9 +15,15 @@ export default function HistoryInProgressItem({
   youngManCount,
   kidCount,
   reservationStatus,
+  reservationId,
 }: HistoryInProgressItemProps) {
+  const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
+
   return (
-    <div className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]">
+    <Link
+      href={`/reservation-list/reservation/${reservationId}`}
+      className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
+    >
       <HistoryComponentUpperSection
         companyName={companyName}
         companyAddress={companyAddress}
@@ -27,52 +35,52 @@ export default function HistoryInProgressItem({
         kidCount={kidCount}
       />
       {reservationStatus === 'inProgress' && (
-        <div className="w-sevenEightWidth h-fit flex gap-[10px]">
+        <div className="w-full h-fit flex gap-[10px]">
           <FullButton
             bgColor="white"
             color="status_red1"
             size="sm"
             content="예약 취소"
             className="shadow-cancelButton"
+            onClick={(ev) => {
+              setModalOpen(true);
+              ev.stopPropagation();
+              ev.preventDefault();
+            }}
           />
           <FullButton
             bgColor="primary_orange2"
             color="primary_orange1"
             size="sm"
             content="예약 확인중"
+            disabled
           />
         </div>
       )}
-      {reservationStatus === 'canceled' && (
-        <div className="w-sevenEightWidth h-fit">
+
+      {reservationStatus === 'confirmed' && (
+        <div className="w-full h-fit flex gap-[10px]">
           <FullButton
-            bgColor="status_red1_opacity"
+            bgColor="white"
             color="status_red1"
             size="sm"
-            content="예약 취소됨"
+            content="예약 취소"
+            className="shadow-cancelButton"
+            onClick={(ev) => {
+              setModalOpen(true);
+              ev.stopPropagation();
+              ev.preventDefault();
+            }}
           />
-        </div>
-      )}
-      {reservationStatus === 'confirmed' && (
-        <div className="w-sevenEightWidth h-fit">
           <FullButton
             bgColor="primary_orange1"
             color="white"
             size="sm"
             content="예약 확정됨"
+            disabled
           />
         </div>
       )}
-      {reservationStatus === 'denied' && (
-        <div className="w-sevenEightWidth h-fit">
-          <FullButton
-            bgColor="grey3"
-            color="white"
-            size="sm"
-            content="예약 거절됨"
-          />
-        </div>
-      )}
-    </div>
+    </Link>
   );
 }

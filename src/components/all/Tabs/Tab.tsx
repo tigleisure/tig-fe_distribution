@@ -2,6 +2,7 @@
 import useTab from '@store/tabNumberStore';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
+import { useEffect } from 'react';
 
 interface TabProps {
   TabNumber: number;
@@ -18,6 +19,14 @@ export default function Tab({
 }: TabProps) {
   const currentTab = useTab((state) => state.selectedTab);
   const setCurrentTab = useTab((state) => state.setSelectedTab);
+
+  useEffect(() => {
+    setCurrentTab(0);
+
+    return () => {
+      setCurrentTab(0);
+    };
+  }, []);
   return (
     <div
       className={cn(
