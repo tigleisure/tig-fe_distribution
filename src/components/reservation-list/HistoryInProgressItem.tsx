@@ -1,6 +1,7 @@
 import FullButton from '@components/all/FullButton';
 import HistoryComponentUpperSection from './all/HistoryComponentUpperSection';
 import { HistoryInProgressItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import useModal from '@store/modalStore';
 
 export default function HistoryInProgressItem({
   imageUrl,
@@ -14,6 +15,9 @@ export default function HistoryInProgressItem({
   kidCount,
   reservationStatus,
 }: HistoryInProgressItemProps) {
+  const isModalOpen = useModal((state) => state.selectedIsModalOpen);
+  const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
+
   return (
     <div className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]">
       <HistoryComponentUpperSection
@@ -34,6 +38,7 @@ export default function HistoryInProgressItem({
             size="sm"
             content="예약 취소"
             className="shadow-cancelButton"
+            onClick={() => setModalOpen(true)}
           />
           <FullButton
             bgColor="primary_orange2"

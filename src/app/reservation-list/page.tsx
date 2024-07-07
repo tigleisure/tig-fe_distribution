@@ -10,6 +10,7 @@ import {
 } from 'types/reservation-list/ReservationListPageTypes';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
+import Modal from '@components/all/Modal';
 
 const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
@@ -119,6 +120,7 @@ export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
     '전체' | '진행중' | '종료된'
   >('전체');
+
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="예약내역" />
@@ -170,7 +172,13 @@ export default function Page() {
           ))}
         </main>
       )}
-
+      <Modal
+        size="lg"
+        button1Content="이전으로"
+        button2Content="취소하기"
+        title="예약을 취소하시겠습니까?"
+        subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
+      />
       <NavBar />
     </div>
   );
