@@ -38,21 +38,21 @@ export default function HistoryDetail({
         youngManCount={youngManCount}
         kidCount={kidCount}
       />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
       <ReservationInfoSection
         reservationNumber={reservationNumber}
         reservationUserName={reservationUserName}
         phoneNumber={phoneNumber}
       />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
       <PaymentInfoSection paymentTime={paymentTime} payMethod={payMethod} />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
       <PriceInfoSection
         reservationPrice={reservationPrice}
         feePrice={feePrice}
         couponDiscountPrice={couponDiscountPrice}
       />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
       <TotalPriceSection
         totalPrice={reservationPrice + feePrice - couponDiscountPrice}
       />
