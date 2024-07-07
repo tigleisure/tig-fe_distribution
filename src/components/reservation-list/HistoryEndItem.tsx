@@ -60,6 +60,7 @@ export default function HistoryEndItem({
           color="white"
           size="sm"
           content="예약 거절됨"
+          disabled
         />
       )}
       {closedReservationStatus === 'canceled' && (
@@ -68,6 +69,7 @@ export default function HistoryEndItem({
           color="status_red1"
           size="sm"
           content="예약 취소됨"
+          disabled
         />
       )}
     </Link>
