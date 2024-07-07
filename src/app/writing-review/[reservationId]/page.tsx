@@ -1,5 +1,5 @@
 'use client';
-import WritingReviewHeader from '@components/writing-review/WritingReviewHeader';
+import Header from '@components/all/Header';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
 import WritingReviewUnfilledStarSVG from '@public/svg/wrUnfilledStar.svg';
@@ -30,12 +30,7 @@ export default function Page() {
   }, []);
   return (
     <div className="w-full flex flex-col items-center h-full bg-grey1">
-      <WritingReviewHeader
-        buttonType="close"
-        isCenter
-        title="리뷰작성"
-        bgColor="grey"
-      />
+      <Header buttonType="close" isCenter title="리뷰 작성" bgColor="grey" />
       <div className="w-eightNineWidth h-full mb-[54px]  flex flex-col gap-y-[10px] mt-[44px] pt-5">
         <div className="w-full h-fit bg-white p-5 rounded-xl">
           <HistoryComponentUpperSection

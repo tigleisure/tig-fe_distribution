@@ -3,6 +3,7 @@ import ArrowLeftSVG from '@public/svg/arrowLeft.svg';
 import CloseSVG from '@public/svg/close.svg';
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
+import useModal from '@store/modalStore';
 
 interface HeaderProps {
   buttonType: 'back' | 'close';
@@ -20,6 +21,7 @@ export default function Header({
   bgColor = 'white',
 }: HeaderProps) {
   const router = useRouter();
+  const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
   return (
     <header
       className={cn(
@@ -35,6 +37,10 @@ export default function Header({
       <div
         className="w-[44px] h-[44px] flex items-center justify-center absolute left-0 cursor-pointer"
         onClick={() => {
+          if (title === '리뷰 작성') {
+            setIsOpen(true);
+            return;
+          }
           router.back();
         }}
       >
