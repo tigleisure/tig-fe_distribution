@@ -2,25 +2,26 @@
 import FullButton from '@components/all/FullButton';
 import { useRouter } from 'next/navigation';
 
-export default function ButtonCard() {
+export default function MakeResButtonCard() {
   const router = useRouter();
-  const handleSearch = () => {
+  const handleReservation = () => {
     const query = {
-      location: '신촌',
-      date: '24.05.17',
+      date: '05.17 (화)',
+      startTime: '오전 10:00',
+      endTime: '오후 11:00',
       adultCount: '5',
     };
     const queryString = new URLSearchParams(query).toString();
-    router.push(`/search/result?${queryString}`);
+    router.push(`/reservation/time/1?${queryString}`);
   };
   return (
     <section className="h-[78px] w-full flex justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">
       <FullButton
         bgColor="primary_orange1"
         color="white"
-        content="검색"
+        content="예약하기"
         size="lg"
-        onClick={handleSearch}
+        onClick={handleReservation}
       />
     </section>
   );
