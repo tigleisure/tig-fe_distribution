@@ -26,7 +26,7 @@ export default function page() {
     <div className="flex flex-col h-full relative ">
       <Header buttonType="back" title="예약 상세" />
 
-      <main className="mt-[44px] mb-[54px] w-full h-full flex justify-center overflow-y-scroll">
+      <main className="mt-[68px] mb-[54px] w-full h-full flex justify-center overflow-y-scroll">
         <HistoryDetail {...DUMMYRESERVATIONDATA} />
       </main>
       <NavBar />

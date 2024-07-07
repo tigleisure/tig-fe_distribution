@@ -13,9 +13,9 @@ export default function SearchHeader({
   result = false,
 }: SearchHeaderProps) {
   return (
-    <section className="w-full py-[2px] px-4 bg-white flex items-center gap-4 absolute top-0 z-10">
+    <section className="w-full h-fit pt-4 pb-[2px] px-4 bg-white flex items-center gap-4 absolute top-0 z-10">
       <Link href={'/'} className="shrink-0 cursor-pointer">
-        <TigSVG  />
+        <TigSVG />
       </Link>
       <SearchInput
         placeholder={placeholder}

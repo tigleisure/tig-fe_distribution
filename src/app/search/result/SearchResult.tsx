@@ -130,7 +130,14 @@ export function SearchResult() {
         result
         placeholder={`${location}, ${date}, 성인${adultCount}명`}
       />
-      <Tabs tabArray={tabArray} rounded from="search" className="w-full px-5 top-[44px]" />
+
+      <Tabs
+        tabArray={tabArray}
+        rounded
+        from="search"
+        className="w-full px-5 top-[58px]"
+      />
+
       <FilterHeader />
       <NaverMap />
       <BottomSheet results={DUMMYRESULTS} />
