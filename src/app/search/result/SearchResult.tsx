@@ -4,6 +4,7 @@ import SearchHeader from '@components/all/SearchHeader';
 import Tabs from '@components/all/Tabs/Tabs';
 import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
+import NaverMap from '@components/search/result/NaverMap';
 import { allleisureArray } from '@constant/constant';
 import { useSearchParams } from 'next/navigation';
 import { ResultCardProps } from 'types/search/result/searchResult';
@@ -129,9 +130,9 @@ export function SearchResult() {
         result
         placeholder={`${location}, ${date}, 성인${adultCount}명`}
       />
-      <Tabs tabArray={tabArray} rounded from="search" className="top-[44px]" />
+      <Tabs tabArray={tabArray} rounded from="search" className="w-full px-5 top-[44px]" />
       <FilterHeader />
-      지도
+      <NaverMap />
       <BottomSheet results={DUMMYRESULTS} />
       <NavBar />
     </div>
