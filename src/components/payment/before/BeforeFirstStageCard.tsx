@@ -24,7 +24,7 @@ export default function BeforeFirstStageCard({
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-5">
-        <p className="w-full h-fit flex flex-col items-start">
+        <p className="w-full h-fit flex flex-col gap-y-1 items-start">
           <span className="title3 text-grey7">{companyName}</span>
           <span className="body4 text-grey5">{companyAddress}</span>
         </p>

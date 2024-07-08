@@ -1,7 +1,10 @@
+'use client';
 import Header from '@components/all/Header';
 import ReservationStageBar from '@components/payment/before/ReservationStageBar';
 import BeforeFirstStageCard from '@components/payment/before/BeforeFirstStageCard';
+import BeforeSecondStageCard from '@components/payment/before/BeforeSecondStageCard';
 import FullButton from '@components/all/FullButton';
+import useReservationStage from '@store/reservationStageStore';
 
 const DUMMYFIRSTSTAGEDATA = {
   companyName: '스카이락 볼링장',
@@ -13,19 +16,55 @@ const DUMMYFIRSTSTAGEDATA = {
   stageFirstPrice: 22000,
 };
 
-export default function page() {
+const DUMMYSECONDSTAGEDATA = {
+  userName: '김티그',
+  phoneNumber: null,
+  couponDiscountPrice: 0,
+  defaultPrice: 22000,
+};
+
+export default function Page() {
+  const reservationStageState = useReservationStage(
+    (state) => state.reservationStage
+  );
   return (
-    <main className="w-full h-full flex flex-col items-center bg-grey1">
-      <Header buttonType="close" isCenter title="예약확인" bgColor="grey" />
-      <ReservationStageBar />
-      <BeforeFirstStageCard {...DUMMYFIRSTSTAGEDATA} />
-      <FullButton
-        size="lg"
-        color="white"
-        bgColor="primary_orange1"
-        content="확인"
-        className="absolute !w-eightNineWidth bottom-[30px]"
+    <main className="w-full h-full flex flex-col items-center bg-grey1 pb-[100px] overflow-y-scroll">
+      <Header
+        buttonType="close"
+        isCenter
+        title="예약확인"
+        bgColor="grey"
+        className="z-10"
       />
+      <ReservationStageBar />
+      {reservationStageState === 1 && (
+        <BeforeFirstStageCard {...DUMMYFIRSTSTAGEDATA} />
+      )}
+
+      {reservationStageState === 2 && (
+        <BeforeSecondStageCard {...DUMMYSECONDSTAGEDATA} />
+      )}
+
+      {reservationStageState === 1 && (
+        <FullButton
+          size="lg"
+          color="white"
+          bgColor="primary_orange1"
+          content="확인"
+          className="absolute !w-eightNineWidth bottom-[30px]"
+          clickTask="move-to-second-payment-stage"
+        />
+      )}
+
+      {reservationStageState === 2 && (
+        <FullButton
+          size="lg"
+          color="white"
+          bgColor="primary_orange1"
+          content="확인"
+          className="absolute !w-eightNineWidth bottom-[30px]"
+        />
+      )}
     </main>
   );
 }
