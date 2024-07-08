@@ -14,4 +14,5 @@ export interface ReviewLowerSectionProps {
   kidCount?: number;
   rating: number;
   rateContent: string;
+  className?: string;
 }
