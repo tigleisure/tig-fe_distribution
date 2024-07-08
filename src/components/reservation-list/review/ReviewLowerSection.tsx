@@ -13,7 +13,7 @@ export default function ReviewLowerSection({
   rateContent,
 }: ReviewLowerSectionProps) {
   return (
-    <section className="w-sevenEightWidth h-fit flex flex-col gap-y-4">
+    <section className="w-full px-5 h-fit flex flex-col gap-y-4">
       <div className="w-full h-fit flex flex-col items-start gap-y-[6px]">
         <span className="title3 text-grey7">{reservationUserName}</span>
         <div className="flex justify-between items-center gap-x-[6px]">

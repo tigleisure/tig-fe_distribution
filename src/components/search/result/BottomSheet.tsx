@@ -34,8 +34,8 @@ export default function BottomSheet({ results }: BottomSheetProps) {
       // 0: full screen, 1: 컨텐츠 한 개만, 2: 바텀시트 헤더만
       snapPoints={[height, 264, 104]}
     >
-      <Sheet.Container className="relative h-full w-full ">
-        <Sheet.Header className="shadow-none" />
+      <Sheet.Container className="relative h-full w-full !shadow-none">
+        <Sheet.Header />
         <Sheet.Content
           className="overflow-y-scroll z-10 h-full w-full relative !grow-0"
           disableDrag={true}
