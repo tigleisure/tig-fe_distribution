@@ -1,17 +1,21 @@
 'use client';
 import { info } from 'console';
 import Script from 'next/script';
+import { useEffect, useRef } from 'react';
 
 export default function NaverMap() {
+  const mapRef = useRef<naver.maps.Map | null>(null);
+
   const initializeMap = () => {
     const mapOptions = {
       center: new naver.maps.LatLng(37.3595704, 127.105399),
       zoom: 15,
       logoControl: false,
       mapDataControl: false,
-      scaleControl: false
+      scaleControl: false,
     };
     const map = new naver.maps.Map('map', mapOptions);
+    mapRef.current = map;
     const markers: naver.maps.Marker[] = [];
     const infoWindows: naver.maps.InfoWindow[] = [];
     for (let i = 1; i < 100; i++) {
@@ -55,12 +59,15 @@ export default function NaverMap() {
       updateMarkers(map, markers);
     });
 
-    const updateMarkers = (map: naver.maps.Map, markers: naver.maps.Marker[]) => {
-      const mapBounds : any = map.getBounds();
-    
+    const updateMarkers = (
+      map: naver.maps.Map,
+      markers: naver.maps.Marker[]
+    ) => {
+      const mapBounds: any = map.getBounds();
+
       for (let i = 0; i < markers.length; i++) {
         const position = markers[i].getPosition();
-    
+
         if (mapBounds.hasLatLng(position)) {
           showMarker(map, markers[i]);
         } else {
@@ -77,25 +84,31 @@ export default function NaverMap() {
     const hideMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
       marker.setMap(null);
     };
-    
-  //   function getClickHandler(seq:number) {
-  //     return function() {
-  //         var marker = markers[seq],
-  //             infoWindow = infoWindows[seq];
-  
-  //         if (infoWindow.getMap()) {
-  //             infoWindow.close();
-  //         } else {
-  //             infoWindow.open(map, marker);
-  //         }
-  //     }
-  // }
-  
-  // for (var i=0, ii=markers.length; i<ii; i++) {
-  //     naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
-  // }
 
+    //   function getClickHandler(seq:number) {
+    //     return function() {
+    //         var marker = markers[seq],
+    //             infoWindow = infoWindows[seq];
+
+    //         if (infoWindow.getMap()) {
+    //             infoWindow.close();
+    //         } else {
+    //             infoWindow.open(map, marker);
+    //         }
+    //     }
+    // }
+
+    // for (var i=0, ii=markers.length; i<ii; i++) {
+    //     naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
+    // }
   };
+
+  useEffect(() => {
+    return () => {
+      mapRef.current?.destroy();
+    };
+  }, []);
+
   return (
     <section className="w-full h-full">
       <Script
