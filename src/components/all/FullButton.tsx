@@ -1,6 +1,7 @@
 'use client';
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
+import useReservationStage from '@store/reservationStageStore';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -25,7 +26,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   clickTask?:
     | 'move-to-writing-review-page'
     | 'move-to-written-review-page'
-    | 'move-to-home-page';
+    | 'move-to-home-page'
+    | 'move-to-second-payment-stage';
   sendingData?: {
     reviewId?: number;
     reservationId?: number;
@@ -43,6 +45,9 @@ export default function FullButton({
   ...props
 }: ButtonProps) {
   const router = useRouter();
+  const setReservationStageStatus = useReservationStage(
+    (state) => state.setReservationStage
+  );
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
@@ -76,6 +81,9 @@ export default function FullButton({
     }
     if (clickTask === 'move-to-home-page') {
       router.push('/');
+    }
+    if (clickTask === 'move-to-second-payment-stage') {
+      setReservationStageStatus(2);
     }
   }
 
