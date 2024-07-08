@@ -1,7 +1,7 @@
 import ReviewsFilledStar from '@public/svg/reviewFilledStar.svg';
 import ReviewsUnfilledStar from '@public/svg/reviewUnfilledStar.svg';
-
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
+import { cn } from '@utils/cn';
 
 export default function ReviewLowerSection({
   reservationUserName,
@@ -11,9 +11,12 @@ export default function ReviewLowerSection({
   kidCount,
   rating,
   rateContent,
+  className,
 }: ReviewLowerSectionProps) {
   return (
-    <section className="w-full px-5 h-fit flex flex-col gap-y-4">
+    <section
+      className={cn('w-full px-5 h-fit flex flex-col gap-y-4', className)}
+    >
       <div className="w-full h-fit flex flex-col items-start gap-y-[6px]">
         <span className="title3 text-grey7">{reservationUserName}</span>
         <div className="flex justify-between items-center gap-x-[6px]">

@@ -29,7 +29,7 @@ export default function Review({
         youngManCount={youngManCount}
         kidCount={kidCount}
       />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
 
       <ReviewLowerSection
         reservationUserName={reservationUserName}
@@ -39,6 +39,7 @@ export default function Review({
         kidCount={kidCount}
         rating={rating}
         rateContent={rateContent}
+        className="!px-0"
       />
     </div>
   );
