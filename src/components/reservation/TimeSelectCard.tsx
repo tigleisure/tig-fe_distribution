@@ -7,7 +7,7 @@ interface TimeSelectCardProps {
   disable?: boolean;
   selected: boolean;
   time: string;
-  onClick?: (i: number) => void;
+  onClick: (i: number) => void;
   idx: number;
 }
 export default function TimeSelectCard({
@@ -48,7 +48,8 @@ export default function TimeSelectCard({
             'rounded-r-[6px]': isLast,
           }
         )}
-        onClick={() => onClick && onClick(idx)}
+        onClick={() => onClick(idx)}
+        disabled={disable}
       />
     </div>
   );

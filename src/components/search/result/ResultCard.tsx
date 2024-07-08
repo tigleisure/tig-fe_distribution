@@ -47,7 +47,7 @@ export default function ResultCard({
             </p>
           </div>
           <div className="flex gap-[6px] h-[25px]">
-            <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center">
+            <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center rounded-[4px]">
               <StarSVG />
               {rating}
             </p>

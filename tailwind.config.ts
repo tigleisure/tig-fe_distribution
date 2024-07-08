@@ -29,6 +29,7 @@ const config: Config = {
         mypageWidth: 'calc(100% * (8/9))',
         eightNineWidth: 'calc(100% * (8/9))',
         sevenEightWidth: 'calc(100% * (7/8))',
+        gameCardWidth: 'calc((100% - 50px) / 4)',
       },
       maxHeight: {
         wishListMain: 'calc(100% - 151px)',
