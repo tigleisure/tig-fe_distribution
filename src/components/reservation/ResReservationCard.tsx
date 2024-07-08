@@ -2,7 +2,7 @@
 import InfoCard from '@components/search/InfoCard';
 import { useSearchParams } from 'next/navigation';
 import DateSVG from '@public/svg/date.svg';
-import ResTimeSVG from '@public/svg/restime.svg';
+import ResTimeSVG from '@public/svg/resTime.svg';
 import PeopleSVG from '@public/svg/people.svg';
 
 interface ResReservationCardProps {

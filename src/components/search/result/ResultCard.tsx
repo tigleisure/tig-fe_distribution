@@ -5,9 +5,12 @@ import StarSVG from '@public/svg/star.svg';
 import EmptyHeartSVG from '@public/svg/emptyHeart.svg';
 import FillHeartSVG from '@public/svg/fillHeart.svg';
 import DiscountSVG from '@public/svg/discount.svg';
+import Link from 'next/link';
+import { cn } from '@utils/cn';
 
 export default function ResultCard({
   clubName,
+  clubId,
   location,
   rating,
   reviewCount,
@@ -16,16 +19,17 @@ export default function ResultCard({
   isEvent = false,
   isHeart = false,
   image,
+  isLast = false,
 }: ResultCardProps) {
   return (
-    <article className="w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px]">
+    <Link
+      href={`/detail-page/${clubId}`}
+      className={cn("w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px]",{
+        'pb-[60px] h-fit': isLast
+      })}
+    >
       <div className="relative shrink-0">
-        <Image
-          src={image}
-          alt={clubName}
-          width={128}
-          height={128}
-        />
+        <Image src={image} alt={clubName} width={128} height={128} />
         {isEvent && <DiscountSVG className="absolute top-2 left-2" />}
         {isHeart ? (
           <FillHeartSVG className="absolute bottom-2 right-2" />
@@ -38,7 +42,9 @@ export default function ResultCard({
           <div className="w-full flex flex-col gap-1">
             <p className="title3 text-grey7">{clubName}</p>
             {/* max-w 조금 더 최적화 필요할 듯 */}
-            <p className="body4 text-grey5 truncate max-w-[180px]">{location}</p>
+            <p className="body4 text-grey5 truncate max-w-[180px]">
+              {location}
+            </p>
           </div>
           <div className="flex gap-[6px] h-[25px]">
             <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center">
@@ -53,6 +59,6 @@ export default function ResultCard({
           <p className="body4 grey4">{gameType}당 가격</p>
         </div>
       </div>
-    </article>
+    </Link>
   );
 }

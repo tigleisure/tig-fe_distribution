@@ -9,6 +9,7 @@ import { da } from 'date-fns/locale';
 const DUMMYRESULTS: ResultCardProps[] = [
   {
     clubName: '스카이락볼링장1',
+    clubId: 1,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -19,6 +20,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장2',
+    clubId: 2,
     location:
       '서울특별시 강남구 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동',
     rating: 4.5,
@@ -30,6 +32,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장3',
+    clubId: 3,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -40,6 +43,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장4',
+    clubId: 4,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -50,6 +54,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장5',
+    clubId: 5,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -59,6 +64,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장6',
+    clubId: 6,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -70,6 +76,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장7',
+    clubId: 7,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -81,6 +88,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장8',
+    clubId: 8,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -92,6 +100,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장9',
+    clubId: 9,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
@@ -103,6 +112,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
   {
     clubName: '스카이락볼링장10',
+    clubId: 10,
     location: '서울특별시 강남구 역삼동',
     rating: 4.5,
     reviewCount: 100,
