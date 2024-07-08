@@ -18,3 +18,13 @@ const useCoupon = create<Store>((set) => ({
 }));
 
 export default useCoupon;
+
+interface isCouponPageOpenProps {
+  isCouponPageOpen: boolean;
+  setIsCouponPageOpen: (status: boolean) => void;
+}
+
+export const useIsCouponPageOpen = create<isCouponPageOpenProps>((set) => ({
+  isCouponPageOpen: false,
+  setIsCouponPageOpen: (status) => set({ isCouponPageOpen: status }),
+}));

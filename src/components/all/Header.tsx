@@ -41,12 +41,14 @@ export default function Header({
         onClick={() => {
           if (title === '리뷰 작성' && isReviewSubmitted === true) {
             router.push('/');
+            return;
           }
 
           if (title === '리뷰 작성') {
             setIsOpen(true);
             return;
           }
+
           router.back();
         }}
       >

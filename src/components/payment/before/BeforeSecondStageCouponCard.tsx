@@ -3,10 +3,12 @@ import { useState, useEffect } from 'react';
 
 interface BeforeSecondStageCouponCardProps {
   couponDiscountPrice: number;
+  handleClickCouponButton: (st: boolean) => void;
 }
 
 export default function BeforeSecondStageCouponCard({
   couponDiscountPrice,
+  handleClickCouponButton,
 }: BeforeSecondStageCouponCardProps) {
   const [isDiscountCouponAvailable, setIsDiscountCouponAvailable] =
     useState<boolean>(false);
@@ -32,7 +34,10 @@ export default function BeforeSecondStageCouponCard({
             </span>
           )}
           {isDiscountCouponAvailable && (
-            <button className="px-[10px] w-fit h-full py-1 bg-black text-white title4 rounded-[6px]">
+            <button
+              className="px-[10px] w-fit h-full py-1 bg-black text-white title4 rounded-[6px]"
+              onClick={() => handleClickCouponButton(true)}
+            >
               사용하기
             </button>
           )}
