@@ -40,9 +40,11 @@ export default function BottomSheet({ results }: BottomSheetProps) {
           className="overflow-y-scroll z-10 h-full w-full relative !grow-0"
           disableDrag={true}
         >
-          {results.map((result) => (
-            <ResultCard key={result.clubName} {...result} />
-          ))}
+          {results.map((result, idx) => {
+            if (idx === results.length - 1)
+              return <ResultCard key={result.clubName} {...result} isLast />;
+            return <ResultCard key={result.clubName} {...result} />;
+          })}
         </Sheet.Content>
       </Sheet.Container>
     </Sheet>
