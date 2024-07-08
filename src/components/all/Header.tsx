@@ -4,6 +4,7 @@ import CloseSVG from '@public/svg/close.svg';
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 import useModal from '@store/modalStore';
+import { useIsCouponPageOpen } from '@store/couponStore';
 
 interface HeaderProps {
   buttonType: 'back' | 'close';
@@ -24,6 +25,9 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
+  const setIsCouponPageOpen = useIsCouponPageOpen(
+    (state) => state.setIsCouponPageOpen
+  );
   return (
     <header
       className={cn(
@@ -41,12 +45,19 @@ export default function Header({
         onClick={() => {
           if (title === '리뷰 작성' && isReviewSubmitted === true) {
             router.push('/');
+            return;
           }
 
           if (title === '리뷰 작성') {
             setIsOpen(true);
             return;
           }
+
+          if (title === '쿠폰') {
+            setIsCouponPageOpen(false);
+            return;
+          }
+
           router.back();
         }}
       >
