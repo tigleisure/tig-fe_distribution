@@ -171,11 +171,11 @@ export default function RestimeCard() {
         </div>
         <div className="flex gap-1 items-center">
           <Orange1RecSVG />
-          <p className="title4 text-grey7">예약 가능</p>
+          <p className="title4 text-grey7">선택됨</p>
         </div>
         <div className="flex gap-1 items-center">
           <Orange2RecSVG />
-          <p className="title4 text-grey7">선택됨</p>
+          <p className="title4 text-grey7">예약가능</p>
         </div>
       </div>
     </section>
