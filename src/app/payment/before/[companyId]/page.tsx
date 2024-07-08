@@ -7,6 +7,7 @@ import FullButton from '@components/all/FullButton';
 import useReservationStage from '@store/reservationStageStore';
 import CouponPage from '@components/payment/before/CouponPage';
 import { useState } from 'react';
+import { useIsCouponPageOpen } from '@store/couponStore';
 
 const DUMMYFIRSTSTAGEDATA = {
   companyName: '스카이락 볼링장',
@@ -29,7 +30,9 @@ export default function Page() {
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
   );
-  const [isCouponPageOpen, setIsCouponPageOpen] = useState(false);
+  const isCouponPageOpen = useIsCouponPageOpen(
+    (state) => state.isCouponPageOpen
+  );
 
   return !isCouponPageOpen ? (
     <main className="w-full h-full flex flex-col items-center bg-grey1 pb-[100px] overflow-y-scroll">
@@ -46,10 +49,7 @@ export default function Page() {
       )}
 
       {reservationStageState === 2 && (
-        <BeforeSecondStageCard
-          {...DUMMYSECONDSTAGEDATA}
-          handleClickCouponButton={setIsCouponPageOpen}
-        />
+        <BeforeSecondStageCard {...DUMMYSECONDSTAGEDATA} />
       )}
 
       {reservationStageState === 1 && (

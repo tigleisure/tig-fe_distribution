@@ -1,17 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react';
+import { useIsCouponPageOpen } from '@store/couponStore';
 
 interface BeforeSecondStageCouponCardProps {
   couponDiscountPrice: number;
-  handleClickCouponButton: (st: boolean) => void;
 }
 
 export default function BeforeSecondStageCouponCard({
   couponDiscountPrice,
-  handleClickCouponButton,
 }: BeforeSecondStageCouponCardProps) {
   const [isDiscountCouponAvailable, setIsDiscountCouponAvailable] =
     useState<boolean>(false);
+
+  const setIsCouponPageOpen = useIsCouponPageOpen(
+    (state) => state.setIsCouponPageOpen
+  );
 
   useEffect(() => {
     // 추후에 백엔드로부터 쿠폰 데이터가 남아있는가를 백엔드 api로부터 받아올 것임
@@ -36,7 +39,7 @@ export default function BeforeSecondStageCouponCard({
           {isDiscountCouponAvailable && (
             <button
               className="px-[10px] w-fit h-full py-1 bg-black text-white title4 rounded-[6px]"
-              onClick={() => handleClickCouponButton(true)}
+              onClick={() => setIsCouponPageOpen(true)}
             >
               사용하기
             </button>

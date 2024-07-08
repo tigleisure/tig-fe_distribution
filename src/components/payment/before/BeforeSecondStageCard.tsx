@@ -7,7 +7,6 @@ interface BeforeSecondStageCardProps {
   phoneNumber: string | null;
   couponDiscountPrice: number;
   defaultPrice: number; // 기존의 예약 금액을 의미함
-  handleClickCouponButton: (st: boolean) => void;
 }
 
 // 추후에 백엔드 api로부터 해당 사용자가 쿠폰이 있는지 없는지를 검사하는 로직으로 상태를 설정해야함
@@ -16,7 +15,6 @@ export default function BeforeSecondStageCard({
   phoneNumber,
   couponDiscountPrice,
   defaultPrice,
-  handleClickCouponButton,
 }: BeforeSecondStageCardProps) {
   return (
     <section className="w-eightNineWidth h-fit  flex flex-col gap-y-[10px] mt-[30px] mb-[30px]">
@@ -24,10 +22,7 @@ export default function BeforeSecondStageCard({
         userName={userName}
         phoneNumber={phoneNumber}
       />
-      <BeforeSecondStageCouponCard
-        couponDiscountPrice={0}
-        handleClickCouponButton={handleClickCouponButton}
-      />
+      <BeforeSecondStageCouponCard couponDiscountPrice={0} />
       <BeforeSecondStageFinalPriceCard
         couponDiscountPrice={couponDiscountPrice}
         defaultPrice={defaultPrice}
