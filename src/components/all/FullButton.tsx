@@ -22,7 +22,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'status_red1_opacity';
   content: string;
   className?: string;
-  clickTask?: 'move-to-writing-review-page' | 'move-to-written-review-page';
+  clickTask?:
+    | 'move-to-writing-review-page'
+    | 'move-to-written-review-page'
+    | 'move-to-home-page';
   sendingData?: {
     reviewId?: number;
     reservationId?: number;
@@ -70,6 +73,9 @@ export default function FullButton({
       ev.stopPropagation();
       ev.preventDefault();
       router.push(`/reservation-list/review/${sendingData?.reviewId}`);
+    }
+    if (clickTask === 'move-to-home-page') {
+      router.push('/');
     }
   }
 

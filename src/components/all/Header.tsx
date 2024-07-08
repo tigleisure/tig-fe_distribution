@@ -11,6 +11,7 @@ interface HeaderProps {
   title: string;
   bgColor?: 'white' | 'grey';
   className?: string;
+  isReviewSubmitted?: boolean;
 }
 
 export default function Header({
@@ -19,6 +20,7 @@ export default function Header({
   title,
   className,
   bgColor = 'white',
+  isReviewSubmitted = false,
 }: HeaderProps) {
   const router = useRouter();
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
@@ -37,6 +39,10 @@ export default function Header({
       <div
         className="w-[44px] h-[44px] flex items-center justify-center absolute left-0 cursor-pointer"
         onClick={() => {
+          if (title === '리뷰 작성' && isReviewSubmitted === true) {
+            router.push('/');
+          }
+
           if (title === '리뷰 작성') {
             setIsOpen(true);
             return;
