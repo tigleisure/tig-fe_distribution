@@ -7,8 +7,9 @@ import SearchCloseSVG from '@public/svg/searchClose.svg';
 import SearchInput from '@components/all/SearchInput';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import useSearchModalInput from '@store/searchModalInputStore';
 
-const DUMMYRECENTSEARCH = ['신촌', '볼링','탁구','당구','잠실'];
+const DUMMYRECENTSEARCH = ['신촌', '볼링', '탁구', '당구', '잠실'];
 
 export default function SearchModal() {
   const [recentSearch, setRecentSearch] = useState(DUMMYRECENTSEARCH);
@@ -19,6 +20,8 @@ export default function SearchModal() {
   const setModal = useSearchModal(
     (state) => state.setSelectedIsSearchModalOpen
   );
+  const inputValue = useSearchModalInput((state) => state.searchInput);
+  const setInputValue = useSearchModalInput((state) => state.setSearchInput);
 
   const deleteHandler = (idx: number) => () => {
     setRecentSearch((prev) => prev.filter((_, i) => i !== idx));
@@ -26,6 +29,16 @@ export default function SearchModal() {
 
   const deleteAllHanler = () => {
     setRecentSearch([]);
+  };
+
+  const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      setModal(false);
+    }
   };
 
   return (
@@ -36,9 +49,19 @@ export default function SearchModal() {
       style={customModalStyles}
       contentLabel="Pop up Message"
     >
-      <Header buttonType="close" isCenter={true} title="검색하기" isSearchModal/>
+      <Header
+        buttonType="close"
+        isCenter={true}
+        title="검색하기"
+        isSearchModal
+      />
       <div className="w-full pt-[68px] px-5">
-        <SearchInput placeholder="위치나 장소 입력" />
+        <SearchInput
+          placeholder="위치나 장소 입력"
+          value={inputValue}
+          onChange={inputHandler}
+          onKeyDown={handleKeyPress}
+        />
       </div>
       <div className="w-full flex justify-between items-center px-5">
         <p className="title4 text-grey7">최근검색</p>
@@ -54,7 +77,16 @@ export default function SearchModal() {
           key={idx + search}
           className="w-full flex justify-between items-center gap-[10px] px-5"
         >
-          <p className="body2 cursor-pointer" onClick={() => {router.push(`/search/result?location=${search}&date=24.05.17&adultCount=5`)}}>{search}</p>
+          <p
+            className="body2 cursor-pointer"
+            onClick={() => {
+              router.push(
+                `/search/result?location=${search}&date=24.05.17&adultCount=5`
+              );
+            }}
+          >
+            {search}
+          </p>
           <SearchCloseSVG
             className="cursor-pointer"
             onClick={deleteHandler(idx)}
