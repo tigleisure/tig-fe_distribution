@@ -12,6 +12,8 @@ import {
   usePaymentFirstStage,
   usePaymentSecondStage,
 } from '@store/paymentInfoStore';
+import Modal from '@components/all/Modal';
+import useModal from '@store/modalStore';
 
 export default function Page() {
   const reservationStageState = useReservationStage(
@@ -35,6 +37,10 @@ export default function Page() {
 
   const setSecondStageInfoObject = usePaymentSecondStage(
     (state) => state.setSecondStageInfoObject
+  );
+
+  const setSelectedIsModalOpen = useModal(
+    (state) => state.setSelectedIsModalOpen
   );
 
   useEffect(() => {
@@ -98,8 +104,15 @@ export default function Page() {
           bgColor="primary_orange1"
           content="확인"
           className="absolute !w-eightNineWidth bottom-[30px]"
+          clickTask="request-payment"
         />
       )}
+      <Modal
+        size="sm"
+        button2Content="확인"
+        title="휴대폰 번호를 입력해주세요"
+        secondButtonFunc={() => setSelectedIsModalOpen(false)}
+      />
     </main>
   ) : (
     <CouponPage />

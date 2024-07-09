@@ -2,8 +2,12 @@
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 import useReservationStage from '@store/reservationStageStore';
-import { usePaymentSecondStage } from '@store/paymentInfoStore';
+import {
+  usePaymentFirstStage,
+  usePaymentSecondStage,
+} from '@store/paymentInfoStore';
 import { useIsCouponPageOpen } from '@store/couponStore';
+import useModal from '@store/modalStore';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -30,7 +34,8 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'move-to-written-review-page'
     | 'move-to-home-page'
     | 'move-to-second-payment-stage'
-    | 'apply-coupon';
+    | 'apply-coupon'
+    | 'request-payment';
   sendingData?: {
     reviewId?: number;
     reservationId?: number;
@@ -52,6 +57,11 @@ export default function FullButton({
   const setReservationStageStatus = useReservationStage(
     (state) => state.setReservationStage
   );
+
+  const firstStageInfoObject = usePaymentFirstStage(
+    (state) => state.firstStageInfoObject
+  );
+
   const secondStageInfoObject = usePaymentSecondStage(
     (state) => state.secondStageInfoObject
   );
@@ -62,6 +72,10 @@ export default function FullButton({
 
   const setIsCouponPageOpen = useIsCouponPageOpen(
     (state) => state.setIsCouponPageOpen
+  );
+
+  const setSelectedIsModalOpen = useModal(
+    (state) => state.setSelectedIsModalOpen
   );
 
   const colorClasses = {
@@ -113,6 +127,12 @@ export default function FullButton({
       });
       setIsCouponPageOpen(false);
       return;
+    }
+
+    if (clickTask === 'request-payment') {
+      if (secondStageInfoObject.phoneNumber === '') {
+        setSelectedIsModalOpen(true);
+      }
     }
   }
 
