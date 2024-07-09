@@ -139,6 +139,7 @@ export function SearchResult() {
       <SearchHeader
         result
         placeholder={`${location}, ${date}, 성인${adultCount}명`}
+        isHomeOrResultPage
       />
 
       <Tabs

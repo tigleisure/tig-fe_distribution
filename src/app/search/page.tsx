@@ -1,8 +1,10 @@
 import Header from '@components/all/Header';
+import Modal from '@components/all/Modal';
 import ButtonCard from '@components/search/ButtonCard';
 import DateCard from '@components/search/DateCard';
 import LocationCard from '@components/search/LocationCard';
 import PeopleCountCard from '@components/search/PeopleCountCard';
+import SearchModal from '@components/search/SearchModal';
 
 export default function Page() {
   return (
@@ -12,6 +14,7 @@ export default function Page() {
       <DateCard />
       <PeopleCountCard />
       <ButtonCard />
+      <SearchModal />
     </main>
   );
 }
