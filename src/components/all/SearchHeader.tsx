@@ -1,3 +1,4 @@
+'use client';
 import TigSVG from '@public/svg/tig.svg';
 import SearchInput from './SearchInput';
 import Link from 'next/link';
@@ -23,7 +24,7 @@ export default function SearchHeader({
       </Link>
       <SearchInput
         placeholder={placeholder}
-        className={cn("grow mr-1",{
+        className={cn('grow mr-1', {
           'cursor-pointer': isHomeOrResultPage,
         })}
         result={result}

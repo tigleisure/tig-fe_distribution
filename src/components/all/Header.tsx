@@ -5,6 +5,7 @@ import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 import useModal from '@store/modalStore';
 import { useIsCouponPageOpen } from '@store/couponStore';
+import useSearchModal from '@store/searchModalStore';
 
 interface HeaderProps {
   buttonType: 'back' | 'close';
@@ -13,6 +14,7 @@ interface HeaderProps {
   bgColor?: 'white' | 'grey';
   className?: string;
   isReviewSubmitted?: boolean;
+  isSearchModal?: boolean;
 }
 
 export default function Header({
@@ -22,9 +24,11 @@ export default function Header({
   className,
   bgColor = 'white',
   isReviewSubmitted = false,
+  isSearchModal = false,
 }: HeaderProps) {
   const router = useRouter();
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
+  const setIsSearchModalOpen = useSearchModal((state)=> state.setSelectedIsSearchModalOpen)
   const setIsCouponPageOpen = useIsCouponPageOpen(
     (state) => state.setIsCouponPageOpen
   );
@@ -55,6 +59,11 @@ export default function Header({
 
           if (title === '쿠폰') {
             setIsCouponPageOpen(false);
+            return;
+          }
+
+          if (isSearchModal) {
+            setIsSearchModalOpen(false);
             return;
           }
 
