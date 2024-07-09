@@ -5,7 +5,7 @@ import FullButton from './FullButton';
 
 interface ModalProps {
   size: 'sm' | 'lg';
-  button1Content: string;
+  button1Content?: string;
   button2Content?: string;
   title: string;
   subTitle?: string;

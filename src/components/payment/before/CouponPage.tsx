@@ -22,7 +22,7 @@ interface couponItemDetail extends couponDetail {
 export default function CouponPage() {
   const couponList = useCoupon((state) => state.couponList);
   const setCouponList = useCoupon((state) => state.setCouponList);
-  const [selectedCouponNumber, setselectedCouponNumber] = useState<number>(0);
+  const [selectedCouponNumber, setselectedCouponNumber] = useState<number>(-1);
 
   useEffect(() => {
     // 원래는 백엔드로부터 쿠폰 리스트들을 받아오는 로직이 존재
@@ -84,11 +84,11 @@ export default function CouponPage() {
             couponExpireDate={coupon.couponExpireDate}
             selectedCouponNumber={selectedCouponNumber}
             handleClickCoupon={setselectedCouponNumber}
-            couponIndex={index + 1}
+            couponIndex={index}
           />
         ))}
       </div>
-      {selectedCouponNumber === 0 ? (
+      {selectedCouponNumber === -1 ? (
         <FullButton
           size="lg"
           color="white"
@@ -103,6 +103,11 @@ export default function CouponPage() {
           bgColor="primary_orange1"
           content="적용하기"
           className="absolute bottom-[30px] !w-eightNineWidth"
+          clickTask="apply-coupon"
+          sendingData={{
+            selectedCouponPrice: couponList[selectedCouponNumber].discountPrice,
+            // 추후에는 필요에 따라 쿠폰의 가격 뿐만 아니라 id까지 적용시킬 수도 있음
+          }}
         />
       )}
     </main>
@@ -150,7 +155,7 @@ function CouponItem({
         {selectedCouponNumber === couponIndex ? (
           <div
             className="w-7 h-7 flex justify-center items-center rounded-[50%] bg-primary_orange1 hover:cursor-pointer"
-            onClick={() => handleClickCoupon(0)}
+            onClick={() => handleClickCoupon(-1)}
           >
             <ChevronDownSVG />
           </div>

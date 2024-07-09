@@ -10,7 +10,7 @@ export default function BeforeSecondStageCouponCard({
   couponDiscountPrice,
 }: BeforeSecondStageCouponCardProps) {
   const [isDiscountCouponAvailable, setIsDiscountCouponAvailable] =
-    useState<boolean>(false);
+    useState<boolean>(true);
 
   const setIsCouponPageOpen = useIsCouponPageOpen(
     (state) => state.setIsCouponPageOpen

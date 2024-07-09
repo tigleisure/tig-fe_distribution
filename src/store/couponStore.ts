@@ -14,7 +14,7 @@ interface Store {
 
 const useCoupon = create<Store>((set) => ({
   couponList: [],
-  setCouponList: (staus) => set({ couponList: staus }),
+  setCouponList: (status) => set({ couponList: status }),
 }));
 
 export default useCoupon;
