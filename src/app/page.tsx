@@ -95,7 +95,7 @@ export default function Home() {
   // const setModal = useModal((state) => state.setSelectedIsModalOpen);
   return (
     <main className="h-full w-full flex flex-col overflow-y-scroll after:content-[''] after:absolute after:top-0 after:right-0 after:w-[20px] after:h-full after:bg-gradient-to-l after:from-[rgba(255,255,255,0.5)] after:to-transparent">
-      <SearchHeader />
+      <SearchHeader isHomeOrResultPage/>
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
       <div className="w-full max-w-[640px] mt-[111px] p-5">
         <DummyBannerSVG className="w-full h-auto" />
