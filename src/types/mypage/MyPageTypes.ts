@@ -1,9 +1,3 @@
 export interface ProfileInformationItemProps {
-  wholeGap: number;
-  labelGap: number;
-  labelName: string;
-  placeholderName: string;
-  placeholderColor: string;
-  isButtonBorder: boolean;
-  buttonText: string;
+  labelName: '이름' | '휴대폰번호' | '이메일';
 }

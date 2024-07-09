@@ -3,6 +3,7 @@ import NavBar from '@components/all/NavBar/NavBar';
 import My from '@components/mypage/My';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
+import { Toaster } from 'react-hot-toast';
 
 export default function page() {
   return (
@@ -14,9 +15,10 @@ export default function page() {
         button1Content="이전으로"
         button2Content="로그아웃"
         title="로그아웃 하시겠습니까?"
-        // 추후에 로그아웃 함수 부착
       />
+
       <NavBar />
+      <Toaster position="bottom-center" containerStyle={{ bottom: '75px' }} />
     </div>
   );
 }
