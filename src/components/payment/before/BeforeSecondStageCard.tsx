@@ -22,7 +22,7 @@ export default function BeforeSecondStageCard({
         userName={userName}
         phoneNumber={phoneNumber}
       />
-      <BeforeSecondStageCouponCard couponDiscountPrice={0} />
+      <BeforeSecondStageCouponCard couponDiscountPrice={couponDiscountPrice} />
       <BeforeSecondStageFinalPriceCard
         couponDiscountPrice={couponDiscountPrice}
         defaultPrice={defaultPrice}

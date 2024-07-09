@@ -2,6 +2,8 @@
 import { cn } from '@utils/cn';
 import { useRouter } from 'next/navigation';
 import useReservationStage from '@store/reservationStageStore';
+import { usePaymentSecondStage } from '@store/paymentInfoStore';
+import { useIsCouponPageOpen } from '@store/couponStore';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -27,10 +29,12 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'move-to-writing-review-page'
     | 'move-to-written-review-page'
     | 'move-to-home-page'
-    | 'move-to-second-payment-stage';
+    | 'move-to-second-payment-stage'
+    | 'apply-coupon';
   sendingData?: {
     reviewId?: number;
     reservationId?: number;
+    selectedCouponPrice?: number;
   };
 }
 
@@ -48,6 +52,18 @@ export default function FullButton({
   const setReservationStageStatus = useReservationStage(
     (state) => state.setReservationStage
   );
+  const secondStageInfoObject = usePaymentSecondStage(
+    (state) => state.secondStageInfoObject
+  );
+
+  const setSecondStageInfoObject = usePaymentSecondStage(
+    (state) => state.setSecondStageInfoObject
+  );
+
+  const setIsCouponPageOpen = useIsCouponPageOpen(
+    (state) => state.setIsCouponPageOpen
+  );
+
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
@@ -72,18 +88,31 @@ export default function FullButton({
       ev.stopPropagation();
       ev.preventDefault();
       router.push(`/writing-review/${sendingData?.reservationId}`);
+      return;
     }
 
     if (clickTask === 'move-to-written-review-page') {
       ev.stopPropagation();
       ev.preventDefault();
       router.push(`/reservation-list/review/${sendingData?.reviewId}`);
+      return;
     }
     if (clickTask === 'move-to-home-page') {
       router.push('/');
+      return;
     }
     if (clickTask === 'move-to-second-payment-stage') {
       setReservationStageStatus(2);
+      return;
+    }
+
+    if (clickTask === 'apply-coupon') {
+      setSecondStageInfoObject({
+        ...secondStageInfoObject,
+        couponDiscountPrice: sendingData?.selectedCouponPrice as number,
+      });
+      setIsCouponPageOpen(false);
+      return;
     }
   }
 
