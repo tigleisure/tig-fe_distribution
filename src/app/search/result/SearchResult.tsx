@@ -140,7 +140,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
 ];
 
-const isResult = false;
+const isResult = true;
 
 export function SearchResult() {
   const tabArray = allleisureArray;

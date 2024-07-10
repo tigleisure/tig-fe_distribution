@@ -5,7 +5,7 @@ import StarSVG from '@public/svg/star.svg';
 import RightArrowSVG from '@public/svg/rightArrow.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
 import { set } from 'date-fns';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
 import { cn } from '@utils/cn';
 
 interface VisitedReviewCardProps {
@@ -14,16 +14,18 @@ interface VisitedReviewCardProps {
   reviewList: ReviewLowerSectionProps[];
 }
 
-export default function VisitedReviewCard({
-  AvgRating,
-  RatingCount,
-  reviewList,
-}: VisitedReviewCardProps) {
+// eslint-disable-next-line react/display-name
+export const VisitedReviewCard = forwardRef<
+  HTMLDivElement,
+  VisitedReviewCardProps
+>(({ AvgRating, RatingCount, reviewList }, ref) => {
   const [selectedReviewPage, setSelectedReviewPage] = useState(1);
   return (
     <section className="flex flex-col w-full px-5 py-[40px] gap-6 pb-[118px]">
       <div className="flex gap-[10px]">
-        <p className="headline2 text-grey7">방문자 리뷰</p>
+        <p className="headline2 text-grey7" ref={ref}>
+          방문자 리뷰
+        </p>
         <div className="flex gap-1 headline2 items-center text-primary_orange1">
           <StarSVG />
           <p>{AvgRating}</p>
@@ -43,10 +45,13 @@ export default function VisitedReviewCard({
       <div className="w-[160px] flex self-center relative gap-1 justify-center">
         {[1, 2, 3].map((number) => (
           <button
-            className={cn('w-6 h-6 flex justify-center items-center title4 rounded-full', {
-              'text-white bg-grey7': selectedReviewPage === number,
-              'text-grey7 bg-white': selectedReviewPage !== number,
-            })}
+            className={cn(
+              'w-6 h-6 flex justify-center items-center title4 rounded-full',
+              {
+                'text-white bg-grey7': selectedReviewPage === number,
+                'text-grey7 bg-white': selectedReviewPage !== number,
+              }
+            )}
             onClick={() => {
               setSelectedReviewPage(number);
             }}
@@ -55,10 +60,13 @@ export default function VisitedReviewCard({
             {number}
           </button>
         ))}
-        <RightArrowSVG className="absolute right-0" onClick={() => {
-              setSelectedReviewPage(3);
-            }}/>
+        <RightArrowSVG
+          className="absolute right-0"
+          onClick={() => {
+            setSelectedReviewPage(3);
+          }}
+        />
       </div>
     </section>
   );
-}
+});

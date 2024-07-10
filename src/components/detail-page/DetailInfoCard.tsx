@@ -15,7 +15,7 @@ interface DetailInfoCardProps {
   GameType: 'time' | 'game';
   price: string;
   startTime: string;
-  endTIme: string;
+  endTime: string;
   phoneNumber: string;
   sns: string;
 }
@@ -29,7 +29,7 @@ export default function DetailInfoCard({
   GameType,
   price,
   startTime,
-  endTIme,
+  endTime,
   phoneNumber,
   sns,
 }: DetailInfoCardProps) {
@@ -61,7 +61,7 @@ export default function DetailInfoCard({
         <div className="flex gap-2">
           <TimeSVG />
           <p>
-            {startTime} - {endTIme}
+            {startTime} - {endTime}
           </p>
         </div>
         <div className="flex gap-2">
