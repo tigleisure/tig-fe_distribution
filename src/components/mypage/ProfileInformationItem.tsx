@@ -4,7 +4,7 @@ import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import { useState, useEffect } from 'react';
 import { isValidEmail, isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
-import ToastUI from './ToastUI';
+import ToastUI, { toastUIDuration } from './ToastUI';
 
 export default function ProfileInformationItem({
   labelName,

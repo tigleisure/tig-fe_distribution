@@ -8,6 +8,10 @@ import {
 } from '@store/paymentInfoStore';
 import { useIsCouponPageOpen } from '@store/couponStore';
 import useModal from '@store/modalStore';
+import { isValidPhoneNumber } from '@utils/validationCheck';
+import toast from 'react-hot-toast';
+import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
+import { useState } from 'react';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -78,6 +82,8 @@ export default function FullButton({
     (state) => state.setSelectedIsModalOpen
   );
 
+  const [toastId, setToastId] = useState<string | null>(null);
+
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
@@ -132,7 +138,24 @@ export default function FullButton({
     if (clickTask === 'request-payment') {
       if (secondStageInfoObject.phoneNumber === '') {
         setSelectedIsModalOpen(true);
+        return;
       }
+      if (!isValidPhoneNumber(secondStageInfoObject.phoneNumber)) {
+        if (toastId !== null) {
+          toast.remove(toastId);
+        }
+        const id = toast.custom(
+          <ToastUI message="올바른 전화 번호가 아닙니다." />,
+          {
+            duration: toastUIDuration,
+          }
+        );
+
+        setToastId(id);
+        return;
+      }
+      console.log(firstStageInfoObject);
+      console.log(secondStageInfoObject);
     }
   }
 
