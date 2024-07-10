@@ -35,7 +35,7 @@ export default function BottomSheet({ results }: BottomSheetProps) {
       snapPoints={[height, 234, 74]}
     >
       <Sheet.Container className="relative h-full w-full !shadow-none">
-        <Sheet.Header className='w-full h-[0px] flex justify-center pt-[6px] cursor-pointer'>
+        <Sheet.Header className='w-full h-[20px] flex justify-center pt-[6px] cursor-pointer'>
           <div className='w-[40px] h-[4px] rounded-[2px] bg-grey3'/>
         </Sheet.Header>
         <Sheet.Content
