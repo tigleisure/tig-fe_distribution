@@ -28,7 +28,9 @@ export default function Header({
 }: HeaderProps) {
   const router = useRouter();
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
-  const setIsSearchModalOpen = useSearchModal((state)=> state.setSelectedIsSearchModalOpen)
+  const setIsSearchModalOpen = useSearchModal(
+    (state) => state.setSelectedIsSearchModalOpen
+  );
   const setIsCouponPageOpen = useIsCouponPageOpen(
     (state) => state.setIsCouponPageOpen
   );
@@ -60,6 +62,10 @@ export default function Header({
           if (title === '쿠폰') {
             setIsCouponPageOpen(false);
             return;
+          }
+
+          if (title === '예약 결제') {
+            router.replace('/');
           }
 
           if (isSearchModal) {

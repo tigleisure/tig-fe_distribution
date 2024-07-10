@@ -118,7 +118,7 @@ export default function FullButton({
       return;
     }
     if (clickTask === 'move-to-home-page') {
-      router.push('/');
+      router.replace('/');
       return;
     }
     if (clickTask === 'move-to-second-payment-stage') {
@@ -154,8 +154,13 @@ export default function FullButton({
         setToastId(id);
         return;
       }
+      // 이제 해당 정보를 백엔드로 전송하면 됨
       console.log(firstStageInfoObject);
       console.log(secondStageInfoObject);
+
+      // 백엔드 전송 로직
+      // 실제로는 companyId를 다음 주소로 넘겨야함
+      router.replace(`/payment/after/${firstStageInfoObject.companyName}`);
     }
   }
 
