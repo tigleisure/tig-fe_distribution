@@ -5,15 +5,15 @@ import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 interface TabProps {
-  TabNumber: number;
+  defaultName:string;
   name: string;
   className?: string;
   rounded?: boolean;
 }
 
 export default function Tab({
-  TabNumber,
   name,
+  defaultName,
   className,
   rounded = false,
 }: TabProps) {
@@ -21,10 +21,10 @@ export default function Tab({
   const setCurrentTab = useTab((state) => state.setSelectedTab);
 
   useEffect(() => {
-    setCurrentTab(0);
+    setCurrentTab(defaultName);
 
     return () => {
-      setCurrentTab(0);
+      setCurrentTab(defaultName);
     };
   }, []);
   return (
@@ -32,28 +32,28 @@ export default function Tab({
       className={cn(
         'flex justify-center items-center relative cursor-pointer title3',
         {
-          'text-primary_orange1': currentTab === TabNumber && !rounded,
-          'text-grey6': currentTab !== TabNumber && !rounded,
+          'text-primary_orange1': currentTab === name && !rounded,
+          'text-grey6': currentTab !== name && !rounded,
           'text-white h-[30px] bg-primary_orange1 border border-primary_orange1':
-            currentTab === TabNumber && rounded,
+            currentTab === name && rounded,
           'text-grey6 h-[30px] border border-grey3':
-            currentTab !== TabNumber && rounded,
+            currentTab !== name && rounded,
           'w-full': !rounded,
           'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,
         },
         className
       )}
-      onClick={() => setCurrentTab(TabNumber)}
+      onClick={() => setCurrentTab(name)}
     >
       {name}
-      {!rounded && currentTab === TabNumber && (
+      {!rounded && currentTab === name && (
         <motion.div
           layoutId="underline"
           className={cn(
             'w-full h-[1px] absolute bottom-0',
             {
-              'bg-primary_orange1': currentTab === TabNumber,
-              'bg-transparent': currentTab !== TabNumber,
+              'bg-primary_orange1': currentTab === name,
+              'bg-transparent': currentTab !== name,
             },
             className
           )}

@@ -26,7 +26,7 @@ export default function Tabs({
       )}
     >
       {tabArray.map((tab, index) => (
-        <Tab key={from + tab} TabNumber={index} name={tab} rounded={rounded} />
+        <Tab key={from + tab} name={tab} rounded={rounded} defaultName={tabArray[0]}/>
       ))}
     </section>
   );
