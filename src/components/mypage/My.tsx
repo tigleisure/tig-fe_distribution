@@ -1,5 +1,4 @@
 'use client';
-
 import MyProfileDefaultImage from '@public/svg/myProfileDefaultImage.svg';
 import ProfileInformation from './ProfileInformation';
 import ToastUI from './ToastUI';
@@ -9,7 +8,7 @@ export default function My() {
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
   return (
     <div className="w-full flex flex-col items-center absolute top-[68px] pt-5">
-      <div className="w-mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
+      <div className="w-eightNineWidth mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
         <MyProfileDefaultImage />
         <ProfileInformation />
       </div>
@@ -22,7 +21,6 @@ export default function My() {
           로그아웃
         </button>
       </div>
-      <ToastUI />
     </div>
   );
 }

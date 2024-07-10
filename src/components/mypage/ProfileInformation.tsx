@@ -2,52 +2,44 @@ import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import ProfileInformationItem from './ProfileInformationItem';
 
 export default function ProfileInformation() {
-  const profileData: ProfileInformationItemProps[] = [
-    {
-      wholeGap: 156,
-      labelGap: 63,
-      labelName: '이름',
-      placeholderName: '김티그',
-      placeholderColor: 'grey7',
-      isButtonBorder: true,
-      buttonText: '변경',
-    },
-    {
-      wholeGap: 59,
-      labelGap: 33,
-      labelName: '휴대폰번호',
-      placeholderName: '휴대폰번호를 입력해주세요',
-      placeholderColor: 'grey3',
-      isButtonBorder: false,
-      buttonText: '변경',
-    },
-    {
-      wholeGap: 108,
-      labelGap: 53,
-      labelName: '이메일',
-      placeholderName: 'tig@naver.com',
-      placeholderColor: 'grey7',
-      isButtonBorder: true,
-      buttonText: '변경',
-    },
-  ];
+  // const [profileInfoDataObject, setProfileInfoDataObject] = useState<
+  //   ProfileInformationItemProps[]
+  // >([]);
+
+  // useEffect(() => {
+  //   const DUMMYPROFILEDATA: ProfileInformationItemProps[] = [
+  //     {
+  //       labelName: '이름',
+  //       inputData: '김티그',
+  //     },
+  //     {
+  //       labelName: '휴대폰번호',
+  //       inputData: '',
+  //     },
+  //     {
+  //       labelName: '이메일',
+  //       inputData: 'tig@naver.com',
+  //     },
+  //   ];
+
+  //   setProfileInfoDataObject(DUMMYPROFILEDATA);
+  // }, []);
+
+  // 추후에 해당 데이터는 여기에서 상태로 선언해서, useEffect()로 백엔드로부터 받아온 다음, 다시 아래 Item에게 내려줘야함
+  // 하위 item 요소에 inputData를 의미하는 상태와, 상태를 바꾸는 setter 함수를 내려줘야함
+
   return (
     <div
       id="profile-info-container"
       className="w-full h-fit flex flex-col gap-y-4"
     >
-      {profileData.map((data, index) => (
-        <ProfileInformationItem
-          key={data.labelName}
-          wholeGap={data.wholeGap}
-          labelGap={data.labelGap}
-          labelName={data.labelName}
-          placeholderName={data.placeholderName}
-          placeholderColor={data.placeholderColor}
-          isButtonBorder={data.isButtonBorder}
-          buttonText={data.buttonText}
-        />
-      ))}
+      {/* {profileInfoDataObject.map((data) => (
+        
+      ))} */}
+
+      <ProfileInformationItem labelName="이름" />
+      <ProfileInformationItem labelName="휴대폰번호" />
+      <ProfileInformationItem labelName="이메일" />
     </div>
   );
 }
