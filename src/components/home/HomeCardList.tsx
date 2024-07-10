@@ -9,9 +9,8 @@ interface HomeCardListProps {
 export default function HomeCardList({ title, Card }: HomeCardListProps) {
   return (
     <section className="flex flex-col shrink-0 gap-5 ml-5 mb-[60px]">
-      <div className="w-full flex justify-between">
+      <div className="w-full flex">
         <p className="headline2 text-grey7">{title}</p>
-        <p className="title4 text-grey5 mr-5">전체보기</p>
       </div>
       <div className="w-full flex gap-[10px] overflow-x-scroll">
         {Card.map((card) => (
