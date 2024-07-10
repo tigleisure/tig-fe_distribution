@@ -83,7 +83,7 @@ const getCustomModalStyles = (size: 'sm' | 'lg'): ReactModal.Styles => ({
     height: 'fit-content',
     zIndex: 202,
     position: 'absolute',
-    top: '50%',
+    top: '50dvh',
     left: '50%',
     transform: 'translate(-50%, -50%)',
     borderRadius: '10px',
