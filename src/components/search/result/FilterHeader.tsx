@@ -44,7 +44,7 @@ export default function FilterHeader() {
       <CategorySVG />
       {isOpen && (
         <motion.div
-          className="w-[90px] flex flex-col gap-3 p-5 bg-white shadow-filter absolute top-[20px] right-5 rounded-[12px]"
+          className="w-[92px] flex flex-col gap-3 p-5 bg-white shadow-filter absolute top-[20px] right-5 rounded-[12px]"
           onClick={(e) => e.stopPropagation()}
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
