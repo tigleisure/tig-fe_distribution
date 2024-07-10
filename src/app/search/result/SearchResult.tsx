@@ -5,6 +5,7 @@ import Tabs from '@components/all/Tabs/Tabs';
 import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
 import NaverMap from '@components/search/result/NaverMap';
+import NoSearchResult from '@components/search/result/NoSearchResult';
 import { allleisureArray } from '@constant/constant';
 import useTab from '@store/tabNumberStore';
 import { useSearchParams } from 'next/navigation';
@@ -139,6 +140,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
 ];
 
+const isResult = false;
+
 export function SearchResult() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
@@ -176,8 +179,9 @@ export function SearchResult() {
       />
 
       <FilterHeader />
-      <NaverMap />
-      <BottomSheet results={resultCards} />
+      {isResult && (<NaverMap />)}
+      {isResult && ( <BottomSheet results={resultCards} />)}
+      {!isResult && (<NoSearchResult />)}
       <NavBar />
     </div>
   );
