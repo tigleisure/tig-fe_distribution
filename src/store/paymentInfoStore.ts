@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-interface paymentFirstStageInfoProps {
+export interface paymentFirstStageInfoProps {
   companyName: string;
   companyAddress: string;
   eventDate: string;
@@ -34,7 +34,7 @@ export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
     set({ firstStageInfoObject: status }),
 }));
 
-interface paymentSecondStageInfoProps {
+export interface paymentSecondStageInfoProps {
   userName: string;
   phoneNumber: string;
   couponDiscountPrice: number;

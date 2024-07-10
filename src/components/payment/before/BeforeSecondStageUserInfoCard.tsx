@@ -1,12 +1,40 @@
+'use client';
+import { usePaymentSecondStage } from '@store/paymentInfoStore';
+import { ChangeEvent } from 'react';
+
 interface BeforeSecondStageUserInfoCardProps {
   userName: string;
-  phoneNumber: string | null;
+  phoneNumber: string;
 }
 
 export default function BeforeSecondStageUserInfoCard({
   userName,
   phoneNumber,
 }: BeforeSecondStageUserInfoCardProps) {
+  const secondStageInfoObject = usePaymentSecondStage(
+    (state) => state.secondStageInfoObject
+  );
+
+  const setSecondStageInfoObject = usePaymentSecondStage(
+    (state) => state.setSecondStageInfoObject
+  );
+
+  const handleChangeUserNameInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSecondStageInfoObject({
+      ...secondStageInfoObject,
+      userName: event.target.value,
+    });
+  };
+
+  const handleChangeUserPhoneNumberInput = (
+    event: ChangeEvent<HTMLInputElement>
+  ) => {
+    setSecondStageInfoObject({
+      ...secondStageInfoObject,
+      phoneNumber: event.target.value,
+    });
+  };
+
   return (
     <div className="w-full h-fit rounded-[10px] flex flex-col items-center gap-y-5 bg-white py-5">
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-5">
@@ -18,6 +46,8 @@ export default function BeforeSecondStageUserInfoCard({
         <input
           type="text"
           value={userName}
+          onChange={handleChangeUserNameInput}
+          placeholder="예약자명 입력"
           className="w-[80%] border-b-[1px] border-grey3"
         />
       </div>
@@ -28,7 +58,8 @@ export default function BeforeSecondStageUserInfoCard({
         </span>
         <input
           type="text"
-          // value={userName}
+          value={phoneNumber}
+          onChange={handleChangeUserPhoneNumberInput}
           placeholder="휴대폰 번호 입력"
           className="placeholder:body4 placeholder:text-grey3 w-[80%] border-b-[1px] border-grey3"
         />

@@ -4,7 +4,7 @@ import BeforeSecondStageFinalPriceCard from './BeforeSecondStageFinalPriceCard';
 
 interface BeforeSecondStageCardProps {
   userName: string;
-  phoneNumber: string | null;
+  phoneNumber: string;
   couponDiscountPrice: number;
   defaultPrice: number; // 기존의 예약 금액을 의미함
 }
