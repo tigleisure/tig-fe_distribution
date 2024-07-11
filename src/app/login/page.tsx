@@ -1,12 +1,11 @@
-import NavBar from "@components/all/NavBar/NavBar";
+import NavBar from '@components/all/NavBar/NavBar';
 import Login from '@components/login/Login';
 
 export default function page() {
   return (
-    <div>
-      This is login page
+    <main className="w-full h-full">
       <Login />
       <NavBar />
-    </div>
+    </main>
   );
 }
