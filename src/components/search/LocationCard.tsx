@@ -15,6 +15,7 @@ export default function LocationCard() {
         onClick={() => setModal(true)}
         className="cursor-pointer"
         value={inputValue}
+        readOnly
       />
     </section>
   );

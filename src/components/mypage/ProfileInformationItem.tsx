@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { isValidEmail, isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from './ToastUI';
+import { formatPhoneNumber } from '@utils/formattingPhoneNumber';
 
 export default function ProfileInformationItem({
   labelName,
@@ -26,6 +27,7 @@ export default function ProfileInformationItem({
 
   const handleChangeInputData = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(ev.target.value);
+    if(labelName === '휴대폰번호') setInputData(formatPhoneNumber(ev.target.value));
   };
 
   const handleSaveNewInputData = (data: string) => {

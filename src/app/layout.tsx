@@ -1,15 +1,23 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
-import "./globals.css";
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import Head from 'next/head';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "TIG Frontend",
-  description: "This is TIG frontend Project",
+  title: 'TIG Frontend',
+  description: 'This is TIG frontend Project',
   icons: {
     icon: '/svg/tig.svg',
   },
+};
+
+export const viewport: Viewport = {
+  initialScale: 1,
+  width: 'device-width',
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

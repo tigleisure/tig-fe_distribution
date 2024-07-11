@@ -90,25 +90,27 @@ export default function Page() {
       )}
 
       {reservationStageState === 1 && (
-        <FullButton
-          size="lg"
-          color="white"
-          bgColor="primary_orange1"
-          content="확인"
-          className="absolute !w-eightNineWidth bottom-[30px]"
-          clickTask="move-to-second-payment-stage"
-        />
+        <section className="h-[78px] w-full flex justify-center items-center px-5 py-[14px] absolute bottom-0 bg-grey1 shadow-absoluteButton">
+          <FullButton
+            size="lg"
+            color="white"
+            bgColor="primary_orange1"
+            content="확인"
+            clickTask="move-to-second-payment-stage"
+          />
+        </section>
       )}
 
       {reservationStageState === 2 && (
-        <FullButton
-          size="lg"
-          color="white"
-          bgColor="primary_orange1"
-          content="확인"
-          className="absolute !w-eightNineWidth bottom-[30px]"
-          clickTask="request-payment"
-        />
+        <section className="h-[78px] w-full flex justify-center items-center px-5 py-[14px] absolute bottom-0 bg-grey1 shadow-absoluteButton">
+          <FullButton
+            size="lg"
+            color="white"
+            bgColor="primary_orange1"
+            content="확인"
+            clickTask="request-payment"
+          />
+        </section>
       )}
       <Modal
         size="sm"

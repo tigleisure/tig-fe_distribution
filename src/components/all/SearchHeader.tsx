@@ -35,6 +35,7 @@ export default function SearchHeader({
               }
             : () => {}
         }
+        readOnly={isHomeOrResultPage}
       />
     </section>
   );
