@@ -86,17 +86,17 @@ export default function Page() {
   const serviceRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
   const selectedTab = useTab((state) => state.selectedTab);
-  const setSelectedTab = useTab((state)=>state.setSelectedTab);
+  const setSelectedTab = useTab((state) => state.setSelectedTab);
   console.log(selectedTab);
   useEffect(() => {
     if (selectedTab === '기본정보') {
       scrollToDetailInfoRef();
     } else if (selectedTab === '편의시설') {
       scrollToServiceRef();
-    } else if(selectedTab === '방문자 리뷰'){
+    } else if (selectedTab === '방문자 리뷰') {
       scrollToReviewRef();
+    } else {
     }
-    else{}
   }, [selectedTab]);
 
   const scrollToDetailInfoRef = () => {
@@ -111,7 +111,7 @@ export default function Page() {
     if (serviceRef.current) {
       serviceRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
     }
   };
@@ -119,7 +119,7 @@ export default function Page() {
     if (reviewRef.current) {
       reviewRef.current.scrollIntoView({
         behavior: 'smooth',
-        block: 'center',
+        block: 'start',
       });
     }
   };
@@ -136,17 +136,17 @@ export default function Page() {
         className="w-full p-5 pt-[138px]"
       />
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
-      <DetailInfoCard {...DUMMYDetailPage}/>
+      <DetailInfoCard {...DUMMYDetailPage} />
+      <div className="mb-[102px]" ref={serviceRef} />
       <ServicesCard
         servicesIcon={DUMMYDetailPage.servicesIcon}
         services={DUMMYDetailPage.services}
-        ref={serviceRef}
       />
+      <div className="mb-[102px]" ref={reviewRef} />
       <VisitedReviewCard
         reviewList={DUMMYDetailPage.reviewList}
         AvgRating={DUMMYDetailPage.AvgRating}
         RatingCount={DUMMYDetailPage.RatingCount}
-        ref={reviewRef}
       />
       <ResButtonCard />
     </main>
