@@ -1,7 +1,7 @@
 'use client';
 import Header from '@components/all/Header';
 import Tabs from '@components/all/Tabs/Tabs';
-import DetailInfoCard from '@components/detail-page/DetailInfoCard';
+import {DetailInfoCard} from '@components/detail-page/DetailInfoCard';
 import ResButtonCard from '@components/detail-page/ResButtonCard';
 import { ServicesCard } from '@components/detail-page/ServicesCard';
 import { VisitedReviewCard } from '@components/detail-page/VisitedReviewCard';
@@ -136,13 +136,12 @@ export default function Page() {
         className="w-full p-5 pt-[138px]"
       />
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
-      <DetailInfoCard {...DUMMYDetailPage} />
-      <div className="mb-[102px]" ref={serviceRef} />
+      <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef}/>
       <ServicesCard
         servicesIcon={DUMMYDetailPage.servicesIcon}
         services={DUMMYDetailPage.services}
+        ref={reviewRef}
       />
-      <div className="mb-[102px]" ref={reviewRef} />
       <VisitedReviewCard
         reviewList={DUMMYDetailPage.reviewList}
         AvgRating={DUMMYDetailPage.AvgRating}
