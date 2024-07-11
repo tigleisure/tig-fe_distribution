@@ -124,8 +124,18 @@ export default function Home() {
       <div className="w-full max-w-[640px] mt-[111px] p-5">
         <DummyBannerSVG className="w-full h-auto" />
       </div>
-      <HomeCardList title="근처에서 즐길 수 있는 스포츠예요" Card={clubCards} />
-      <HomeCardList title="지금 이벤트 중인 스포츠예요" Card={eventClubCards} />
+      {clubCards.length !== 0 && (
+        <HomeCardList
+          title="근처에서 즐길 수 있는 스포츠예요"
+          Card={clubCards}
+        />
+      )}
+      {eventClubCards.length !== 0 && (
+        <HomeCardList
+          title="지금 이벤트 중인 스포츠예요"
+          Card={eventClubCards}
+        />
+      )}
       <HomeCardList title="이런 스포츠 어때요?" Card={DUMMYCLUBCARDS} />
       <NavBar />
     </main>
