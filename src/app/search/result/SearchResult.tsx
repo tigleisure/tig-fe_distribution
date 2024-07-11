@@ -5,8 +5,11 @@ import Tabs from '@components/all/Tabs/Tabs';
 import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
 import NaverMap from '@components/search/result/NaverMap';
+import NoSearchResult from '@components/search/result/NoSearchResult';
 import { allleisureArray } from '@constant/constant';
+import useTab from '@store/tabNumberStore';
 import { useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 
 const DUMMYRESULTS: ResultCardProps[] = [
@@ -20,6 +23,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     gameType: '게임',
     isEvent: true,
     image: '/png/dummyImage.png',
+    gameNameType: '볼링',
   },
   {
     clubName: '스카이락볼링장2',
@@ -32,6 +36,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     gameType: '게임',
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '볼링',
   },
   {
     clubName: '스카이락볼링장3',
@@ -43,6 +48,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     gameType: '게임',
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '당구',
   },
   {
     clubName: '스카이락볼링장4',
@@ -54,6 +60,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     gameType: '게임',
     isEvent: true,
     image: '/png/dummyImage.png',
+    gameNameType: '당구',
   },
   {
     clubName: '스카이락볼링장5',
@@ -64,6 +71,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     price: '10,000원',
     gameType: '게임',
     image: '/png/dummyImage.png',
+    gameNameType: '당구',
   },
   {
     clubName: '스카이락볼링장6',
@@ -76,6 +84,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '탁구',
   },
   {
     clubName: '스카이락볼링장7',
@@ -88,6 +97,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '탁구',
   },
   {
     clubName: '스카이락볼링장8',
@@ -100,6 +110,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '테니스',
   },
   {
     clubName: '스카이락볼링장9',
@@ -112,6 +123,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '볼링',
   },
   {
     clubName: '스카이락볼링장10',
@@ -124,16 +136,33 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     isHeart: true,
     image: '/png/dummyImage.png',
+    gameNameType: '볼링',
   },
 ];
+
+const isResult = true;
 
 export function SearchResult() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
-  console.log(searchParams);
   const { location, date, adultCount } = Object.fromEntries(
     searchParams.entries()
   );
+
+  const selectedTab = useTab((state) => state.selectedTab);
+  const [resultCards, setResultCards] = useState<ResultCardProps[]>(DUMMYRESULTS);
+
+  useEffect(() => {
+    if (selectedTab == '전체') {
+      setResultCards(DUMMYRESULTS);
+      return;
+    } else {
+      const filteredResultCards = DUMMYRESULTS.filter(
+        (result) => result.gameNameType === selectedTab
+      );
+      setResultCards(filteredResultCards);
+    }
+  }, [selectedTab]);
   return (
     <div className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
@@ -150,8 +179,9 @@ export function SearchResult() {
       />
 
       <FilterHeader />
-      <NaverMap />
-      <BottomSheet results={DUMMYRESULTS} />
+      {isResult && (<NaverMap />)}
+      {isResult && ( <BottomSheet results={resultCards} />)}
+      {!isResult && (<NoSearchResult />)}
       <NavBar />
     </div>
   );
