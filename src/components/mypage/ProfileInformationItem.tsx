@@ -27,7 +27,8 @@ export default function ProfileInformationItem({
 
   const handleChangeInputData = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(ev.target.value);
-    if(labelName === '휴대폰번호') setInputData(formatPhoneNumber(ev.target.value));
+    if (labelName === '휴대폰번호')
+      setInputData(formatPhoneNumber(ev.target.value));
   };
 
   const handleSaveNewInputData = (data: string) => {
@@ -79,7 +80,7 @@ export default function ProfileInformationItem({
           <input
             value={inputData}
             onChange={handleChangeInputData}
-            className="body4 text-grey7 shadow-writingReviewInput flex rounded-[4px] justify-start items-center pt-2 pl-2 pb-2"
+            className="body4 w-[150px] text-grey7 shadow-writingReviewInput flex rounded-[4px] justify-start items-center pt-2 pl-2 pb-2"
           />
         )}
         {inputBoxEditStage === 1 && inputData !== '' && (
