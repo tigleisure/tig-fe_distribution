@@ -16,13 +16,15 @@ export default function PaymentAfterConfirm() {
         <span className="title2 text-grey6 mt-4 mb-2">
           예약이 신청되었습니다.
         </span>
-        <div className="text-grey6 mb-[14px]">
-          <span className="text-grey7 title2">확정여부를 메시지</span>로
+        <div className="text-grey6 mb-[14px] caption1">
+          <span className="text-grey7 headline2">확정여부를 메시지</span>로
           알려드릴게요!
         </div>
-        <div className="text-grey6">
+        <div className="text-grey6 caption1">
           확정까지 평균 소요 시간 :{' '}
-          <span className="title2 text-primary_orange1">1시간 이내</span>
+          <span className="title2 text-primary_orange1 headline2">
+            1시간 이내
+          </span>
         </div>
       </div>
       <HistoryComponentUpperSection
