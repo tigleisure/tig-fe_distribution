@@ -1,5 +1,6 @@
 'use client';
 import { usePaymentSecondStage } from '@store/paymentInfoStore';
+import { formatPhoneNumber } from '@utils/formattingPhoneNumber';
 import { ChangeEvent } from 'react';
 
 interface BeforeSecondStageUserInfoCardProps {
@@ -31,7 +32,7 @@ export default function BeforeSecondStageUserInfoCard({
   ) => {
     setSecondStageInfoObject({
       ...secondStageInfoObject,
-      phoneNumber: event.target.value,
+      phoneNumber: formatPhoneNumber(event.target.value),
     });
   };
 
@@ -48,7 +49,7 @@ export default function BeforeSecondStageUserInfoCard({
           value={userName}
           onChange={handleChangeUserNameInput}
           placeholder="예약자명 입력"
-          className="w-[80%] border-b-[1px] border-grey3"
+          className="title4 w-[80%] border-b-[1px] border-grey3"
         />
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center gap-x-6">
@@ -61,7 +62,7 @@ export default function BeforeSecondStageUserInfoCard({
           value={phoneNumber}
           onChange={handleChangeUserPhoneNumberInput}
           placeholder="휴대폰 번호 입력"
-          className="placeholder:body4 placeholder:text-grey3 w-[80%] border-b-[1px] border-grey3"
+          className="body4 placeholder:text-[12px] placeholder:font-medium placeholder:leading-[1.4] placeholder:tracking-[-0.02em] placeholder:text-grey3 w-[80%] border-b-[1px] border-grey3"
         />
       </div>
     </div>
