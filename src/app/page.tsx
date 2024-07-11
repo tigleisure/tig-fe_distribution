@@ -124,7 +124,7 @@ export default function Home() {
   },[])
 
   return (
-    <main className="h-full w-full flex flex-col overflow-y-scroll after:content-[''] after:absolute after:top-0 after:right-0 after:w-[20px] after:h-full after:bg-gradient-to-l after:from-[rgba(255,255,255,0.5)] after:to-transparent">
+    <main className="h-full w-full flex flex-col overflow-y-scroll">
       <SearchHeader isHomeOrResultPage />
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
       <div className="w-full max-w-[640px] mt-[111px] p-5">
