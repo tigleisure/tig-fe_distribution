@@ -111,6 +111,7 @@ const customModalStyles: ReactModal.Styles = {
     padding: '0',
     gap: '20px',
     top: '0',
+    inset: '0',
     flexDirection: 'column',
     width: '100%',
     margin: '0 auto',
