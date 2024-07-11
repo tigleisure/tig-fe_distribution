@@ -35,13 +35,19 @@ export default function BottomSheet({ results }: BottomSheetProps) {
       snapPoints={[height, 234, 74]}
     >
       <Sheet.Container className="relative h-full w-full !shadow-none">
-        <Sheet.Header className='w-full h-[20px] flex justify-center pt-[6px] cursor-pointer'>
-          <div className='w-[40px] h-[4px] rounded-[2px] bg-grey3'/>
+        <Sheet.Header className="w-full h-[20px] flex justify-center pt-[6px] cursor-pointer">
+          <div className="w-[40px] h-[4px] rounded-[2px] bg-grey3" />
         </Sheet.Header>
         <Sheet.Content
           className="overflow-y-scroll z-10 h-full w-full relative !grow-0"
           disableDrag={true}
         >
+          {results.length === 0 && (
+            <div className="w-full h-[140px] flex flex-col gap-[10px] justify-center items-center">
+                <p className="title2 text-grey7">검색 결과가 없어요.</p>
+                <p className="caption1 text-grey5">검색 필터를 수정해보세요!</p>
+            </div>
+          )}
           {results.map((result, idx) => {
             if (idx === results.length - 1)
               return <ResultCard key={result.clubName} {...result} isLast />;

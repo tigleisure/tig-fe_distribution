@@ -23,7 +23,7 @@ export const VisitedReviewCard = forwardRef<
   return (
     <section className="flex flex-col w-full px-5 py-[40px] gap-6 pb-[118px]">
       <div className="flex gap-[10px]">
-        <p className="headline2 text-grey7" ref={ref}>
+        <p className="headline2 text-grey7">
           방문자 리뷰
         </p>
         <div className="flex gap-1 headline2 items-center text-primary_orange1">
@@ -42,7 +42,7 @@ export const VisitedReviewCard = forwardRef<
           </div>
         ))}
       </div>
-      <div className="w-[160px] flex self-center relative gap-1 justify-center">
+      <div className="w-[160px] flex self-center relative gap-1 justify-center" ref={ref}>
         {[1, 2, 3].map((number) => (
           <button
             className={cn(

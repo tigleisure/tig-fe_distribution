@@ -9,7 +9,8 @@ interface SnsLoginProps {
 
 function SnsLoginComponent({ companyName }: SnsLoginProps) {
   return (
-    <div
+    <Link
+      href={'https://tigleisure.com/oauth2/authorization/kakao'}
       id="kakaoLogo"
       className={cn(
         'w-full h-[47px] flex justify-center items-center rounded-[10px] hover:cursor-pointer',
@@ -31,7 +32,7 @@ function SnsLoginComponent({ companyName }: SnsLoginProps) {
           : null}
         로 로그인
       </span>
-    </div>
+    </Link>
   );
 }
 

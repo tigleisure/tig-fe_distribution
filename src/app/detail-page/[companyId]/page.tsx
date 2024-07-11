@@ -6,6 +6,7 @@ import ResButtonCard from '@components/detail-page/ResButtonCard';
 import { ServicesCard } from '@components/detail-page/ServicesCard';
 import { VisitedReviewCard } from '@components/detail-page/VisitedReviewCard';
 import { detailArray } from '@constant/constant';
+import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import useTab from '@store/tabNumberStore';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
@@ -82,12 +83,15 @@ const DUMMYDetailPage: DetailPageProps = {
 
 export default function Page() {
   const tabArray = detailArray;
+  // const imageRef = useRef<HTMLImageElement>(null);
   const detailInfoRef = useRef<HTMLDivElement>(null);
   const serviceRef = useRef<HTMLDivElement>(null);
   const reviewRef = useRef<HTMLDivElement>(null);
+  // const visitedReviewRef = useRef<HTMLDivElement>(null);
   const selectedTab = useTab((state) => state.selectedTab);
   const setSelectedTab = useTab((state) => state.setSelectedTab);
-  console.log(selectedTab);
+  // useIntersectionObserver(imageRef, () => setSelectedTab('기본정보'),1);
+  // useIntersectionObserver(visitedReviewRef, () => setSelectedTab('방문자 리뷰'),1);
   useEffect(() => {
     if (selectedTab === '기본정보') {
       scrollToDetailInfoRef();
@@ -134,6 +138,7 @@ export default function Page() {
         width={320}
         height={240}
         className="w-full p-5 pt-[138px]"
+        // ref={imageRef}
       />
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
       <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef}/>
@@ -146,6 +151,7 @@ export default function Page() {
         reviewList={DUMMYDetailPage.reviewList}
         AvgRating={DUMMYDetailPage.AvgRating}
         RatingCount={DUMMYDetailPage.RatingCount}
+        // ref={visitedReviewRef}
       />
       <ResButtonCard />
     </main>
