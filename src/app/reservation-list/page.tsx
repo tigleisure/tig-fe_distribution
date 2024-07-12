@@ -14,8 +14,10 @@ import Modal from '@components/all/Modal';
 
 const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
-    companyName: '스카이락볼링장',
-    companyAddress: '서울 서대문구 신촌로 73',
+    companyName:
+      '스카이락볼링장 asfdasdfsdafdasfasdfasdfasdfsadfasdfsdafasdfsdafsadfdasfasdfasdfsdafdsafasdfasdf',
+    companyAddress:
+      '서울 서대문구 신촌로 73 asdfasdfsdafdsafsdafsadfasdfdsafdasfasdfsdafsdfasdfasdfsdafsdafsdafasdfsdfasdfasdfsd',
     eventDate: '05.17 (금)',
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',

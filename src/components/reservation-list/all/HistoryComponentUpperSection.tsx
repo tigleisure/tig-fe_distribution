@@ -21,11 +21,15 @@ export default function HistoryComponentUpperSection({
       id="this-is-upper-section"
       className={cn('w-full h-fit flex  gap-x-4', className)}
     >
-      <NullImageSVG />
-      <div className="w-fit h-fit flex flex-col justify-between items-start gap-y-3">
+      <NullImageSVG className="shrink-0" />
+      <div className="h-fit flex flex-col justify-between items-start gap-y-3 grow txt-overflow-ellipsis">
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
-          <span className="title3 text-grey7">{companyName}</span>
-          <span className="body4 text-grey5">{companyAddress}</span>
+          <span className="w-full title3 text-grey7 txt-overflow-ellipsis">
+            {companyName}
+          </span>
+          <span className="w-full body4 text-grey5 txt-overflow-ellipsis">
+            {companyAddress}
+          </span>
         </div>
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">

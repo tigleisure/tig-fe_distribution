@@ -133,4 +133,10 @@ a {
     left: 24px;
     transform: translateY(-50%);
   }
+
+  .txt-overflow-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
