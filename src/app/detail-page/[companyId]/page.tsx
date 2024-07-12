@@ -82,7 +82,7 @@ const DUMMYDetailPage: DetailPageProps = {
   ],
 };
 
-export default function Page({ params }: { companyId: string } ) {
+export default function Page({ params }: { params: { companyId: string } } ) {
   const tabArray = detailArray;
   // const imageRef = useRef<HTMLImageElement>(null);
   const detailInfoRef = useRef<HTMLDivElement>(null);
