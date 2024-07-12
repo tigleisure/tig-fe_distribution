@@ -153,7 +153,7 @@ export default function FullButton({
           toast.remove(toastId);
         }
         const id = toast.custom(
-          <ToastUI message="올바른 전화 번호가 아닙니다." />,
+          <ToastUI message="올바른 전화 번호가 아닙니다." iswarning={true} />,
           {
             duration: toastUIDuration,
           }
