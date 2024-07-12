@@ -141,7 +141,9 @@ export default function Page() {
   );
 
   useEffect(() => {
-    setSelectedIsModalOpen(false);
+    return () => {
+      setSelectedIsModalOpen(false);
+    };
   }, []);
 
   return (
