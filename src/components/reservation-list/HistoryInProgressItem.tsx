@@ -65,12 +65,8 @@ export default function HistoryInProgressItem({
             color="status_red1"
             size="sm"
             content="예약 취소"
+            clickTask="cancel-reservation"
             className="shadow-cancelButton"
-            onClick={(ev) => {
-              setModalOpen(true);
-              ev.stopPropagation();
-              ev.preventDefault();
-            }}
           />
           <FullButton
             bgColor="primary_orange1"
