@@ -4,8 +4,18 @@ import My from '@components/mypage/My';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
 import { Toaster } from 'react-hot-toast';
+import { useEffect } from 'react';
+import useModal from '@store/modalStore';
 
-export default function page() {
+export default function Page() {
+  const setSelectedIsModalOpen = useModal(
+    (state) => state.setSelectedIsModalOpen
+  );
+
+  useEffect(() => {
+    return () => setSelectedIsModalOpen(false);
+  }, []);
+
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="마이페이지" />

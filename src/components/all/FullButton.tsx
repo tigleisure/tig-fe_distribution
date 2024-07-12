@@ -12,6 +12,7 @@ import { isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
 import { useState } from 'react';
+import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -39,6 +40,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'move-to-home-page'
     | 'move-to-second-payment-stage'
     | 'apply-coupon'
+    | 'cancel-reservation'
     | 'request-payment';
   sendingData?: {
     reviewId?: number;
@@ -103,7 +105,7 @@ export default function FullButton({
     status_red1: 'bg-status_red1',
     status_red1_opacity: 'bg-[#fdeeed]',
   };
-  function handleClickFullButton(ev: any) {
+  function handleClickFullButton(ev: ButtonMouseEvent) {
     if (clickTask === 'move-to-writing-review-page') {
       ev.stopPropagation();
       ev.preventDefault();
@@ -133,6 +135,12 @@ export default function FullButton({
       });
       setIsCouponPageOpen(false);
       return;
+    }
+
+    if (clickTask === 'cancel-reservation') {
+      setSelectedIsModalOpen(true);
+      ev.stopPropagation();
+      ev.preventDefault();
     }
 
     if (clickTask === 'request-payment') {
@@ -166,7 +174,7 @@ export default function FullButton({
 
   return (
     <button
-      onClick={(ev) => handleClickFullButton(ev)}
+      onClick={(ev: ButtonMouseEvent) => handleClickFullButton(ev)}
       className={cn(
         `w-full flex justify-center items-center rounded-md`,
         {

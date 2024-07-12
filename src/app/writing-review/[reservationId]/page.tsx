@@ -23,12 +23,15 @@ const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
 };
 
 export default function Page() {
-  const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
+  const setIsSelectedModalOpen = useModal(
+    (state) => state.setSelectedIsModalOpen
+  );
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
+
   useEffect(() => {
     return () => {
-      setIsOpen(false);
+      setIsSelectedModalOpen(false);
     };
   }, []);
   return (
