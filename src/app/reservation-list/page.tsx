@@ -1,5 +1,5 @@
 'use client';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import NavBar from '@components/all/NavBar/NavBar';
 import HistoryHead from '@components/reservation-list/HistoryHead';
 import HistoryInProgressItem from '@components/reservation-list/HistoryInProgressItem';
@@ -11,6 +11,7 @@ import {
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
+import useModal from '@store/modalStore';
 
 const MockReservationInProgressDataArray: HistoryInProgressItemProps[] = [
   {
@@ -134,6 +135,14 @@ export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
     '전체' | '진행중' | '종료된'
   >('전체');
+
+  const setSelectedIsModalOpen = useModal(
+    (state) => state.setSelectedIsModalOpen
+  );
+
+  useEffect(() => {
+    setSelectedIsModalOpen(false);
+  }, []);
 
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">

@@ -71,6 +71,10 @@ export default function Page() {
     setSecondStageInfoObject(DUMMYSECONDSTAGEDATA);
   }, []);
 
+  useEffect(() => {
+    return () => setSelectedIsModalOpen(false);
+  }, []);
+
   return !isCouponPageOpen ? (
     <main className="w-full h-full flex flex-col items-center bg-grey1 pb-[100px] overflow-y-scroll">
       <Header

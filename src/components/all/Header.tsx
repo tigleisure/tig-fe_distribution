@@ -50,7 +50,7 @@ export default function Header({
         className="w-[44px] h-[44px] flex items-center justify-center absolute left-0 cursor-pointer"
         onClick={() => {
           if (title === '리뷰 작성' && isReviewSubmitted === true) {
-            router.push('/');
+            router.replace('/');
             return;
           }
 
