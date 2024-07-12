@@ -8,6 +8,7 @@ import SearchInput from '@components/all/SearchInput';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSearchModalInput from '@store/searchModalInputStore';
+import { useSearchInputInfo } from '@store/searchInfoStore';
 
 const DUMMYRECENTSEARCH = ['신촌', '볼링', '탁구', '당구', '잠실'];
 
@@ -20,8 +21,8 @@ export default function SearchModal() {
   const setModal = useSearchModal(
     (state) => state.setSelectedIsSearchModalOpen
   );
-  const inputValue = useSearchModalInput((state) => state.searchInput);
-  const setInputValue = useSearchModalInput((state) => state.setSearchInput);
+  const inputValue = useSearchInputInfo((state) => state.searchInput);
+  const setInputValue = useSearchInputInfo((state) => state.setSearchInput);
 
   const deleteHandler = (idx: number) => () => {
     setRecentSearch((prev) => prev.filter((_, i) => i !== idx));
@@ -32,7 +33,7 @@ export default function SearchModal() {
   };
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue(e.target.value);
+    setInputValue({...inputValue,  searchValue: e.target.value });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -58,7 +59,7 @@ export default function SearchModal() {
       <div className="w-full pt-[68px] px-5">
         <SearchInput
           placeholder="위치나 장소 입력"
-          value={inputValue}
+          value={inputValue.searchValue}
           onChange={inputHandler}
           onKeyDown={handleKeyPress}
         />
