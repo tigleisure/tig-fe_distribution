@@ -46,7 +46,6 @@ export default function ReservationStageBar() {
       <ReservationStageBarItem stageNumber={1} title="예약 확인" />
       <ReservationStageBarItem stageNumber={2} title="예약 결제" />
       <ReservationStageBarItem stageNumber={3} title="예약 확정" />
-      <div />
     </div>
   );
 }
