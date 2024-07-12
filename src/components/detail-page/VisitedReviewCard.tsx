@@ -2,9 +2,11 @@
 
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 import StarSVG from '@public/svg/star.svg';
-import RightArrowSVG from '@public/svg/rightArrow.svg';
+import RightBlackArrowSVG from '@public/svg/rightBlackArrow.svg';
+import RightGreyArrowSVG from '@public/svg/rightGreyArrow.svg';
+import LeftGreyArrowSVG from '@public/svg/leftGreyArrow.svg';
+import LeftBlackArrowSVG from '@public/svg/leftBlackArrow.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
-import { set } from 'date-fns';
 import { forwardRef, useState } from 'react';
 import { cn } from '@utils/cn';
 
@@ -42,7 +44,11 @@ export const VisitedReviewCard = forwardRef<
           </div>
         ))}
       </div>
-      <div className="w-[160px] flex self-center relative gap-1 justify-center" ref={ref}>
+      <div className="w-fit flex self-center relative gap-1 justify-center" ref={ref}>
+      {selectedReviewPage === 1 ? <LeftGreyArrowSVG className="mr-[20px]"/> : <LeftBlackArrowSVG className="mr-[20px]"
+          onClick={() => {
+            setSelectedReviewPage(prev=> prev - 1);
+          }}/>} 
         {[1, 2, 3].map((number) => (
           <button
             className={cn(
@@ -60,12 +66,10 @@ export const VisitedReviewCard = forwardRef<
             {number}
           </button>
         ))}
-        <RightArrowSVG
-          className="absolute right-0"
+        {selectedReviewPage === 3 ? <RightGreyArrowSVG className="ml-[20px]"/> : <RightBlackArrowSVG className="ml-[20px]"
           onClick={() => {
-            setSelectedReviewPage(3);
-          }}
-        />
+            setSelectedReviewPage(prev=> prev + 1);
+          }}/>} 
       </div>
     </section>
   );
