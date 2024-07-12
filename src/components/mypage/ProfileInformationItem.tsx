@@ -44,9 +44,12 @@ export default function ProfileInformationItem({
     if (toastId !== null) {
       toast.remove(toastId);
     }
-    const id = toast.custom(<ToastUI message="올바른 이메일이 아닙니다" />, {
-      duration: toastUIDuration,
-    });
+    const id = toast.custom(
+      <ToastUI message="올바른 이메일이 아닙니다" iswarning={true} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
 
     setToastId(id);
   };
@@ -55,9 +58,12 @@ export default function ProfileInformationItem({
     if (toastId !== null) {
       toast.remove(toastId);
     }
-    const id = toast.custom(<ToastUI message="올바른 전화번호가 아닙니다" />, {
-      duration: toastUIDuration,
-    });
+    const id = toast.custom(
+      <ToastUI message="올바른 전화번호가 아닙니다" iswarning={true} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
 
     setToastId(id);
   };
@@ -119,9 +125,12 @@ export default function ProfileInformationItem({
               }
 
               handleSaveNewInputData(inputData);
-              toast.custom(<ToastUI message="변경이 완료되었습니다" />, {
-                duration: toastUIDuration,
-              });
+              toast.custom(
+                <ToastUI message="변경이 완료되었습니다" iswarning={false} />,
+                {
+                  duration: toastUIDuration,
+                }
+              );
             }}
           >
             저장
