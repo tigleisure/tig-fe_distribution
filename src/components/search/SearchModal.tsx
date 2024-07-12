@@ -5,7 +5,7 @@ import Header from '@components/all/Header';
 import SearchHeader from '@components/all/SearchHeader';
 import SearchCloseSVG from '@public/svg/searchClose.svg';
 import SearchInput from '@components/all/SearchInput';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSearchModalInput from '@store/searchModalInputStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
@@ -32,8 +32,13 @@ export default function SearchModal() {
     setRecentSearch([]);
   };
 
+  useEffect(() => {
+    // 최근 검색어 get 요청
+    setRecentSearch(DUMMYRECENTSEARCH);
+  }, []);
+
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setInputValue({...inputValue,  searchValue: e.target.value });
+    setInputValue({ ...inputValue, searchValue: e.target.value });
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
