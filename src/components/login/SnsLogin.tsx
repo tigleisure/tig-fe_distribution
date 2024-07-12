@@ -10,9 +10,7 @@ interface SnsLoginProps {
 function SnsLoginComponent({ companyName }: SnsLoginProps) {
   return (
     <Link
-      href={
-        'https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0307650b397857dfa903ca697df83f62&redirect_uri=http://localhost:3000/login/oauth2/code/kakao'
-      }
+      href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0307650b397857dfa903ca697df83f62&redirect_uri=${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/login/oauth2/code/kakao`}
       id="kakaoLogo"
       className={cn(
         'w-full h-[47px] flex justify-center items-center rounded-[10px] hover:cursor-pointer',

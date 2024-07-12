@@ -20,6 +20,7 @@ export default function KakaoOuthCodeSendPage() {
           const data = response.json();
           console.log(data);
           router.replace('/');
+          console.log('hi');
         } else {
           throw new Error(
             '인증 코드를 기반으로 로그인 하는 데에 실패했습니다!'
