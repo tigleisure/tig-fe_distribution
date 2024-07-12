@@ -118,6 +118,8 @@ export default function Home() {
   }, [selectedTab]);
 
   useEffect(() =>{
+    // POST 요청
+    // body에 들어갈 정보
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords.latitude, position.coords.longitude);
     });
