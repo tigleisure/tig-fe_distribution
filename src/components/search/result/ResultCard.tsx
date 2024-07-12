@@ -42,7 +42,7 @@ export default function ResultCard({
           <div className="w-full flex flex-col gap-1">
             <p className="title3 text-grey7">{clubName}</p>
             {/* max-w 조금 더 최적화 필요할 듯 */}
-            <p className="body4 text-grey5 truncate max-w-[180px]">
+            <p className="w-full body4 text-grey5 line-clamp-1">
               {location}
             </p>
           </div>
