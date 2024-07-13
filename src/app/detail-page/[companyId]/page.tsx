@@ -159,7 +159,7 @@ export default function Page({ params }: { params: { companyId: string } } ) {
         RatingCount={DUMMYDetailPage.RatingCount}
         // ref={visitedReviewRef}
       />
-      <ResButtonCard />
+      <ResButtonCard companyId={params.companyId} />
     </main>
   );
 }
