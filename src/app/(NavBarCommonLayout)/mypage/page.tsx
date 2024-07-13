@@ -27,7 +27,7 @@ export default function Page() {
         title="로그아웃 하시겠습니까?"
       />
 
-      <NavBar />
+      {/* <NavBar /> */}
       <Toaster position="bottom-center" containerStyle={{ bottom: '75px' }} />
     </div>
   );

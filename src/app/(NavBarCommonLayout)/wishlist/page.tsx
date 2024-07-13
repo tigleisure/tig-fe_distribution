@@ -262,18 +262,18 @@ export default function Page() {
   const [wishList, setWishList] = useState<ResultCardProps[]>([]);
 
   useEffect(() => {
-    async function getWishlist() {
-      const response = await fetch(
-        'https://api.tigleisure.com/api/v1/wishlist',
-        {
-          credentials: 'include',
-        }
-      );
-      const data = await response.json();
-      console.log(data);
-      // setWishList(data);
-    }
-    getWishlist();
+    // async function getWishlist() {
+    //   const response = await fetch(
+    //     'https://api.tigleisure.com/api/v1/wishlist',
+    //     {
+    //       credentials: 'include',
+    //     }
+    //   );
+    //   const data = await response.json();
+    //   console.log(data);
+    //   // setWishList(data);
+    // }
+    // getWishlist();
 
     setWishList(DUMMYRESULTS);
   }, []);
@@ -349,7 +349,7 @@ export default function Page() {
         </main>
       )}
 
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
   );
 }

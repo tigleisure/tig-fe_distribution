@@ -117,13 +117,13 @@ export default function Home() {
     }
   }, [selectedTab]);
 
-  useEffect(() =>{
+  useEffect(() => {
     // POST 요청
     // body에 들어갈 정보
     navigator.geolocation.getCurrentPosition((position) => {
       console.log(position.coords.latitude, position.coords.longitude);
     });
-  },[])
+  }, []);
 
   return (
     <main className="h-full w-full flex flex-col overflow-y-scroll">
@@ -145,7 +145,7 @@ export default function Home() {
         />
       )}
       <HomeCardList title="이런 스포츠 어때요?" Card={DUMMYCLUBCARDS} />
-      <NavBar />
+      {/* <NavBar /> */}
     </main>
   );
 }

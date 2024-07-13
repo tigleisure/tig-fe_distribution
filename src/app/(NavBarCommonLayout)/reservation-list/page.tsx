@@ -300,7 +300,7 @@ export default function Page() {
         title="예약을 취소하시겠습니까?"
         subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
       />
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
   );
 }

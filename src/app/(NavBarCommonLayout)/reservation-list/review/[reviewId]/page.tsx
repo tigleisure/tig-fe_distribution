@@ -24,7 +24,7 @@ export default function page() {
       <main className="pt-[68px] w-full h-fit flex justify-center">
         <Review {...DUMMYREVIEWDATA} />
       </main>
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
   );
 }

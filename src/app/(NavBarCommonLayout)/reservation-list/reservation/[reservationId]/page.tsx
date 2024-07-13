@@ -29,7 +29,7 @@ export default function page() {
       <main className="mt-[68px] mb-[54px] w-full h-full flex justify-center overflow-y-scroll">
         <HistoryDetail {...DUMMYRESERVATIONDATA} />
       </main>
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
   );
 }
