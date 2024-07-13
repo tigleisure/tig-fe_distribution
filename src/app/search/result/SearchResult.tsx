@@ -145,12 +145,12 @@ const isResult = true;
 export function SearchResult() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
-  const { location, date, adultCount } = Object.fromEntries(
-    searchParams.entries()
-  );
+  const { search, date, adultCount, teenagerCount, kidCount } =
+    Object.fromEntries(searchParams.entries());
 
   const selectedTab = useTab((state) => state.selectedTab);
-  const [resultCards, setResultCards] = useState<ResultCardProps[]>(DUMMYRESULTS);
+  const [resultCards, setResultCards] =
+    useState<ResultCardProps[]>(DUMMYRESULTS);
 
   useEffect(() => {
     if (selectedTab == '전체') {
@@ -167,7 +167,11 @@ export function SearchResult() {
     <div className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
         result
-        placeholder={`${location}, ${date}, 성인${adultCount}명`}
+        placeholder={`${search}, ${date}${
+          adultCount === '0' ? '' : `, 성인 ${adultCount}명`
+        }${teenagerCount === '0' ? '' : `, 청소년 ${teenagerCount}명`}${
+          kidCount === '0' ? '' : `, 어린이 ${kidCount}명 `
+        }`}
         isHomeOrResultPage
       />
 
@@ -179,9 +183,9 @@ export function SearchResult() {
       />
 
       <FilterHeader />
-      {isResult && (<NaverMap />)}
-      {isResult && ( <BottomSheet results={resultCards} />)}
-      {!isResult && (<NoSearchResult />)}
+      {isResult && <NaverMap />}
+      {isResult && <BottomSheet results={resultCards} />}
+      {!isResult && <NoSearchResult />}
       <NavBar />
     </div>
   );
