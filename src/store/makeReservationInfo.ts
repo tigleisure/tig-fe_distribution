@@ -6,7 +6,7 @@ interface MakeReservationInfoProps {
   startTime: string;
   adultCount: number;
   teenagerCount: number;
-  kidCount: number;
+  kidsCount: number;
   askToManager: string;
 }
 interface MakeGameReservationInfoProps extends MakeReservationInfoProps {
@@ -32,7 +32,7 @@ export const useGameReservationStore = create<GameReservationStore>((set) => ({
     startTime: '',
     adultCount: 0,
     teenagerCount: 0,
-    kidCount: 0,
+    kidsCount: 0,
     askToManager: '',
     gameCount: 0,
   },
@@ -46,7 +46,7 @@ export const useTimeReservationStore = create<TimeReservationStore>((set) => ({
     endTime: '',
     adultCount: 0,
     teenagerCount: 0,
-    kidCount: 0,
+    kidsCount: 0,
     askToManager: '',
   },
   setTimeReservationInfo: (info) => set({ timeReservationInfo: info }),

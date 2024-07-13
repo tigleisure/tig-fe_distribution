@@ -13,7 +13,7 @@ export default function HistoryInProgressItem({
   eventEndTime,
   adultCount,
   teenagerCount,
-  kidCount,
+  kidsCount,
   reservationStatus,
   reservationId,
 }: HistoryInProgressItemProps) {
@@ -32,7 +32,7 @@ export default function HistoryInProgressItem({
         eventEndTime={eventEndTime}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
-        kidCount={kidCount}
+        kidsCount={kidsCount}
       />
       {reservationStatus === 'inProgress' && (
         <div className="w-full h-fit flex gap-[10px]">

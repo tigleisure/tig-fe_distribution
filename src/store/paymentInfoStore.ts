@@ -6,7 +6,7 @@ export interface paymentFirstStageInfoProps {
   eventDate: string;
   adultCount: number;
   teenagerCount?: number;
-  kidCount?: number;
+  kidsCount?: number;
   eventStartTime: string;
   eventEndTime: string;
   stageFirstPrice: number;
@@ -25,7 +25,7 @@ export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
     eventDate: '',
     adultCount: 0,
     teenagerCount: 0,
-    kidCount: 0,
+    kidsCount: 0,
     eventStartTime: '',
     eventEndTime: '',
     stageFirstPrice: 0,

@@ -14,7 +14,7 @@ export default function ButtonCard() {
       date: inputValue.searchDate,
       adultCount: String(inputValue.adultCount),
       teenagerCount: String(inputValue.teenagerCount),
-      kidCount: String(inputValue.kidCount),
+      kidsCount: String(inputValue.kidsCount),
     };
     const queryString = new URLSearchParams(query).toString();
     router.push(`/search/result?${queryString}`);

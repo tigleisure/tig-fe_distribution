@@ -18,7 +18,7 @@ export default function MakeResButtonCard() {
   const handleReservation = () => {
     if (pathname.startsWith('/reservation/game')) {
       console.log('gameResInfo', gameResInfo);
-      const query ={
+      const query = {
         gametype: 'game',
         date: gameResInfo.date,
         startTime: gameResInfo.startTime,
@@ -26,7 +26,7 @@ export default function MakeResButtonCard() {
         price: '금액 by BE',
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
-        kidCount: String(gameResInfo.kidCount),
+        kidsCount: String(gameResInfo.kidsCount),
         companyName: '회사 이름 by BE',
         companyAddress: '회사 주소 by BE',
       };
@@ -34,7 +34,7 @@ export default function MakeResButtonCard() {
       router.push(`/payment/before/1?${queryString}`);
     } else {
       console.log('timeResInfo', timeResInfo);
-      const query ={
+      const query = {
         gametype: 'time',
         date: gameResInfo.date,
         startTime: gameResInfo.startTime,
@@ -42,7 +42,7 @@ export default function MakeResButtonCard() {
         price: '금액 by BE',
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
-        kidCount: String(gameResInfo.kidCount),
+        kidsCount: String(gameResInfo.kidsCount),
         companyName: '회사 이름 by BE',
         companyAddress: '회사 주소 by BE',
       };

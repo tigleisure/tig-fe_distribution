@@ -11,7 +11,7 @@ export default function Review({
   eventEndTime,
   adultCount,
   teenagerCount,
-  kidCount,
+  kidsCount,
   reservationUserName,
   rating,
   rateContent,
@@ -27,7 +27,7 @@ export default function Review({
         eventEndTime={eventEndTime}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
-        kidCount={kidCount}
+        kidsCount={kidsCount}
       />
       <div className="w-full border-[1px] border-grey2" />
 
@@ -36,7 +36,7 @@ export default function Review({
         eventDate={eventDate}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
-        kidCount={kidCount}
+        kidsCount={kidsCount}
         rating={rating}
         rateContent={rateContent}
         className="!px-0"
