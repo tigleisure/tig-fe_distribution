@@ -12,7 +12,7 @@ export default function HistoryInProgressItem({
   eventStartTime,
   eventEndTime,
   adultCount,
-  youngManCount,
+  teenagerCount,
   kidCount,
   reservationStatus,
   reservationId,
@@ -31,7 +31,7 @@ export default function HistoryInProgressItem({
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
         adultCount={adultCount}
-        youngManCount={youngManCount}
+        teenagerCount={teenagerCount}
         kidCount={kidCount}
       />
       {reservationStatus === 'inProgress' && (

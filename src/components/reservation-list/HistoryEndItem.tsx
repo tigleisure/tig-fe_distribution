@@ -11,7 +11,7 @@ export default function HistoryEndItem({
   eventStartTime,
   eventEndTime,
   adultCount,
-  youngManCount,
+  teenagerCount,
   kidCount,
   closedReservationStatus,
   reservationId,
@@ -29,7 +29,7 @@ export default function HistoryEndItem({
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
         adultCount={adultCount}
-        youngManCount={youngManCount}
+        teenagerCount={teenagerCount}
         kidCount={kidCount}
       />
       {closedReservationStatus === 'notYetReviewed' && (

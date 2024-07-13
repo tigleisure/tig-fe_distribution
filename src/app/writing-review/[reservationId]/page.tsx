@@ -55,7 +55,7 @@ export default function Page() {
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}
                 adultCount={DUMMYREVIEWDATA.adultCount}
-                youngManCount={DUMMYREVIEWDATA.youngManCount}
+                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
                 kidCount={DUMMYREVIEWDATA.kidCount}
               />
             </div>
@@ -133,7 +133,7 @@ export default function Page() {
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}
                 adultCount={DUMMYREVIEWDATA.adultCount}
-                youngManCount={DUMMYREVIEWDATA.youngManCount}
+                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
                 kidCount={DUMMYREVIEWDATA.kidCount}
               />
               <div className="w-full border-b-[1px] border-grey2" />

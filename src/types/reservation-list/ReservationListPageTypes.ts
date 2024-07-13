@@ -6,7 +6,7 @@ export interface HistoryInProgressItemProps {
   eventStartTime: string;
   eventEndTime: string;
   adultCount?: number;
-  youngManCount?: number;
+  teenagerCount?: number;
   kidCount?: number;
   reservationStatus: 'inProgress' | 'confirmed';
   reservationId: number;

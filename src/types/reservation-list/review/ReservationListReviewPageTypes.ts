@@ -10,7 +10,7 @@ export interface ReviewLowerSectionProps {
   reservationUserName: string;
   eventDate: string;
   adultCount?: number;
-  youngManCount?: number;
+  teenagerCount?: number;
   kidCount?: number;
   rating: number;
   rateContent: string;

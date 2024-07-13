@@ -7,7 +7,7 @@ export default function ReviewLowerSection({
   reservationUserName,
   eventDate,
   adultCount,
-  youngManCount,
+  teenagerCount,
   kidCount,
   rating,
   rateContent,
@@ -24,7 +24,7 @@ export default function ReviewLowerSection({
           <p className="caption2 text-grey3">|</p>
           <p className="caption2 text-grey4">
             {adultCount && `성인 ${adultCount}명 `}
-            {youngManCount && `청소년 ${youngManCount}명 `}
+            {teenagerCount && `청소년 ${teenagerCount}명 `}
             {kidCount && `어린이 ${kidCount}명 `}
           </p>
         </div>
