@@ -9,6 +9,7 @@ import { detailArray } from '@constant/constant';
 import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import useTab from '@store/tabNumberStore';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 
@@ -81,7 +82,7 @@ const DUMMYDetailPage: DetailPageProps = {
   ],
 };
 
-export default function Page() {
+export default function Page({ params }: { params: { companyId: string } } ) {
   const tabArray = detailArray;
   // const imageRef = useRef<HTMLImageElement>(null);
   const detailInfoRef = useRef<HTMLDivElement>(null);
@@ -102,6 +103,11 @@ export default function Page() {
     } else {
     }
   }, [selectedTab]);
+
+  useEffect(()=>{
+    // 상세페이지 접근 시 GET 요청에 보낼 정보 (쿼리파라미터)
+    console.log(params.companyId);
+  },[])
 
   const scrollToDetailInfoRef = () => {
     if (detailInfoRef.current) {
@@ -153,7 +159,7 @@ export default function Page() {
         RatingCount={DUMMYDetailPage.RatingCount}
         // ref={visitedReviewRef}
       />
-      <ResButtonCard />
+      <ResButtonCard companyId={params.companyId} />
     </main>
   );
 }

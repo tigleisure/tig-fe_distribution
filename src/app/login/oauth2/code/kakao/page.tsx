@@ -13,7 +13,10 @@ export default function KakaoOuthCodeSendPage() {
     async function sendAuthCodeToBackend() {
       try {
         const response = await fetch(
-          `https://api.tigleisure.com/callback?code=${authCode}`
+          `https://api.tigleisure.com/callback?code=${authCode}`,
+          {
+            credentials: 'include',
+          }
         );
 
         if (response.ok) {

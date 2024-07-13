@@ -6,6 +6,8 @@ import Orange2RecSVG from '@public/svg/orange2Rec.svg';
 import TimeSelectCard from './TimeSelectCard';
 import { useState } from 'react';
 import GameSelectCard from './GameSelectCard';
+import { useGameReservationStore } from '@store/makeReservationInfo';
+import { set } from 'date-fns';
 
 const DUMMYTIMELIST = [
   '10:00',
@@ -56,9 +58,19 @@ const DUMMYISDISABLE = [
 
 export default function ResGameCard() {
   const [selectedIdx, setSelectedIdx] = useState(-1);
+  const GameReservationInfo = useGameReservationStore(
+    (state) => state.gameReservationInfo
+  );
+  const setSelectedStartTime = useGameReservationStore(
+    (state) => state.setGameReservationInfo
+  );
 
   const handleSelect = (idx: number) => {
     setSelectedIdx(idx);
+    setSelectedStartTime({
+      ...GameReservationInfo,
+      startTime: DUMMYTIMELIST[idx],
+    });
   };
   return (
     <section className="w-full px-5 py-[40px] gap-6 flex flex-col border-b border-grey2">

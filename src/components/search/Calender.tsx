@@ -1,24 +1,64 @@
 'use client';
 import { createCalendarList } from '@utils/calender';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { addMonths } from 'date-fns/addMonths';
 import { subMonths } from 'date-fns/subMonths';
 import { cn } from '@utils/cn';
 import CalenderLeftSVG from '@public/svg/calenderLeft.svg';
 import CalenderRightSVG from '@public/svg/calenderRight.svg';
+import { useSearchInputInfo } from '@store/searchInfoStore';
+import { formatDate, set } from 'date-fns';
+import { usePathname } from 'next/navigation';
+import {
+  useGameReservationStore,
+  useTimeReservationStore,
+} from '@store/makeReservationInfo';
 
 const date = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function Calender() {
-  const [calendarDate, setCalendarDate] = useState<Date>(new Date());
-  const [selecetedDate, setSelectedDate] = useState<Date>(new Date());
+  const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState(
+    formatDate(new Date(), 'yyyy-MM-dd')
+  );
+  const pathname = usePathname();
+  const gameReservationInfo = useGameReservationStore(
+    (state) => state.gameReservationInfo
+  );
+  const setGameReservationInfo = useGameReservationStore(
+    (state) => state.setGameReservationInfo
+  );
+
+  const timeReservationInfo = useTimeReservationStore(
+    (state) => state.timeReservationInfo
+  );
+  const setTimeReservationInfo = useTimeReservationStore(
+    (state) => state.setTimeReservationInfo
+  );
+
+  const searchInputInfo = useSearchInputInfo((state) => state.searchInput);
+  const setSearchInputInfo = useSearchInputInfo(
+    (state) => state.setSearchInput
+  );
+
   const handleNextMonthButtonClick = () => {
-    setCalendarDate(addMonths(calendarDate, 1));
+    setCalendarMonth(addMonths(calendarMonth, 1));
   };
   const handlePrevMonthButtonClick = () => {
-    setCalendarDate(subMonths(calendarDate, 1));
+    setCalendarMonth(subMonths(calendarMonth, 1));
   };
-  const calendarList = createCalendarList(calendarDate);
+  const calendarList = createCalendarList(calendarMonth);
+  const handleClickDate = (date: Date) => {
+    const formattedDate = formatDate(date, 'yyyy-MM-dd');
+    if (pathname.startsWith('/reservation/game')) {
+      setGameReservationInfo({ ...gameReservationInfo, date: formattedDate });
+    } else if (pathname.startsWith('/reservation/time')) {
+      setTimeReservationInfo({ ...timeReservationInfo, date: formattedDate });
+    } else {
+      setSearchInputInfo({ ...searchInputInfo, searchDate: formattedDate });
+    }
+    setSelectedDate(formattedDate);
+  };
   return (
     <section className="w-full flex flex-col gap-[6px] items-center self-center">
       <div className="flex justify-between gap-2 items-center mb-[14px]">
@@ -26,7 +66,7 @@ export default function Calender() {
           <CalenderLeftSVG />
         </button>
         <div className="title3 grey7">
-          {calendarDate.getFullYear()}년 {calendarDate.getMonth() + 1}월
+          {calendarMonth.getFullYear()}년 {calendarMonth.getMonth() + 1}월
         </div>
         <button onClick={handleNextMonthButtonClick}>
           <CalenderRightSVG />
@@ -45,8 +85,8 @@ export default function Calender() {
       <div>
         {calendarList.map((week, idx) => {
           if (
-            week[0].getMonth() !== calendarDate.getMonth() &&
-            week[6].getMonth() !== calendarDate.getMonth()
+            week[0].getMonth() !== calendarMonth.getMonth() &&
+            week[6].getMonth() !== calendarMonth.getMonth()
           ) {
             return null;
           }
@@ -55,14 +95,18 @@ export default function Calender() {
               {week.map((day, idx) => (
                 <div
                   key={idx + 1}
-                  onClick={() => setSelectedDate(day)}
+                  onClick={() => {
+                    handleClickDate(day);
+                  }}
                   className={cn(
                     'w-[44px] h-[44px] grey6 flex justify-center items-center cursor-pointer body2',
                     {
                       'rounded-full bg-primary_orange1 text-white':
-                        day.getMonth() === selecetedDate.getMonth() &&
-                        day.getDate() === selecetedDate.getDate(),
-                      'text-grey3': day.getMonth() !== calendarDate.getMonth(),
+                        day.getMonth() ===
+                          parseInt(selectedDate.substring(5, 7), 10) - 1 &&
+                        day.getDate() ===
+                          parseInt(selectedDate.substring(8, 10), 10),
+                      'text-grey3': day.getMonth() !== calendarMonth.getMonth(),
                     }
                   )}
                 >
