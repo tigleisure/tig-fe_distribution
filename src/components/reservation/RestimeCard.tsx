@@ -4,7 +4,8 @@ import GreyRecSVG from '@public/svg/greyRec.svg';
 import Orange1RecSVG from '@public/svg/orange1Rec.svg';
 import Orange2RecSVG from '@public/svg/orange2Rec.svg';
 import TimeSelectCard from './TimeSelectCard';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useTimeReservationStore } from '@store/makeReservationInfo';
 
 const DUMMYTIMELIST = [
   '10:00',
@@ -79,6 +80,12 @@ const DUMMYISSELECTED = [
 
 export default function RestimeCard() {
   const [selectedIdx, setSelectedIdx] = useState(DUMMYISSELECTED);
+  const timeReservationInfo = useTimeReservationStore(
+    (state) => state.timeReservationInfo
+  );
+  const setTime = useTimeReservationStore(
+    (state) => state.setTimeReservationInfo
+  );
 
   const handleSelect = (idx: number) => {
     // 하나라도 클릭된게 있다면
@@ -88,28 +95,69 @@ export default function RestimeCard() {
     // 새로 클릭된게 그전 클릭보다 인덱스가 작거나 같다면 클릭 된 것만 활성화
     // 하나라도 클릭된게 없다면 새로 클릭된 것만 활성화
     const hasTrue = selectedIdx.some((val) => val === true);
-  if (hasTrue) {
-    const lastSelectedIndex = selectedIdx.lastIndexOf(true);
-    if (idx > lastSelectedIndex) {
-      const hasDisabledBetween = DUMMYISDISABLE.slice(lastSelectedIndex + 1, idx).includes(true);
-      if (!hasDisabledBetween) {
-        const newSelectedIdx = selectedIdx.map((b, i) =>
-          i >= lastSelectedIndex && i <= idx ? true : selectedIdx[i] === true ? true : false
-        );
-        setSelectedIdx(newSelectedIdx);
+    if (hasTrue) {
+      const lastSelectedIndex = selectedIdx.lastIndexOf(true);
+      if (idx > lastSelectedIndex) {
+        const hasDisabledBetween = DUMMYISDISABLE.slice(
+          lastSelectedIndex + 1,
+          idx
+        ).includes(true);
+        if (!hasDisabledBetween) {
+          const newSelectedIdx = selectedIdx.map((b, i) =>
+            i >= lastSelectedIndex && i <= idx
+              ? true
+              : selectedIdx[i] === true
+              ? true
+              : false
+          );
+          setSelectedIdx(newSelectedIdx);
+        } else {
+          const newSelectedIdx = selectedIdx.map((b, i) =>
+            i === idx ? true : false
+          );
+          setSelectedIdx(newSelectedIdx);
+        }
       } else {
-        const newSelectedIdx = selectedIdx.map((b, i) => (i === idx ? true : false));
+        const newSelectedIdx = selectedIdx.map((b, i) =>
+          i === idx ? true : false
+        );
         setSelectedIdx(newSelectedIdx);
       }
     } else {
-      const newSelectedIdx = selectedIdx.map((b, i) => (i === idx ? true : false));
+      const newSelectedIdx = selectedIdx.map((b, i) => (i === idx ? true : b));
       setSelectedIdx(newSelectedIdx);
     }
-  } else {
-    const newSelectedIdx = selectedIdx.map((b, i) => (i === idx ? true : b));
-    setSelectedIdx(newSelectedIdx);
-  }
   };
+
+  useEffect(() => {
+    const selectedIndices = selectedIdx
+      .map((isSelected, index) => (isSelected ? index : null))
+      .filter((val) => val !== null);
+    if (selectedIndices.length > 0) {
+      // 마지막 시간에 +30분
+      const [hours, minutes] = DUMMYTIMELIST[
+        selectedIndices[selectedIndices.length - 1] || 0
+      ]
+        .split(':')
+        .map(Number);
+      let newMinutes = minutes + 30;
+      let newHours = hours;
+      if (newMinutes >= 60) {
+        newMinutes -= 60;
+        newHours += 1;
+      }
+      const formattedHours = String(newHours).padStart(2, '0');
+      const formattedMinutes = String(newMinutes).padStart(2, '0');
+
+      const newEndTime = `${formattedHours}:${formattedMinutes}`;
+      setTime({
+        ...timeReservationInfo,
+        startTime: DUMMYTIMELIST[selectedIndices[0] || 0],
+        endTime: newEndTime,
+      });
+    }
+  }, [selectedIdx]);
+
   return (
     <section className="w-full flex flex-col gap-[14px] px-5 py-[40px] border-b border-grey2">
       <InfoCard number={2} content="시간을 선택해주세요." />
