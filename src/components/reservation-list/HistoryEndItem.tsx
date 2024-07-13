@@ -13,7 +13,7 @@ export default function HistoryEndItem({
   adultCount,
   teenagerCount,
   kidsCount,
-  closedReservationStatus,
+  reservationStatus,
   reservationId,
   reviewId,
 }: HistoryEndItemProps) {
@@ -32,7 +32,7 @@ export default function HistoryEndItem({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
       />
-      {closedReservationStatus === 'notYetReviewed' && (
+      {reservationStatus === 'DONE' && (
         <FullButton
           size="sm"
           color="white"
@@ -44,7 +44,7 @@ export default function HistoryEndItem({
           }}
         />
       )}
-      {closedReservationStatus === 'alreadyReviewed' && (
+      {reservationStatus === 'REVIEWED' && (
         <FullButton
           size="sm"
           color="grey5"
@@ -57,7 +57,7 @@ export default function HistoryEndItem({
           }}
         />
       )}
-      {closedReservationStatus === 'denied' && (
+      {reservationStatus === 'DECLINED' && (
         <FullButton
           bgColor="grey3"
           color="white"
@@ -66,7 +66,7 @@ export default function HistoryEndItem({
           disabled
         />
       )}
-      {closedReservationStatus === 'canceled' && (
+      {reservationStatus === 'CANCELED' && (
         <FullButton
           bgColor="status_red1_opacity"
           color="status_red1"

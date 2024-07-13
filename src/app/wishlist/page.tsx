@@ -1,3 +1,5 @@
+'use client';
+
 import NavBar from '@components/all/NavBar/NavBar';
 import Tabs from '@components/all/Tabs/Tabs';
 import { allleisureArray } from '@constant/constant';
@@ -5,6 +7,7 @@ import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import ResultCard from '@components/search/result/ResultCard';
 import { da } from 'date-fns/locale';
+import { useEffect } from 'react';
 
 const DUMMYRESULTS: ResultCardProps[] = [
   {
@@ -134,7 +137,24 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
 ];
 
-export default function page() {
+export default function Page() {
+  useEffect(() => {
+    async function getWishlist() {
+      const response = await fetch(
+        'https://api.tigleisure.com/api/v1/wishlist',
+        {
+          credentials: 'include',
+        }
+      );
+
+      const data = await response.json();
+
+      console.log(data);
+    }
+
+    getWishlist();
+  }, []);
+
   const tabArray = allleisureArray;
   return (
     <div className="flex flex-col h-full mb-[54px] items-center">
