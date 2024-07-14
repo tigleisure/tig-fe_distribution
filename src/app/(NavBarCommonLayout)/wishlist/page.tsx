@@ -290,7 +290,7 @@ export default function Page() {
       />
 
       {selectedTab === '전체' && (
-        <main className="w-full max-h-wishListMain absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
+        <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
           {wishList.map((data, index) => (
             <ResultCard key={index} {...data} />
           ))}
@@ -298,7 +298,7 @@ export default function Page() {
       )}
 
       {selectedTab !== '전체' && (
-        <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
+        <main className="w-full max-h-wishListMain  absolute top-[120px] pb-10 overflow-y-scroll">
           {wishList
             .filter((wishListItem) => wishListItem.gameNameType === selectedTab)
             .map((data) => (

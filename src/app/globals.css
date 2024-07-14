@@ -67,6 +67,10 @@ input {
   outline: none;
 }
 
+textarea {
+  outline: none;
+}
+
 a {
   text-decoration: none;
   color: inherit;

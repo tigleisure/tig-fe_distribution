@@ -86,6 +86,11 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
           ...inputTimeResValue,
           kidsCount: inputTimeResValue.kidsCount - 1,
         });
+      } else if (title === '게임') {
+        setKidGameResCount({
+          ...inputGameResValue,
+          gameCount: inputGameResValue.gameCount - 1,
+        });
       }
     } else {
       // search
@@ -125,6 +130,16 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
         setKidGameResCount({
           ...inputGameResValue,
           kidsCount: inputGameResValue.kidsCount + 1,
+        });
+      } else if (title === '어린이') {
+        setKidGameResCount({
+          ...inputGameResValue,
+          kidsCount: inputGameResValue.kidsCount + 1,
+        });
+      } else if (title === '게임') {
+        setKidGameResCount({
+          ...inputGameResValue,
+          gameCount: inputGameResValue.gameCount + 1,
         });
       }
     } else if (pathname.startsWith('/reservation/time')) {
@@ -168,13 +183,17 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   return (
     <article
       className={cn('h-[70px] w-full px-5 py-4 flex justify-between', {
-        'mt-1': title === '성인',
-        'border-b border-grey2': title !== '어린이',
+        'mt-1': title === '성인' || title === '게임',
+        'border-b border-grey2': title !== '어린이' && title !== '게임',
       })}
     >
-      <div className="flex flex-col justify-between h-full">
+      <div
+        className={cn('flex flex-col justify-between h-full', {
+          'justify-center': title === '게임',
+        })}
+      >
         <p className="title3 text-grey7">{title}</p>
-        <p className="body4 text-grey5">{description}</p>
+        {description && <p className="body4 text-grey5">{description}</p>}
       </div>
       <div className="flex justify-between items-center w-[100px]">
         <CountDownSVG

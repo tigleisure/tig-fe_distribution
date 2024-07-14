@@ -1,6 +1,6 @@
 import Header from '@components/all/Header';
 import MakeResButtonCard from '@components/reservation/MakeResButtonCard';
-import PriceCard from '@components/reservation/PriceCard';
+import RequestCard from '@components/reservation/RequestCard';
 import ResDateCard from '@components/reservation/ResDateCard';
 import ResPeopleCountCard from '@components/reservation/ResPeopleCountCard';
 import ResReservationCard from '@components/reservation/ResReservationCard';
@@ -16,8 +16,7 @@ export default function Page() {
       <ResDateCard />
       <RestimeCard />
       <ResPeopleCountCard />
-      <ResReservationCard />
-      <PriceCard price={DUMMYPRICE} />
+      <RequestCard />
       <MakeResButtonCard />
     </main>
   )

@@ -1,10 +1,10 @@
 import Header from '@components/all/Header';
 import MakeResButtonCard from '@components/reservation/MakeResButtonCard';
-import PriceCard from '@components/reservation/PriceCard';
+import RequestCard from '@components/reservation/RequestCard';
 import ResDateCard from '@components/reservation/ResDateCard';
 import ResGameCard from '@components/reservation/ResGameCard';
 import ResPeopleCountCard from '@components/reservation/ResPeopleCountCard';
-import ResReservationCard from '@components/reservation/ResReservationCard';
+import GameCountCard from '@components/reservation/GameCountCard';
 
 const DUMMYPRICE = '10,000';
 
@@ -16,8 +16,8 @@ export default function Page() {
       <ResDateCard />
       <ResGameCard />
       <ResPeopleCountCard />
-      <ResReservationCard />
-      <PriceCard price={DUMMYPRICE} />
+      <GameCountCard />
+      <RequestCard />
       <MakeResButtonCard />
     </main>
   )
