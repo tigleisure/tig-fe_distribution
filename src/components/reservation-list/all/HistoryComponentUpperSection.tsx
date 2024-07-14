@@ -6,8 +6,8 @@ import { HistoryComponentUpperSectionProps } from 'types/reservation-list/Reserv
 import { cn } from '@utils/cn';
 
 export default function HistoryComponentUpperSection({
-  companyName,
-  companyAddress,
+  clubName,
+  clubAddress,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -25,10 +25,10 @@ export default function HistoryComponentUpperSection({
       <div className="h-fit flex flex-col justify-between items-start gap-y-3 grow txt-overflow-ellipsis">
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
           <span className="w-full title3 text-grey7 txt-overflow-ellipsis">
-            {companyName}
+            {clubName}
           </span>
           <span className="w-full body4 text-grey5 txt-overflow-ellipsis">
-            {companyAddress}
+            {clubAddress}
           </span>
         </div>
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
@@ -45,9 +45,9 @@ export default function HistoryComponentUpperSection({
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallPersonSVG />
             <span className="body4 text-grey7">
-              {adultCount && `성인 ${adultCount}명`}
-              {teenagerCount && `청소년 ${teenagerCount}명`}
-              {kidsCount && `어린이 ${kidsCount}명`}
+              {adultCount !== 0 && `성인 ${adultCount}명`}{' '}
+              {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}{' '}
+              {kidsCount !== 0 && `어린이 ${kidsCount}명`}
             </span>
           </div>
         </div>

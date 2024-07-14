@@ -6,8 +6,8 @@ import Link from 'next/link';
 
 export default function HistoryInProgressItem({
   imageUrl,
-  companyName,
-  companyAddress,
+  clubName,
+  clubAddress,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -25,8 +25,8 @@ export default function HistoryInProgressItem({
       className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
     >
       <HistoryComponentUpperSection
-        companyName={companyName}
-        companyAddress={companyAddress}
+        clubName={clubName}
+        clubAddress={clubAddress}
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}

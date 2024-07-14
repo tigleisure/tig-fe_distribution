@@ -1,7 +1,7 @@
 export interface HistoryInProgressItemProps {
   imageUrl?: string;
-  companyName: string;
-  companyAddress: string;
+  clubName: string;
+  clubAddress: string;
   eventDate: string;
   eventStartTime: string;
   eventEndTime: string;
@@ -51,7 +51,7 @@ export interface ReservationItemProps {
   clubId: number | null;
   type: any; // any로 된 것은 추후 수정
   businessHours: any;
-  clubName: any;
-  clubAddress: any;
+  clubName: string;
+  clubAddress: string;
   reservationId: number | null;
 }

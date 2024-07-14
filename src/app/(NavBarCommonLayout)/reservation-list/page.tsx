@@ -147,8 +147,10 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName:
+      '스카이락 볼링장 스카이락 볼링장 스카이락 볼링장 스카이락 볼링장 스카이락 볼링장',
+    clubAddress:
+      '서울 서대문구 신촌로 73 케이스빌딩 4층 서울 서대문구 신촌로 73 케이스빌딩 서울 서대문구 신촌로 73 케이스빌딩 ',
     reservationId: null,
   },
   {
@@ -164,8 +166,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -181,8 +183,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -198,8 +200,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -215,8 +217,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -232,8 +234,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -249,8 +251,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -266,8 +268,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -283,8 +285,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -300,8 +302,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -317,8 +319,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -334,8 +336,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -351,8 +353,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -368,8 +370,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -385,8 +387,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -402,8 +404,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -419,8 +421,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -436,8 +438,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -453,8 +455,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -470,8 +472,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -487,8 +489,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -504,8 +506,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -521,8 +523,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -538,8 +540,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -555,8 +557,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -572,8 +574,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -589,8 +591,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -606,8 +608,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -623,8 +625,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -640,8 +642,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -657,8 +659,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -674,8 +676,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -691,8 +693,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -708,8 +710,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -725,8 +727,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -742,8 +744,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -759,8 +761,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -776,8 +778,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -793,8 +795,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -810,8 +812,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -827,8 +829,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -844,8 +846,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -861,8 +863,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -878,8 +880,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -895,8 +897,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -912,8 +914,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -929,8 +931,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -946,8 +948,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -963,8 +965,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -980,8 +982,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -997,8 +999,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1014,8 +1016,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1031,8 +1033,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1048,8 +1050,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1065,8 +1067,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1082,8 +1084,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1099,8 +1101,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1116,8 +1118,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1133,8 +1135,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1150,8 +1152,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1167,8 +1169,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1184,8 +1186,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
   {
@@ -1201,8 +1203,8 @@ const MockReservationData: ReservationItemProps[] = [
     clubId: null,
     type: null,
     businessHours: null,
-    clubName: null,
-    clubAddress: null,
+    clubName: '스카이락 볼링장',
+    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
     reservationId: null,
   },
 ];
@@ -1284,24 +1286,28 @@ export default function Page() {
             reservationItem.status === 'CONFIRMED' ? (
               <HistoryInProgressItem
                 key={index}
-                companyName={reservationItem.clubName}
-                companyAddress={reservationItem.clubAddress}
+                clubName={reservationItem.clubName}
+                clubAddress={reservationItem.clubAddress}
                 eventDate={reservationItem.date}
                 eventStartTime={reservationItem.startTime}
                 eventEndTime={reservationItem.endTime}
                 adultCount={reservationItem.adultCount}
+                teenagerCount={reservationItem.teenagerCount}
+                kidsCount={reservationItem.kidsCount}
                 reservationStatus={reservationItem.status}
                 reservationId={index}
               />
             ) : (
               <HistoryEndItem
                 key={index}
-                companyName={reservationItem.clubName}
-                companyAddress={reservationItem.clubAddress}
+                clubName={reservationItem.clubName}
+                clubAddress={reservationItem.clubAddress}
                 eventDate={reservationItem.date}
                 eventStartTime={reservationItem.startTime}
                 eventEndTime={reservationItem.endTime}
                 adultCount={reservationItem.adultCount}
+                teenagerCount={reservationItem.teenagerCount}
+                kidsCount={reservationItem.kidsCount}
                 reservationStatus={reservationItem.status}
                 reservationId={index} //일단 백엔드에서 추후에 예약과 review id를 줌
                 reviewId={index}
@@ -1327,12 +1333,14 @@ export default function Page() {
             {inProgressReservationList.map((data, index) => (
               <HistoryInProgressItem
                 key={index}
-                companyName={data.clubName}
-                companyAddress={data.clubAddress}
+                clubName={data.clubName}
+                clubAddress={data.clubAddress}
                 eventDate={data.date}
                 eventStartTime={data.startTime}
                 eventEndTime={data.endTime}
                 adultCount={data.adultCount}
+                teenagerCount={data.teenagerCount}
+                kidsCount={data.kidsCount}
                 reservationStatus={data.status}
                 reservationId={index}
               />
@@ -1354,12 +1362,14 @@ export default function Page() {
           {endReservationList.map((data, index) => (
             <HistoryEndItem
               key={index}
-              companyName={data.clubName}
-              companyAddress={data.clubAddress}
+              clubName={data.clubName}
+              clubAddress={data.clubAddress}
               eventDate={data.date}
               eventStartTime={data.startTime}
               eventEndTime={data.endTime}
               adultCount={data.adultCount}
+              teenagerCount={data.teenagerCount}
+              kidsCount={data.kidsCount}
               reservationStatus={data.status}
               reservationId={index}
               reviewId={index}
