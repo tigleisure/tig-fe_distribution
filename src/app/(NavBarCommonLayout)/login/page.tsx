@@ -5,7 +5,7 @@ export default function page() {
   return (
     <main className="w-full h-full">
       <Login />
-      <NavBar />
+      {/* <NavBar /> */}
     </main>
   );
 }

@@ -28,8 +28,8 @@ export default function PaymentAfterConfirm() {
         </div>
       </div>
       <HistoryComponentUpperSection
-        companyName={firstStageInfoObject.companyName}
-        companyAddress={firstStageInfoObject.companyAddress}
+        clubName={firstStageInfoObject.clubName}
+        clubAddress={firstStageInfoObject.clubAddress}
         eventDate={firstStageInfoObject.eventDate}
         eventStartTime={firstStageInfoObject.eventStartTime}
         eventEndTime={firstStageInfoObject.eventDate}

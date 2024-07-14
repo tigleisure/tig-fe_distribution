@@ -1,6 +1,6 @@
 interface BeforeFirstStageCardProps {
-  companyName: string;
-  companyAddress: string;
+  clubName: string;
+  clubAddress: string;
   eventDate: string;
   adultCount?: number;
   teenagerCount?: number;
@@ -11,8 +11,8 @@ interface BeforeFirstStageCardProps {
 }
 
 export default function BeforeFirstStageCard({
-  companyName,
-  companyAddress,
+  clubName,
+  clubAddress,
   eventDate,
   adultCount,
   teenagerCount,
@@ -25,8 +25,8 @@ export default function BeforeFirstStageCard({
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-5">
         <p className="w-full h-fit flex flex-col gap-y-1 items-start">
-          <span className="title3 text-grey7">{companyName}</span>
-          <span className="body4 text-grey5">{companyAddress}</span>
+          <span className="title3 text-grey7">{clubName}</span>
+          <span className="body4 text-grey5">{clubAddress}</span>
         </p>
         <div className="w-full border-b-[1px] border-grey2" />
         <div className="w-full flex justify-between items-center">

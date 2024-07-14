@@ -186,7 +186,7 @@ export function SearchResult() {
       {isResult && <NaverMap />}
       {isResult && <BottomSheet results={resultCards} />}
       {!isResult && <NoSearchResult />}
-      <NavBar />
+      {/* <NavBar /> */}
     </div>
   );
 }

@@ -4,8 +4,8 @@ import { ReviewProps } from 'types/reservation-list/review/ReservationListReview
 
 export default function Review({
   imageUrl,
-  companyName,
-  companyAddress,
+  clubName,
+  clubAddress,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -20,8 +20,8 @@ export default function Review({
     <div className="mt-5 p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-5 bg-white shadow-myPageLogoutButton">
       <HistoryComponentUpperSection
         imageUrl={imageUrl}
-        companyName={companyName}
-        companyAddress={companyAddress}
+        clubName={clubName}
+        clubAddress={clubAddress}
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}

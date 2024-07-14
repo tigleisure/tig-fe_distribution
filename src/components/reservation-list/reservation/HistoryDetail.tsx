@@ -8,8 +8,8 @@ import { ReservationDetailProps } from 'types/reservation-list/reservation/Reser
 
 export default function HistoryDetail({
   imageUrl,
-  companyName,
-  companyAddress,
+  clubName,
+  clubAddress,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -29,8 +29,8 @@ export default function HistoryDetail({
   return (
     <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[60px] bg-white shadow-myPageLogoutButton">
       <HistoryComponentUpperSection
-        companyName={companyName}
-        companyAddress={companyAddress}
+        clubName={clubName}
+        clubAddress={clubAddress}
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
