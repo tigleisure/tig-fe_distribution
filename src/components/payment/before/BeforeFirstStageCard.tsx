@@ -3,8 +3,8 @@ interface BeforeFirstStageCardProps {
   companyAddress: string;
   eventDate: string;
   adultCount?: number;
-  youngManCount?: number;
-  kidCount?: number;
+  teenagerCount?: number;
+  kidsCount?: number;
   eventStartTime: string;
   eventEndTime: string;
   stageFirstPrice: number;
@@ -15,8 +15,8 @@ export default function BeforeFirstStageCard({
   companyAddress,
   eventDate,
   adultCount,
-  youngManCount,
-  kidCount,
+  teenagerCount,
+  kidsCount,
   eventStartTime,
   eventEndTime,
   stageFirstPrice,
@@ -37,8 +37,8 @@ export default function BeforeFirstStageCard({
           <span className="title text-grey4">인원</span>
           <span className="body4 text-grey6">
             {adultCount && `성인 ${adultCount}명 `}{' '}
-            {youngManCount && `청소년 ${youngManCount}명 `}{' '}
-            {kidCount && `어린이 ${kidCount}명`}
+            {teenagerCount && `청소년 ${teenagerCount}명 `}{' '}
+            {kidsCount && `어린이 ${kidsCount}명`}
           </span>
         </div>
         <div className="w-full flex justify-between items-center">

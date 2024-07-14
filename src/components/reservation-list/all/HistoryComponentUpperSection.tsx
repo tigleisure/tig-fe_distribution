@@ -12,8 +12,8 @@ export default function HistoryComponentUpperSection({
   eventStartTime,
   eventEndTime,
   adultCount,
-  youngManCount,
-  kidCount,
+  teenagerCount,
+  kidsCount,
   className,
 }: HistoryComponentUpperSectionProps) {
   return (
@@ -46,8 +46,8 @@ export default function HistoryComponentUpperSection({
             <SmallPersonSVG />
             <span className="body4 text-grey7">
               {adultCount && `성인 ${adultCount}명`}
-              {youngManCount && `청소년 ${youngManCount}명`}
-              {kidCount && `어린이 ${kidCount}명`}
+              {teenagerCount && `청소년 ${teenagerCount}명`}
+              {kidsCount && `어린이 ${kidsCount}명`}
             </span>
           </div>
         </div>

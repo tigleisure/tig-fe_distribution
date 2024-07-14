@@ -67,7 +67,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidGameResCount({
           ...inputGameResValue,
-          kidCount: inputGameResValue.kidCount - 1,
+          kidsCount: inputGameResValue.kidsCount - 1,
         });
       }
     } else if (pathname.startsWith('/reservation/time')) {
@@ -84,7 +84,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidTimeResCount({
           ...inputTimeResValue,
-          kidCount: inputTimeResValue.kidCount - 1,
+          kidsCount: inputTimeResValue.kidsCount - 1,
         });
       }
     } else {
@@ -102,7 +102,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidSearchCount({
           ...inputSearchValue,
-          kidCount: inputSearchValue.kidCount - 1,
+          kidsCount: inputSearchValue.kidsCount - 1,
         });
       }
     }
@@ -124,7 +124,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidGameResCount({
           ...inputGameResValue,
-          kidCount: inputGameResValue.kidCount + 1,
+          kidsCount: inputGameResValue.kidsCount + 1,
         });
       }
     } else if (pathname.startsWith('/reservation/time')) {
@@ -141,10 +141,11 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidTimeResCount({
           ...inputTimeResValue,
-          kidCount: inputTimeResValue.kidCount + 1,
+          kidsCount: inputTimeResValue.kidsCount + 1,
         });
       }
-    } else { // search
+    } else {
+      // search
       if (title === '성인') {
         setAdultSearchCount({
           ...inputSearchValue,
@@ -158,11 +159,10 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       } else if (title === '어린이') {
         setKidSearchCount({
           ...inputSearchValue,
-          kidCount: inputSearchValue.kidCount + 1,
+          kidsCount: inputSearchValue.kidsCount + 1,
         });
       }
     }
-    
   };
 
   return (

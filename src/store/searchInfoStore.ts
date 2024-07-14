@@ -6,7 +6,7 @@ interface SearchInputProps {
   searchDate: string;
   adultCount: number;
   teenagerCount: number;
-  kidCount: number;
+  kidsCount: number;
 }
 
 interface Store {
@@ -20,7 +20,7 @@ export const useSearchInputInfo = create<Store>((set) => ({
     searchDate: formatDate(new Date(), 'yyyy-MM-dd'),
     adultCount: 1,
     teenagerCount: 0,
-    kidCount: 0,
+    kidsCount: 0,
   },
   setSearchInput: (status: SearchInputProps) => set({ searchInput: status }),
 }));

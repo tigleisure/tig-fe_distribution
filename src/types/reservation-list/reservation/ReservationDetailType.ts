@@ -6,8 +6,8 @@ export interface ReservationDetailProps {
   eventStartTime: string;
   eventEndTime: string;
   adultCount?: number;
-  youngManCount?: number;
-  kidCount?: number;
+  teenagerCount?: number;
+  kidsCount?: number;
   reservationNumber: string;
   reservationUserName: string;
   phoneNumber: string;

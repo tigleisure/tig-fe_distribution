@@ -14,8 +14,8 @@ export default function HistoryDetail({
   eventStartTime,
   eventEndTime,
   adultCount,
-  youngManCount,
-  kidCount,
+  teenagerCount,
+  kidsCount,
   reservationNumber,
   reservationUserName,
   phoneNumber,
@@ -35,8 +35,8 @@ export default function HistoryDetail({
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
         adultCount={adultCount}
-        youngManCount={youngManCount}
-        kidCount={kidCount}
+        teenagerCount={teenagerCount}
+        kidsCount={kidsCount}
       />
       <div className="w-full border-[1px] border-grey2" />
       <ReservationInfoSection

@@ -12,8 +12,8 @@ export default function HistoryInProgressItem({
   eventStartTime,
   eventEndTime,
   adultCount,
-  youngManCount,
-  kidCount,
+  teenagerCount,
+  kidsCount,
   reservationStatus,
   reservationId,
 }: HistoryInProgressItemProps) {
@@ -31,10 +31,10 @@ export default function HistoryInProgressItem({
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
         adultCount={adultCount}
-        youngManCount={youngManCount}
-        kidCount={kidCount}
+        teenagerCount={teenagerCount}
+        kidsCount={kidsCount}
       />
-      {reservationStatus === 'inProgress' && (
+      {reservationStatus === 'TBC' && (
         <div className="w-full h-fit flex gap-[10px]">
           <FullButton
             bgColor="white"
@@ -58,7 +58,7 @@ export default function HistoryInProgressItem({
         </div>
       )}
 
-      {reservationStatus === 'confirmed' && (
+      {reservationStatus === 'CONFIRMED' && (
         <div className="w-full h-fit flex gap-[10px]">
           <FullButton
             bgColor="white"

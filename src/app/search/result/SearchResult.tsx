@@ -145,7 +145,7 @@ const isResult = true;
 export function SearchResult() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
-  const { search, date, adultCount, teenagerCount, kidCount } =
+  const { search, date, adultCount, teenagerCount, kidsCount } =
     Object.fromEntries(searchParams.entries());
 
   const selectedTab = useTab((state) => state.selectedTab);
@@ -170,7 +170,7 @@ export function SearchResult() {
         placeholder={`${search}, ${date}${
           adultCount === '0' ? '' : `, 성인 ${adultCount}명`
         }${teenagerCount === '0' ? '' : `, 청소년 ${teenagerCount}명`}${
-          kidCount === '0' ? '' : `, 어린이 ${kidCount}명 `
+          kidsCount === '0' ? '' : `, 어린이 ${kidsCount}명 `
         }`}
         isHomeOrResultPage
       />

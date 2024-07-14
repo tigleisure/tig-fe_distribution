@@ -34,8 +34,8 @@ export default function PaymentAfterConfirm() {
         eventStartTime={firstStageInfoObject.eventStartTime}
         eventEndTime={firstStageInfoObject.eventDate}
         adultCount={firstStageInfoObject.adultCount}
-        youngManCount={firstStageInfoObject.youngManCount}
-        kidCount={firstStageInfoObject.kidCount}
+        teenagerCount={firstStageInfoObject.teenagerCount}
+        kidsCount={firstStageInfoObject.kidsCount}
         className="bg-white p-5"
       />
     </section>

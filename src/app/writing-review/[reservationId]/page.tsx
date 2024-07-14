@@ -55,8 +55,8 @@ export default function Page() {
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}
                 adultCount={DUMMYREVIEWDATA.adultCount}
-                youngManCount={DUMMYREVIEWDATA.youngManCount}
-                kidCount={DUMMYREVIEWDATA.kidCount}
+                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
+                kidsCount={DUMMYREVIEWDATA.kidsCount}
               />
             </div>
             <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
@@ -133,8 +133,8 @@ export default function Page() {
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}
                 adultCount={DUMMYREVIEWDATA.adultCount}
-                youngManCount={DUMMYREVIEWDATA.youngManCount}
-                kidCount={DUMMYREVIEWDATA.kidCount}
+                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
+                kidsCount={DUMMYREVIEWDATA.kidsCount}
               />
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
