@@ -50,8 +50,8 @@ export default function Page() {
     // 실제로는 현재 페이지 컴포넌트가 로드될 때, 날짜, 성인수, 청소년수, 어린이수, 시작 시간, 종료시간, 가격을 백엔드로부터 받아서 상태 값을 설정해준다.
     // 일단 임시 데이터를 통해 화면 UI 완성
     const DUMMYFIRSTSTAGEDATA: paymentFirstStageInfoProps = {
-      companyName: '스카이락 볼링장',
-      companyAddress: '서울 서대문구 신촌로 73 케이스퀘어 8층',
+      clubName: '스카이락 볼링장',
+      clubAddress: '서울 서대문구 신촌로 73 케이스퀘어 8층',
       eventDate: '05.17 (금)',
       adultCount: 2,
       eventStartTime: '오전 10:00',

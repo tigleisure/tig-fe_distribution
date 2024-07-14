@@ -1,8 +1,8 @@
 import { create } from 'zustand';
 
 export interface paymentFirstStageInfoProps {
-  companyName: string;
-  companyAddress: string;
+  clubName: string;
+  clubAddress: string;
   eventDate: string;
   adultCount: number;
   teenagerCount?: number;
@@ -20,8 +20,8 @@ interface paymentFirstStageStore {
 // first stage에서의 정보를 관리
 export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
   firstStageInfoObject: {
-    companyName: '',
-    companyAddress: '',
+    clubName: '',
+    clubAddress: '',
     eventDate: '',
     adultCount: 0,
     teenagerCount: 0,

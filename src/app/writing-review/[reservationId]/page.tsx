@@ -14,8 +14,8 @@ import FortyEightTig from '@public/svg/fortyEightTig.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
-  companyName: '스카이락볼링장',
-  companyAddress: '서울 서대문구 신촌로 73',
+  clubName: '스카이락볼링장',
+  clubAddress: '서울 서대문구 신촌로 73',
   eventDate: '05.10 (수)',
   eventStartTime: '오전 10:00',
   eventEndTime: '오전 11:00',
@@ -49,8 +49,8 @@ export default function Page() {
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                companyAddress={DUMMYREVIEWDATA.companyAddress}
-                companyName={DUMMYREVIEWDATA.companyName}
+                clubAddress={DUMMYREVIEWDATA.clubName}
+                clubName={DUMMYREVIEWDATA.clubName}
                 eventDate={DUMMYREVIEWDATA.eventDate}
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}
@@ -127,8 +127,8 @@ export default function Page() {
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                companyAddress={DUMMYREVIEWDATA.companyAddress}
-                companyName={DUMMYREVIEWDATA.companyName}
+                clubAddress={DUMMYREVIEWDATA.clubAddress}
+                clubName={DUMMYREVIEWDATA.clubName}
                 eventDate={DUMMYREVIEWDATA.eventDate}
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
                 eventStartTime={DUMMYREVIEWDATA.eventStartTime}

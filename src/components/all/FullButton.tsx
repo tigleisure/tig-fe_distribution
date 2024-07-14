@@ -168,7 +168,7 @@ export default function FullButton({
 
       // 백엔드 전송 로직
       // 실제로는 companyId를 다음 주소로 넘겨야함
-      router.replace(`/payment/after/${firstStageInfoObject.companyName}`);
+      router.replace(`/payment/after/${firstStageInfoObject.clubName}`);
     }
   }
 

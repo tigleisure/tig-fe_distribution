@@ -1,7 +1,7 @@
 export interface ReservationDetailProps {
   imageUrl?: string;
-  companyName: string;
-  companyAddress: string;
+  clubName: string;
+  clubAddress: string;
   eventDate: string;
   eventStartTime: string;
   eventEndTime: string;

@@ -5,8 +5,8 @@ import { ReservationDetailProps } from 'types/reservation-list/reservation/Reser
 
 export default function page() {
   const DUMMYRESERVATIONDATA: ReservationDetailProps = {
-    companyName: '스카이락볼링장',
-    companyAddress: '서울 서대문구 신촌로 73',
+    clubName: '스카이락볼링장',
+    clubAddress: '서울 서대문구 신촌로 73',
     eventDate: '05.17 (금)',
     eventStartTime: '오전 10:00',
     eventEndTime: '오전 11:00',
