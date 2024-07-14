@@ -7,6 +7,8 @@ import { homeleisureArray } from '@constant/constant';
 import useModal from '@store/modalStore';
 import SearchHeader from '@components/all/SearchHeader';
 import DummyBannerSVG from '@public/svg/dummyBanner.svg';
+import HomeBannerSVG from '@public/svg/homeBanner.svg';
+import Image from 'next/image';
 import { HomeCardProps } from 'types/home/HomeTypes';
 import HomeCardList from '@components/home/HomeCardList';
 import useTab from '@store/tabNumberStore';
@@ -129,8 +131,10 @@ export default function Home() {
     <main className="h-full w-full flex flex-col overflow-y-scroll">
       <SearchHeader isHomeOrResultPage />
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
-      <div className="w-full max-w-[640px] mt-[111px] p-5">
-        <DummyBannerSVG className="w-full h-auto" />
+      <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
+        {/* <DummyBannerSVG className="w-full h-auto" /> */}
+        <HomeBannerSVG className="w-full h-auto" />
+        {/* <TigBannerSVG className="w-full h-auto" /> */}
       </div>
       {clubCards.length !== 0 && (
         <HomeCardList
