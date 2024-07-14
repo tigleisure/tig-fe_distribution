@@ -257,25 +257,34 @@ const DUMMYRESULTS: ResultCardProps[] = [
   },
 ];
 
+const categoryMap: { [key: string]: string } = {
+  당구: 'POCKET_BALL',
+  볼링: 'BALLING',
+  스크린골프: 'SCREEN_GOLF',
+  탁구: 'TABLE_TENNIS',
+  테니스: 'TENNIS',
+  전체: 'ALL',
+};
+
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
   const [wishList, setWishList] = useState<ResultCardProps[]>([]);
 
   useEffect(() => {
-    // async function getWishlist() {
-    //   const response = await fetch(
-    //     'https://api.tigleisure.com/api/v1/wishlist',
-    //     {
-    //       credentials: 'include',
-    //     }
-    //   );
-    //   const data = await response.json();
-    //   console.log(data);
-    //   // setWishList(data);
-    // }
-    // getWishlist();
+    async function getWishlist() {
+      const response = await fetch(
+        'https://api.tigleisure.com/api/v1/wishlist',
+        {
+          credentials: 'include',
+        }
+      );
+      const data = await response.json();
+      console.log(data);
+      setWishList(data.result);
+    }
+    getWishlist();
 
-    setWishList(DUMMYRESULTS);
+    // setWishList(DUMMYRESULTS);
   }, []);
 
   const tabArray = allleisureArray;
@@ -300,9 +309,12 @@ export default function Page() {
       {selectedTab !== '전체' && (
         <main className="w-full max-h-wishListMain  absolute top-[120px] pb-10 overflow-y-scroll">
           {wishList
-            .filter((wishListItem) => wishListItem.gameNameType === selectedTab)
+            .filter((wishListItem) => {
+              const mappedCategory = categoryMap[selectedTab];
+              return wishListItem.category === mappedCategory;
+            })
             .map((data) => (
-              <ResultCard key={data.clubId} {...data} />
+              <ResultCard key={data.id} {...data} />
             ))}
         </main>
       )}

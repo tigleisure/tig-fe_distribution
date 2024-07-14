@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 
 interface Store {
-  selectedTab: string | null;
+  selectedTab: string;
   setSelectedTab: (tab: string) => void;
 }
 

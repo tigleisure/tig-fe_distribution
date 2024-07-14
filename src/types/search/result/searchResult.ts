@@ -1,14 +1,14 @@
 export interface ResultCardProps {
   clubName: string;
-  clubId: number;
-  location: string;
-  rating: number;
-  reviewCount: number;
-  price: string;
-  gameType: '게임' | '시간';
-  gameNameType: '당구' | '볼링' | '스크린골프' | '탁구' | '테니스';
+  id: number;
+  address: string;
+  ratingSum: number;
+  ratingCount: number;
+  price: number;
+  type: 'GAME' | 'TIME';
+  category: 'FOOTBALL' | 'BALLING' | 'POCKET_BALL' | 'TABLE_TENNIS';
   isEvent?: boolean;
   isHeart?: boolean;
-  image: string;
+  imageUrls: string[];
   isLast?: boolean;
 }
