@@ -297,52 +297,10 @@ export default function Page() {
         </main>
       )}
 
-      {selectedTab === '당구' && (
+      {selectedTab !== '전체' && (
         <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
           {wishList
-            .filter((wishListItem) => wishListItem.gameNameType === '당구')
-            .map((data) => (
-              <ResultCard key={data.clubId} {...data} />
-            ))}
-        </main>
-      )}
-
-      {selectedTab === '볼링' && (
-        <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
-          {wishList
-            .filter((wishListItem) => wishListItem.gameNameType === '볼링')
-            .map((data) => (
-              <ResultCard key={data.clubId} {...data} />
-            ))}
-        </main>
-      )}
-
-      {selectedTab === '스크린골프' && (
-        <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
-          {wishList
-            .filter(
-              (wishListItem) => wishListItem.gameNameType === '스크린골프'
-            )
-            .map((data) => (
-              <ResultCard key={data.clubId} {...data} />
-            ))}
-        </main>
-      )}
-
-      {selectedTab === '탁구' && (
-        <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
-          {wishList
-            .filter((wishListItem) => wishListItem.gameNameType === '탁구')
-            .map((data) => (
-              <ResultCard key={data.clubId} {...data} />
-            ))}
-        </main>
-      )}
-
-      {selectedTab === '테니스' && (
-        <main className="w-full max-h-wishListMain  absolute top-[120px] mt-5 pb-10 overflow-y-scroll">
-          {wishList
-            .filter((wishListItem) => wishListItem.gameNameType === '테니스')
+            .filter((wishListItem) => wishListItem.gameNameType === selectedTab)
             .map((data) => (
               <ResultCard key={data.clubId} {...data} />
             ))}
