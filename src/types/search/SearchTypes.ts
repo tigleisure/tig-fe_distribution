@@ -5,5 +5,5 @@ export interface InfoCardProps {
 
 export interface ChooseCardProps {
   title: string;
-  description: string;
+  description?: string;
 }
