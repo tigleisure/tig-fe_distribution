@@ -1,9 +1,9 @@
-import { HomeCardProps } from 'types/home/HomeTypes';
 import HomeCard from './HomeCard';
+import { Club } from 'types/response/response';
 
 interface HomeCardListProps {
   title: string;
-  Card: HomeCardProps[];
+  Card: Club[];
 }
 
 export default function HomeCardList({ title, Card }: HomeCardListProps) {
@@ -13,9 +13,8 @@ export default function HomeCardList({ title, Card }: HomeCardListProps) {
         <p className="headline2 text-grey7">{title}</p>
       </div>
       <div className="w-full flex gap-[10px] overflow-x-scroll">
-        {Card.map((card) => (
-          // 카드 중복이 발생한다면 key값 수정해야함
-          <HomeCard key={card.clubName} {...card} />
+        {Card.map((card, idx) => (
+          <HomeCard key={card.imageUrls + String(idx)} {...card} />
         ))}
       </div>
     </section>

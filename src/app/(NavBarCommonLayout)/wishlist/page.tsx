@@ -1,22 +1,13 @@
 'use client';
 import NavBar from '@components/all/NavBar/NavBar';
 import Tabs from '@components/all/Tabs/Tabs';
-import { allleisureArray } from '@constant/constant';
+import { allleisureArray, categoryMapKorToEng } from '@constant/constant';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import ResultCard from '@components/search/result/ResultCard';
 import { useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
-
-const categoryMap: { [key: string]: string } = {
-  당구: 'POCKET_BALL',
-  볼링: 'BALLING',
-  스크린골프: 'SCREEN_GOLF',
-  탁구: 'TABLE_TENNIS',
-  테니스: 'TENNIS',
-  전체: 'ALL',
-};
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
@@ -62,7 +53,7 @@ export default function Page() {
             data?.result?.length > 0 ? (
               data.result
                 .filter((wishListItem) => {
-                  const mappedCategory = categoryMap[selectedTab];
+                  const mappedCategory = categoryMapKorToEng[selectedTab];
                   return wishListItem.category === mappedCategory;
                 })
                 .map((data) => <ResultCard key={data.id} {...data} />)

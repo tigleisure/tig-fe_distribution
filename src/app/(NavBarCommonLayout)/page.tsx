@@ -3,7 +3,7 @@ import Modal from '@components/all/Modal';
 import FullButton from '@components/all/FullButton';
 import NavBar from '@components/all/NavBar/NavBar';
 import Tabs from '@components/all/Tabs/Tabs';
-import { homeleisureArray } from '@constant/constant';
+import { categoryMapEngToKor, homeleisureArray } from '@constant/constant';
 import useModal from '@store/modalStore';
 import SearchHeader from '@components/all/SearchHeader';
 import DummyBannerSVG from '@public/svg/dummyBanner.svg';
@@ -13,119 +13,54 @@ import { HomeCardProps } from 'types/home/HomeTypes';
 import HomeCardList from '@components/home/HomeCardList';
 import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
-
-const DUMMYCLUBCARDS: HomeCardProps[] = [
-  {
-    clubName: '스크린 골프',
-    gameType: '스크린골프',
-    id: '1',
-    image: '/png/dummyImage.png',
-    subtitle: '골프장입니다',
-  },
-  {
-    clubName: '스크린 당구',
-    gameType: '당구',
-    id: '2',
-    image: '/png/dummyImage.png',
-    subtitle: '당구장입니다',
-  },
-  {
-    clubName: '스크린 농구',
-    gameType: '농구',
-    id: '3',
-    image: '/png/dummyImage.png',
-    subtitle: '농구장입니다',
-  },
-  {
-    clubName: '스크린 테니스',
-    gameType: '테니스',
-    id: '4',
-    image: '/png/dummyImage.png',
-    subtitle: '테니스장입니다',
-  },
-  {
-    clubName: '스크린 탁구',
-    gameType: '탁구',
-    id: '5',
-    image: '/png/dummyImage.png',
-    subtitle: '탁구장입니다',
-  },
-];
-const DUMMYEVENTCLUBCARDS: HomeCardProps[] = [
-  {
-    clubName: '스크린 골프',
-    gameType: '스크린골프',
-    id: '1',
-    image: '/png/dummyImage.png',
-    subtitle: '골프장입니다',
-    isEventCard: true,
-  },
-  {
-    clubName: '스크린 당구',
-    gameType: '당구',
-    id: '2',
-    image: '/png/dummyImage.png',
-    subtitle: '당구장입니다',
-    isEventCard: true,
-  },
-  {
-    clubName: '스크린 농구',
-    gameType: '농구',
-    id: '3',
-    image: '/png/dummyImage.png',
-    subtitle: '농구장입니다',
-    isEventCard: true,
-  },
-  {
-    clubName: '스크린 테니스',
-    gameType: '테니스',
-    id: '4',
-    image: '/png/dummyImage.png',
-    subtitle: '테니스장입니다',
-    isEventCard: true,
-  },
-  {
-    clubName: '스크린 탁구',
-    gameType: '탁구',
-    id: '5',
-    image: '/png/dummyImage.png',
-    subtitle: '탁구장입니다',
-    isEventCard: true,
-  },
-];
+import { usePostHome } from '@apis/wishlist/postHome';
+import { Club } from 'types/response/response';
 
 export default function Home() {
   const homeArray = homeleisureArray;
   const selectedTab = useTab((state) => state.selectedTab);
-  const [clubCards, setClubCards] = useState<HomeCardProps[]>(DUMMYCLUBCARDS);
-  const [eventClubCards, setEventClubCards] =
-    useState<HomeCardProps[]>(DUMMYEVENTCLUBCARDS);
+  const { mutate, isPending, isSuccess } = usePostHome();
+  const [clubCards, setClubCards] = useState<Club[]>([]);
+  const [recommendClubCards, setRecommendClubCards] = useState<Club[]>([]);
+  const [originalClubCards, setOriginalClubCards] = useState<Club[]>([]);
+  // 이런스포츠 어때요는 상시 표기, 진행중인 이벤트에 대해 original 필요함
+  // const [originalEventClubCards, setOriginalEventClubCards] = useState<
+  //   Club[]
+  // >([]);
 
   useEffect(() => {
-    if (selectedTab == '홈') {
-      setClubCards(DUMMYCLUBCARDS);
-      setEventClubCards(DUMMYEVENTCLUBCARDS);
-      return;
+    if (selectedTab === '홈') {
+      setClubCards(originalClubCards);
     } else {
-      const filteredClubCards = DUMMYCLUBCARDS.filter(
-        (card) => card.gameType === selectedTab
+      const filteredClubCards = originalClubCards.filter(
+        (card) => categoryMapEngToKor[card.category] === selectedTab
       );
-      console.log('filteredClubCards', filteredClubCards);
       setClubCards(filteredClubCards);
-      const filteredEventClubCards = DUMMYEVENTCLUBCARDS.filter(
-        (card) => card.gameType === selectedTab
-      );
-      setEventClubCards(filteredEventClubCards);
     }
-  }, [selectedTab]);
+  }, [selectedTab, originalClubCards]);
 
   useEffect(() => {
-    // POST 요청
-    // body에 들어갈 정보
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords.latitude, position.coords.longitude);
+      mutate(
+        {
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
+        },
+        {
+          onSuccess: (data) => {
+            console.log(data);
+            setOriginalClubCards(data.result[0].nearestClubs);
+            // setOriginalEventClubCards(data.result[0].popularClubs);
+            setClubCards(data.result[0].nearestClubs);
+            setRecommendClubCards(data.result[0].recommendedClubs);
+          },
+          onError: (error) => {
+            console.log(error);
+          },
+        }
+      );
     });
-  }, []);
+  }, [mutate]);
 
   return (
     <main className="h-full w-full flex flex-col overflow-y-scroll">
@@ -136,19 +71,28 @@ export default function Home() {
         <HomeBannerSVG className="w-full h-auto" />
         {/* <TigBannerSVG className="w-full h-auto" /> */}
       </div>
-      {clubCards.length !== 0 && (
-        <HomeCardList
-          title="근처에서 즐길 수 있는 스포츠예요"
-          Card={clubCards}
-        />
+      {!isSuccess ? (
+        <div className="flex w-full justify-center pt-5 title2 text-grey7">
+          로딩중
+        </div>
+      ) : (
+        clubCards.length !== 0 && (
+          <HomeCardList
+            title="근처에서 즐길 수 있는 스포츠예요"
+            Card={clubCards}
+          />
+        )
       )}
-      {eventClubCards.length !== 0 && (
+      {/* {eventClubCards.length !== 0 && (
         <HomeCardList
           title="지금 이벤트 중인 스포츠예요"
           Card={eventClubCards}
         />
+      )} */}
+      {isSuccess && (
+        <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
       )}
-      <HomeCardList title="이런 스포츠 어때요?" Card={DUMMYCLUBCARDS} />
+
       {/* <NavBar /> */}
     </main>
   );
