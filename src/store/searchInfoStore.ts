@@ -16,7 +16,7 @@ interface Store {
 
 export const useSearchInputInfo = create<Store>((set) => ({
   searchInput: {
-    searchValue: '신촌',
+    searchValue: '',
     searchDate: formatDate(new Date(), 'yyyy-MM-dd'),
     adultCount: 1,
     teenagerCount: 0,
