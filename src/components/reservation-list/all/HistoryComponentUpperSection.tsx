@@ -45,9 +45,9 @@ export default function HistoryComponentUpperSection({
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallPersonSVG />
             <span className="body4 text-grey7">
-              {adultCount !== 0 && `성인 ${adultCount}명`}{' '}
-              {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}{' '}
-              {kidsCount !== 0 && `어린이 ${kidsCount}명`}
+              {adultCount && `성인 ${adultCount}명`}{' '}
+              {teenagerCount && `청소년 ${teenagerCount}명`}{' '}
+              {kidsCount && `어린이 ${kidsCount}명`}
             </span>
           </div>
         </div>
