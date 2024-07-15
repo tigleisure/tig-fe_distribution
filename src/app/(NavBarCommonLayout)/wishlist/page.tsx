@@ -8,6 +8,7 @@ import ResultCard from '@components/search/result/ResultCard';
 import { useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
+import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
@@ -19,6 +20,8 @@ export default function Page() {
     return <div>Error: {error.message}</div>;
   }
 
+  console.log(selectedTab);
+
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="위시리스트" />
@@ -29,46 +32,60 @@ export default function Page() {
         className="w-fit px-5 top-[68px] border-b-[1px] border-grey2"
       />
 
-      {selectedTab === '전체' && (
-        <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-          {data ? (
-            data?.result?.length > 0 ? (
-              data.result.map((data) => <ResultCard key={data.id} {...data} />)
-            ) : (
-              <div className="flex w-full justify-center pt-5 title2 text-grey7">
-                위시리스트가 비어 있습니다.
-              </div>
-            )
+      {selectedTab === '전체' &&
+        (data ? (
+          data?.result.length > 0 ? (
+            <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
+              {data.result.map((wishListData) => (
+                <ResultCard key={wishListData.id} {...wishListData} />
+              ))}
+            </main>
           ) : (
-            <div className="flex w-full justify-center pt-5 title2 text-grey7">
-              로딩중
+            <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
+              <NoneResultUI
+                message="위시리스트에 담긴 곳이 없어요"
+                subMessage="마음에 드는 장소를 찾아 담아보세요!"
+              />
             </div>
-          )}
-        </main>
-      )}
+          )
+        ) : (
+          <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
+            <NoneResultUI
+              message="로딩 중입니다."
+              subMessage="조금만 기다려주세요!!"
+            />
+          </div>
+        ))}
 
-      {selectedTab !== '전체' && (
-        <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-          {data ? (
-            data?.result?.length > 0 ? (
-              data.result
+      {selectedTab !== '전체' &&
+        (data ? (
+          data?.result.length > 0 ? (
+            <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
+              {data.result
                 .filter((wishListItem) => {
                   const mappedCategory = categoryMapKorToEng[selectedTab];
                   return wishListItem.category === mappedCategory;
                 })
-                .map((data) => <ResultCard key={data.id} {...data} />)
-            ) : (
-              <div className="flex w-full justify-center pt-5 title2 text-grey7">
-                위시리스트가 비어 있습니다.
-              </div>
-            )
+                .map((wishListData) => (
+                  <ResultCard key={wishListData.id} {...wishListData} />
+                ))}
+            </main>
           ) : (
-            <div className="flex w-full justify-center pt-5 title2 text-grey7">
-              로딩중
+            <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
+              <NoneResultUI
+                message="위시리스트에 담긴 곳이 없어요"
+                subMessage="마음에 드는 장소를 찾아 담아보세요!"
+              />
             </div>
-          )}
-        </main>
-      )}
+          )
+        ) : (
+          <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
+            <NoneResultUI
+              message="로딩 중입니다."
+              subMessage="조금만 기다려주세요!!"
+            />
+          </div>
+        ))}
 
       {/* <NavBar /> */}
     </div>
