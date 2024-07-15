@@ -1,3 +1,4 @@
+
 'use client';
 import { info } from 'console';
 import Script from 'next/script';
@@ -102,12 +103,6 @@ export default function NaverMap() {
     //     naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
     // }
   };
-
-  useEffect(() => {
-    return () => {
-      mapRef.current?.destroy();
-    };
-  }, []);
 
   return (
     <section className="w-full h-full">
