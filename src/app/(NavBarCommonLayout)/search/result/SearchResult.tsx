@@ -6,7 +6,7 @@ import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
 import NaverMap from '@components/search/result/NaverMap';
 import NoSearchResult from '@components/search/result/NoSearchResult';
-import { allleisureArray } from '@constant/constant';
+import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
 import useTab from '@store/tabNumberStore';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
@@ -158,7 +158,7 @@ export function SearchResult() {
       return;
     } else {
       const filteredResultCards = DUMMYRESULTS.filter(
-        (result) => result.category === selectedTab
+        (result) => categoryMapEngToKor[result.category] === selectedTab
       );
       setResultCards(filteredResultCards);
     }
