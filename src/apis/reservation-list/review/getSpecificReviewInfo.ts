@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
 
-export interface reviewProps {
+export interface reviewInfoProps {
   reservationId: number;
   rating: number;
   contents: string;
@@ -9,7 +9,7 @@ export interface reviewProps {
 
 export interface specifiReviewInfoResponse {
   result: {
-    review: reviewProps;
+    review: reviewInfoProps;
     reservation: ReservationItemProps;
   };
   resultCode: number;
