@@ -63,13 +63,12 @@ export default function ResultCard({
         <div className="w-full h-fit flex flex-col gap-[10px]">
           <div className="w-full flex flex-col gap-1">
             <p className="title3 text-grey7">{clubName}</p>
-            {/* max-w 조금 더 최적화 필요할 듯 */}
             <p className="w-full body4 text-grey5 line-clamp-1">{address}</p>
           </div>
           <div className="flex gap-[6px] h-[25px]">
             <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center rounded-[4px]">
               <StarSVG />
-              {ratingSum/ratingCount}
+              {ratingSum}
             </p>
             <p className="caption3 text-grey5">{ratingCount}명 평가</p>
           </div>
