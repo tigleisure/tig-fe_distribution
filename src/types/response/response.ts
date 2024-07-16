@@ -1,4 +1,5 @@
 import { ResultCardProps } from 'types/search/result/searchResult';
+import { deleteFromWishList } from '../../apis/wishlist/deleteFromWishlist';
 
 export interface WishListResponse {
   result: ResultCardProps[];
@@ -32,6 +33,12 @@ interface Result {
 }
 export interface PostHomeResponse {
   result: Result[];
+  resultCode: number;
+  resultMsg: string;
+}
+
+export interface DeleteFromWishListResponse {
+  result: Record<string, never>;
   resultCode: number;
   resultMsg: string;
 }
