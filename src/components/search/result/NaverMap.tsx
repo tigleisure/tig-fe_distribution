@@ -1,8 +1,6 @@
-
-'use client';
 import { info } from 'console';
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 export default function NaverMap() {
   const mapRef = useRef<naver.maps.Map | null>(null);
@@ -109,7 +107,7 @@ export default function NaverMap() {
       <Script
         type="text/javascript"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`}
-        onLoad={initializeMap}
+        onReady={initializeMap}
       />
       <div id="map" className="w-full h-full" />
     </section>
