@@ -20,8 +20,6 @@ export default function Page() {
     return <div>Error: {error.message}</div>;
   }
 
-  console.log(selectedTab);
-
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="위시리스트" />

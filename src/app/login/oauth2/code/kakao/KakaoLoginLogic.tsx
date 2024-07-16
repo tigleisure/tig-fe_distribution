@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Lottie from 'lottie-react';
+import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 
 interface kakaoLoginResponseProp {
   result: {
@@ -47,5 +49,9 @@ export default function KakaoLoginLogic() {
       }
     }
   }, []);
-  return <div>This is kakao login 리다이렉트 uri 페이지</div>;
+  return (
+    <div className="w-full h-full flex justify-center items-center">
+      <Lottie animationData={TigLoadingAnimation} style={{ width: '40%' }} />
+    </div>
+  );
 }
