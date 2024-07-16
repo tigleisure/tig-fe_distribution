@@ -15,6 +15,8 @@ import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
 import { usePostHome } from '@apis/wishlist/postHome';
 import { Club } from 'types/response/response';
+import Lottie from 'lottie-react';
+import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 
 export default function Home() {
   const homeArray = homeleisureArray;
@@ -72,9 +74,7 @@ export default function Home() {
         {/* <TigBannerSVG className="w-full h-auto" /> */}
       </div>
       {!isSuccess ? (
-        <div className="flex w-full justify-center pt-5 title2 text-grey7">
-          로딩중
-        </div>
+        <Lottie animationData={TigLoadingAnimation} style={{ width: '20%' }} className='self-center'/>
       ) : (
         clubCards.length !== 0 && (
           <HomeCardList
