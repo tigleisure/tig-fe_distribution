@@ -1,6 +1,8 @@
+'use client';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type NavItemType } from 'types/all/NavTypes';
+import { useEffect } from 'react';
 
 export default function NavItem({
   ActiveIcon,
@@ -8,10 +10,16 @@ export default function NavItem({
   path,
 }: NavItemType) {
   const pathname: string | null = usePathname();
+  let localStorageAccessToken: string | null = null;
+
+  useEffect(() => {
+    localStorageAccessToken = localStorage.getItem('accessToken');
+  }, []);
+
   const targetPath =
     path !== '/mypage'
       ? path
-      : localStorage.getItem('accessToken') === null
+      : localStorageAccessToken === null
       ? '/login'
       : '/mypage';
 
