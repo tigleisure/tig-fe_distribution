@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const REFRESH_URL = '/api/v1/reissue';
+const REFRESH_URL = '/api/v1/member/reissue';
 
 export const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
