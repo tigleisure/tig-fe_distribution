@@ -1,6 +1,8 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
+import Lottie from 'lottie-react';
+import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 
 interface kakaoLoginResponseProp {
   result: {
@@ -29,7 +31,7 @@ export default function KakaoLoginLogic() {
         if (response.ok) {
           const data: kakaoLoginResponseProp = await response.json();
           localStorage.setItem('accessToken', data.result.accessToken);
-          router.replace('/');
+          // router.replace('/');
         } else {
           throw new Error(
             '인증 코드를 기반으로 로그인 하는 데에 실패했습니다!'
@@ -47,5 +49,9 @@ export default function KakaoLoginLogic() {
       }
     }
   }, []);
-  return <div>This is kakao login 리다이렉트 uri 페이지</div>;
+  return (
+    <div className="w-full h-full flex justify-center items-center">
+      <Lottie animationData={TigLoadingAnimation} style={{ width: '40%' }} />
+    </div>
+  );
 }
