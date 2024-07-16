@@ -14,11 +14,9 @@ export default function Page() {
   );
   const router = useRouter();
 
-  // useEffect(() => {
-  //   if (localStorage.getItem('accessToken') === null) {
-  //     router.replace('/login');
-  //   }
-  // }, []);
+  if (localStorage.getItem('accessToken') === null) {
+    router.replace('/login');
+  }
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);
