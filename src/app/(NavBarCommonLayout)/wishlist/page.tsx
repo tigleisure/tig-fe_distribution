@@ -9,10 +9,12 @@ import { useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
+import Lottie from 'lottie-react';
+import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
-  const { data, isError, error } = useGetWishList();
+  const { data, isError, error, isSuccess } = useGetWishList();
 
   const tabArray = allleisureArray;
 
@@ -31,11 +33,11 @@ export default function Page() {
       />
 
       {selectedTab === '전체' &&
-        (data ? (
+        (isSuccess ? (
           data?.result.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
               {data.result.map((wishListData) => (
-                <ResultCard key={wishListData.id} {...wishListData} />
+                <ResultCard key={wishListData.id} {...wishListData} isHeart />
               ))}
             </main>
           ) : (
@@ -48,15 +50,15 @@ export default function Page() {
           )
         ) : (
           <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-            <NoneResultUI
-              message="로딩 중입니다."
-              subMessage="조금만 기다려주세요!!"
+            <Lottie
+              animationData={TigLoadingAnimation}
+              style={{ width: '30%' }}
             />
           </div>
         ))}
 
       {selectedTab !== '전체' &&
-        (data ? (
+        (isSuccess ? (
           data?.result.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
               {data.result
@@ -65,7 +67,7 @@ export default function Page() {
                   return wishListItem.category === mappedCategory;
                 })
                 .map((wishListData) => (
-                  <ResultCard key={wishListData.id} {...wishListData} />
+                  <ResultCard key={wishListData.id} {...wishListData} isHeart />
                 ))}
             </main>
           ) : (
@@ -78,9 +80,9 @@ export default function Page() {
           )
         ) : (
           <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-            <NoneResultUI
-              message="로딩 중입니다."
-              subMessage="조금만 기다려주세요!!"
+            <Lottie
+              animationData={TigLoadingAnimation}
+              style={{ width: '30%' }}
             />
           </div>
         ))}

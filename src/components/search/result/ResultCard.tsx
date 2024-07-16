@@ -8,7 +8,8 @@ import DiscountSVG from '@public/svg/discount.svg';
 import Link from 'next/link';
 import { cn } from '@utils/cn';
 import { useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
+import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 
 export default function ResultCard({
   clubName,
@@ -25,14 +26,16 @@ export default function ResultCard({
 }: ResultCardProps) {
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
+  const { mutate } = useDeleteFromWishList();
   const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    console.log('clicked');
     e.stopPropagation();
-    setIsHeartClicked((prev: boolean) => !prev);
+    mutate(id);
   };
   return (
     <section
-      onClick={()=>{router.push(`/detail-page/${id}`)}}
+      onClick={() => {
+        router.push(`/detail-page/${id}`);
+      }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer',
         {
@@ -41,7 +44,12 @@ export default function ResultCard({
       )}
     >
       <div className="relative shrink-0">
-        <Image src={'/png/dummyImage.png'} alt={clubName} width={128} height={128} />
+        <Image
+          src={'/png/dummyImage.png'}
+          alt={clubName}
+          width={128}
+          height={128}
+        />
         {isEvent && <DiscountSVG className="absolute top-2 left-2" />}
         {isHeartClicked ? (
           <FillHeartSVG
@@ -75,7 +83,9 @@ export default function ResultCard({
         </div>
         <div className="flex flex-col gap-1">
           <p className="headline2 text-grey7">{price.toLocaleString()}원</p>
-          <p className="body4 grey4">{type === 'GAME' ? '게임' : '시간'}당 가격</p>
+          <p className="body4 grey4">
+            {type === 'GAME' ? '게임' : '시간'}당 가격
+          </p>
         </div>
       </div>
     </section>
