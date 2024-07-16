@@ -10,7 +10,7 @@ export default function ButtonCard() {
     // search POST 요청에 필요한 속성
     console.log(inputValue);
     const query = {
-      search: inputValue.searchValue,
+      search: inputValue.searchValue === '' ? '신촌' : inputValue.searchValue,
       date: inputValue.searchDate,
       adultCount: String(inputValue.adultCount),
       teenagerCount: String(inputValue.teenagerCount),
