@@ -27,7 +27,7 @@ instance.interceptors.request.use(
   },
 );
 
-const getRefreshToken = async (): Promise<string | void> => {
+const regainAccessToken = async (): Promise<string | void> => {
   try {
     const {
       // 리프레시 토큰은 쿠키로 담김
@@ -58,7 +58,7 @@ instance.interceptors.response.use(
     }
 
     config.sent = true;
-    const accessToken = await getRefreshToken();
+    const accessToken = await regainAccessToken();
 
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
