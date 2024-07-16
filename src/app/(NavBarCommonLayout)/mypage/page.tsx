@@ -4,7 +4,7 @@ import My from '@components/mypage/My';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
 import { Toaster } from 'react-hot-toast';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useModal from '@store/modalStore';
 import { useRouter } from 'next/navigation';
 
@@ -14,11 +14,11 @@ export default function Page() {
   );
   const router = useRouter();
 
-  useEffect(() => {
-    if (localStorage.getItem('accessToken') === null) {
-      router.replace('/login');
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (localStorage.getItem('accessToken') === null) {
+  //     router.replace('/login');
+  //   }
+  // }, []);
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);

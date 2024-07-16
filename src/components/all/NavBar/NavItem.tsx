@@ -8,6 +8,12 @@ export default function NavItem({
   path,
 }: NavItemType) {
   const pathname: string | null = usePathname();
+  const targetPath =
+    path !== '/mypage'
+      ? path
+      : localStorage.getItem('accessToken') === null
+      ? '/login'
+      : '/mypage';
 
   const isActive =
     pathname === '/'
@@ -20,7 +26,7 @@ export default function NavItem({
       ? true
       : false;
   return (
-    <Link href={path} className="cursor-pointer">
+    <Link href={targetPath} className="cursor-pointer">
       {isActive ? <ActiveIcon /> : <InactiveIcon />}
     </Link>
   );
