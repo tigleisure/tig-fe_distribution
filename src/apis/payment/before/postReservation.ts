@@ -41,6 +41,7 @@ export const postUserReservation = (
   return instance.post(`/api/v1/reservation/${data.clubId}`, data);
 };
 
+// 위의 postUserReservation 함수를 주로 쓰고, 아래 것은 크게 쓸일 없을듯?
 export const usePostReservation = (postData: reservationRequestBodyProp) => {
   return useMutation({
     mutationFn: () => postUserReservation(postData),
