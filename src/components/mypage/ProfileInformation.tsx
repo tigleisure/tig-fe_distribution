@@ -1,45 +1,40 @@
 import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import ProfileInformationItem from './ProfileInformationItem';
+import { useGetUserInfo } from '@apis/mypage/getUserInfo';
+import Lottie from 'lottie-react';
+import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 
 export default function ProfileInformation() {
-  // const [profileInfoDataObject, setProfileInfoDataObject] = useState<
-  //   ProfileInformationItemProps[]
-  // >([]);
+  const { data, isSuccess } = useGetUserInfo();
 
-  // useEffect(() => {
-  //   const DUMMYPROFILEDATA: ProfileInformationItemProps[] = [
-  //     {
-  //       labelName: '이름',
-  //       inputData: '김티그',
-  //     },
-  //     {
-  //       labelName: '휴대폰번호',
-  //       inputData: '',
-  //     },
-  //     {
-  //       labelName: '이메일',
-  //       inputData: 'tig@naver.com',
-  //     },
-  //   ];
-
-  //   setProfileInfoDataObject(DUMMYPROFILEDATA);
-  // }, []);
-
-  // 추후에 해당 데이터는 여기에서 상태로 선언해서, useEffect()로 백엔드로부터 받아온 다음, 다시 아래 Item에게 내려줘야함
-  // 하위 item 요소에 inputData를 의미하는 상태와, 상태를 바꾸는 setter 함수를 내려줘야함
+  if (!isSuccess)
+    return (
+      <div className="w-full h-full flex justify-center items-center">
+        <Lottie
+          animationData={TigLoadingAnimation}
+          style={{ width: '20.83%' }}
+          className="self-center"
+        />
+      </div>
+    );
 
   return (
     <div
       id="profile-info-container"
       className="w-full h-fit flex flex-col gap-y-4"
     >
-      {/* {profileInfoDataObject.map((data) => (
-        
-      ))} */}
-
-      <ProfileInformationItem labelName="이름" />
-      <ProfileInformationItem labelName="휴대폰번호" />
-      <ProfileInformationItem labelName="이메일" />
+      <ProfileInformationItem
+        labelName="이름"
+        inputValue={data?.result.name || ''}
+      />
+      <ProfileInformationItem
+        labelName="휴대폰번호"
+        inputValue={data?.result.phoneNumber || ''}
+      />
+      <ProfileInformationItem
+        labelName="이메일"
+        inputValue={data?.result.email || ''}
+      />
     </div>
   );
 }
