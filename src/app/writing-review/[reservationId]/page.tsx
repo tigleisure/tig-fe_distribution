@@ -13,8 +13,7 @@ import useModal from '@store/modalStore';
 import FortyEightTig from '@public/svg/fortyEightTig.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
-import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
-import { instance } from '@apis/instance';
+import TigLoadingPage from '@components/all/TigLoadingPage';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   clubName: '스카이락볼링장',
@@ -41,9 +40,11 @@ export default function Page({
   const { data, isError, isSuccess, isPending, status, isFetching, isLoading } =
     useGetUserSpecificReservationInfo(params.reservationId);
 
-  if (isPending === false && data?.status === 500) {
-    router.replace('/');
-  }
+  useEffect(() => {
+    if (data?.status === 500) {
+      router.replace('/');
+    }
+  }, [data]);
 
   useEffect(() => {
     return () => {
@@ -52,7 +53,8 @@ export default function Page({
   }, []);
   return (
     <>
-      {!isReviewSubmitted && (
+      {data?.resultCode === undefined && <TigLoadingPage />}
+      {!isReviewSubmitted && !isFetching && data?.status !== 500 && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"
