@@ -37,7 +37,7 @@ export interface PostHomeResponse {
   resultMsg: string;
 }
 
-export interface NoneMeaningfulResultResponse {
+export interface NoMeaningfulResultResponse {
   result: Record<string, never>;
   resultCode: number;
   resultMsg: string;

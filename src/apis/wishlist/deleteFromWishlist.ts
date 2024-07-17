@@ -1,11 +1,11 @@
 import { instance } from '@apis/instance';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { NoneMeaningfulResultResponse } from 'types/response/response';
+import { NoMeaningfulResultResponse } from 'types/response/response';
 import { ResultCardProps } from 'types/search/result/searchResult';
 
 export const deleteFromWishList = async (
   clubId: number
-): Promise<NoneMeaningfulResultResponse> => {
+): Promise<NoMeaningfulResultResponse> => {
   return instance.delete(`/api/v1/wishlist/${clubId}`);
 };
 
