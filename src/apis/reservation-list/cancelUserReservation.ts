@@ -2,7 +2,9 @@ import { instance } from '@apis/instance';
 import { useMutation } from '@tanstack/react-query';
 import { NoMeaningfulResultResponse } from 'types/response/response';
 
-export const cancelUserReservationFunc = (reservationId: number) => {
+export const cancelUserReservationFunc = (
+  reservationId: number
+): Promise<NoMeaningfulResultResponse> => {
   return instance.post(`/api/v1/reservation/cancel/${reservationId}`);
 };
 
