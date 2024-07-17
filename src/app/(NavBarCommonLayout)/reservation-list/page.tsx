@@ -13,6 +13,8 @@ import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
+import { useGetReservationList } from '@apis/reservation-list/getUserReservationList';
+import { usePostReservation } from '@apis/payment/before/postReservation';
 
 const MockReservationData: ReservationItemProps[] = [
   {
@@ -1110,6 +1112,9 @@ export default function Page() {
   const setSelectedIsModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
   );
+
+  const { data } = useGetReservationList();
+  const mutation = usePostReservation();
 
   useEffect(() => {
     return () => {

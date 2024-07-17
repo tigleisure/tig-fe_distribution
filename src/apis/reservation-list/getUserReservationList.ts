@@ -24,7 +24,7 @@ export const getUserReservationList =
     // const data: userReservationListResponse = await response.json();
 
     // return data;
-    return instance.get('/api/v1/resevation/all');
+    return instance.get('/api/v1/reservation/all');
   };
 
 export const useGetReservationList = () => {
