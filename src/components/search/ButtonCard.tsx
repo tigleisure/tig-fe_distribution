@@ -12,7 +12,7 @@ export default function ButtonCard() {
     const query = {
       search: inputValue.searchValue === '' ? '신촌' : inputValue.searchValue,
       date: inputValue.searchDate,
-      adultCount: String(inputValue.adultCount),
+      adultCount: String(inputValue.adultCount === 0 && inputValue.teenagerCount === 0 && inputValue.kidsCount === 0 ? 1 : inputValue.adultCount),
       teenagerCount: String(inputValue.teenagerCount),
       kidsCount: String(inputValue.kidsCount),
     };
