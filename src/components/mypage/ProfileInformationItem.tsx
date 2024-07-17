@@ -1,7 +1,7 @@
 'use client';
 import { cn } from '@utils/cn';
 import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { isValidEmail, isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from './ToastUI';
@@ -13,6 +13,7 @@ export default function ProfileInformationItem({
   const [inputBoxEditStage, setInputBoxEditStage] = useState<1 | 2>(1);
   const [inputData, setInputData] = useState<string>('');
   const [toastId, setToastId] = useState<string | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     // 추후에 백엔드로부터 inputData를 받아올 훅임
@@ -68,6 +69,43 @@ export default function ProfileInformationItem({
     setToastId(id);
   };
 
+  useEffect(() => {
+    if (inputBoxEditStage === 2) {
+      inputRef.current?.focus();
+    }
+  });
+
+  const handleSubmit = () => {
+    if (labelName === '이메일' && !isValidEmail(inputData)) {
+      // toastUI를 띄워주는 로직
+      handleWrongEmailSave();
+      return;
+    }
+
+    if (
+      labelName === '휴대폰번호' &&
+      !isValidPhoneNumber(inputData)
+    ) {
+      // toastUI를 띄워주는 로직
+      handleWrongPhoneNumberSave();
+      return;
+    }
+
+    handleSaveNewInputData(inputData);
+    toast.custom(
+      <ToastUI message="변경이 완료되었습니다" iswarning={false} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
+  }
+
+  const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
+    if (ev.key === 'Enter') {
+      handleSubmit();
+    }
+  };
+
   return (
     <div className={cn('w-full h-fit flex items-center', {})}>
       <span className="caption2 text-grey5 w-[84px]">{labelName}</span>
@@ -86,6 +124,8 @@ export default function ProfileInformationItem({
           <input
             value={inputData}
             onChange={handleChangeInputData}
+            ref={inputRef}
+            onKeyDown={handleKeyDown}
             className="body4 w-[150px] text-grey7 shadow-writingReviewInput flex rounded-[4px] justify-start items-center pt-2 pl-2 pb-2"
           />
         )}
@@ -108,30 +148,7 @@ export default function ProfileInformationItem({
         {inputBoxEditStage === 2 && (
           <button
             className="w-fit h-fit rounded-md title4 text-white bg-primary_orange1 px-[14px] py-[8px]"
-            onClick={() => {
-              if (labelName === '이메일' && !isValidEmail(inputData)) {
-                // toastUI를 띄워주는 로직
-                handleWrongEmailSave();
-                return;
-              }
-
-              if (
-                labelName === '휴대폰번호' &&
-                !isValidPhoneNumber(inputData)
-              ) {
-                // toastUI를 띄워주는 로직
-                handleWrongPhoneNumberSave();
-                return;
-              }
-
-              handleSaveNewInputData(inputData);
-              toast.custom(
-                <ToastUI message="변경이 완료되었습니다" iswarning={false} />,
-                {
-                  duration: toastUIDuration,
-                }
-              );
-            }}
+            onClick={handleSubmit}
           >
             저장
           </button>

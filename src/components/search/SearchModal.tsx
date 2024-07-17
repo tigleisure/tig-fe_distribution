@@ -4,8 +4,8 @@ import ReactModal from 'react-modal';
 import Header from '@components/all/Header';
 import SearchHeader from '@components/all/SearchHeader';
 import SearchCloseSVG from '@public/svg/searchClose.svg';
-import SearchInput from '@components/all/SearchInput';
-import { useEffect, useState } from 'react';
+import { SearchInput } from '@components/all/SearchInput';
+import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSearchModalInput from '@store/searchModalInputStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
@@ -14,6 +14,7 @@ const DUMMYRECENTSEARCH = ['신촌', '볼링', '탁구', '당구', '잠실'];
 
 export default function SearchModal() {
   const [recentSearch, setRecentSearch] = useState(DUMMYRECENTSEARCH);
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const isModalOpen = useSearchModal(
     (state) => state.selectedIsSearchModalOpen
@@ -31,6 +32,16 @@ export default function SearchModal() {
   const deleteAllHanler = () => {
     setRecentSearch([]);
   };
+
+  useEffect(() => {
+    if (isModalOpen) {
+      setTimeout(() => {
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
+      }, 10); // 모달 렌더링이 끝난 이후 input창에 포커싱
+    }
+  }, [isModalOpen]);
 
   useEffect(() => {
     // 최근 검색어 get 요청
@@ -67,6 +78,7 @@ export default function SearchModal() {
           value={inputValue.searchValue}
           onChange={inputHandler}
           onKeyDown={handleKeyPress}
+          ref={inputRef}
         />
       </div>
       <div className="w-full flex justify-between items-center px-5">
