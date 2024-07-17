@@ -41,13 +41,14 @@ export default function Page({
     params.reservationId
   );
 
+  const [starCount, setStarCount] = useState<number>(0);
+  const [reviewContents, setReviewContents] = useState<string>('');
+
   useEffect(() => {
     if (data?.status === 500) {
       router.replace('/');
     }
   }, [data]);
-
-  console.log(data?.result);
 
   useEffect(() => {
     return () => {
@@ -83,11 +84,19 @@ export default function Page({
             <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
               <span className="title4 text-grey7">평점을 선택해주세요</span>
               <p className="flex justify-between items-end">
-                <WritingReviewFilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
+                {[1, 2, 3, 4, 5].map((num) =>
+                  num > starCount ? (
+                    <WritingReviewUnfilledStarSVG
+                      key={num}
+                      onClick={() => setStarCount(num)}
+                    />
+                  ) : (
+                    <WritingReviewFilledStarSVG
+                      key={num}
+                      onClick={() => setStarCount(num)}
+                    />
+                  )
+                )}
               </p>
             </div>
             <div className="w-full h-fit grow rounded-[10px] p-5 flex flex-col items-center gap-y-5 bg-white">
@@ -106,6 +115,8 @@ export default function Page({
               <textarea
                 className="w-sevenEightWidth p-4 rounded-[10px] grow text-black caption3 placeholder:text-grey3 placeholder:caption3 shadow-writingReviewInput focus:outline-none"
                 placeholder="이용하신 시설에 대해 자세한 리뷰를 남겨주세요"
+                value={reviewContents}
+                onChange={(ev) => setReviewContents(ev.target.value)}
               />
             </div>
           </div>
