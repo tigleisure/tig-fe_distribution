@@ -42,3 +42,18 @@ export interface NoMeaningfulResultResponse {
   resultCode: number;
   resultMsg: string;
 }
+
+export interface UserInfoResult {
+  id: number;
+  name: string;
+  email: string;
+  phoneNumber: string;
+  profileImage: string;
+  refreshToken: string;
+  memberRoleEnum: string;
+}
+export interface UserInfoResponse {
+  result: UserInfoResult;
+  resultCode: number;
+  resultMsg: string;
+}
