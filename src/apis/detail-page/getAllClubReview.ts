@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { reviewInfoProps } from '@apis/reservation-list/review/getSpecificReviewInfo';
+import { instance } from '@apis/instance';
 
 export interface getAllClubReviewResponse {
   result: reviewInfoProps[];
@@ -10,16 +11,7 @@ export interface getAllClubReviewResponse {
 export const getAllClubReview = async (
   clubId: number
 ): Promise<getAllClubReviewResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/review/club/${clubId}`
-  );
-
-  if (!response.ok) {
-    throw new Error(`Failed to fetch review data of club ${clubId}`);
-  }
-
-  const data = await response.json();
-  return data;
+  return instance.get(`/api/v1/review/club/${clubId}`);
 };
 
 export const useGetAllClubReview = (clubId: number) => {

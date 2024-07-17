@@ -12,6 +12,9 @@ import { useState, useEffect } from 'react';
 import useModal from '@store/modalStore';
 import FortyEightTig from '@public/svg/fortyEightTig.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
+import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
+import TigLoadingPage from '@components/all/TigLoadingPage';
+import { usePostReview } from '@apis/writing-review/postReview';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   clubName: '스카이락볼링장',
@@ -22,12 +25,33 @@ const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   adultCount: 8,
 };
 
-export default function Page() {
+export default function Page({
+  params,
+}: {
+  params: {
+    reservationId: number;
+  };
+}) {
   const setIsSelectedModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
   );
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
+
+  const { data, isError } = useGetUserSpecificReservationInfo(
+    params.reservationId
+  );
+
+  const mutation = usePostReview();
+
+  const [starCount, setStarCount] = useState<number>(0);
+  const [reviewContents, setReviewContents] = useState<string>('');
+
+  useEffect(() => {
+    if (isError === true) {
+      router.replace('/');
+    }
+  }, [isError]);
 
   useEffect(() => {
     return () => {
@@ -36,7 +60,8 @@ export default function Page() {
   }, []);
   return (
     <>
-      {!isReviewSubmitted && (
+      {!isError && !data && <TigLoadingPage />}
+      {data && !isReviewSubmitted && !isError && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"
@@ -49,24 +74,32 @@ export default function Page() {
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={DUMMYREVIEWDATA.clubName}
-                clubName={DUMMYREVIEWDATA.clubName}
-                eventDate={DUMMYREVIEWDATA.eventDate}
-                eventEndTime={DUMMYREVIEWDATA.eventEndTime}
-                eventStartTime={DUMMYREVIEWDATA.eventStartTime}
-                adultCount={DUMMYREVIEWDATA.adultCount}
-                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
-                kidsCount={DUMMYREVIEWDATA.kidsCount}
+                clubAddress={data.result.clubAddress}
+                clubName={data.result.clubName}
+                eventDate={data.result.date}
+                eventEndTime={data.result.endTime}
+                eventStartTime={data.result.startTime}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
               />
             </div>
             <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
               <span className="title4 text-grey7">평점을 선택해주세요</span>
               <p className="flex justify-between items-end">
-                <WritingReviewFilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
-                <WritingReviewUnfilledStarSVG />
+                {[1, 2, 3, 4, 5].map((num) =>
+                  num > starCount ? (
+                    <WritingReviewUnfilledStarSVG
+                      key={num}
+                      onClick={() => setStarCount(num)}
+                    />
+                  ) : (
+                    <WritingReviewFilledStarSVG
+                      key={num}
+                      onClick={() => setStarCount(num)}
+                    />
+                  )
+                )}
               </p>
             </div>
             <div className="w-full h-fit grow rounded-[10px] p-5 flex flex-col items-center gap-y-5 bg-white">
@@ -85,6 +118,8 @@ export default function Page() {
               <textarea
                 className="w-sevenEightWidth p-4 rounded-[10px] grow text-black caption3 placeholder:text-grey3 placeholder:caption3 shadow-writingReviewInput focus:outline-none"
                 placeholder="이용하신 시설에 대해 자세한 리뷰를 남겨주세요"
+                value={reviewContents}
+                onChange={(ev) => setReviewContents(ev.target.value)}
               />
             </div>
           </div>
@@ -94,7 +129,23 @@ export default function Page() {
             bgColor="black"
             content="작성 완료"
             className="writingReviewButton relative bottom-[30px]"
-            onClick={() => setIsReviewSubmitted(true)} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
+            onClick={() => {
+              mutation.mutate(
+                {
+                  reservationId: params.reservationId,
+                  rating: starCount,
+                  contents: reviewContents,
+                },
+                {
+                  onSuccess: () => {
+                    setIsReviewSubmitted(true);
+                  },
+                  onError: () => {
+                    alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
+                  },
+                }
+              );
+            }} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
           />
           <Modal
             size="lg"
@@ -106,7 +157,7 @@ export default function Page() {
           />
         </div>
       )}
-      {isReviewSubmitted && (
+      {data && isReviewSubmitted && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"
@@ -127,22 +178,24 @@ export default function Page() {
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={DUMMYREVIEWDATA.clubAddress}
-                clubName={DUMMYREVIEWDATA.clubName}
-                eventDate={DUMMYREVIEWDATA.eventDate}
-                eventEndTime={DUMMYREVIEWDATA.eventEndTime}
-                eventStartTime={DUMMYREVIEWDATA.eventStartTime}
-                adultCount={DUMMYREVIEWDATA.adultCount}
-                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
-                kidsCount={DUMMYREVIEWDATA.kidsCount}
+                clubAddress={data.result.clubAddress}
+                clubName={data.result.clubName}
+                eventDate={data.result.date}
+                eventEndTime={data.result.endTime}
+                eventStartTime={data.result.startTime}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
               />
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
                 reservationUserName="김티그"
-                eventDate="2024.05.05"
-                adultCount={8}
-                rating={4}
-                rateContent="역 근처에 시설도 깔끔하고 좋아요! 신촌 볼링장 하면 꼭 여기로 가요. 직원분들도 친절하고 레일도 많고 최고! 담에 친구들이랑 단체 모임하면 또 갈게요~!"
+                eventDate={data.result.date.replace(/-/g, '.')}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
+                rating={starCount}
+                rateContent={reviewContents}
               />
             </section>
           </main>

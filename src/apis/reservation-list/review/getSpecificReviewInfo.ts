@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import { instance } from '@apis/instance';
 
 export interface reviewInfoProps {
   reservationId: number;
@@ -19,20 +20,7 @@ export interface specifiReviewInfoResponse {
 export const getSpecificReviewInfo = async (
   reviewId: number
 ): Promise<specifiReviewInfoResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/review/${reviewId}`,
-    {
-      credentials: 'include',
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error('Failed to fetch specific review information');
-  }
-
-  const data = await response.json();
-
-  return data;
+  return instance.get(`/api/v1/review/${reviewId}`);
 };
 
 export const useGetSpecificReviewInfo = (reviewId: number) => {

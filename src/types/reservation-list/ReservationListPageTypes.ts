@@ -54,4 +54,5 @@ export interface ReservationItemProps {
   clubName: string;
   clubAddress: string;
   reservationId: number | null;
+  memberName?: string;
 }

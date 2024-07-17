@@ -10,20 +10,6 @@ export interface userReservationListResponse {
 
 export const getUserReservationList =
   async (): Promise<userReservationListResponse> => {
-    // const response = await fetch(
-    //   `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/all`,
-    //   {
-    //     credentials: 'include',
-    //   }
-    // );
-
-    // if (!response.ok) {
-    //   throw new Error('Failed to fetch user reservation list data!');
-    // }
-
-    // const data: userReservationListResponse = await response.json();
-
-    // return data;
     return instance.get('/api/v1/reservation/all');
   };
 
