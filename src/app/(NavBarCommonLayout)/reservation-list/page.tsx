@@ -1126,20 +1126,6 @@ export default function Page() {
     setReservationList(MockReservationData);
   }, []);
 
-  useEffect(() => {
-    mutation.mutate({
-      adultCount: 1,
-      teenagerCount: 2,
-      kidsCount: 3,
-      date: '2023-07-17',
-      startTime: '10:00',
-      endTime: '11:00',
-      price: 10000,
-      status: 'TBC',
-      clubId: 5,
-    });
-  }, []);
-
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
       <NoneArrowHeader title="예약내역" />
