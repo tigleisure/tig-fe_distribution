@@ -1,11 +1,13 @@
 'use client';
-import SearchInput from '@components/all/SearchInput';
+import { SearchInput } from '@components/all/SearchInput';
 import InfoCard from './InfoCard';
 import useSearchModal from '@store/searchModalStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
 
 export default function LocationCard() {
-  const setModal = useSearchModal((state) => state.setSelectedIsSearchModalOpen);
+  const setModal = useSearchModal(
+    (state) => state.setSelectedIsSearchModalOpen
+  );
   const inputValue = useSearchInputInfo((state) => state.searchInput);
   return (
     <section className="w-full h-fit flex flex-col gap-5 p-5 pt-[88px] border-b border-grey2">

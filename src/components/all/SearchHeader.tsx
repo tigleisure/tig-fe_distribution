@@ -1,6 +1,6 @@
 'use client';
 import TigSVG from '@public/svg/tig.svg';
-import SearchInput from './SearchInput';
+import { SearchInput } from './SearchInput';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { cn } from '@utils/cn';
