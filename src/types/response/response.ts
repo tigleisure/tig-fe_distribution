@@ -57,3 +57,12 @@ export interface UserInfoResponse {
   resultCode: number;
   resultMsg: string;
 }
+
+// 현재 백엔드에서 response로 보내주는 실제로는 200 statusCode이지만 실패를 의미하는 응답 인터페이스
+export interface noDataServerErrorResponse {
+  status: number;
+  divisionCode: string;
+  resultMsg: string;
+  errors: any;
+  reason: string; // 못 찾은 이유를 백엔드에서 보내줌
+}

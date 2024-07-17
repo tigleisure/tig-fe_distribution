@@ -12,6 +12,9 @@ import { useState, useEffect } from 'react';
 import useModal from '@store/modalStore';
 import FortyEightTig from '@public/svg/fortyEightTig.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
+import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
+import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import { instance } from '@apis/instance';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   clubName: '스카이락볼링장',
@@ -22,12 +25,24 @@ const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   adultCount: 8,
 };
 
-export default function Page() {
+export default function Page({
+  params,
+}: {
+  params: {
+    reservationId: number;
+  };
+}) {
   const setIsSelectedModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
   );
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
+
+  const { data, isError, isSuccess, isPending, status, isFetching, isLoading } =
+    useGetUserSpecificReservationInfo(params.reservationId);
+
+  // 현재 response로 돌아오는 응답에 result 속성이 없어서 resultMsg로 비교할 수 밖에 없음. undefined로 하면 첫 렌더링 시에 없기에 null과의 차별점을 두지 못함
+  useEffect(() => {}, []);
 
   useEffect(() => {
     return () => {
@@ -49,7 +64,7 @@ export default function Page() {
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={DUMMYREVIEWDATA.clubName}
+                clubAddress={DUMMYREVIEWDATA.clubAddress}
                 clubName={DUMMYREVIEWDATA.clubName}
                 eventDate={DUMMYREVIEWDATA.eventDate}
                 eventEndTime={DUMMYREVIEWDATA.eventEndTime}
