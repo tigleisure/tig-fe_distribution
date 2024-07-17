@@ -13,8 +13,8 @@ import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
-import { postUserReservation } from '@apis/payment/before/postReservation';
 import { useGetReservationList } from '@apis/reservation-list/getUserReservationList';
+import { usePostReservation } from '@apis/payment/before/postReservation';
 
 const MockReservationData: ReservationItemProps[] = [
   {
@@ -1114,6 +1114,7 @@ export default function Page() {
   );
 
   const { data } = useGetReservationList();
+  const mutation = usePostReservation();
 
   useEffect(() => {
     return () => {
@@ -1123,6 +1124,20 @@ export default function Page() {
 
   useEffect(() => {
     setReservationList(MockReservationData);
+  }, []);
+
+  useEffect(() => {
+    mutation.mutate({
+      adultCount: 1,
+      teenagerCount: 2,
+      kidsCount: 3,
+      date: '2023-07-17',
+      startTime: '10:00',
+      endTime: '11:00',
+      price: 10000,
+      status: 'TBC',
+      clubId: 5,
+    });
   }, []);
 
   return (
