@@ -14,6 +14,7 @@ import FortyEightTig from '@public/svg/fortyEightTig.svg';
 import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerSection';
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
+import { usePostReview } from '@apis/writing-review/postReview';
 
 const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   clubName: '스카이락볼링장',
@@ -40,6 +41,8 @@ export default function Page({
   const { data, isFetching } = useGetUserSpecificReservationInfo(
     params.reservationId
   );
+
+  const mutation = usePostReview();
 
   const [starCount, setStarCount] = useState<number>(0);
   const [reviewContents, setReviewContents] = useState<string>('');
@@ -126,7 +129,23 @@ export default function Page({
             bgColor="black"
             content="작성 완료"
             className="writingReviewButton relative bottom-[30px]"
-            onClick={() => setIsReviewSubmitted(true)} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
+            onClick={() => {
+              mutation.mutate(
+                {
+                  reservationId: params.reservationId,
+                  rating: starCount,
+                  contents: reviewContents,
+                },
+                {
+                  onSuccess: () => {
+                    setIsReviewSubmitted(true);
+                  },
+                  onError: () => {
+                    alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
+                  },
+                }
+              );
+            }} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
           />
           <Modal
             size="lg"
@@ -138,7 +157,7 @@ export default function Page({
           />
         </div>
       )}
-      {isReviewSubmitted && (
+      {data && isReviewSubmitted && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"
@@ -159,14 +178,14 @@ export default function Page({
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={DUMMYREVIEWDATA.clubAddress}
-                clubName={DUMMYREVIEWDATA.clubName}
-                eventDate={DUMMYREVIEWDATA.eventDate}
-                eventEndTime={DUMMYREVIEWDATA.eventEndTime}
-                eventStartTime={DUMMYREVIEWDATA.eventStartTime}
-                adultCount={DUMMYREVIEWDATA.adultCount}
-                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
-                kidsCount={DUMMYREVIEWDATA.kidsCount}
+                clubAddress={data.result.clubAddress}
+                clubName={data.result.clubName}
+                eventDate={data.result.date}
+                eventEndTime={data.result.endTime}
+                eventStartTime={data.result.startTime}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
               />
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
