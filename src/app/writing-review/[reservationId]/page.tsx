@@ -38,7 +38,7 @@ export default function Page({
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
 
-  const { data, isFetching } = useGetUserSpecificReservationInfo(
+  const { data, isError } = useGetUserSpecificReservationInfo(
     params.reservationId
   );
 
@@ -48,10 +48,10 @@ export default function Page({
   const [reviewContents, setReviewContents] = useState<string>('');
 
   useEffect(() => {
-    if (data?.status === 500) {
+    if (isError === true) {
       router.replace('/');
     }
-  }, [data]);
+  }, [isError]);
 
   useEffect(() => {
     return () => {
@@ -60,8 +60,8 @@ export default function Page({
   }, []);
   return (
     <>
-      {data?.resultCode === undefined && <TigLoadingPage />}
-      {data && !isReviewSubmitted && !isFetching && data?.status !== 500 && (
+      {!isError && !data && <TigLoadingPage />}
+      {data && !isReviewSubmitted && !isError && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"

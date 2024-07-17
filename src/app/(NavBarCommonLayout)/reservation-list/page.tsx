@@ -1,6 +1,5 @@
 'use client';
 import { useState, useEffect } from 'react';
-import NavBar from '@components/all/NavBar/NavBar';
 import HistoryHead from '@components/reservation-list/HistoryHead';
 import HistoryInProgressItem from '@components/reservation-list/HistoryInProgressItem';
 import HistoryEndItem from '@components/reservation-list/HistoryEndItem';
@@ -1250,7 +1249,6 @@ export default function Page() {
         title="예약을 취소하시겠습니까?"
         subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
       />
-      {/* <NavBar /> */}
     </div>
   );
 }
