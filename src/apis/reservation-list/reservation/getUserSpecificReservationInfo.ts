@@ -11,7 +11,7 @@ export interface userSpecificReservationInfoResponse {
 
 export const getUserSpecificReservationInfo = async (
   reservationId: number
-): Promise<userSpecificReservationInfoResponse | noDataServerErrorResponse> => {
+): Promise<userSpecificReservationInfoResponse & noDataServerErrorResponse> => {
   return instance.get(`/api/v1/reservation/${reservationId}`);
 };
 

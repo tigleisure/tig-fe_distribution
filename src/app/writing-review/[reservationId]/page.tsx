@@ -41,8 +41,9 @@ export default function Page({
   const { data, isError, isSuccess, isPending, status, isFetching, isLoading } =
     useGetUserSpecificReservationInfo(params.reservationId);
 
-  // 현재 response로 돌아오는 응답에 result 속성이 없어서 resultMsg로 비교할 수 밖에 없음. undefined로 하면 첫 렌더링 시에 없기에 null과의 차별점을 두지 못함
-  useEffect(() => {}, []);
+  if (isPending === false && data?.status === 500) {
+    router.replace('/');
+  }
 
   useEffect(() => {
     return () => {
