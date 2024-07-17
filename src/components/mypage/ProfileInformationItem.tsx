@@ -4,27 +4,23 @@ import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import { useState, useEffect, useRef } from 'react';
 import { isValidEmail, isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
-import ToastUI, { toastUIDuration } from './ToastUI';
+import ToastUI from './ToastUI';
 import { formatPhoneNumber } from '@utils/formattingPhoneNumber';
+import { useChangeUserEmail } from '@apis/mypage/changeUserEmail';
+import { useChangeUserPhoneNumber } from '@apis/mypage/changeUserPhoneNumber';
+import { useChangeUserName } from '@apis/mypage/changeUserName';
 
 export default function ProfileInformationItem({
   labelName,
+  inputValue,
 }: ProfileInformationItemProps) {
   const [inputBoxEditStage, setInputBoxEditStage] = useState<1 | 2>(1);
-  const [inputData, setInputData] = useState<string>('');
+  const [inputData, setInputData] = useState<string>(inputValue);
   const [toastId, setToastId] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    // 추후에 백엔드로부터 inputData를 받아올 훅임
-    if (labelName === '이름') {
-      setInputData('김티그');
-    } else if (labelName === '휴대폰번호') {
-      setInputData('');
-    } else if (labelName === '이메일') {
-      setInputData('tig@naver.com');
-    }
-  }, []);
+  const { mutate: changeEmailMutate } = useChangeUserEmail();
+  const { mutate: changePhoneNumberMutate } = useChangeUserPhoneNumber();
+  const { mutate: changeNameMutate } = useChangeUserName();
 
   const handleChangeInputData = (ev: React.ChangeEvent<HTMLInputElement>) => {
     setInputData(ev.target.value);
@@ -33,10 +29,19 @@ export default function ProfileInformationItem({
   };
 
   const handleSaveNewInputData = (data: string) => {
-    // 실제로는 백엔드로 PATCH 요청이 전송된다.
-    // 일단은 전송이 성공적으로 이루어졌다고 가정
-    setInputData(data); // 한번 더 확실하게 데이터를 상태로 넣어주기 : 추후에 필요하면 삭제 가능
-    setInputBoxEditStage(1);
+    if (labelName === '이름') {
+      changeNameMutate({ name: data });
+      setInputBoxEditStage(1);
+      return;
+    } else if (labelName === '휴대폰번호') {
+      changePhoneNumberMutate({ phoneNumber: data });
+      setInputBoxEditStage(1);
+      return;
+    } else {
+      // labelName === '이메일'
+      changeEmailMutate({ email: data });
+      setInputBoxEditStage(1);
+    }
   };
 
   const toastUIDuration = 200;
@@ -82,10 +87,7 @@ export default function ProfileInformationItem({
       return;
     }
 
-    if (
-      labelName === '휴대폰번호' &&
-      !isValidPhoneNumber(inputData)
-    ) {
+    if (labelName === '휴대폰번호' && !isValidPhoneNumber(inputData)) {
       // toastUI를 띄워주는 로직
       handleWrongPhoneNumberSave();
       return;
@@ -98,7 +100,7 @@ export default function ProfileInformationItem({
         duration: toastUIDuration,
       }
     );
-  }
+  };
 
   const handleKeyDown = (ev: React.KeyboardEvent<HTMLInputElement>) => {
     if (ev.key === 'Enter') {
