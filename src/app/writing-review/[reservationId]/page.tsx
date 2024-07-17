@@ -37,14 +37,17 @@ export default function Page({
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
 
-  const { data, isError, isSuccess, isPending, status, isFetching, isLoading } =
-    useGetUserSpecificReservationInfo(params.reservationId);
+  const { data, isFetching } = useGetUserSpecificReservationInfo(
+    params.reservationId
+  );
 
   useEffect(() => {
     if (data?.status === 500) {
       router.replace('/');
     }
   }, [data]);
+
+  console.log(data?.result);
 
   useEffect(() => {
     return () => {
@@ -54,7 +57,7 @@ export default function Page({
   return (
     <>
       {data?.resultCode === undefined && <TigLoadingPage />}
-      {!isReviewSubmitted && !isFetching && data?.status !== 500 && (
+      {data && !isReviewSubmitted && !isFetching && data?.status !== 500 && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
             buttonType="close"
@@ -67,14 +70,14 @@ export default function Page({
               <HistoryComponentUpperSection
                 className="bg-white"
                 imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={DUMMYREVIEWDATA.clubAddress}
-                clubName={DUMMYREVIEWDATA.clubName}
-                eventDate={DUMMYREVIEWDATA.eventDate}
-                eventEndTime={DUMMYREVIEWDATA.eventEndTime}
-                eventStartTime={DUMMYREVIEWDATA.eventStartTime}
-                adultCount={DUMMYREVIEWDATA.adultCount}
-                teenagerCount={DUMMYREVIEWDATA.teenagerCount}
-                kidsCount={DUMMYREVIEWDATA.kidsCount}
+                clubAddress={data.result.clubAddress}
+                clubName={data.result.clubName}
+                eventDate={data.result.date}
+                eventEndTime={data.result.endTime}
+                eventStartTime={data.result.startTime}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
               />
             </div>
             <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
