@@ -190,10 +190,12 @@ export default function Page({
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
                 reservationUserName="김티그"
-                eventDate="2024.05.05"
-                adultCount={8}
-                rating={4}
-                rateContent="역 근처에 시설도 깔끔하고 좋아요! 신촌 볼링장 하면 꼭 여기로 가요. 직원분들도 친절하고 레일도 많고 최고! 담에 친구들이랑 단체 모임하면 또 갈게요~!"
+                eventDate={data.result.date.replace(/-/g, '.')}
+                adultCount={data.result.adultCount}
+                teenagerCount={data.result.teenagerCount}
+                kidsCount={data.result.kidsCount}
+                rating={starCount}
+                rateContent={reviewContents}
               />
             </section>
           </main>
