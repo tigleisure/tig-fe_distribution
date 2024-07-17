@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import { instance } from '@apis/instance';
 
 export interface userReservationListResponse {
   result: ReservationItemProps[];
@@ -9,20 +10,21 @@ export interface userReservationListResponse {
 
 export const getUserReservationList =
   async (): Promise<userReservationListResponse> => {
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/all`,
-      {
-        credentials: 'include',
-      }
-    );
+    // const response = await fetch(
+    //   `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/all`,
+    //   {
+    //     credentials: 'include',
+    //   }
+    // );
 
-    if (!response.ok) {
-      throw new Error('Failed to fetch user reservation list data!');
-    }
+    // if (!response.ok) {
+    //   throw new Error('Failed to fetch user reservation list data!');
+    // }
 
-    const data: userReservationListResponse = await response.json();
+    // const data: userReservationListResponse = await response.json();
 
-    return data;
+    // return data;
+    return instance.get('/api/v1/resevation/all');
   };
 
 export const useGetReservationList = () => {

@@ -1,11 +1,11 @@
 import { instance } from '@apis/instance';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { DeleteFromWishListResponse } from 'types/response/response';
+import { NoMeaningfulResultResponse } from 'types/response/response';
 import { ResultCardProps } from 'types/search/result/searchResult';
 
 export const deleteFromWishList = async (
   clubId: number
-): Promise<DeleteFromWishListResponse> => {
+): Promise<NoMeaningfulResultResponse> => {
   return instance.delete(`/api/v1/wishlist/${clubId}`);
 };
 
@@ -18,7 +18,11 @@ export const useDeleteFromWishList = () => {
       await queryClient.cancelQueries({ queryKey: ['wishlist'] });
 
       // 먼저 해당 아이템의 업데이트 이전 정보를 저장
-      const prevWishlist = queryClient.getQueryData<{ result: ResultCardProps[]; resultCode: number; resultMsg: string }>(['wishlist']);
+      const prevWishlist = queryClient.getQueryData<{
+        result: ResultCardProps[];
+        resultCode: number;
+        resultMsg: string;
+      }>(['wishlist']);
 
       if (!prevWishlist) {
         return { prevWishlist: { result: [] } };
@@ -26,7 +30,7 @@ export const useDeleteFromWishList = () => {
       // 새로운 선택지 데이터로 낙관적 업데이트 실시
       const newOption = {
         ...prevWishlist,
-        result: prevWishlist.result.filter(item => item.id !== clubId),
+        result: prevWishlist.result.filter((item) => item.id !== clubId),
       };
       queryClient.setQueryData(['wishlist'], newOption);
 

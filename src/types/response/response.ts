@@ -37,7 +37,7 @@ export interface PostHomeResponse {
   resultMsg: string;
 }
 
-export interface DeleteFromWishListResponse {
+export interface NoMeaningfulResultResponse {
   result: Record<string, never>;
   resultCode: number;
   resultMsg: string;
