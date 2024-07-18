@@ -19,10 +19,11 @@ export default function MakeResButtonCard() {
     if (pathname.startsWith('/reservation/game')) {
       console.log('gameResInfo', gameResInfo);
       const query = {
-        gametype: 'game',
+        gametype: 'GAME',
         date: gameResInfo.date,
         startTime: gameResInfo.startTime,
         gameCount: String(gameResInfo.gameCount),
+        request: gameResInfo.request,
         price: '금액 by BE',
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
@@ -35,14 +36,15 @@ export default function MakeResButtonCard() {
     } else {
       console.log('timeResInfo', timeResInfo);
       const query = {
-        gametype: 'time',
-        date: gameResInfo.date,
-        startTime: gameResInfo.startTime,
-        gameCount: String(gameResInfo.gameCount),
+        gametype: 'TIME',
+        date: timeResInfo.date,
+        startTime: timeResInfo.startTime,
+        endTime: timeResInfo.endTime,
+        request: timeResInfo.request,
         price: '금액 by BE',
-        adultCount: String(gameResInfo.adultCount),
-        teenagerCount: String(gameResInfo.teenagerCount),
-        kidsCount: String(gameResInfo.kidsCount),
+        adultCount: String(timeResInfo.adultCount),
+        teenagerCount: String(timeResInfo.teenagerCount),
+        kidsCount: String(timeResInfo.kidsCount),
         companyName: '회사 이름 by BE',
         companyAddress: '회사 주소 by BE',
       };
