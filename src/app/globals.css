@@ -76,6 +76,35 @@ a {
   color: inherit;
 }
 
+.ReactModal__Overlay {
+  opacity: 0;
+  transform: translateY(50%);
+  transition: all 300ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open {
+  opacity: 1;
+  transform: translateY(0px);
+}
+
+.ReactModal__Overlay--before-close {
+  opacity: 0;
+  transform: translateY(50%);
+}
+
+.Modal__Overlay {
+  opacity: 0;
+  transition: all 200ms ease-in-out;
+}
+
+.Modal__Overlay--after-open {
+  opacity: 1;
+}
+
+.Modal__Overlay--before-close {
+  opacity: 0;
+}
+
 .headline1 {
   @apply text-[18px] font-bold leading-[1] tracking-[-0.02em];
 }

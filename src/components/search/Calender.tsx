@@ -13,14 +13,15 @@ import {
   useGameReservationStore,
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
+import { useSelectedDate } from '@store/selectedDateStore';
 
 const date = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function Calender() {
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
-  const [selectedDate, setSelectedDate] = useState(
-    formatDate(new Date(), 'yyyy-MM-dd')
-  );
+  const selectedDate = useSelectedDate((state) => state.selectedDate);
+  const setSelectedDate = useSelectedDate((state) => state.setSelectedDate);
+
   const pathname = usePathname();
   const gameReservationInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
@@ -49,7 +50,7 @@ export default function Calender() {
   };
   const calendarList = createCalendarList(calendarMonth);
   const handleClickDate = (date: Date) => {
-    const formattedDate = formatDate(date, 'yyyy-MM-dd');
+    const formattedDate = formatDate(date, "yyyy-MM-dd'T'HH:mm:ss");
     if (pathname.startsWith('/reservation/game')) {
       setGameReservationInfo({ ...gameReservationInfo, date: formattedDate });
     } else if (pathname.startsWith('/reservation/time')) {

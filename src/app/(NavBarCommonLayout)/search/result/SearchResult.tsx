@@ -8,6 +8,8 @@ import NaverMap from '@components/search/result/NaverMap';
 import NoSearchResult from '@components/search/result/NoSearchResult';
 import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
 import useTab from '@store/tabNumberStore';
+import { formatDate, parse } from 'date-fns';
+import { ko } from 'date-fns/locale'
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
@@ -147,6 +149,8 @@ export function SearchResult() {
   const searchParams = useSearchParams();
   const { search, date, adultCount, teenagerCount, kidsCount } =
     Object.fromEntries(searchParams.entries());
+  const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
+  const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
 
   const selectedTab = useTab((state) => state.selectedTab);
   const [resultCards, setResultCards] =
@@ -167,7 +171,7 @@ export function SearchResult() {
     <div className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
         result
-        placeholder={`${search}, ${date}${
+        placeholder={`${search}, ${formattedDate}${
           adultCount === '0' ? '' : `, 성인 ${adultCount}명`
         }${teenagerCount === '0' ? '' : `, 청소년 ${teenagerCount}명`}${
           kidsCount === '0' ? '' : `, 어린이 ${kidsCount}명 `
