@@ -13,6 +13,7 @@ const handleKakaokEasyPay = async (
     totalAmount: 100,
     currency: 'CURRENCY_KRW',
     payMethod: 'EASY_PAY',
+    redirectUrl: 'https://localhost/payment/redirect',
   });
 
   console.log(response);

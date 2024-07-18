@@ -13,6 +13,7 @@ const handleTossEasyPay = async (
     totalAmount: 100,
     currency: 'CURRENCY_KRW',
     payMethod: 'CARD',
+    redirectUrl: 'https://localhost/payment/redirect',
   });
 
   console.log(response);
