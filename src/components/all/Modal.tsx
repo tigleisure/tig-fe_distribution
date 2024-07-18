@@ -29,6 +29,12 @@ export default function Modal({
   return (
     <ReactModal
       isOpen={isModalOpen}
+      overlayClassName={{
+        base: 'Modal__Overlay',
+        afterOpen: 'Modal__Overlay--after-open',
+        beforeClose: 'Modal__Overlay--before-close',
+      }}
+      closeTimeoutMS={300}
       onRequestClose={() => setModal(false)}
       ariaHideApp={false}
       style={customModalStyles}

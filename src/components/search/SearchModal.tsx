@@ -61,6 +61,13 @@ export default function SearchModal() {
   return (
     <ReactModal
       isOpen={isModalOpen}
+      closeTimeoutMS={300}
+      overlayClassName={{
+        base: 'ReactModal__Overlay',
+        afterOpen: 'ReactModal__Overlay--after-open',
+        beforeClose: 'ReactModal__Overlay--before-close',
+      }}
+      id="searchModal"
       onRequestClose={() => setModal(false)}
       ariaHideApp={false}
       style={customModalStyles}
@@ -123,6 +130,7 @@ const customModalStyles: ReactModal.Styles = {
     position: 'fixed',
     top: '0',
     left: '0',
+    animation: 'fadeIn 0.3s',
   },
   content: {
     display: 'flex',
