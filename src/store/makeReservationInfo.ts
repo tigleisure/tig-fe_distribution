@@ -28,7 +28,7 @@ interface TimeReservationStore {
 
 export const useGameReservationStore = create<GameReservationStore>((set) => ({
   gameReservationInfo: {
-    date: formatDate(new Date(), 'yyyy-MM-dd'),
+    date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
     startTime: '',
     adultCount: 0,
     teenagerCount: 0,
@@ -41,7 +41,7 @@ export const useGameReservationStore = create<GameReservationStore>((set) => ({
 
 export const useTimeReservationStore = create<TimeReservationStore>((set) => ({
   timeReservationInfo: {
-    date: formatDate(new Date(), 'yyyy-MM-dd'),
+    date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
     startTime: '',
     endTime: '',
     adultCount: 0,

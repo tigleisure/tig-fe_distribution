@@ -6,6 +6,7 @@ import Orange2RecSVG from '@public/svg/orange2Rec.svg';
 import TimeSelectCard from './TimeSelectCard';
 import { useEffect, useState } from 'react';
 import { useTimeReservationStore } from '@store/makeReservationInfo';
+import { useSelectedDate } from '@store/selectedDateStore';
 
 const DUMMYTIMELIST = [
   '10:00',
@@ -80,6 +81,7 @@ const DUMMYISSELECTED = [
 
 export default function RestimeCard() {
   const [selectedIdx, setSelectedIdx] = useState(DUMMYISSELECTED);
+  const selectedDate = useSelectedDate((state) => state.selectedDate);
   const timeReservationInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
@@ -149,10 +151,15 @@ export default function RestimeCard() {
       const formattedHours = String(newHours).padStart(2, '0');
       const formattedMinutes = String(newMinutes).padStart(2, '0');
 
-      const newEndTime = `${formattedHours}:${formattedMinutes}`;
+      const newEndTime = `${selectedDate.slice(
+        0,
+        11
+      )}${formattedHours}:${formattedMinutes}:00`;
       setTime({
         ...timeReservationInfo,
-        startTime: DUMMYTIMELIST[selectedIndices[0] || 0],
+        startTime: `${selectedDate.slice(0, 11)}${
+          DUMMYTIMELIST[selectedIndices[0] || 0]
+        }:00`,
         endTime: newEndTime,
       });
     }

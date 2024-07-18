@@ -8,6 +8,7 @@ import { useState } from 'react';
 import GameSelectCard from './GameSelectCard';
 import { useGameReservationStore } from '@store/makeReservationInfo';
 import { set } from 'date-fns';
+import { useSelectedDate } from '@store/selectedDateStore';
 
 const DUMMYTIMELIST = [
   '10:00',
@@ -58,6 +59,7 @@ const DUMMYISDISABLE = [
 
 export default function ResGameCard() {
   const [selectedIdx, setSelectedIdx] = useState(-1);
+  const selectedDate = useSelectedDate((state) => state.selectedDate);
   const GameReservationInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
   );
@@ -69,7 +71,7 @@ export default function ResGameCard() {
     setSelectedIdx(idx);
     setSelectedStartTime({
       ...GameReservationInfo,
-      startTime: DUMMYTIMELIST[idx],
+      startTime: `${selectedDate.slice(0, 11)}${DUMMYTIMELIST[idx]}:00`,
     });
   };
   return (
