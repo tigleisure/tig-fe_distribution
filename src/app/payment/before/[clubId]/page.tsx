@@ -17,8 +17,29 @@ import {
 import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
 import { Toaster } from 'react-hot-toast';
+import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 
-export default function Page() {
+interface searchParamsProps {
+  adultCount: string | undefined;
+  teenagerCount: string | undefined;
+  kidsCount: string | undefined;
+  date: string | undefined;
+  price: string | undefined;
+  startTime: string | undefined;
+  endTime: string | undefined;
+  gameCount: string | undefined;
+  clubName: string | undefined;
+  clubAddress: string | undefined;
+  gameType: string | undefined;
+}
+
+export default function Page({
+  params,
+  searchParams,
+}: {
+  params: { clubId: string };
+  searchParams: searchParamsProps;
+}) {
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
   );
@@ -46,26 +67,50 @@ export default function Page() {
     (state) => state.setSelectedIsModalOpen
   );
 
+  const { data, isError } = useGetUserInfo();
+  console.log(data);
+
+  const clubId = params.clubId;
+  const reservationSearchParmasObject = searchParams;
+
   useEffect(() => {
-    // 실제로는 현재 페이지 컴포넌트가 로드될 때, 날짜, 성인수, 청소년수, 어린이수, 시작 시간, 종료시간, 가격을 백엔드로부터 받아서 상태 값을 설정해준다.
-    // 일단 임시 데이터를 통해 화면 UI 완성
-    const DUMMYFIRSTSTAGEDATA: paymentFirstStageInfoProps = {
-      clubName: '스카이락 볼링장',
-      clubAddress: '서울 서대문구 신촌로 73 케이스퀘어 8층',
-      eventDate: '05.17 (금)',
-      adultCount: 2,
-      eventStartTime: '오전 10:00',
-      eventEndTime: '오전 11:00',
-      stageFirstPrice: 22000,
+    const firstStageObjData: paymentFirstStageInfoProps = {
+      date: reservationSearchParmasObject.date
+        ? reservationSearchParmasObject.date
+        : '',
+      adultCount: reservationSearchParmasObject.adultCount
+        ? parseInt(reservationSearchParmasObject.adultCount)
+        : 0,
+      teenagerCount: reservationSearchParmasObject.teenagerCount
+        ? parseInt(reservationSearchParmasObject.teenagerCount)
+        : 0,
+      kidsCount: reservationSearchParmasObject.kidsCount
+        ? parseInt(reservationSearchParmasObject.kidsCount)
+        : 0,
+      startTime: reservationSearchParmasObject.startTime
+        ? reservationSearchParmasObject.startTime
+        : '',
+      endTime: reservationSearchParmasObject.endTime
+        ? reservationSearchParmasObject.endTime
+        : '',
+      clubName: reservationSearchParmasObject.clubName
+        ? reservationSearchParmasObject.clubName
+        : '',
+      clubAddress: reservationSearchParmasObject.clubAddress
+        ? reservationSearchParmasObject.clubAddress
+        : '',
+      price: reservationSearchParmasObject.price
+        ? parseInt(reservationSearchParmasObject.price)
+        : 0,
     };
 
-    setFirstStageInfoObject(DUMMYFIRSTSTAGEDATA);
+    setFirstStageInfoObject(firstStageObjData);
 
     const DUMMYSECONDSTAGEDATA: paymentSecondStageInfoProps = {
       userName: '김티그',
       phoneNumber: '',
       couponDiscountPrice: 0,
-      defaultPrice: 22000,
+      price: 22000,
     };
 
     setSecondStageInfoObject(DUMMYSECONDSTAGEDATA);

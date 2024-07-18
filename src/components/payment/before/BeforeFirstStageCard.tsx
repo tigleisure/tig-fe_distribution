@@ -1,25 +1,25 @@
 interface BeforeFirstStageCardProps {
   clubName: string;
   clubAddress: string;
-  eventDate: string;
-  adultCount?: number;
-  teenagerCount?: number;
-  kidsCount?: number;
-  eventStartTime: string;
-  eventEndTime: string;
-  stageFirstPrice: number;
+  date: string;
+  adultCount: number;
+  teenagerCount: number;
+  kidsCount: number;
+  startTime: string;
+  endTime: string;
+  price: number;
 }
 
 export default function BeforeFirstStageCard({
   clubName,
   clubAddress,
-  eventDate,
+  date,
   adultCount,
   teenagerCount,
   kidsCount,
-  eventStartTime,
-  eventEndTime,
-  stageFirstPrice,
+  startTime,
+  endTime,
+  price,
 }: BeforeFirstStageCardProps) {
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
@@ -31,7 +31,7 @@ export default function BeforeFirstStageCard({
         <div className="w-full border-b-[1px] border-grey2" />
         <div className="w-full flex justify-between items-center">
           <span className="title text-grey4">날짜</span>
-          <span className="body4 text-grey6">{eventDate}</span>
+          <span className="body4 text-grey6">{date}</span>
         </div>
         <div className="w-full flex justify-between items-center">
           <span className="title text-grey4">인원</span>
@@ -44,7 +44,7 @@ export default function BeforeFirstStageCard({
         <div className="w-full flex justify-between items-center">
           <span className="title text-grey4">이용 시간</span>
           <span className="body4 text-grey6">
-            {eventStartTime} ~ {eventEndTime}
+            {startTime} ~ {endTime === '' ? null : endTime}
           </span>
         </div>
         <div className="w-full border-b-[1px] border-grey4" />
@@ -52,7 +52,7 @@ export default function BeforeFirstStageCard({
           <span className="title4 text-grey6">총 결제 금액</span>
           <div className="w-fit h-fit flex flex-col items-end gap-y-[6px]">
             <span className="headline2 text-status_red1">
-              {stageFirstPrice}
+              {price}
               <span className="title3 text-status_red1">원</span>
             </span>
             <span className="caption4 text-grey3">세금 및 수수료 포함</span>
