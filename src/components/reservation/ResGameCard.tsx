@@ -9,35 +9,11 @@ import GameSelectCard from './GameSelectCard';
 import { useGameReservationStore } from '@store/makeReservationInfo';
 import { set } from 'date-fns';
 import { useSelectedDate } from '@store/selectedDateStore';
+import { generateTimeSlots } from '@utils/generateTimeSlots';
 
-const DUMMYTIMELIST = [
-  '10:00',
-  '10:30',
-  '11:00',
-  '11:30',
-  '12:00',
-  '12:30',
-  '13:00',
-  '13:30',
-  '14:00',
-  '14:30',
-  '15:00',
-  '15:30',
-  '16:00',
-  '16:30',
-  '17:00',
-  '17:30',
-  '18:00',
-  '18:30',
-  '19:00',
-  '19:30',
-];
-
+// MVP에서는 선택불가능한 시간 없음
 const DUMMYISDISABLE = [
   false,
-  true,
-  true,
-  true,
   false,
   false,
   false,
@@ -48,8 +24,11 @@ const DUMMYISDISABLE = [
   false,
   false,
   false,
-  true,
-  true,
+  false,
+  false,
+  false,
+  false,
+  false,
   false,
   false,
   false,
@@ -58,6 +37,12 @@ const DUMMYISDISABLE = [
 ];
 
 export default function ResGameCard() {
+  
+  // 백엔드로부터 제공받은 데이터
+  const statFromBackend = '10:00';
+  const endFromBackend = '20:00';
+  //
+  const DUMMYTIMELIST = generateTimeSlots(statFromBackend, endFromBackend);
   const [selectedIdx, setSelectedIdx] = useState(-1);
   const selectedDate = useSelectedDate((state) => state.selectedDate);
   const GameReservationInfo = useGameReservationStore(
