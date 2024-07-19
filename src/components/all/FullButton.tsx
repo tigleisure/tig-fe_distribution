@@ -11,8 +11,12 @@ import useModal from '@store/modalStore';
 import { isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
+import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
+import handleTossEasyPay from '@apis/portone/tossEasyPay';
+import { useGetUserInfo } from '@apis/mypage/getUserInfo';
+import { da } from 'date-fns/locale';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -85,6 +89,10 @@ export default function FullButton({
   );
 
   const [toastId, setToastId] = useState<string | null>(null);
+
+  const { data } = useGetUserInfo();
+
+  console.log(data);
 
   const colorClasses = {
     status_red1: 'text-status_red1',
@@ -163,12 +171,31 @@ export default function FullButton({
         return;
       }
       // 이제 해당 정보를 백엔드로 전송하면 됨
-      console.log(firstStageInfoObject);
-      console.log(secondStageInfoObject);
+
+      if (secondStageInfoObject.paymentMethod === 'kakaoPayment' && data) {
+        handleKakaokEasyPay(
+          data.result.id,
+          new Date().toLocaleString(),
+          secondStageInfoObject.price -
+            secondStageInfoObject.couponDiscountPrice
+        );
+      }
+
+      if (
+        secondStageInfoObject.paymentMethod === 'tossAndCardPayment' &&
+        data
+      ) {
+        handleTossEasyPay(
+          data.result.id,
+          new Date().toLocaleString(),
+          secondStageInfoObject.price -
+            secondStageInfoObject.couponDiscountPrice
+        );
+      }
 
       // 백엔드 전송 로직
       // 실제로는 companyId를 다음 주소로 넘겨야함
-      router.replace(`/payment/after/${firstStageInfoObject.clubName}`);
+      // router.replace(`/payment/after/${firstStageInfoObject.clubName}`);
     }
   }
 

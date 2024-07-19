@@ -56,7 +56,7 @@ export default function BeforeSecondStagePaymentSelectionCard({
                 {
                   'shadow-writingReviewInput':
                     secondStageInfoObject.paymentMethod !== paymentMethod,
-                  'shadow-paymentSelection bg-grey1':
+                  'shadow-paymentSelection':
                     secondStageInfoObject.paymentMethod === paymentMethod,
                 }
               )}
