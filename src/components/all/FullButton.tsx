@@ -168,6 +168,22 @@ export default function FullButton({
         setToastId(id);
         return;
       }
+
+      if (secondStageInfoObject.paymentMethod === null) {
+        if (toastId !== null) {
+          toast.remove(toastId);
+        }
+        const id = toast.custom(
+          <ToastUI message="결제 수단을 선택해주세요." iswarning={true} />,
+          {
+            duration: toastUIDuration,
+          }
+        );
+
+        setToastId(id);
+        return;
+      }
+
       // 이제 해당 정보를 백엔드로 전송하면 됨
 
       if (secondStageInfoObject.paymentMethod === 'kakaoPayment' && data) {
