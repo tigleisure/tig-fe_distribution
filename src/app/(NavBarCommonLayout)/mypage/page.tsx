@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import useModal from '@store/modalStore';
 import { useRouter } from 'next/navigation';
 import TigLoadingPage from '@components/all/TigLoadingPage';
+import useLocalStorageState from '@store/localStorageAccessTokenStore';
 
 export default function Page() {
   const setSelectedIsModalOpen = useModal(
@@ -14,6 +15,10 @@ export default function Page() {
   );
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<Boolean>(true);
+
+  const setLocalStoraeAccessTokenState = useLocalStorageState(
+    (state) => state.setLocalStorageAccessTokenState
+  );
 
   useEffect(() => {
     if (localStorage.getItem('accessToken') === null) {
@@ -30,6 +35,7 @@ export default function Page() {
     console.log('logout!');
     localStorage.removeItem('accessToken');
     // 추후에 refreshToken도 무효화시켜달라는 백엔드 API가 필요
+    setLocalStoraeAccessTokenState(null);
     router.replace('/');
   };
 

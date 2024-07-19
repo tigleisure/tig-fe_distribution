@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type NavItemType } from 'types/all/NavTypes';
 import { useState, useEffect } from 'react';
+import useLocalStorageState from '@store/localStorageAccessTokenStore';
 
 export default function NavItem({
   ActiveIcon,
@@ -11,18 +12,25 @@ export default function NavItem({
 }: NavItemType) {
   const pathname: string | null = usePathname();
 
-  const [localStorageAccessToken, setLocalStorageAccessToken] = useState<
-    string | null
-  >(null);
+  // const [localStorageAccessToken, setLocalStorageAccessToken] = useState<
+  //   string | null
+  // >(null);
+  const localStorageAccessTokenState = useLocalStorageState(
+    (state) => state.localStorageAccessTokenState
+  );
+
+  const setLocalStoraeAccessTokenState = useLocalStorageState(
+    (state) => state.setLocalStorageAccessTokenState
+  );
 
   useEffect(() => {
-    setLocalStorageAccessToken(localStorage.getItem('accessToken'));
+    setLocalStoraeAccessTokenState(localStorage.getItem('accessToken'));
   }, []);
 
   const targetPath =
     path !== '/mypage'
       ? path
-      : localStorageAccessToken === null
+      : localStorageAccessTokenState === null
       ? '/login'
       : '/mypage';
 
