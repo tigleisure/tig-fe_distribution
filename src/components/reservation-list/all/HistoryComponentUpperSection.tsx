@@ -4,6 +4,10 @@ import SmallClockSVG from '@public/svg/smallClock.svg';
 import SmallPersonSVG from '@public/svg/smallPerson.svg';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
 import { cn } from '@utils/cn';
+import {
+  formatReservationShowingDate,
+  extractOnlyTime,
+} from '@utils/formatDate';
 
 export default function HistoryComponentUpperSection({
   clubName,
@@ -25,21 +29,30 @@ export default function HistoryComponentUpperSection({
       <div className="h-fit flex flex-col justify-between items-start gap-y-3 grow txt-overflow-ellipsis">
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
           <span className="w-full title3 text-grey7 txt-overflow-ellipsis">
-            {clubName}
+            {clubName ? clubName : 'no club name'}
           </span>
           <span className="w-full body4 text-grey5 txt-overflow-ellipsis">
-            {clubAddress}
+            {clubAddress ? clubAddress : 'no club address'}
           </span>
         </div>
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallCalendarSVG />
-            <span className="body4 text-grey7">{eventDate}</span>
+            <span className="body4 text-grey7">
+              {formatReservationShowingDate(eventDate)}
+            </span>
           </div>
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallClockSVG />
             <span className="body4 text-grey7">
-              {eventStartTime} ~ {eventEndTime}
+              {parseInt(extractOnlyTime(eventStartTime).slice(0, 2)) <= 12
+                ? '오전'
+                : '오후'}{' '}
+              {extractOnlyTime(eventStartTime)} ~{' '}
+              {parseInt(extractOnlyTime(eventEndTime).slice(0, 2)) <= 12
+                ? '오전'
+                : '오후'}{' '}
+              {extractOnlyTime(eventEndTime)}
             </span>
           </div>
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
