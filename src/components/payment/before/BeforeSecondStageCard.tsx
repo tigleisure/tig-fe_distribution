@@ -1,6 +1,7 @@
 import BeforeSecondStageUserInfoCard from './BeforeSecondStageUserInfoCard';
 import BeforeSecondStageCouponCard from './BeforeSecondStageCouponCard';
 import BeforeSecondStageFinalPriceCard from './BeforeSecondStageFinalPriceCard';
+import BeforeSecondStagePaymentSelectionCard from './BeforeSecondStagePaymentSelectionCard';
 
 interface BeforeSecondStageCardProps {
   userName: string;
@@ -23,6 +24,7 @@ export default function BeforeSecondStageCard({
         phoneNumber={phoneNumber}
       />
       <BeforeSecondStageCouponCard couponDiscountPrice={couponDiscountPrice} />
+      <BeforeSecondStagePaymentSelectionCard />
       <BeforeSecondStageFinalPriceCard
         couponDiscountPrice={couponDiscountPrice}
         defaultPrice={price}
