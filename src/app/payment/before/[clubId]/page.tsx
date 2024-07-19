@@ -68,7 +68,6 @@ export default function Page({
   );
 
   const { data, isError } = useGetUserInfo();
-  console.log(data);
 
   const clubId = params.clubId;
   const reservationSearchParmasObject = searchParams;
@@ -113,8 +112,24 @@ export default function Page({
       price: 22000,
     };
 
-    setSecondStageInfoObject(DUMMYSECONDSTAGEDATA);
-  }, []);
+    let secondStageObjData: paymentSecondStageInfoProps = {
+      userName: '',
+      phoneNumber: '',
+      couponDiscountPrice: 0,
+      price: 0,
+    };
+    if (data !== undefined) {
+      secondStageObjData = {
+        userName: data.result.name,
+        phoneNumber: data.result.phoneNumber,
+        couponDiscountPrice: 0,
+        price: reservationSearchParmasObject.price
+          ? parseInt(reservationSearchParmasObject.price)
+          : 0,
+      };
+    }
+    setSecondStageInfoObject(secondStageObjData);
+  }, [data]);
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);
@@ -156,7 +171,7 @@ export default function Page({
             size="lg"
             color="white"
             bgColor="primary_orange1"
-            content="확인"
+            content="결제하기"
             clickTask="request-payment"
           />
         </section>
