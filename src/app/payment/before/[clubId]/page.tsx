@@ -105,13 +105,6 @@ export default function Page({
 
     setFirstStageInfoObject(firstStageObjData);
 
-    // const DUMMYSECONDSTAGEDATA: paymentSecondStageInfoProps = {
-    //   userName: '김티그',
-    //   phoneNumber: '',
-    //   couponDiscountPrice: 0,
-    //   price: 22000,
-    // };
-
     let secondStageObjData: paymentSecondStageInfoProps = {
       userName: '',
       phoneNumber: '',

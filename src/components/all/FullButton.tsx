@@ -92,8 +92,6 @@ export default function FullButton({
 
   const { data } = useGetUserInfo();
 
-  console.log(data);
-
   const colorClasses = {
     status_red1: 'text-status_red1',
     primary_orange1: 'text-primary_orange1',
