@@ -3,12 +3,17 @@ import { useState, useEffect } from 'react';
 import { Sheet } from 'react-modal-sheet';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import ResultCard from './ResultCard';
+import MylocationSVG from '@public/svg/mylocation.svg';
 
 interface BottomSheetProps {
   results: ResultCardProps[];
+  handleMyLocation?: () => void;
 }
 
-export default function BottomSheet({ results }: BottomSheetProps) {
+export default function BottomSheet({
+  results,
+  handleMyLocation,
+}: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
 
@@ -35,8 +40,12 @@ export default function BottomSheet({ results }: BottomSheetProps) {
       snapPoints={[height, 234, 74]}
     >
       <Sheet.Container className="relative h-full w-full !shadow-none">
-        <Sheet.Header className="w-full h-[20px] flex justify-center pt-[6px] cursor-pointer">
+        <Sheet.Header className="w-full h-[20px] flex justify-center pt-[6px] cursor-pointer relative">
           <div className="w-[40px] h-[4px] rounded-[2px] bg-grey3" />
+          <MylocationSVG
+            className="absolute right-0 top-[-70px]"
+            onClick={handleMyLocation}
+          />
         </Sheet.Header>
         <Sheet.Content
           className="overflow-y-scroll z-10 h-full w-full relative !grow-0"
@@ -44,8 +53,8 @@ export default function BottomSheet({ results }: BottomSheetProps) {
         >
           {results.length === 0 && (
             <div className="w-full h-[140px] flex flex-col gap-[10px] justify-center items-center">
-                <p className="title2 text-grey7">검색 결과가 없어요.</p>
-                <p className="caption1 text-grey5">검색 필터를 수정해보세요!</p>
+              <p className="title2 text-grey7">검색 결과가 없어요.</p>
+              <p className="caption1 text-grey5">검색 필터를 수정해보세요!</p>
             </div>
           )}
           {results.map((result, idx) => {

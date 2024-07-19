@@ -6,10 +6,11 @@ import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
 import NaverMap from '@components/search/result/NaverMap';
 import NoSearchResult from '@components/search/result/NoSearchResult';
+import ResultCard from '@components/search/result/ResultCard';
 import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
 import useTab from '@store/tabNumberStore';
 import { formatDate, parse } from 'date-fns';
-import { ko } from 'date-fns/locale'
+import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
@@ -26,6 +27,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장2',
@@ -39,6 +42,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장3',
@@ -51,6 +56,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'POCKET_BALL',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장4',
@@ -63,6 +70,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'POCKET_BALL',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장5',
@@ -74,6 +83,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     type: 'GAME',
     imageUrls: ['/png/dummyImage.png'],
     category: 'POCKET_BALL',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장6',
@@ -87,6 +98,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'TABLE_TENNIS',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장7',
@@ -100,6 +113,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'TABLE_TENNIS',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장8',
@@ -113,6 +128,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'TENNIS',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장9',
@@ -126,6 +143,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
   {
     clubName: '스카이락볼링장10',
@@ -139,6 +158,8 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
+    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
   },
 ];
 
@@ -146,6 +167,10 @@ const isResult = true;
 
 export function SearchResult() {
   const tabArray = allleisureArray;
+  const [currentLociation, setCurrentLocation] = useState({
+    latitude: 37.55527,
+    longitude: 126.9366,
+  });
   const searchParams = useSearchParams();
   const { search, date, adultCount, teenagerCount, kidsCount } =
     Object.fromEntries(searchParams.entries());
@@ -167,6 +192,17 @@ export function SearchResult() {
       setResultCards(filteredResultCards);
     }
   }, [selectedTab]);
+
+  const handleMyLocation = () => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+      setCurrentLocation({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  };
+
   return (
     <div className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
@@ -187,8 +223,24 @@ export function SearchResult() {
       />
 
       <FilterHeader />
-      {isResult && <NaverMap />}
-      {isResult && <BottomSheet results={resultCards} />}
+      {isResult && (
+        <NaverMap
+          locationArray={DUMMYRESULTS.map((result) => ({
+            latitude: result.latitude || 0,
+            longitude: result.longitude || 0,
+          }))}
+          currentLatitude={currentLociation.latitude}
+          currentLongitude={currentLociation.longitude}
+        />
+      )}
+      {isResult && (
+        <BottomSheet
+          results={resultCards}
+          handleMyLocation={handleMyLocation}
+        />
+      )}
+      {/* 핑 클릭 시 뜰 카드 */}
+      {/* <ResultCard {...DUMMYRESULTS[0]} /> */}
       {!isResult && <NoSearchResult />}
       {/* <NavBar /> */}
     </div>
