@@ -16,4 +16,7 @@ export interface ResultCardProps {
   isHeart?: boolean;
   imageUrls: string[];
   isLast?: boolean;
+  latitude?: number;
+  longitude?: number;
+  alone?: boolean;
 }

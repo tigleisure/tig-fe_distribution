@@ -1,14 +1,34 @@
 import { info } from 'console';
 import Script from 'next/script';
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
-export default function NaverMap() {
+interface NaverMapProps {
+  locationArray: {
+    latitude: number;
+    longitude: number;
+  }[];
+  currentLatitude: number;
+  currentLongitude: number;
+}
+
+export default function NaverMap({
+  locationArray,
+  currentLatitude,
+  currentLongitude,
+}: NaverMapProps) {
+  console.log(currentLatitude,currentLongitude)
   const mapRef = useRef<naver.maps.Map | null>(null);
+
+  useEffect(()=>{
+    if(mapRef.current){
+      mapRef.current.setCenter(new naver.maps.LatLng(currentLatitude, currentLongitude))
+    }
+  },[currentLatitude, currentLongitude])
 
   const initializeMap = () => {
     const mapOptions = {
-      center: new naver.maps.LatLng(37.3595704, 127.105399),
-      zoom: 15,
+      center: new naver.maps.LatLng(currentLatitude, currentLongitude),
+      zoom: 14,
       logoControl: false,
       mapDataControl: false,
       scaleControl: false,
@@ -17,19 +37,14 @@ export default function NaverMap() {
     mapRef.current = map;
     const markers: naver.maps.Marker[] = [];
     const infoWindows: naver.maps.InfoWindow[] = [];
-    for (let i = 1; i < 100; i++) {
+    for (let i = 0; i < locationArray.length; i++) {
       markers.push(
         new naver.maps.Marker({
           position: new naver.maps.LatLng(
-            37.3595704 + i * 0.001,
-            127.105399 + i * 0.001
+            locationArray[i].latitude,
+            locationArray[i].longitude
           ),
           map: map,
-          icon: {
-            // content:
-            //   '<div style="background-color: #f00; color: #fff; padding: 5px;">마커</div>',
-            url: '/svg/tig.svg',
-          },
         })
       );
       // 정보창이 예상대로 동작하지 않음. 필요하지 않으면 안 쓰는게 나을듯
