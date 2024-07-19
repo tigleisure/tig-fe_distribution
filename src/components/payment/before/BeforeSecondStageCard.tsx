@@ -8,6 +8,7 @@ interface BeforeSecondStageCardProps {
   phoneNumber: string;
   couponDiscountPrice: number;
   price: number; // 기존의 예약 금액을 의미함
+  paymentMethod: 'naverPayment' | 'kakaoPayment' | 'tossAndCardPayment' | null;
 }
 
 // 추후에 백엔드 api로부터 해당 사용자가 쿠폰이 있는지 없는지를 검사하는 로직으로 상태를 설정해야함
@@ -16,6 +17,7 @@ export default function BeforeSecondStageCard({
   phoneNumber,
   couponDiscountPrice,
   price,
+  paymentMethod,
 }: BeforeSecondStageCardProps) {
   return (
     <section className="w-eightNineWidth h-fit  flex flex-col gap-y-[10px] mt-[30px] mb-[30px]">
@@ -24,7 +26,7 @@ export default function BeforeSecondStageCard({
         phoneNumber={phoneNumber}
       />
       <BeforeSecondStageCouponCard couponDiscountPrice={couponDiscountPrice} />
-      <BeforeSecondStagePaymentSelectionCard />
+      <BeforeSecondStagePaymentSelectionCard paymentMethod={paymentMethod} />
       <BeforeSecondStageFinalPriceCard
         couponDiscountPrice={couponDiscountPrice}
         defaultPrice={price}

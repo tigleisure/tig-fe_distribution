@@ -105,18 +105,19 @@ export default function Page({
 
     setFirstStageInfoObject(firstStageObjData);
 
-    const DUMMYSECONDSTAGEDATA: paymentSecondStageInfoProps = {
-      userName: '김티그',
-      phoneNumber: '',
-      couponDiscountPrice: 0,
-      price: 22000,
-    };
+    // const DUMMYSECONDSTAGEDATA: paymentSecondStageInfoProps = {
+    //   userName: '김티그',
+    //   phoneNumber: '',
+    //   couponDiscountPrice: 0,
+    //   price: 22000,
+    // };
 
     let secondStageObjData: paymentSecondStageInfoProps = {
       userName: '',
       phoneNumber: '',
       couponDiscountPrice: 0,
       price: 0,
+      paymentMethod: null,
     };
     if (data !== undefined) {
       secondStageObjData = {
@@ -126,6 +127,7 @@ export default function Page({
         price: reservationSearchParmasObject.price
           ? parseInt(reservationSearchParmasObject.price)
           : 0,
+        paymentMethod: null,
       };
     }
     setSecondStageInfoObject(secondStageObjData);

@@ -39,6 +39,7 @@ export interface paymentSecondStageInfoProps {
   phoneNumber: string;
   couponDiscountPrice: number;
   price: number;
+  paymentMethod: 'naverPayment' | 'kakaoPayment' | 'tossAndCardPayment' | null;
 }
 
 interface paymentSecondStageStore {
@@ -53,6 +54,7 @@ export const usePaymentSecondStage = create<paymentSecondStageStore>((set) => ({
     phoneNumber: '',
     couponDiscountPrice: 0,
     price: 0,
+    paymentMethod: null,
   },
   setSecondStageInfoObject: (status: paymentSecondStageInfoProps) =>
     set({ secondStageInfoObject: status }),
