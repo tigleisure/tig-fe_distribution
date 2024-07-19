@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { type NavItemType } from 'types/all/NavTypes';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function NavItem({
   ActiveIcon,
@@ -10,10 +10,13 @@ export default function NavItem({
   path,
 }: NavItemType) {
   const pathname: string | null = usePathname();
-  let localStorageAccessToken: string | null = null;
+
+  const [localStorageAccessToken, setLocalStorageAccessToken] = useState<
+    string | null
+  >(null);
 
   useEffect(() => {
-    localStorageAccessToken = localStorage.getItem('accessToken');
+    setLocalStorageAccessToken(localStorage.getItem('accessToken'));
   }, []);
 
   const targetPath =
