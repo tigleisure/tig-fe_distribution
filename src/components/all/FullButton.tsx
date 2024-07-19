@@ -16,7 +16,6 @@ import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
 import handleTossEasyPay from '@apis/portone/tossEasyPay';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
-import { da } from 'date-fns/locale';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -48,7 +47,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'request-payment';
   sendingData?: {
     reviewId?: number;
-    reservationId?: number;
+    reservationId?: number | null;
     selectedCouponPrice?: number;
   };
 }
@@ -91,8 +90,6 @@ export default function FullButton({
   const [toastId, setToastId] = useState<string | null>(null);
 
   const { data } = useGetUserInfo();
-
-  console.log(data);
 
   const colorClasses = {
     status_red1: 'text-status_red1',
@@ -170,6 +167,22 @@ export default function FullButton({
         setToastId(id);
         return;
       }
+
+      if (secondStageInfoObject.paymentMethod === null) {
+        if (toastId !== null) {
+          toast.remove(toastId);
+        }
+        const id = toast.custom(
+          <ToastUI message="결제 수단을 선택해주세요." iswarning={true} />,
+          {
+            duration: toastUIDuration,
+          }
+        );
+
+        setToastId(id);
+        return;
+      }
+
       // 이제 해당 정보를 백엔드로 전송하면 됨
 
       if (secondStageInfoObject.paymentMethod === 'kakaoPayment' && data) {

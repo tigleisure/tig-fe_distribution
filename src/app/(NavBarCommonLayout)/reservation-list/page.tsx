@@ -14,1082 +14,10 @@ import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
 import { useGetReservationList } from '@apis/reservation-list/getUserReservationList';
 import { usePostReservation } from '@apis/payment/before/postReservation';
+import TigLoadingPage from '@components/all/TigLoadingPage';
+import { useRouter } from 'next/navigation';
+import cancelPortOnePayment from '@apis/portone/cancelPayment';
 
-const MockReservationData: ReservationItemProps[] = [
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName:
-      '스카이락 볼링장 스카이락 볼링장 스카이락 볼링장 스카이락 볼링장 스카이락 볼링장',
-    clubAddress:
-      '서울 서대문구 신촌로 73 케이스빌딩 4층 서울 서대문구 신촌로 73 케이스빌딩 서울 서대문구 신촌로 73 케이스빌딩 ',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 2,
-    teenagerCount: 1,
-    kidsCount: 0,
-    date: '2024-07-24',
-    startTime: '10:00',
-    endTime: '12:00',
-    price: 150,
-    status: 'CONFIRMED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 3,
-    teenagerCount: 0,
-    kidsCount: 2,
-    date: '2024-08-24',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'TBC',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-  {
-    adultCount: 1,
-    teenagerCount: 1,
-    kidsCount: 1,
-    date: '2024-08-25',
-    startTime: '14:00',
-    endTime: '16:00',
-    price: 250,
-    status: 'DECLINED',
-    memberId: null,
-    clubId: null,
-    type: null,
-    businessHours: null,
-    clubName: '스카이락 볼링장',
-    clubAddress: '서울 서대문구 신촌로 73 케이스빌딩 4층',
-    reservationId: null,
-  },
-];
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
     '전체' | '진행중' | '종료된'
@@ -1097,6 +25,8 @@ export default function Page() {
   const [reservationList, setReservationList] = useState<
     ReservationItemProps[]
   >([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [cancelPaymentId, setCancelPaymentId] = useState<string | null>(null);
 
   const inProgressReservationList = reservationList.filter(
     (reservationItem) =>
@@ -1112,7 +42,12 @@ export default function Page() {
     (state) => state.setSelectedIsModalOpen
   );
 
-  const { data } = useGetReservationList();
+  const { data, isError } = useGetReservationList();
+
+  const router = useRouter();
+
+  console.log(data);
+
   const mutation = usePostReservation();
 
   useEffect(() => {
@@ -1121,134 +56,171 @@ export default function Page() {
     };
   }, []);
 
+  // useEffect(() => {
+  //   mutation.mutate({
+  //     adultCount: 3,
+  //     teenagerCount: 2,
+  //     kidsCount: 1,
+  //     date: '2024-07-17T00:00:00',
+  //     startTime: '2024-07-17T10:10:10',
+  //     endTime: '2024-07-17T11:10:10',
+  //     price: 20000,
+  //     status: 'TBC',
+  //     clubId: 3,
+  //     paymentId: 'safajsdlfja',
+  //   });
+  // }, []);
+
   useEffect(() => {
-    setReservationList(MockReservationData);
-  }, []);
+    if (data) {
+      setReservationList(data.result);
+      setIsLoading(false);
+    }
+    // data의 resultCode가 오류이면 여기에서도 setIsLoading(false)로 바꾸고 reservationList는 빈 것으로 유지
+
+    // 네트워크 장애가 났을 경우는 일단 홈으로 사용자를 보낸다
+    if (isError) {
+      router.replace('/');
+    }
+  }, [data]);
 
   return (
-    <div className="flex flex-col h-full pb-[54px] items-center">
-      <NoneArrowHeader title="예약내역" />
-      <HistoryHead
-        totalCount={reservationList.length}
-        inProgressCount={inProgressReservationList.length}
-        completedCount={endReservationList.length}
-        historyHeadState={historyHeadState}
-        handleHeadState={setHistoryHeadState}
-      />
-      {historyHeadState === '전체' && reservationList.length === 0 && (
-        <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
-          <NoneResultUI
-            message="예약 내역이 없어요"
-            subMessage="마음에 드는 장소를 찾아 예약해보세요!"
+    <>
+      {isLoading ? (
+        <TigLoadingPage />
+      ) : (
+        <div className="flex flex-col h-full pb-[54px] items-center">
+          <NoneArrowHeader title="예약내역" />
+          <HistoryHead
+            totalCount={reservationList.length}
+            inProgressCount={inProgressReservationList.length}
+            completedCount={endReservationList.length}
+            historyHeadState={historyHeadState}
+            handleHeadState={setHistoryHeadState}
           />
-        </main>
-      )}
-
-      {historyHeadState === '전체' && reservationList.length !== 0 && (
-        <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
-          {reservationList.map((reservationItem, index) =>
-            reservationItem.status === 'TBC' ||
-            reservationItem.status === 'CONFIRMED' ? (
-              <HistoryInProgressItem
-                key={index}
-                clubName={reservationItem.clubName}
-                clubAddress={reservationItem.clubAddress}
-                eventDate={reservationItem.date}
-                eventStartTime={reservationItem.startTime}
-                eventEndTime={reservationItem.endTime}
-                adultCount={reservationItem.adultCount}
-                teenagerCount={reservationItem.teenagerCount}
-                kidsCount={reservationItem.kidsCount}
-                reservationStatus={reservationItem.status}
-                reservationId={index}
+          {historyHeadState === '전체' && reservationList.length === 0 && (
+            <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
+              <NoneResultUI
+                message="예약 내역이 없어요"
+                subMessage="마음에 드는 장소를 찾아 예약해보세요!"
               />
-            ) : (
-              <HistoryEndItem
-                key={index}
-                clubName={reservationItem.clubName}
-                clubAddress={reservationItem.clubAddress}
-                eventDate={reservationItem.date}
-                eventStartTime={reservationItem.startTime}
-                eventEndTime={reservationItem.endTime}
-                adultCount={reservationItem.adultCount}
-                teenagerCount={reservationItem.teenagerCount}
-                kidsCount={reservationItem.kidsCount}
-                reservationStatus={reservationItem.status}
-                reservationId={index} //일단 백엔드에서 추후에 예약과 review id를 줌
-                reviewId={index}
-              />
-            )
+            </main>
           )}
-        </main>
-      )}
 
-      {historyHeadState === '진행중' &&
-        inProgressReservationList.length === 0 && (
-          <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
-            <NoneResultUI
-              message="예약 내역이 없어요"
-              subMessage="마음에 드는 장소를 찾아 예약해보세요!"
-            />
-          </main>
-        )}
+          {historyHeadState === '전체' && reservationList.length !== 0 && (
+            <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
+              {reservationList.map((reservationItem, index) =>
+                reservationItem.status === 'TBC' ||
+                reservationItem.status === 'CONFIRMED' ? (
+                  <HistoryInProgressItem
+                    key={index}
+                    clubName={reservationItem.clubName}
+                    clubAddress={reservationItem.clubAddress}
+                    eventDate={reservationItem.date}
+                    eventStartTime={reservationItem.startTime}
+                    eventEndTime={reservationItem.endTime}
+                    adultCount={reservationItem.adultCount}
+                    teenagerCount={reservationItem.teenagerCount}
+                    kidsCount={reservationItem.kidsCount}
+                    reservationStatus={reservationItem.status}
+                    reservationId={reservationItem.reservationId}
+                    paymentId={cancelPaymentId}
+                    handleChangeCancelPaymentId={setCancelPaymentId}
+                  />
+                ) : (
+                  <HistoryEndItem
+                    key={index}
+                    clubName={reservationItem.clubName}
+                    clubAddress={reservationItem.clubAddress}
+                    eventDate={reservationItem.date}
+                    eventStartTime={reservationItem.startTime}
+                    eventEndTime={reservationItem.endTime}
+                    adultCount={reservationItem.adultCount}
+                    teenagerCount={reservationItem.teenagerCount}
+                    kidsCount={reservationItem.kidsCount}
+                    reservationStatus={reservationItem.status}
+                    reservationId={reservationItem.reservationId} //일단 백엔드에서 추후에 예약과 review id를 줌
+                    // reviewId={}
+                  />
+                )
+              )}
+            </main>
+          )}
 
-      {historyHeadState === '진행중' &&
-        inProgressReservationList.length !== 0 && (
-          <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
-            {inProgressReservationList.map((data, index) => (
-              <HistoryInProgressItem
-                key={index}
-                clubName={data.clubName}
-                clubAddress={data.clubAddress}
-                eventDate={data.date}
-                eventStartTime={data.startTime}
-                eventEndTime={data.endTime}
-                adultCount={data.adultCount}
-                teenagerCount={data.teenagerCount}
-                kidsCount={data.kidsCount}
-                reservationStatus={data.status}
-                reservationId={index}
+          {historyHeadState === '진행중' &&
+            inProgressReservationList.length === 0 && (
+              <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
+                <NoneResultUI
+                  message="예약 내역이 없어요"
+                  subMessage="마음에 드는 장소를 찾아 예약해보세요!"
+                />
+              </main>
+            )}
+
+          {historyHeadState === '진행중' &&
+            inProgressReservationList.length !== 0 && (
+              <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
+                {inProgressReservationList.map((data, index) => (
+                  <HistoryInProgressItem
+                    key={index}
+                    clubName={data.clubName}
+                    clubAddress={data.clubAddress}
+                    eventDate={data.date}
+                    eventStartTime={data.startTime}
+                    eventEndTime={data.endTime}
+                    adultCount={data.adultCount}
+                    teenagerCount={data.teenagerCount}
+                    kidsCount={data.kidsCount}
+                    reservationStatus={data.status}
+                    reservationId={index}
+                    paymentId={cancelPaymentId}
+                    handleChangeCancelPaymentId={setCancelPaymentId}
+                  />
+                ))}
+              </main>
+            )}
+
+          {historyHeadState === '종료된' && endReservationList.length === 0 && (
+            <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
+              <NoneResultUI
+                message="예약 내역이 없어요"
+                subMessage="마음에 드는 장소를 찾아 예약해보세요!"
               />
-            ))}
-          </main>
-        )}
+            </main>
+          )}
 
-      {historyHeadState === '종료된' && endReservationList.length === 0 && (
-        <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
-          <NoneResultUI
-            message="예약 내역이 없어요"
-            subMessage="마음에 드는 장소를 찾아 예약해보세요!"
+          {historyHeadState === '종료된' && endReservationList.length !== 0 && (
+            <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
+              {endReservationList.map((data, index) => (
+                <HistoryEndItem
+                  key={index}
+                  clubName={data.clubName}
+                  clubAddress={data.clubAddress}
+                  eventDate={data.date}
+                  eventStartTime={data.startTime}
+                  eventEndTime={data.endTime}
+                  adultCount={data.adultCount}
+                  teenagerCount={data.teenagerCount}
+                  kidsCount={data.kidsCount}
+                  reservationStatus={data.status}
+                  reservationId={index}
+                  reviewId={index}
+                />
+              ))}
+            </main>
+          )}
+          <Modal
+            size="lg"
+            button1Content="이전으로"
+            button2Content="취소하기"
+            title="예약을 취소하시겠습니까?"
+            subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
+            secondButtonFunc={() =>
+              cancelPortOnePayment(cancelPaymentId as string)
+            }
           />
-        </main>
+        </div>
       )}
-
-      {historyHeadState === '종료된' && endReservationList.length !== 0 && (
-        <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
-          {endReservationList.map((data, index) => (
-            <HistoryEndItem
-              key={index}
-              clubName={data.clubName}
-              clubAddress={data.clubAddress}
-              eventDate={data.date}
-              eventStartTime={data.startTime}
-              eventEndTime={data.endTime}
-              adultCount={data.adultCount}
-              teenagerCount={data.teenagerCount}
-              kidsCount={data.kidsCount}
-              reservationStatus={data.status}
-              reservationId={index}
-              reviewId={index}
-            />
-          ))}
-        </main>
-      )}
-      <Modal
-        size="lg"
-        button1Content="이전으로"
-        button2Content="취소하기"
-        title="예약을 취소하시겠습니까?"
-        subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
-      />
-    </div>
+    </>
   );
 }

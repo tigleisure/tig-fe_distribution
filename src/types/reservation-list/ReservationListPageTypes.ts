@@ -16,17 +16,26 @@ export interface HistoryInProgressItemProps {
     | 'DONE'
     | 'REVIEWED';
   reservationId: number;
+  paymentId: string | null;
+  handleChangeCancelPaymentId: (paymentId: string) => void;
 }
 
 export interface HistoryComponentUpperSectionProps
   extends Omit<
     HistoryInProgressItemProps,
-    'reservationStatus' | 'reservationId'
+    | 'reservationStatus'
+    | 'reservationId'
+    | 'handleChangeCancelPaymentId'
+    | 'paymentId'
   > {
   className?: string;
 }
 
-export interface HistoryEndItemProps extends HistoryInProgressItemProps {
+export interface HistoryEndItemProps
+  extends Omit<
+    HistoryInProgressItemProps,
+    'handleChangeCancelPaymentId' | 'paymentId'
+  > {
   reviewId?: number;
 }
 
@@ -53,6 +62,6 @@ export interface ReservationItemProps {
   businessHours: any;
   clubName: string;
   clubAddress: string;
-  reservationId: number | null;
+  reservationId: number;
   memberName?: string;
 }
