@@ -3,13 +3,13 @@ import { create } from 'zustand';
 export interface paymentFirstStageInfoProps {
   clubName: string;
   clubAddress: string;
-  eventDate: string;
+  date: string;
   adultCount: number;
-  teenagerCount?: number;
-  kidsCount?: number;
-  eventStartTime: string;
-  eventEndTime: string;
-  stageFirstPrice: number;
+  teenagerCount: number;
+  kidsCount: number;
+  startTime: string;
+  endTime: string;
+  price: number;
 }
 
 interface paymentFirstStageStore {
@@ -22,13 +22,13 @@ export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
   firstStageInfoObject: {
     clubName: '',
     clubAddress: '',
-    eventDate: '',
+    date: '',
     adultCount: 0,
     teenagerCount: 0,
     kidsCount: 0,
-    eventStartTime: '',
-    eventEndTime: '',
-    stageFirstPrice: 0,
+    startTime: '',
+    endTime: '',
+    price: 0,
   },
   setFirstStageInfoObject: (status: paymentFirstStageInfoProps) =>
     set({ firstStageInfoObject: status }),
@@ -38,7 +38,8 @@ export interface paymentSecondStageInfoProps {
   userName: string;
   phoneNumber: string;
   couponDiscountPrice: number;
-  defaultPrice: number;
+  price: number;
+  paymentMethod: 'naverPayment' | 'kakaoPayment' | 'tossAndCardPayment' | null;
 }
 
 interface paymentSecondStageStore {
@@ -52,7 +53,8 @@ export const usePaymentSecondStage = create<paymentSecondStageStore>((set) => ({
     userName: '',
     phoneNumber: '',
     couponDiscountPrice: 0,
-    defaultPrice: 0,
+    price: 0,
+    paymentMethod: null,
   },
   setSecondStageInfoObject: (status: paymentSecondStageInfoProps) =>
     set({ secondStageInfoObject: status }),
