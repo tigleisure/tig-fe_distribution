@@ -166,7 +166,10 @@ export default function Page({
             size="lg"
             color="white"
             bgColor="primary_orange1"
-            content="결제하기"
+            content={`${(
+              secondStageInfoObject.price -
+              secondStageInfoObject.couponDiscountPrice
+            ).toLocaleString()}원 결제하기`}
             clickTask="request-payment"
           />
         </section>
