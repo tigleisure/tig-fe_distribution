@@ -47,7 +47,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     | 'request-payment';
   sendingData?: {
     reviewId?: number;
-    reservationId?: number;
+    reservationId?: number | null;
     selectedCouponPrice?: number;
   };
 }

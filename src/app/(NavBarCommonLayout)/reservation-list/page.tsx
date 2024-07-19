@@ -26,6 +26,7 @@ export default function Page() {
     ReservationItemProps[]
   >([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [cancelPaymentId, setCancelPaymentId] = useState<string | null>(null);
 
   const inProgressReservationList = reservationList.filter(
     (reservationItem) =>
@@ -54,6 +55,21 @@ export default function Page() {
       setSelectedIsModalOpen(false);
     };
   }, []);
+
+  // useEffect(() => {
+  //   mutation.mutate({
+  //     adultCount: 3,
+  //     teenagerCount: 2,
+  //     kidsCount: 1,
+  //     date: '2024-07-17T00:00:00',
+  //     startTime: '2024-07-17T10:10:10',
+  //     endTime: '2024-07-17T11:10:10',
+  //     price: 20000,
+  //     status: 'TBC',
+  //     clubId: 3,
+  //     paymentId: 'safajsdlfja',
+  //   });
+  // }, []);
 
   useEffect(() => {
     if (data) {
@@ -107,7 +123,9 @@ export default function Page() {
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
                     reservationStatus={reservationItem.status}
-                    reservationId={index}
+                    reservationId={reservationItem.reservationId}
+                    paymentId={cancelPaymentId}
+                    handleChangeCancelPaymentId={setCancelPaymentId}
                   />
                 ) : (
                   <HistoryEndItem
@@ -121,8 +139,8 @@ export default function Page() {
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
                     reservationStatus={reservationItem.status}
-                    reservationId={index} //일단 백엔드에서 추후에 예약과 review id를 줌
-                    reviewId={index}
+                    reservationId={reservationItem.reservationId} //일단 백엔드에서 추후에 예약과 review id를 줌
+                    // reviewId={}
                   />
                 )
               )}
@@ -155,6 +173,8 @@ export default function Page() {
                     kidsCount={data.kidsCount}
                     reservationStatus={data.status}
                     reservationId={index}
+                    paymentId={cancelPaymentId}
+                    handleChangeCancelPaymentId={setCancelPaymentId}
                   />
                 ))}
               </main>
@@ -195,6 +215,9 @@ export default function Page() {
             button2Content="취소하기"
             title="예약을 취소하시겠습니까?"
             subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
+            secondButtonFunc={() =>
+              cancelPortOnePayment(cancelPaymentId as string)
+            }
           />
         </div>
       )}

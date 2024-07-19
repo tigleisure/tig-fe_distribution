@@ -16,6 +16,8 @@ export default function HistoryInProgressItem({
   kidsCount,
   reservationStatus,
   reservationId,
+  paymentId,
+  handleChangeCancelPaymentId,
 }: HistoryInProgressItemProps) {
   const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
 
@@ -43,7 +45,9 @@ export default function HistoryInProgressItem({
             content="예약 취소"
             className="shadow-cancelButton"
             onClick={(ev) => {
+              handleChangeCancelPaymentId(paymentId as string);
               setModalOpen(true);
+              console.log('예약취소 요청!');
               ev.stopPropagation();
               ev.preventDefault();
             }}

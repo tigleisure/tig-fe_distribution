@@ -11,6 +11,7 @@ interface reservationRequestBodyProp {
   price: number;
   status: 'TBC';
   clubId: number;
+  paymentId: string;
 }
 
 interface reservationResponseBodyProp {
