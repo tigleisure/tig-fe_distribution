@@ -80,12 +80,14 @@ export default function ResultCard({
               <StarSVG />
               {ratingSum}
             </p>
-            <p className="caption3 text-grey5">{ratingCount}명 평가</p>
+            <p className="caption3 text-grey5 flex items-center">
+              {ratingCount}명 평가
+            </p>
           </div>
         </div>
         <div className="flex flex-col gap-1">
           <p className="headline2 text-grey7">{price.toLocaleString()}원</p>
-          <p className="body4 grey4">
+          <p className="body4 text-grey4">
             {type === 'GAME' ? '게임' : '시간'}당 가격
           </p>
         </div>

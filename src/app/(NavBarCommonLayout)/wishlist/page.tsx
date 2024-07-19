@@ -11,12 +11,23 @@ import { useGetWishList } from '@apis/wishlist/getWishList';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
+import { addToWishList, useAddToWishList } from '@apis/wishlist/addToWishList';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
   const { data, isError, error, isSuccess } = useGetWishList();
+  const mutation = useAddToWishList();
 
   const tabArray = allleisureArray;
+
+  // useEffect(() => {
+  //   mutation.mutate(11);
+  //   mutation.mutate(12);
+  //   mutation.mutate(13);
+  //   mutation.mutate(14);
+  //   mutation.mutate(15);
+  //   mutation.mutate(16);
+  // }, []);
 
   if (isError) {
     return <div>Error: {error.message}</div>;
