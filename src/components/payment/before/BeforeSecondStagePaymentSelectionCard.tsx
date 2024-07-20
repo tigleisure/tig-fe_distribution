@@ -1,13 +1,10 @@
 import TossLogoSVG from '@public/svg/payment/before/tossLogo.svg';
-import NaverPaymentLogoSVG from '@public/svg/payment/before/naverPaymentLogo.svg';
+// import NaverPaymentLogoSVG from '@public/svg/payment/before/naverPaymentLogo.svg';
 import KakaoPaymentLogoSVG from '@public/svg/payment/before/kakaoPaymentLogo.svg';
 import { usePaymentSecondStage } from '@store/paymentInfoStore';
 import { cn } from '@utils/cn';
 
-type paymentMethodString =
-  | 'naverPayment'
-  | 'kakaoPayment'
-  | 'tossAndCardPayment';
+type paymentMethodString = 'kakaoPayment' | 'tossAndCardPayment';
 
 interface BeforeSecondStagePaymentSelectionCardProps {
   paymentMethod: paymentMethodString | null;
@@ -25,15 +22,11 @@ export default function BeforeSecondStagePaymentSelectionCard({
 
   const paymentArray: paymentMethodString[] = [
     'tossAndCardPayment',
-    'naverPayment',
     'kakaoPayment',
   ];
 
   const handleClickPayment = (
-    incomingPaymentMethod:
-      | 'naverPayment'
-      | 'kakaoPayment'
-      | 'tossAndCardPayment'
+    incomingPaymentMethod: 'kakaoPayment' | 'tossAndCardPayment'
   ): void => {
     setSecondStageInfoObject({
       ...secondStageInfoObject,
@@ -67,8 +60,6 @@ export default function BeforeSecondStagePaymentSelectionCard({
                 <div className="w-[50px]">
                   {paymentMethod === 'tossAndCardPayment' ? (
                     <TossLogoSVG />
-                  ) : paymentMethod === 'naverPayment' ? (
-                    <NaverPaymentLogoSVG />
                   ) : (
                     <KakaoPaymentLogoSVG />
                   )}
@@ -76,8 +67,6 @@ export default function BeforeSecondStagePaymentSelectionCard({
                 <div className="body4 text-grey7">
                   {paymentMethod === 'tossAndCardPayment'
                     ? '토스 및 카드 결제'
-                    : paymentMethod === 'naverPayment'
-                    ? '네이버페이'
                     : '카카오페이'}
                 </div>
               </div>

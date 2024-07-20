@@ -39,7 +39,7 @@ export interface paymentSecondStageInfoProps {
   phoneNumber: string;
   couponDiscountPrice: number;
   price: number;
-  paymentMethod: 'naverPayment' | 'kakaoPayment' | 'tossAndCardPayment' | null;
+  paymentMethod: 'kakaoPayment' | 'tossAndCardPayment' | null;
 }
 
 interface paymentSecondStageStore {

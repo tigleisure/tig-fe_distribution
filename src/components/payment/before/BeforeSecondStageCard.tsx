@@ -8,7 +8,7 @@ interface BeforeSecondStageCardProps {
   phoneNumber: string;
   couponDiscountPrice: number;
   price: number; // 기존의 예약 금액을 의미함
-  paymentMethod: 'naverPayment' | 'kakaoPayment' | 'tossAndCardPayment' | null;
+  paymentMethod: 'kakaoPayment' | 'tossAndCardPayment' | null;
 }
 
 // 추후에 백엔드 api로부터 해당 사용자가 쿠폰이 있는지 없는지를 검사하는 로직으로 상태를 설정해야함
