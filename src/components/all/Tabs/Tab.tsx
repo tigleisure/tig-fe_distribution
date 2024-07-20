@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 
 interface TabProps {
-  defaultName:string;
+  defaultName: string;
   name: string;
   className?: string;
   rounded?: boolean;

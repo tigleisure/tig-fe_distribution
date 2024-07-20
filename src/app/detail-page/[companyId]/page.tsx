@@ -1,7 +1,7 @@
 'use client';
 import Header from '@components/all/Header';
 import Tabs from '@components/all/Tabs/Tabs';
-import {DetailInfoCard} from '@components/detail-page/DetailInfoCard';
+import { DetailInfoCard } from '@components/detail-page/DetailInfoCard';
 import ResButtonCard from '@components/detail-page/ResButtonCard';
 import { ServicesCard } from '@components/detail-page/ServicesCard';
 import { VisitedReviewCard } from '@components/detail-page/VisitedReviewCard';
@@ -82,7 +82,7 @@ const DUMMYDetailPage: DetailPageProps = {
   ],
 };
 
-export default function Page({ params }: { params: { companyId: string } } ) {
+export default function Page({ params }: { params: { companyId: string } }) {
   const tabArray = detailArray;
   // const imageRef = useRef<HTMLImageElement>(null);
   const detailInfoRef = useRef<HTMLDivElement>(null);
@@ -104,10 +104,10 @@ export default function Page({ params }: { params: { companyId: string } } ) {
     }
   }, [selectedTab]);
 
-  useEffect(()=>{
+  useEffect(() => {
     // 상세페이지 접근 시 GET 요청에 보낼 정보 (쿼리파라미터)
     console.log(params.companyId);
-  },[])
+  }, []);
 
   const scrollToDetailInfoRef = () => {
     if (detailInfoRef.current) {
@@ -136,7 +136,11 @@ export default function Page({ params }: { params: { companyId: string } } ) {
   return (
     <main className="w-full h-full overflow-y-scroll">
       <Header buttonType="back" title="업체명" />
-      <Tabs tabArray={tabArray} from="detail" className="top-[68px]" />
+      <Tabs
+        tabArray={tabArray}
+        from="detail"
+        className="top-[68px] !justify-around"
+      />
       <div ref={detailInfoRef} />
       <Image
         src="/png/dummyDetailImage.png"
@@ -147,7 +151,7 @@ export default function Page({ params }: { params: { companyId: string } } ) {
         // ref={imageRef}
       />
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
-      <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef}/>
+      <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef} />
       <ServicesCard
         servicesIcon={DUMMYDetailPage.servicesIcon}
         services={DUMMYDetailPage.services}
