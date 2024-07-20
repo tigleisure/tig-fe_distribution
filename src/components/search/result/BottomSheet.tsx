@@ -43,7 +43,7 @@ export default function BottomSheet({
         <Sheet.Header className="w-full h-[20px] flex justify-center pt-[6px] cursor-pointer relative">
           <div className="w-[40px] h-[4px] rounded-[2px] bg-grey3" />
           <MylocationSVG
-            className="absolute right-0 top-[-70px]"
+            className="absolute right-[20px] top-[-60px] shadow-locationButton"
             onClick={handleMyLocation}
           />
         </Sheet.Header>

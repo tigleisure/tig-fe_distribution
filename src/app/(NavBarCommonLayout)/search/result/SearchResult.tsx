@@ -6,8 +6,11 @@ import BottomSheet from '@components/search/result/BottomSheet';
 import FilterHeader from '@components/search/result/FilterHeader';
 import NaverMap from '@components/search/result/NaverMap';
 import NoSearchResult from '@components/search/result/NoSearchResult';
+import PinCard from '@components/search/result/PinCard';
 import ResultCard from '@components/search/result/ResultCard';
 import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
+import { useBottomSheetStore } from '@store/bottomSheetStore';
+import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import useTab from '@store/tabNumberStore';
 import { formatDate, parse } from 'date-fns';
 import { ko } from 'date-fns/locale';
@@ -167,6 +170,13 @@ const isResult = true;
 
 export function SearchResult() {
   const tabArray = allleisureArray;
+  const isBottomSheetOpen = useBottomSheetStore(
+    (state) => state.isBottomSheetOpen
+  );
+  const pinCardIndex = usePinCardIndexStore((state) => state.pinCardIndex);
+  const setIsBottomSheetOpen = useBottomSheetStore(
+    (state) => state.setIsBottomSheetOpen
+  );
   const [currentLociation, setCurrentLocation] = useState({
     latitude: 37.55527,
     longitude: 126.9366,
@@ -192,6 +202,10 @@ export function SearchResult() {
       setResultCards(filteredResultCards);
     }
   }, [selectedTab]);
+
+  useEffect(() => {
+    setIsBottomSheetOpen(false);
+  }, []);
 
   const handleMyLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -233,14 +247,19 @@ export function SearchResult() {
           currentLongitude={currentLociation.longitude}
         />
       )}
-      {isResult && (
+      {isResult && isBottomSheetOpen && (
         <BottomSheet
           results={resultCards}
           handleMyLocation={handleMyLocation}
         />
       )}
-      {/* 핑 클릭 시 뜰 카드 */}
       {/* <ResultCard {...DUMMYRESULTS[0]} /> */}
+      {!isBottomSheetOpen && (
+        <PinCard
+          PinCard={DUMMYRESULTS[pinCardIndex]}
+          handleMyLocation={handleMyLocation}
+        />
+      )}
       {!isResult && <NoSearchResult />}
       {/* <NavBar /> */}
     </div>
