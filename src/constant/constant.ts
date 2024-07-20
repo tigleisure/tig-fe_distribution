@@ -5,6 +5,9 @@ export const allleisureArray = [
   '스크린골프',
   '탁구',
   '테니스',
+  '축구',
+  '야구',
+  '스쿼시',
 ];
 export const homeleisureArray = [
   '홈',
@@ -13,6 +16,9 @@ export const homeleisureArray = [
   '스크린골프',
   '탁구',
   '테니스',
+  '축구',
+  '야구',
+  '스쿼시',
 ];
 export const detailArray = ['기본정보', '편의시설', '방문자 리뷰'];
 
@@ -22,6 +28,9 @@ export const categoryMapKorToEng: { [key: string]: string } = {
   스크린골프: 'SCREEN_GOLF',
   탁구: 'TABLE_TENNIS',
   테니스: 'TENNIS',
+  축구: 'FOOTBALL',
+  야구: 'BASEBALL',
+  스쿼시: 'SQUASH',
 };
 
 export const categoryMapEngToKor: { [key: string]: string } = {
@@ -30,4 +39,7 @@ BALLING: '볼링',
 SCREEN_GOLF: '스크린골프',
 TABLE_TENNIS: '탁구',
 TENNIS: '테니스',
-}
+FOOTBALL: '축구',
+BASEBALL: '야구',
+SQUASH: '스쿼시',
+};
