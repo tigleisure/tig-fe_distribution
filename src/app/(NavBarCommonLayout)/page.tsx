@@ -13,7 +13,7 @@ import { HomeCardProps } from 'types/home/HomeTypes';
 import HomeCardList from '@components/home/HomeCardList';
 import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
-import { usePostHome } from '@apis/wishlist/postHome';
+import { usePostHome } from '@apis/home/postHome';
 import { Club } from 'types/response/response';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
