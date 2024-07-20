@@ -40,7 +40,7 @@ export default function Page() {
         tabArray={tabArray}
         rounded
         from="wishlist"
-        className="w-fit px-5 top-[68px] border-b-[1px] border-grey2"
+        className="w-full px-5 top-[58px]"
       />
 
       {selectedTab === '전체' &&

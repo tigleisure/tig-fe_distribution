@@ -219,7 +219,7 @@ export function SearchResult() {
         tabArray={tabArray}
         rounded
         from="search"
-        className="w-full px-5 top-[58px] resultTab:justify-center"
+        className="w-full px-5 top-[58px]"
       />
 
       <FilterHeader />
