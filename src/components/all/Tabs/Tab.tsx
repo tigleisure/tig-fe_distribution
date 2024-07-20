@@ -38,7 +38,7 @@ export default function Tab({
             currentTab === name && rounded,
           'text-grey6 h-[30px] border border-grey3':
             currentTab !== name && rounded,
-          'w-fit px-[14px] shrink-0': !rounded,
+          'w-fit px-[24px] shrink-0': !rounded,
           'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,
         },
         className
