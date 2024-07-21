@@ -17,7 +17,7 @@ export interface HistoryInProgressItemProps {
     | 'REVIEWED';
   reservationId: number;
   paymentId: string | null;
-  handleChangeCancelPaymentId: (paymentId: string) => void;
+  handleChangeCancelPaymentId?: (paymentId: string) => void;
 }
 
 export interface HistoryComponentUpperSectionProps
@@ -63,5 +63,6 @@ export interface ReservationItemProps {
   clubName: string;
   clubAddress: string;
   reservationId: number;
+  paymentId: string;
   memberName?: string;
 }

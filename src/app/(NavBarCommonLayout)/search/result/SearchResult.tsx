@@ -204,7 +204,7 @@ export function SearchResult() {
   }, [selectedTab]);
 
   useEffect(() => {
-    setIsBottomSheetOpen(false);
+    setIsBottomSheetOpen(true);
   }, []);
 
   const handleMyLocation = () => {
