@@ -1,4 +1,7 @@
+import { useBottomSheetStore } from '@store/bottomSheetStore';
+import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import { info } from 'console';
+import { set } from 'date-fns';
 import Script from 'next/script';
 import { useEffect, useRef } from 'react';
 
@@ -16,14 +19,17 @@ export default function NaverMap({
   currentLatitude,
   currentLongitude,
 }: NaverMapProps) {
-  console.log(currentLatitude,currentLongitude)
   const mapRef = useRef<naver.maps.Map | null>(null);
+  const setIsBottomSheetOpen = useBottomSheetStore((state) => state.setIsBottomSheetOpen);
+  const setPinCardIndex = usePinCardIndexStore ((state) => state.setPinCardIndex);
 
-  useEffect(()=>{
-    if(mapRef.current){
-      mapRef.current.setCenter(new naver.maps.LatLng(currentLatitude, currentLongitude))
+  useEffect(() => {
+    if (mapRef.current) {
+      mapRef.current.setCenter(
+        new naver.maps.LatLng(currentLatitude, currentLongitude)
+      );
     }
-  },[currentLatitude, currentLongitude])
+  }, [currentLatitude, currentLongitude]);
 
   const initializeMap = () => {
     const mapOptions = {
@@ -45,8 +51,15 @@ export default function NaverMap({
             locationArray[i].longitude
           ),
           map: map,
+          icon: {
+            url: '/svg/ping.svg',
+          },
         })
       );
+      naver.maps.Event.addListener(markers[i], 'click', function () {
+        setIsBottomSheetOpen(false);
+        setPinCardIndex(i);
+      });
       // 정보창이 예상대로 동작하지 않음. 필요하지 않으면 안 쓰는게 나을듯
       // infoWindows.push(
       //   new naver.maps.InfoWindow({
