@@ -36,21 +36,23 @@ export default function BeforeFirstStageCard({
         </p>
         <div className="w-full border-b-[1px] border-grey2" />
         <div className="w-full flex justify-between items-center">
-          <span className="title text-grey4">날짜</span>
+          <span className="title4 text-grey4">날짜</span>
           <span className="body4 text-grey6">
             {formatReservationShowingDate(date)}
           </span>
         </div>
         <div className="w-full flex justify-between items-center">
-          <span className="title text-grey4">인원</span>
+          <span className="title4 text-grey4">인원</span>
           <span className="body4 text-grey6">
-            {adultCount !== 0 && `성인 ${adultCount}명 `}{' '}
-            {teenagerCount !== 0 && `청소년 ${teenagerCount}명 `}{' '}
+            {adultCount !== 0 && `성인 ${adultCount}명`}
+            {adultCount && teenagerCount !== 0 && ','}{' '}
+            {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}{' '}
+            {teenagerCount && kidsCount !== 0 && ','}
             {kidsCount !== 0 && `어린이 ${kidsCount}명`}
           </span>
         </div>
         <div className="w-full flex justify-between items-center">
-          <span className="title text-grey4">이용 시간</span>
+          <span className="title4 text-grey4">이용 시간</span>
           <span className="body4 text-grey6">
             {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
               ? '오전'
@@ -64,7 +66,8 @@ export default function BeforeFirstStageCard({
           <span className="title4 text-grey6">총 결제 금액</span>
           <div className="w-fit h-fit flex flex-col items-end gap-y-[6px]">
             <span className="headline2 text-status_red1">
-              {price} <span className="title3 text-status_red1">원</span>
+              {price.toLocaleString()}{' '}
+              <span className="title3 text-status_red1">원</span>
             </span>
             <span className="caption4 text-grey3">세금 및 수수료 포함</span>
           </div>

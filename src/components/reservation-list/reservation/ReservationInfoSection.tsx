@@ -1,11 +1,11 @@
 interface ReservationInfoProps {
   reservationUserName: string;
-  reservationNumber: string;
+  reservationId: string;
   phoneNumber: string;
 }
 
 export default function ReservationInfoSection({
-  reservationNumber,
+  reservationId,
   reservationUserName,
   phoneNumber,
 }: ReservationInfoProps) {
@@ -15,7 +15,7 @@ export default function ReservationInfoSection({
       <div className="flex flex-col gap-y-[14px]">
         <div className="flex items-center gap-x-5">
           <span className="caption2 text-grey4">예약 번호</span>
-          <span className="caption2 text-grey6">{reservationNumber}</span>
+          <span className="caption2 text-grey6">{reservationId}</span>
         </div>
         <div className="flex items-center gap-x-[33px]">
           <span className="caption2 text-grey4">예약자</span>

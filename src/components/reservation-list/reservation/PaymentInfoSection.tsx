@@ -15,7 +15,7 @@ export default function PaymentInfoSection({
           <span className="caption2 text-grey4">결제 일시</span>
           <span className="caption2 text-grey6">{paymentTime}</span>
         </div>
-        <div className="flex items-center gap-x-[33px]">
+        <div className="flex items-center gap-x-5">
           <span className="caption2 text-grey4">결제 수단</span>
           <span className="caption2 text-grey6">{payMethod}</span>
         </div>

@@ -15,18 +15,22 @@ export default function BeforeSecondStageFinalPriceCard({
       <div className="w-sevenEightWidth border-b-[1px] border-grey2" />
       <div className="w-sevenEightWidth flex justify-between items-center">
         <span className="title4 text-grey4">예약 금액</span>
-        <span className="body4 text-grey6">{defaultPrice}원</span>
+        <span className="body4 text-grey6">
+          {defaultPrice.toLocaleString()}원
+        </span>
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center">
         <span className="title4 text-grey4">쿠폰 할인 금액</span>
-        <span className="body4 text-grey6">-{couponDiscountPrice}원</span>
+        <span className="body4 text-grey6">
+          -{couponDiscountPrice.toLocaleString()}원
+        </span>
       </div>
       <div className="w-sevenEightWidth border-b-[1px] border-grey4s" />
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-[6px]">
         <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey6">총 결제 금액</span>
           <div className=" flex items-center headline2 text-status_red1">
-            {defaultPrice - couponDiscountPrice}
+            {(defaultPrice - couponDiscountPrice).toLocaleString()}
             <span className="title3 text-status_red1">원</span>
           </div>
         </div>

@@ -126,11 +126,18 @@ function CouponItem({
   return (
     <section
       className={cn(
-        'w-eightNineWidth h-fit rounded-[10px] flex flex-col items-center gap-y-5 bg-white mb-[10px] py-5',
+        'w-eightNineWidth h-fit rounded-[10px] flex flex-col items-center gap-y-5 bg-white mb-[10px] py-5 hover:cursor-pointer',
         {
-          'shadow-myPageLogoutButton': isValid,
+          'shadow-myPageLogoutButton': selectedCouponNumber === couponIndex,
         }
       )}
+      onClick={() => {
+        if (isValid) {
+          handleClickCoupon(couponIndex);
+        } else {
+          return;
+        }
+      }}
     >
       <div
         className={cn(
@@ -141,7 +148,7 @@ function CouponItem({
           }
         )}
       >
-        {discountPrice}원
+        {discountPrice.toLocaleString()}원
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center">
         <span
@@ -167,13 +174,6 @@ function CouponItem({
                 disabled: !isValid,
               }
             )}
-            onClick={() => {
-              if (isValid) {
-                handleClickCoupon(couponIndex);
-              } else {
-                return;
-              }
-            }}
           />
         )}
       </div>

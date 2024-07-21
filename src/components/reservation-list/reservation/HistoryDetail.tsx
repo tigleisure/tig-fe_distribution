@@ -10,54 +10,56 @@ export default function HistoryDetail({
   imageUrl,
   clubName,
   clubAddress,
-  eventDate,
-  eventStartTime,
-  eventEndTime,
+  date,
+  startTime,
+  endTime,
   adultCount,
   teenagerCount,
   kidsCount,
-  reservationNumber,
-  reservationUserName,
+  reservationId,
+  memberName,
   phoneNumber,
   paymentTime,
   payMethod,
-  reservationPrice,
+  price,
   feePrice,
   couponDiscountPrice,
   cancelAvailableDate,
+  status,
 }: ReservationDetailProps) {
   return (
-    <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[60px] bg-white shadow-myPageLogoutButton">
+    <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[30px] bg-white shadow-myPageLogoutButton">
       <HistoryComponentUpperSection
         clubName={clubName}
         clubAddress={clubAddress}
-        eventDate={eventDate}
-        eventStartTime={eventStartTime}
-        eventEndTime={eventEndTime}
+        eventDate={date}
+        eventStartTime={startTime}
+        eventEndTime={endTime}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
       />
       <div className="w-full border-[1px] border-grey2" />
       <ReservationInfoSection
-        reservationNumber={reservationNumber}
-        reservationUserName={reservationUserName}
+        reservationId={reservationId}
+        reservationUserName={memberName}
         phoneNumber={phoneNumber}
       />
       <div className="w-full border-[1px] border-grey2" />
       <PaymentInfoSection paymentTime={paymentTime} payMethod={payMethod} />
       <div className="w-full border-[1px] border-grey2" />
       <PriceInfoSection
-        reservationPrice={reservationPrice}
+        reservationPrice={price}
         feePrice={feePrice}
         couponDiscountPrice={couponDiscountPrice}
       />
       <div className="w-full border-[1px] border-grey2" />
-      <TotalPriceSection
-        totalPrice={reservationPrice + feePrice - couponDiscountPrice}
-      />
+      <TotalPriceSection totalPrice={price + feePrice - couponDiscountPrice} />
       <div className="w-sevenEightWidth border-[1px] border-grey2" />
-      <ReservationCancelSection cancelAvailableDate={cancelAvailableDate} />
+      <ReservationCancelSection
+        cancelAvailableDate={cancelAvailableDate}
+        status={status}
+      />
     </div>
   );
 }
