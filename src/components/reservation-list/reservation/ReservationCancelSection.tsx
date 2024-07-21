@@ -1,10 +1,26 @@
+'use client';
+import { usePathname } from 'next/navigation';
+import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
+import { stat } from 'fs';
+
 interface ReservationCancelProps {
   cancelAvailableDate: string;
+  status: 'TBC' | 'CONFIRMED' | 'DECLINED' | 'CANCELED' | 'REVIEWED' | 'DONE';
 }
 
 export default function ReservationCancelSection({
   cancelAvailableDate,
+  status,
 }: ReservationCancelProps) {
+  const pathname = usePathname();
+  const reservationId = pathname.split('/').at(-1);
+
+  const { data } = useGetUserSpecificReservationInfo(
+    parseInt(reservationId as string)
+  );
+
+  console.log(data);
+
   return (
     <section className="w-sevenEightWidth h-fit flex flex-col items-start gap-y-5 ">
       <div className="flex flex-col w-full items-start gap-y-[10px]">
@@ -13,9 +29,15 @@ export default function ReservationCancelSection({
           {cancelAvailableDate}까지 무료 취소 가능합니다
         </span>
       </div>
-      <button className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton">
-        예약취소
-      </button>
+      {status === 'TBC' || status === 'CONFIRMED' ? (
+        <button className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton">
+          예약취소
+        </button>
+      ) : (
+        <button className="w-[72px] h-[33px] rounded-[4px] bg-white text-grey3 body4 shadow-writingReviewInput">
+          예약취소
+        </button>
+      )}
     </section>
   );
 }
