@@ -38,9 +38,15 @@ export default function Page({
   const [isReviewSubmitted, setIsReviewSubmitted] = useState(false);
   const router = useRouter();
 
-  const { data, isError } = useGetUserSpecificReservationInfo(
+  const { data, isError, isFetching } = useGetUserSpecificReservationInfo(
     params.reservationId
   );
+
+  useEffect(() => {
+    if (data && data.result.status !== 'DONE') {
+      router.replace('/');
+    }
+  }, [data]);
 
   const mutation = usePostReview();
 
@@ -60,103 +66,107 @@ export default function Page({
   }, []);
   return (
     <>
+      {isFetching && <TigLoadingPage />}
       {!isError && !data && <TigLoadingPage />}
-      {data && !isReviewSubmitted && !isError && (
-        <div className="w-full flex flex-col items-center h-full bg-grey1">
-          <Header
-            buttonType="close"
-            isCenter
-            title="리뷰 작성"
-            bgColor="grey"
-          />
-          <div className="w-eightNineWidth h-full mb-[54px]  flex flex-col gap-y-[10px] mt-[68px] pt-5">
-            <div className="w-full h-fit bg-white p-5 rounded-xl">
-              <HistoryComponentUpperSection
-                className="bg-white"
-                imageUrl={DUMMYREVIEWDATA.imageUrl}
-                clubAddress={data.result.clubAddress}
-                clubName={data.result.clubName}
-                eventDate={data.result.date}
-                eventEndTime={data.result.endTime}
-                eventStartTime={data.result.startTime}
-                adultCount={data.result.adultCount}
-                teenagerCount={data.result.teenagerCount}
-                kidsCount={data.result.kidsCount}
-              />
-            </div>
-            <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
-              <span className="title4 text-grey7">평점을 선택해주세요</span>
-              <p className="flex justify-between items-end">
-                {[1, 2, 3, 4, 5].map((num) =>
-                  num > starCount ? (
-                    <WritingReviewUnfilledStarSVG
-                      key={num}
-                      onClick={() => setStarCount(num)}
-                    />
-                  ) : (
-                    <WritingReviewFilledStarSVG
-                      key={num}
-                      onClick={() => setStarCount(num)}
-                    />
-                  )
-                )}
-              </p>
-            </div>
-            <div className="w-full h-fit grow rounded-[10px] p-5 flex flex-col items-center gap-y-5 bg-white">
-              <div className="w-sevenEightWidth h-fit flex justify-between items-center gap-x-[124px]">
-                <p className="flex w-fit justify-between items-center gap-x-1">
-                  <PencilSVG />
-                  <span className="title4 text-grey7">
-                    리뷰를 작성해주세요.
-                  </span>
-                </p>
-                <div>
-                  <span className="title4 text-primary_orange1">0</span>
-                  <span className="title4 text-grey3">/400</span>
-                </div>
+      {data &&
+        !isReviewSubmitted &&
+        !isError &&
+        data.result.status === 'DONE' && (
+          <div className="w-full flex flex-col items-center h-full bg-grey1">
+            <Header
+              buttonType="close"
+              isCenter
+              title="리뷰 작성"
+              bgColor="grey"
+            />
+            <div className="w-eightNineWidth h-full mb-[54px]  flex flex-col gap-y-[10px] mt-[68px] pt-5">
+              <div className="w-full h-fit bg-white p-5 rounded-xl">
+                <HistoryComponentUpperSection
+                  className="bg-white"
+                  imageUrl={DUMMYREVIEWDATA.imageUrl}
+                  clubAddress={data.result.clubAddress}
+                  clubName={data.result.clubName}
+                  eventDate={data.result.date}
+                  eventEndTime={data.result.endTime}
+                  eventStartTime={data.result.startTime}
+                  adultCount={data.result.adultCount}
+                  teenagerCount={data.result.teenagerCount}
+                  kidsCount={data.result.kidsCount}
+                />
               </div>
-              <textarea
-                className="w-sevenEightWidth p-4 rounded-[10px] grow text-black caption3 placeholder:text-grey3 placeholder:caption3 shadow-writingReviewInput focus:outline-none"
-                placeholder="이용하신 시설에 대해 자세한 리뷰를 남겨주세요"
-                value={reviewContents}
-                onChange={(ev) => setReviewContents(ev.target.value)}
-              />
+              <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
+                <span className="title4 text-grey7">평점을 선택해주세요</span>
+                <p className="flex justify-between items-end">
+                  {[1, 2, 3, 4, 5].map((num) =>
+                    num > starCount ? (
+                      <WritingReviewUnfilledStarSVG
+                        key={num}
+                        onClick={() => setStarCount(num)}
+                      />
+                    ) : (
+                      <WritingReviewFilledStarSVG
+                        key={num}
+                        onClick={() => setStarCount(num)}
+                      />
+                    )
+                  )}
+                </p>
+              </div>
+              <div className="w-full h-fit grow rounded-[10px] p-5 flex flex-col items-center gap-y-5 bg-white">
+                <div className="w-sevenEightWidth h-fit flex justify-between items-center gap-x-[124px]">
+                  <p className="flex w-fit justify-between items-center gap-x-1">
+                    <PencilSVG />
+                    <span className="title4 text-grey7">
+                      리뷰를 작성해주세요.
+                    </span>
+                  </p>
+                  <div>
+                    <span className="title4 text-primary_orange1">0</span>
+                    <span className="title4 text-grey3">/400</span>
+                  </div>
+                </div>
+                <textarea
+                  className="w-sevenEightWidth p-4 rounded-[10px] grow text-black caption3 placeholder:text-grey3 placeholder:caption3 shadow-writingReviewInput focus:outline-none"
+                  placeholder="이용하신 시설에 대해 자세한 리뷰를 남겨주세요"
+                  value={reviewContents}
+                  onChange={(ev) => setReviewContents(ev.target.value)}
+                />
+              </div>
             </div>
+            <FullButton
+              size="lg"
+              color="white"
+              bgColor="black"
+              content="작성 완료"
+              className="writingReviewButton relative bottom-[30px]"
+              onClick={() => {
+                mutation.mutate(
+                  {
+                    reservationId: params.reservationId,
+                    rating: starCount,
+                    contents: reviewContents,
+                  },
+                  {
+                    onSuccess: () => {
+                      setIsReviewSubmitted(true);
+                    },
+                    onError: () => {
+                      alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
+                    },
+                  }
+                );
+              }} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
+            />
+            <Modal
+              size="lg"
+              button1Content="이어서 작성"
+              button2Content="나가기"
+              title="리뷰 작성을 취소하고 나가시겠습니까?"
+              subTitle="작성한 내용은 모두 초기화됩니다."
+              secondButtonFunc={() => router.back()}
+            />
           </div>
-          <FullButton
-            size="lg"
-            color="white"
-            bgColor="black"
-            content="작성 완료"
-            className="writingReviewButton relative bottom-[30px]"
-            onClick={() => {
-              mutation.mutate(
-                {
-                  reservationId: params.reservationId,
-                  rating: starCount,
-                  contents: reviewContents,
-                },
-                {
-                  onSuccess: () => {
-                    setIsReviewSubmitted(true);
-                  },
-                  onError: () => {
-                    alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
-                  },
-                }
-              );
-            }} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
-          />
-          <Modal
-            size="lg"
-            button1Content="이어서 작성"
-            button2Content="나가기"
-            title="리뷰 작성을 취소하고 나가시겠습니까?"
-            subTitle="작성한 내용은 모두 초기화됩니다."
-            secondButtonFunc={() => router.back()}
-          />
-        </div>
-      )}
+        )}
       {data && isReviewSubmitted && (
         <div className="w-full flex flex-col items-center h-full bg-grey1">
           <Header
