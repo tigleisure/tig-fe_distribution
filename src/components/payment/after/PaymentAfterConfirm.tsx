@@ -30,9 +30,9 @@ export default function PaymentAfterConfirm() {
       <HistoryComponentUpperSection
         clubName={firstStageInfoObject.clubName}
         clubAddress={firstStageInfoObject.clubAddress}
-        eventDate={firstStageInfoObject.eventDate}
-        eventStartTime={firstStageInfoObject.eventStartTime}
-        eventEndTime={firstStageInfoObject.eventDate}
+        eventDate={firstStageInfoObject.date}
+        eventStartTime={firstStageInfoObject.startTime}
+        eventEndTime={firstStageInfoObject.endTime}
         adultCount={firstStageInfoObject.adultCount}
         teenagerCount={firstStageInfoObject.teenagerCount}
         kidsCount={firstStageInfoObject.kidsCount}
