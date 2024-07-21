@@ -26,7 +26,7 @@ export default function PinCard({ PinCard, handleMyLocation }: PinCardProps) {
           <p className="title3 text-grey7">목록보기</p>
         </div>
         <MyLocationSVG
-          className="absolute right-[20px] top-[-3px] shadow-locationButton cursor-pointer"
+          className="absolute right-[20px] top-[-3px] shadow-locationButton cursor-pointer rounded-full"
           onClick={handleMyLocation}
         />
       </div>
