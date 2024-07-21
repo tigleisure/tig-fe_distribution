@@ -101,7 +101,7 @@ export default function Page() {
           {historyHeadState === '전체' && reservationList.length === 0 && (
             <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
               <NoneResultUI
-                message="예약 내역이 없어요"
+                message="예약 내역이 없어요."
                 subMessage="마음에 드는 장소를 찾아 예약해보세요!"
               />
             </main>
@@ -151,7 +151,7 @@ export default function Page() {
             inProgressReservationList.length === 0 && (
               <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
                 <NoneResultUI
-                  message="예약 내역이 없어요"
+                  message="예약 내역이 없어요."
                   subMessage="마음에 드는 장소를 찾아 예약해보세요!"
                 />
               </main>
@@ -183,7 +183,7 @@ export default function Page() {
           {historyHeadState === '종료된' && endReservationList.length === 0 && (
             <main className="w-full h-full flex flex-col top-[117px] justify-center items-center gap-y-[10px] overflow-y-scroll">
               <NoneResultUI
-                message="예약 내역이 없어요"
+                message="예약 내역이 없어요."
                 subMessage="마음에 드는 장소를 찾아 예약해보세요!"
               />
             </main>

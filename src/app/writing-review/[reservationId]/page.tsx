@@ -79,7 +79,7 @@ export default function Page({
               title="리뷰 작성"
               bgColor="grey"
             />
-            <div className="w-eightNineWidth h-full mb-[54px]  flex flex-col gap-y-[10px] mt-[68px] pt-5">
+            <div className="w-eightNineWidth h-full mb-[100px]  flex flex-col gap-y-[10px] mt-[68px] pt-5 overflow-y-scroll">
               <div className="w-full h-fit bg-white p-5 rounded-xl">
                 <HistoryComponentUpperSection
                   className="bg-white"
@@ -95,7 +95,7 @@ export default function Page({
                 />
               </div>
               <div className="w-full h-fit rounded-[10px] bg-white py-5 px-[110px] flex flex-col gap-y-[10px] items-center">
-                <span className="title4 text-grey7">평점을 선택해주세요</span>
+                <span className="title4 text-grey7">평점을 선택해주세요.</span>
                 <p className="flex justify-between items-end">
                   {[1, 2, 3, 4, 5].map((num) =>
                     num > starCount ? (
@@ -113,15 +113,17 @@ export default function Page({
                 </p>
               </div>
               <div className="w-full h-fit grow rounded-[10px] p-5 flex flex-col items-center gap-y-5 bg-white">
-                <div className="w-sevenEightWidth h-fit flex justify-between items-center gap-x-[124px]">
-                  <p className="flex w-fit justify-between items-center gap-x-1">
+                <div className="w-sevenEightWidth h-fit flex justify-between items-center">
+                  <p className="flex w-fit whitespace-nowrap justify-between items-center gap-x-1 ">
                     <PencilSVG />
                     <span className="title4 text-grey7">
                       리뷰를 작성해주세요.
                     </span>
                   </p>
                   <div>
-                    <span className="title4 text-primary_orange1">0</span>
+                    <span className="title4 text-primary_orange1">
+                      {reviewContents.length}
+                    </span>
                     <span className="title4 text-grey3">/400</span>
                   </div>
                 </div>
@@ -129,7 +131,10 @@ export default function Page({
                   className="w-sevenEightWidth p-4 rounded-[10px] grow text-black caption3 placeholder:text-grey3 placeholder:caption3 shadow-writingReviewInput focus:outline-none"
                   placeholder="이용하신 시설에 대해 자세한 리뷰를 남겨주세요"
                   value={reviewContents}
-                  onChange={(ev) => setReviewContents(ev.target.value)}
+                  onChange={(ev) => {
+                    setReviewContents(ev.target.value);
+                  }}
+                  maxLength={400}
                 />
               </div>
             </div>
@@ -138,7 +143,7 @@ export default function Page({
               color="white"
               bgColor="black"
               content="작성 완료"
-              className="writingReviewButton relative bottom-[30px]"
+              className="writingReviewButton absolute bottom-[30px]"
               onClick={() => {
                 mutation.mutate(
                   {
