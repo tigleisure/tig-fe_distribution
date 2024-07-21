@@ -141,7 +141,7 @@ function CouponItem({
           }
         )}
       >
-        {discountPrice}원
+        {discountPrice.toLocaleString()}원
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center">
         <span
