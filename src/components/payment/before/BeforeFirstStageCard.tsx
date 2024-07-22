@@ -45,9 +45,9 @@ export default function BeforeFirstStageCard({
           <span className="title4 text-grey4">인원</span>
           <span className="body4 text-grey6">
             {adultCount !== 0 && `성인 ${adultCount}명`}
-            {adultCount && teenagerCount !== 0 && ','}{' '}
-            {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}{' '}
-            {teenagerCount && kidsCount !== 0 && ','}
+            {adultCount !== 0 && (teenagerCount || kidsCount) !== 0 && ', '}
+            {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}
+            {teenagerCount !== 0 && kidsCount !== 0 && ', '}
             {kidsCount !== 0 && `어린이 ${kidsCount}명`}
           </span>
         </div>
