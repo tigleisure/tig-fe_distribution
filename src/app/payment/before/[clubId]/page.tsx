@@ -31,6 +31,7 @@ interface searchParamsProps {
   clubName: string | undefined;
   clubAddress: string | undefined;
   gameType: string | undefined;
+  clubId: string | undefined;
 }
 
 export default function Page({
