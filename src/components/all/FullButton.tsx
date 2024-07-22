@@ -49,6 +49,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     reviewId?: number;
     reservationId?: number | null;
     selectedCouponPrice?: number;
+    reservationData?: {
+      clubId: number;
+      memberId: number;
+    };
   };
 }
 
@@ -185,24 +189,55 @@ export default function FullButton({
 
       // 이제 해당 정보를 백엔드로 전송하면 됨
 
-      if (secondStageInfoObject.paymentMethod === 'kakaoPayment' && data) {
+      if (
+        secondStageInfoObject.paymentMethod === 'kakaoPayment' &&
+        data &&
+        sendingData?.reservationData?.clubId &&
+        sendingData.reservationData.memberId
+      ) {
         handleKakaokEasyPay(
           data.result.id,
           new Date().toLocaleString(),
           secondStageInfoObject.price -
-            secondStageInfoObject.couponDiscountPrice
+            secondStageInfoObject.couponDiscountPrice,
+          {
+            clubId: sendingData?.reservationData?.clubId,
+            date: firstStageInfoObject.date,
+            startTime: firstStageInfoObject.startTime,
+            endTime: firstStageInfoObject.endTime,
+            gameCount: firstStageInfoObject.gameCount,
+            adultCount: firstStageInfoObject.adultCount,
+            teenagerCount: firstStageInfoObject.teenagerCount,
+            kidsCount: firstStageInfoObject.kidsCount,
+            userName: secondStageInfoObject.userName,
+            memberId: sendingData.reservationData.memberId,
+          }
         );
       }
 
       if (
         secondStageInfoObject.paymentMethod === 'tossAndCardPayment' &&
-        data
+        data &&
+        sendingData?.reservationData?.clubId &&
+        sendingData.reservationData.memberId
       ) {
         handleTossEasyPay(
           data.result.id,
           new Date().toLocaleString(),
           secondStageInfoObject.price -
-            secondStageInfoObject.couponDiscountPrice
+            secondStageInfoObject.couponDiscountPrice,
+          {
+            clubId: sendingData?.reservationData?.clubId,
+            date: firstStageInfoObject.date,
+            startTime: firstStageInfoObject.startTime,
+            endTime: firstStageInfoObject.endTime,
+            gameCount: firstStageInfoObject.gameCount,
+            adultCount: firstStageInfoObject.adultCount,
+            teenagerCount: firstStageInfoObject.teenagerCount,
+            kidsCount: firstStageInfoObject.kidsCount,
+            userName: secondStageInfoObject.userName,
+            memberId: sendingData.reservationData.memberId,
+          }
         );
       }
 

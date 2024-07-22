@@ -8,7 +8,8 @@ export interface paymentFirstStageInfoProps {
   teenagerCount: number;
   kidsCount: number;
   startTime: string;
-  endTime: string;
+  endTime?: string;
+  gameCount?: number;
   price: number;
 }
 

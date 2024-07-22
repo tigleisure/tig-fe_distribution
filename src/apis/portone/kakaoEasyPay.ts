@@ -4,7 +4,19 @@ import makePaymentId from '@utils/makePaymentId';
 const handleKakaokEasyPay = async (
   memberId: number,
   currentDateString: string,
-  paymentPrice: number
+  paymentPrice: number,
+  reservationData: {
+    clubId: number;
+    date: string;
+    startTime: string;
+    endTime?: string;
+    gameCount?: number;
+    adultCount: number;
+    teenagerCount: number;
+    kidsCount: number;
+    userName: string;
+    memberId: number;
+  }
 ) => {
   const response = await PortOne.requestPayment({
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
@@ -15,6 +27,18 @@ const handleKakaokEasyPay = async (
     currency: 'CURRENCY_KRW',
     payMethod: 'EASY_PAY',
     redirectUrl: 'https://localhost/payment/redirect',
+    customData: {
+      clubId: reservationData.clubId,
+      date: reservationData.date,
+      startTime: reservationData.startTime,
+      endTime: reservationData.endTime,
+      gameCount: reservationData.gameCount,
+      adultCount: reservationData.adultCount,
+      teenagerCount: reservationData.teenagerCount,
+      kidsCount: reservationData.kidsCount,
+      userName: reservationData.userName,
+      memberId: reservationData.memberId,
+    },
   });
 
   console.log(response);

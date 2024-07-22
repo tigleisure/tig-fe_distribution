@@ -28,8 +28,8 @@ interface searchParamsProps {
   kidsCount: string | undefined;
   date: string | undefined;
   startTime: string | undefined;
-  endTime: string | undefined;
-  gameCount: string | undefined;
+  endTime?: string | undefined;
+  gameCount?: number | undefined;
   clubName: string | undefined;
   clubAddress: string | undefined;
   gameType: string | undefined;
@@ -113,9 +113,10 @@ export default function Page({
               reservationSearchParmasObject.startTime as string
             )
           : reservationSearchParmasObject.gameType === 'GAME' &&
-            clubSpecificInfoResponse.data.result.type === 'GAME'
+            clubSpecificInfoResponse.data.result.type === 'GAME' &&
+            reservationSearchParmasObject.gameCount
           ? clubSpecificInfoResponse.data?.result.price *
-            parseInt(reservationSearchParmasObject.gameCount as string)
+            reservationSearchParmasObject.gameCount
           : 0
         : 0,
     };
@@ -143,9 +144,10 @@ export default function Page({
                 reservationSearchParmasObject.startTime as string
               )
             : reservationSearchParmasObject.gameType === 'GAME' &&
-              clubSpecificInfoResponse.data.result.type === 'GAME'
+              clubSpecificInfoResponse.data.result.type === 'GAME' &&
+              reservationSearchParmasObject.gameCount
             ? clubSpecificInfoResponse.data?.result.price *
-              parseInt(reservationSearchParmasObject.gameCount as string)
+              reservationSearchParmasObject.gameCount
             : 0
           : 0,
         paymentMethod: null,
@@ -218,6 +220,12 @@ export default function Page({
               secondStageInfoObject.couponDiscountPrice
             ).toLocaleString()}원 결제하기`}
             clickTask="request-payment"
+            sendingData={{
+              reservationData: {
+                clubId: parseInt(params.clubId),
+                memberId: userInfoResponse.data?.result.id as number,
+              },
+            }}
           />
         </section>
       )}

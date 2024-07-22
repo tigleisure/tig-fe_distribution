@@ -12,7 +12,8 @@ interface BeforeFirstStageCardProps {
   teenagerCount: number;
   kidsCount: number;
   startTime: string;
-  endTime: string;
+  endTime?: string;
+  gameCount?: number;
   price: number;
 }
 
@@ -58,7 +59,7 @@ export default function BeforeFirstStageCard({
               ? '오전'
               : '오후'}{' '}
             {extractOnlyTime(startTime)} -{' '}
-            {endTime === '' ? null : extractOnlyTime(endTime)}
+            {endTime ? extractOnlyTime(endTime) : null}
           </span>
         </div>
         <div className="w-full border-b-[1px] border-grey4" />
