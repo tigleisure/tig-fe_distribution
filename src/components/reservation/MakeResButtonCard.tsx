@@ -19,7 +19,15 @@ export default function MakeResButtonCard() {
   const handleReservation = () => {
     if (pathname.startsWith('/reservation/game')) {
       console.log('gameResInfo', gameResInfo);
-      if (!clubId) return; // clubId가 undefined, null, ''과 같은 경우
+      if (
+        !clubId ||
+        !gameResInfo.startTime ||
+        !gameResInfo.gameCount ||
+        (gameResInfo.adultCount === 0 &&
+          gameResInfo.teenagerCount === 0 &&
+          gameResInfo.kidsCount === 0)
+      )
+        return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
         gametype: 'GAME',
         date: gameResInfo.date,
@@ -37,7 +45,15 @@ export default function MakeResButtonCard() {
       router.push(`/payment/before/${clubId}?${queryString}`);
     } else {
       console.log('timeResInfo', timeResInfo);
-      if (!clubId) return; // clubId가 undefined, null, ''과 같은 경우
+      if (
+        !clubId ||
+        !timeResInfo.startTime ||
+        !timeResInfo.endTime ||
+        (timeResInfo.adultCount === 0 &&
+          timeResInfo.teenagerCount === 0 &&
+          timeResInfo.kidsCount === 0)
+      )
+        return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
         gametype: 'TIME',
         date: timeResInfo.date,
