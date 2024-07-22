@@ -9,6 +9,7 @@ import { usePathname, useRouter } from 'next/navigation';
 export default function MakeResButtonCard() {
   const router = useRouter();
   const pathname = usePathname();
+  const clubId = pathname.split('/').at(-1);
   const timeResInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
@@ -18,13 +19,15 @@ export default function MakeResButtonCard() {
   const handleReservation = () => {
     if (pathname.startsWith('/reservation/game')) {
       console.log('gameResInfo', gameResInfo);
+      if (!clubId) return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
         gametype: 'GAME',
         date: gameResInfo.date,
         startTime: gameResInfo.startTime,
         gameCount: String(gameResInfo.gameCount),
         request: gameResInfo.request,
-        price: '금액 by BE',
+        // price: '금액 by BE',
+        clubId: clubId,
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
         kidsCount: String(gameResInfo.kidsCount),
@@ -35,13 +38,15 @@ export default function MakeResButtonCard() {
       router.push(`/payment/before/1?${queryString}`);
     } else {
       console.log('timeResInfo', timeResInfo);
+      if (!clubId) return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
         gametype: 'TIME',
         date: timeResInfo.date,
         startTime: timeResInfo.startTime,
         endTime: timeResInfo.endTime,
         request: timeResInfo.request,
-        price: '금액 by BE',
+        // price: '금액 by BE',
+        clubId: clubId,
         adultCount: String(timeResInfo.adultCount),
         teenagerCount: String(timeResInfo.teenagerCount),
         kidsCount: String(timeResInfo.kidsCount),
