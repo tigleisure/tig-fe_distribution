@@ -104,12 +104,16 @@ export default function Page({
       clubAddress: reservationSearchParmasObject.clubAddress
         ? reservationSearchParmasObject.clubAddress
         : '',
+      // TIME 타입이면 종료시간 - 시작 시간을 빼서 가격과 곱하고, GAME 타입이면 게임 카운트를 가격에 곱해 계산
       price: clubSpecificInfoResponse.data?.result.price
-        ? clubSpecificInfoResponse.data?.result.price *
-          calculateTimeDiff(
-            reservationSearchParmasObject.endTime as string,
-            reservationSearchParmasObject.startTime as string
-          )
+        ? reservationSearchParmasObject.gameType == 'TIME'
+          ? clubSpecificInfoResponse.data?.result.price *
+            calculateTimeDiff(
+              reservationSearchParmasObject.endTime as string,
+              reservationSearchParmasObject.startTime as string
+            )
+          : clubSpecificInfoResponse.data?.result.price *
+            parseInt(reservationSearchParmasObject.gameCount as string)
         : 0,
     };
 
@@ -128,11 +132,14 @@ export default function Page({
         phoneNumber: userInfoResponse.data.result.phoneNumber,
         couponDiscountPrice: 0,
         price: clubSpecificInfoResponse.data?.result.price
-          ? clubSpecificInfoResponse.data?.result.price *
-            calculateTimeDiff(
-              reservationSearchParmasObject.endTime as string,
-              reservationSearchParmasObject.startTime as string
-            )
+          ? reservationSearchParmasObject.gameType == 'TIME'
+            ? clubSpecificInfoResponse.data?.result.price *
+              calculateTimeDiff(
+                reservationSearchParmasObject.endTime as string,
+                reservationSearchParmasObject.startTime as string
+              )
+            : clubSpecificInfoResponse.data?.result.price *
+              parseInt(reservationSearchParmasObject.gameCount as string)
           : 0,
         paymentMethod: null,
       };
