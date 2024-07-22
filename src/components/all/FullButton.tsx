@@ -242,13 +242,14 @@ export default function FullButton({
                 },
                 {
                   onSuccess(data, variables, context) {
-                    console.log(data);
+                    router.replace(
+                      `/payment/after/${data.result.reservationId}`
+                    );
                   },
                 }
               );
             }
           })
-          .then((rs) => console.log(rs))
           .catch((error) => console.log(error))
           .finally(() => console.log('over'));
       }
@@ -259,9 +260,12 @@ export default function FullButton({
         sendingData?.reservationData?.clubId &&
         sendingData.reservationData.memberId
       ) {
-        handleTossEasyPay(
+        const customPaymentId = makePaymentId(
           data.result.id,
-          new Date().toLocaleString(),
+          new Date().toLocaleString()
+        );
+        handleTossEasyPay(
+          customPaymentId,
           secondStageInfoObject.price -
             secondStageInfoObject.couponDiscountPrice,
           {
@@ -277,7 +281,34 @@ export default function FullButton({
             memberId: sendingData.reservationData.memberId,
           }
         )
-          .then((response) => console.log(response))
+          .then((response) => {
+            if (response.resultCode === 200) {
+              postReservationMutation.mutate(
+                {
+                  adultCount: firstStageInfoObject.adultCount,
+                  teenagerCount: firstStageInfoObject.teenagerCount,
+                  kidsCount: firstStageInfoObject.kidsCount,
+                  date: firstStageInfoObject.date,
+                  startTime: firstStageInfoObject.startTime,
+                  endTime: firstStageInfoObject.endTime,
+                  gameCount: firstStageInfoObject.gameCount,
+                  price:
+                    secondStageInfoObject.price -
+                    secondStageInfoObject.couponDiscountPrice,
+                  status: 'TBC',
+                  clubId: sendingData.reservationData?.clubId as number,
+                  paymentId: customPaymentId,
+                },
+                {
+                  onSuccess(data, variables, context) {
+                    router.replace(
+                      `/payment/after/${data.result.reservationId}`
+                    );
+                  },
+                }
+              );
+            }
+          })
           .catch((error) => console.log(error))
           .finally(() => console.log('over'));
       }

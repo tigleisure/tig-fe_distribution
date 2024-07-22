@@ -1,8 +1,6 @@
 import { instance } from '@apis/instance';
 import * as PortOne from '@portone/browser-sdk/v2';
-import makePaymentId from '@utils/makePaymentId';
 import { calculateTimeDiff } from '@utils/formatDate';
-import { AxiosResponse } from 'axios';
 
 export interface kakaoEasyPayBackendResponse {
   result: {

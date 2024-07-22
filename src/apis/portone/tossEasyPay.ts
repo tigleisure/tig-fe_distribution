@@ -3,9 +3,17 @@ import makePaymentId from '@utils/makePaymentId';
 import { instance } from '@apis/instance';
 import { calculateTimeDiff } from '@utils/formatDate';
 
+export interface tossEasyPayBackendResponse {
+  result: {
+    resultMsg: string;
+    resultCode: number;
+  } | null;
+  resultCode: number;
+  resultMsg: string;
+}
+
 const handleTossEasyPay = async (
-  memberId: number,
-  currentDateString: string,
+  customPaymentId: string,
   paymentPrice: number,
   reservationData: {
     clubId: number;
@@ -19,11 +27,11 @@ const handleTossEasyPay = async (
     userName: string;
     memberId: number;
   }
-) => {
+): Promise<tossEasyPayBackendResponse> => {
   const response = await PortOne.requestPayment({
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
     channelKey: process.env.NEXT_PUBLIC_PORTONE_TOSS_EASY_PAY_CHANNEL_KEY,
-    paymentId: makePaymentId(memberId, currentDateString),
+    paymentId: customPaymentId,
     orderName: '나이키 와플 트레이너 2 SD',
     totalAmount: paymentPrice,
     currency: 'CURRENCY_KRW',
@@ -43,7 +51,7 @@ const handleTossEasyPay = async (
     },
   });
 
-  const result = await instance.post(
+  const result: tossEasyPayBackendResponse = await instance.post(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,
     {
       adultCount: reservationData.adultCount,
