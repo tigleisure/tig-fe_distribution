@@ -16,7 +16,10 @@ import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
 import handleTossEasyPay from '@apis/portone/tossEasyPay';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
-import { instance } from '@apis/instance';
+import { usePostReservation } from '@apis/payment/before/postReservation';
+import makePaymentId from '@utils/makePaymentId';
+import { AxiosResponse } from 'axios';
+import { kakaoEasyPayBackendResponse } from '@apis/portone/kakaoEasyPay';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -95,6 +98,7 @@ export default function FullButton({
   const [toastId, setToastId] = useState<string | null>(null);
 
   const { data } = useGetUserInfo();
+  const postReservationMutation = usePostReservation();
 
   const colorClasses = {
     status_red1: 'text-status_red1',
@@ -196,9 +200,13 @@ export default function FullButton({
         sendingData?.reservationData?.clubId &&
         sendingData.reservationData.memberId
       ) {
-        handleKakaokEasyPay(
+        const customPaymentId = makePaymentId(
           data.result.id,
-          new Date().toLocaleString(),
+          new Date().toLocaleString()
+        );
+
+        handleKakaokEasyPay(
+          customPaymentId,
           secondStageInfoObject.price -
             secondStageInfoObject.couponDiscountPrice,
           {
@@ -214,7 +222,33 @@ export default function FullButton({
             memberId: sendingData.reservationData.memberId,
           }
         )
-          .then((response) => console.log(response))
+          .then((response) => {
+            if (response.resultCode === 200) {
+              postReservationMutation.mutate(
+                {
+                  adultCount: firstStageInfoObject.adultCount,
+                  teenagerCount: firstStageInfoObject.teenagerCount,
+                  kidsCount: firstStageInfoObject.kidsCount,
+                  date: firstStageInfoObject.date,
+                  startTime: firstStageInfoObject.startTime,
+                  endTime: firstStageInfoObject.endTime,
+                  gameCount: firstStageInfoObject.gameCount,
+                  price:
+                    secondStageInfoObject.price -
+                    secondStageInfoObject.couponDiscountPrice,
+                  status: 'TBC',
+                  clubId: sendingData.reservationData?.clubId as number,
+                  paymentId: customPaymentId,
+                },
+                {
+                  onSuccess(data, variables, context) {
+                    console.log(data);
+                  },
+                }
+              );
+            }
+          })
+          .then((rs) => console.log(rs))
           .catch((error) => console.log(error))
           .finally(() => console.log('over'));
       }

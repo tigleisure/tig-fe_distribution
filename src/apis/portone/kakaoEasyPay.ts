@@ -2,8 +2,9 @@ import { instance } from '@apis/instance';
 import * as PortOne from '@portone/browser-sdk/v2';
 import makePaymentId from '@utils/makePaymentId';
 import { calculateTimeDiff } from '@utils/formatDate';
+import { AxiosResponse } from 'axios';
 
-interface kakaoEasyPayBackendResponse {
+export interface kakaoEasyPayBackendResponse {
   result: {
     resultMsg: string;
     resultCode: number;
@@ -13,8 +14,7 @@ interface kakaoEasyPayBackendResponse {
 }
 
 const handleKakaokEasyPay = async (
-  memberId: number,
-  currentDateString: string,
+  customPaymentId: string,
   paymentPrice: number,
   reservationData: {
     clubId: number;
@@ -28,8 +28,7 @@ const handleKakaokEasyPay = async (
     userName: string;
     memberId: number;
   }
-) => {
-  const customPaymentId = makePaymentId(memberId, currentDateString);
+): Promise<kakaoEasyPayBackendResponse> => {
   const response = await PortOne.requestPayment({
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
     channelKey: process.env.NEXT_PUBLIC_PORTONE_KAKAO_EASY_PAY_CHANNEL_KEY,
@@ -53,7 +52,7 @@ const handleKakaokEasyPay = async (
     },
   });
 
-  const result = await instance.post(
+  const result: kakaoEasyPayBackendResponse = await instance.post(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,
     {
       adultCount: reservationData.adultCount,
@@ -74,7 +73,6 @@ const handleKakaokEasyPay = async (
       paymentPrice: paymentPrice,
     }
   );
-
   return result;
 };
 
