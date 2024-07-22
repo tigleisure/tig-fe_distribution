@@ -29,7 +29,7 @@ export default function MakeResButtonCard() {
       )
         return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
-        gametype: 'GAME',
+        gameType: 'GAME',
         date: gameResInfo.date,
         startTime: gameResInfo.startTime,
         gameCount: String(gameResInfo.gameCount),
@@ -55,7 +55,7 @@ export default function MakeResButtonCard() {
       )
         return; // clubId가 undefined, null, ''과 같은 경우
       const query = {
-        gametype: 'TIME',
+        gameType: 'TIME',
         date: timeResInfo.date,
         startTime: timeResInfo.startTime,
         endTime: timeResInfo.endTime,
