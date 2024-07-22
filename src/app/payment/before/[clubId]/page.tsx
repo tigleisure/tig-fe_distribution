@@ -19,6 +19,7 @@ import useModal from '@store/modalStore';
 import { Toaster } from 'react-hot-toast';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import { useGetSpecificClubInfo } from '@apis/club/getSpecificClubInfo';
+import { calculateTimeDiff } from '@utils/formatDate';
 
 interface searchParamsProps {
   adultCount: string | undefined;
@@ -103,8 +104,12 @@ export default function Page({
       clubAddress: reservationSearchParmasObject.clubAddress
         ? reservationSearchParmasObject.clubAddress
         : '',
-      price: reservationSearchParmasObject.price
-        ? parseInt(reservationSearchParmasObject.price)
+      price: clubSpecificInfoResponse.data?.result.price
+        ? clubSpecificInfoResponse.data?.result.price *
+          calculateTimeDiff(
+            reservationSearchParmasObject.endTime as string,
+            reservationSearchParmasObject.startTime as string
+          )
         : 0,
     };
 
@@ -122,8 +127,12 @@ export default function Page({
         userName: userInfoResponse.data.result.name,
         phoneNumber: userInfoResponse.data.result.phoneNumber,
         couponDiscountPrice: 0,
-        price: reservationSearchParmasObject.price
-          ? parseInt(reservationSearchParmasObject.price)
+        price: clubSpecificInfoResponse.data?.result.price
+          ? clubSpecificInfoResponse.data?.result.price *
+            calculateTimeDiff(
+              reservationSearchParmasObject.endTime as string,
+              reservationSearchParmasObject.startTime as string
+            )
           : 0,
         paymentMethod: null,
       };
