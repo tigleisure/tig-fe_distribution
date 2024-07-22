@@ -26,3 +26,21 @@ export const extractOnlyTime = (dt: string): string => {
 
   return `${hours}:${minutes}`;
 };
+
+// DATE 객체를 받아들여 몇시간의 차이가 나는지를 계산해주는 함수
+export const calculateTimeDiff = (
+  firstDate: string,
+  secondDate: string
+): number => {
+  // 문자열을 Date 객체로 변환
+  const date1 = new Date(firstDate);
+  const date2 = new Date(secondDate);
+
+  // 두 Date 객체의 차이를 밀리초 단위로 계산
+  const diffInMilliseconds = Math.abs(date2.getTime() - date1.getTime());
+
+  // 밀리초를 시간 단위로 변환
+  const diffInHours = diffInMilliseconds / (1000 * 60 * 60);
+
+  return diffInHours;
+};

@@ -27,7 +27,6 @@ export default function MakeResButtonCard() {
         gameCount: String(gameResInfo.gameCount),
         request: gameResInfo.request,
         // price: '금액 by BE',
-        clubId: clubId,
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
         kidsCount: String(gameResInfo.kidsCount),
@@ -35,7 +34,7 @@ export default function MakeResButtonCard() {
         address: '회사 주소 by BE',
       };
       const queryString = new URLSearchParams(query).toString();
-      router.push(`/payment/before/1?${queryString}`);
+      router.push(`/payment/before/${clubId}?${queryString}`);
     } else {
       console.log('timeResInfo', timeResInfo);
       if (!clubId) return; // clubId가 undefined, null, ''과 같은 경우
@@ -46,7 +45,6 @@ export default function MakeResButtonCard() {
         endTime: timeResInfo.endTime,
         request: timeResInfo.request,
         // price: '금액 by BE',
-        clubId: clubId,
         adultCount: String(timeResInfo.adultCount),
         teenagerCount: String(timeResInfo.teenagerCount),
         kidsCount: String(timeResInfo.kidsCount),
@@ -54,7 +52,7 @@ export default function MakeResButtonCard() {
         address: '회사 주소 by BE',
       };
       const queryString = new URLSearchParams(query).toString();
-      router.push(`/payment/before/1?${queryString}`);
+      router.push(`/payment/before/${clubId}?${queryString}`);
     }
   };
   return (

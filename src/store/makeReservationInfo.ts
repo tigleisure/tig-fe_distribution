@@ -8,7 +8,6 @@ interface MakeReservationInfoProps {
   teenagerCount: number;
   kidsCount: number;
   request: string;
-  clubId: string | null; // 실제로는 숫자지만 문자열로 쿼리스트링으로 넘김
 }
 interface MakeGameReservationInfoProps extends MakeReservationInfoProps {
   gameCount: number;
@@ -36,7 +35,6 @@ export const useGameReservationStore = create<GameReservationStore>((set) => ({
     kidsCount: 0,
     request: '',
     gameCount: 0,
-    clubId: null,
   },
   setGameReservationInfo: (info) => set({ gameReservationInfo: info }),
 }));
@@ -50,7 +48,6 @@ export const useTimeReservationStore = create<TimeReservationStore>((set) => ({
     teenagerCount: 0,
     kidsCount: 0,
     request: '',
-    clubId: null,
   },
   setTimeReservationInfo: (info) => set({ timeReservationInfo: info }),
 }));

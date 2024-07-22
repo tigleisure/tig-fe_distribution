@@ -18,20 +18,19 @@ import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
 import { Toaster } from 'react-hot-toast';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
+import { useGetSpecificClubInfo } from '@apis/club/getSpecificClubInfo';
 
 interface searchParamsProps {
   adultCount: string | undefined;
   teenagerCount: string | undefined;
   kidsCount: string | undefined;
   date: string | undefined;
-  price: string | undefined;
   startTime: string | undefined;
   endTime: string | undefined;
   gameCount: string | undefined;
   clubName: string | undefined;
   clubAddress: string | undefined;
   gameType: string | undefined;
-  clubId: string | undefined;
 }
 
 export default function Page({
@@ -41,6 +40,7 @@ export default function Page({
   params: { clubId: string };
   searchParams: searchParamsProps;
 }) {
+  console.log(searchParams);
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
   );
@@ -68,9 +68,13 @@ export default function Page({
     (state) => state.setSelectedIsModalOpen
   );
 
-  const { data, isError } = useGetUserInfo();
+  const userInfoResponse = useGetUserInfo();
+  const clubSpecificInfoResponse = useGetSpecificClubInfo(
+    parseInt(params.clubId)
+  );
 
-  const clubId = params.clubId;
+  console.log(clubSpecificInfoResponse.data);
+
   const reservationSearchParmasObject = searchParams;
 
   useEffect(() => {
@@ -113,10 +117,10 @@ export default function Page({
       price: 0,
       paymentMethod: null,
     };
-    if (data !== undefined) {
+    if (userInfoResponse.data !== undefined) {
       secondStageObjData = {
-        userName: data.result.name,
-        phoneNumber: data.result.phoneNumber,
+        userName: userInfoResponse.data.result.name,
+        phoneNumber: userInfoResponse.data.result.phoneNumber,
         couponDiscountPrice: 0,
         price: reservationSearchParmasObject.price
           ? parseInt(reservationSearchParmasObject.price)
@@ -125,7 +129,7 @@ export default function Page({
       };
     }
     setSecondStageInfoObject(secondStageObjData);
-  }, [data]);
+  }, [userInfoResponse.data, clubSpecificInfoResponse.data]);
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);
