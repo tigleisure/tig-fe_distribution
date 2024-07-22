@@ -20,6 +20,9 @@ export default function HistoryComponentUpperSection({
   kidsCount,
   className,
 }: HistoryComponentUpperSectionProps) {
+  console.log(teenagerCount);
+  console.log(kidsCount);
+  console.log(adultCount);
   return (
     <section
       id="this-is-upper-section"
@@ -58,11 +61,11 @@ export default function HistoryComponentUpperSection({
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallPersonSVG />
             <span className="body4 text-grey7 txt-overflow-ellipsis">
-              {adultCount && `성인 ${adultCount}명`}
-              {adultCount && teenagerCount && ','}{' '}
-              {teenagerCount && `청소년 ${teenagerCount}명`}
-              {teenagerCount && kidsCount && ','}{' '}
-              {kidsCount && `어린이 ${kidsCount}명`}
+              {adultCount !== 0 && `성인 ${adultCount}명`}
+              {adultCount !== 0 && (teenagerCount || kidsCount) !== 0 && ', '}
+              {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}
+              {teenagerCount !== 0 && kidsCount !== 0 && ', '}
+              {kidsCount !== 0 && `어린이 ${kidsCount}명`}
             </span>
           </div>
         </div>
