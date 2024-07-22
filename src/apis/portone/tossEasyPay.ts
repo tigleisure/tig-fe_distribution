@@ -1,5 +1,7 @@
 import * as PortOne from '@portone/browser-sdk/v2';
 import makePaymentId from '@utils/makePaymentId';
+import { instance } from '@apis/instance';
+import { calculateTimeDiff } from '@utils/formatDate';
 
 const handleTossEasyPay = async (
   memberId: number,
@@ -41,7 +43,29 @@ const handleTossEasyPay = async (
     },
   });
 
-  console.log(response);
+  const result = await instance.post(
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,
+    {
+      adultCount: reservationData.adultCount,
+      teenagerCount: reservationData.teenagerCount,
+      kidsCount: reservationData.kidsCount,
+      date: reservationData.date,
+      startTime: reservationData.startTime,
+      endTime: reservationData.endTime,
+      gameCount: reservationData.gameCount,
+      clubPrice:
+        paymentPrice /
+        calculateTimeDiff(
+          reservationData.endTime as string,
+          reservationData.startTime
+        ),
+      clubId: reservationData.clubId,
+      paymentId: response?.paymentId,
+      paymentPrice: paymentPrice,
+    }
+  );
+
+  return result;
 };
 
 export default handleTossEasyPay;

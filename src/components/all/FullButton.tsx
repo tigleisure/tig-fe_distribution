@@ -16,6 +16,7 @@ import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
 import handleTossEasyPay from '@apis/portone/tossEasyPay';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
+import { instance } from '@apis/instance';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -212,7 +213,10 @@ export default function FullButton({
             userName: secondStageInfoObject.userName,
             memberId: sendingData.reservationData.memberId,
           }
-        );
+        )
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error))
+          .finally(() => console.log('over'));
       }
 
       if (
@@ -238,7 +242,10 @@ export default function FullButton({
             userName: secondStageInfoObject.userName,
             memberId: sendingData.reservationData.memberId,
           }
-        );
+        )
+          .then((response) => console.log(response))
+          .catch((error) => console.log(error))
+          .finally(() => console.log('over'));
       }
 
       // 백엔드 전송 로직
