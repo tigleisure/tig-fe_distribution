@@ -17,7 +17,7 @@ export interface HistoryInProgressItemProps {
     | 'REVIEWED';
   reservationId: number;
   paymentId: string | null;
-  handleChangeCancelPaymentId?: (paymentId: string) => void;
+  handleChangeCancelPaymentId: (paymentId: string) => void;
 }
 
 export interface HistoryComponentUpperSectionProps
