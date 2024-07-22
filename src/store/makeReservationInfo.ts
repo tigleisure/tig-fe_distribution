@@ -10,7 +10,7 @@ interface MakeReservationInfoProps {
   request: string;
 }
 interface MakeGameReservationInfoProps extends MakeReservationInfoProps {
-  gameCount: number | null;
+  gameCount: number;
 }
 interface MakeTimeReservationInfoProps extends MakeReservationInfoProps {
   endTime: string | null;
@@ -26,28 +26,31 @@ interface TimeReservationStore {
   setTimeReservationInfo: (info: MakeTimeReservationInfoProps) => void;
 }
 
+export const gameReservationInfoInitialState: MakeGameReservationInfoProps = {
+  date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+  startTime: null,
+  adultCount: 0,
+  teenagerCount: 0,
+  kidsCount: 0,
+  request: '',
+  gameCount: 0,
+};
+
 export const useGameReservationStore = create<GameReservationStore>((set) => ({
-  gameReservationInfo: {
-    date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
-    startTime: null,
-    adultCount: 0,
-    teenagerCount: 0,
-    kidsCount: 0,
-    request: '',
-    gameCount: null,
-  },
+  gameReservationInfo: gameReservationInfoInitialState,
   setGameReservationInfo: (info) => set({ gameReservationInfo: info }),
 }));
 
+export const timeReservationInfoInitialState = {
+  date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
+  startTime: null,
+  endTime: null,
+  adultCount: 0,
+  teenagerCount: 0,
+  kidsCount: 0,
+  request: '',
+};
 export const useTimeReservationStore = create<TimeReservationStore>((set) => ({
-  timeReservationInfo: {
-    date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
-    startTime: null,
-    endTime: null,
-    adultCount: 0,
-    teenagerCount: 0,
-    kidsCount: 0,
-    request: '',
-  },
+  timeReservationInfo: timeReservationInfoInitialState,
   setTimeReservationInfo: (info) => set({ timeReservationInfo: info }),
 }));

@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState } from 'react';
 import CountDownSVG from '@public/svg/countDown.svg';
 import CountUpSVG from '@public/svg/countUp.svg';
 import { ChooseCardProps } from 'types/search/SearchTypes';
