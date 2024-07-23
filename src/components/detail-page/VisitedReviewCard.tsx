@@ -1,7 +1,7 @@
 'use client';
 
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
-import StarSVG from '@public/svg/star.svg';
+import DetailPageStarSVG from '@public/svg/detailPageStar.svg';
 import RightBlackArrowSVG from '@public/svg/rightBlackArrow.svg';
 import RightGreyArrowSVG from '@public/svg/rightGreyArrow.svg';
 import LeftGreyArrowSVG from '@public/svg/leftGreyArrow.svg';
@@ -29,7 +29,7 @@ export const VisitedReviewCard = forwardRef<
           방문자 리뷰
         </p>
         <div className="flex gap-1 headline2 items-center text-primary_orange1">
-          <StarSVG />
+          <DetailPageStarSVG />
           <p>{AvgRating}</p>
           <p>({RatingCount})</p>
         </div>

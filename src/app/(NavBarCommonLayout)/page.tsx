@@ -17,6 +17,7 @@ import { usePostHome } from '@apis/home/postHome';
 import { Club } from 'types/response/response';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
+import TigLoadingPage from '@components/all/TigLoadingPage';
 
 export default function Home() {
   const homeArray = homeleisureArray;
@@ -65,16 +66,14 @@ export default function Home() {
   }, [mutate]);
 
   return (
-    <main className="h-full w-full flex flex-col overflow-y-scroll">
+    <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
       <SearchHeader isHomeOrResultPage />
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
-      <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
-        {/* <DummyBannerSVG className="w-full h-auto" /> */}
+      {isSuccess && <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
         <HomeBannerSVG className="w-full h-auto" />
-        {/* <TigBannerSVG className="w-full h-auto" /> */}
-      </div>
+      </div>}
       {!isSuccess ? (
-        <Lottie animationData={TigLoadingAnimation} style={{ width: '20%' }} className='self-center'/>
+        <TigLoadingPage />
       ) : (
         clubCards.length !== 0 && (
           <HomeCardList
@@ -83,17 +82,11 @@ export default function Home() {
           />
         )
       )}
-      {/* {eventClubCards.length !== 0 && (
-        <HomeCardList
-          title="지금 이벤트 중인 스포츠예요"
-          Card={eventClubCards}
-        />
-      )} */}
+
       {isSuccess && (
         <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
       )}
 
-      {/* <NavBar /> */}
     </main>
   );
 }

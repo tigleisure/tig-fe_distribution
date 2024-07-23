@@ -1,5 +1,5 @@
 import DetailEmptyHeartSVG from '@public/svg/detailEmptyHeart.svg';
-import StarSVG from '@public/svg/star.svg';
+import DetailPageStarSVG from '@public/svg/detailPageStar.svg';
 import LocationPingSVG from '@public/svg/locationPing.svg';
 import CardSVG from '@public/svg/card.svg';
 import TimeSVG from '@public/svg/time.svg';
@@ -51,7 +51,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
             <DetailEmptyHeartSVG />
           </div>
           <div className="flex gap-[4px] text-primary_orange1 headline2 mt-[6px]">
-            <StarSVG />
+            <DetailPageStarSVG />
             <p>{AvgRating}</p>
             <p>({RatingCount})</p>
           </div>

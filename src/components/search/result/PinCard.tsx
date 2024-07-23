@@ -17,7 +17,7 @@ export default function PinCard({ PinCard, handleMyLocation }: PinCardProps) {
     <article className="absolute bottom-[54px] w-full bg-transparent flex flex-col gap-5">
       <div className="w-full flex justify-center cursor-pointer">
         <div
-          className="w-[92px] h-[34px] flex gap-[2px] justify-center items-center bg-white rounded-[30px]"
+          className="w-[92px] h-[34px] flex gap-[2px] justify-center items-center bg-white rounded-[30px] shadow-locationButton"
           onClick={() => {
             setIsBottomSheetOpen(true);
           }}

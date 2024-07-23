@@ -18,5 +18,5 @@ export interface ResultCardProps {
   isLast?: boolean;
   latitude?: number;
   longitude?: number;
-  alone?: boolean;
+  isFirst?: boolean;
 }

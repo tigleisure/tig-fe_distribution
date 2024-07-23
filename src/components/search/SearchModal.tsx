@@ -106,7 +106,7 @@ export default function SearchModal() {
             className="body2 cursor-pointer"
             onClick={() => {
               router.push(
-                `/search/result?location=${search}&date=24.05.17&adultCount=5`
+                `/search/result?location=${search}&date=2024-07-11T00:00:00&adultCount=5&teenagerCount=5&kidsCount=5`
               );
             }}
           >
