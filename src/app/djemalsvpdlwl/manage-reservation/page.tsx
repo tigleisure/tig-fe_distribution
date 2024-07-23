@@ -1,13 +1,14 @@
+'use client'
 import { useGetTBCReservationList } from '@apis/djemalsvpdlwl/getTBCReservation';
-import HistoryInProgressItem from '@components/djemalsvpdlwl/HistoryAdminItem';
+import HistoryInAdminItem from '@components/djemalsvpdlwl/HistoryAdminItem';
 
 export default function Page() {
-  // const { data, isSuccess } = useGetTBCReservationList();
+  const { data, isSuccess } = useGetTBCReservationList();
   return (
-    <main className="w-full h-full flex flex-col pt-[54px] items-center">
-      {/* {isSuccess &&
+    <main className="w-full h-full flex flex-col py-[20px] items-center overflow-y-scroll gap-[10px]">
+      {isSuccess &&
         data.result.map((reservationInfo) => (
-          <HistoryInProgressItem
+          <HistoryInAdminItem
             key={reservationInfo.reservationId}
             clubName={reservationInfo.clubName}
             clubAddress={reservationInfo.clubAddress}
@@ -21,7 +22,7 @@ export default function Page() {
             reservationId={reservationInfo.reservationId}
             paymentId={reservationInfo.paymentId}
           />
-        ))} */}
+        ))}
     </main>
   );
 }

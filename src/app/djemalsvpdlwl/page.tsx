@@ -9,7 +9,6 @@ export default function Page() {
       <FullButton bgColor="primary_orange1" color="white" content="예약 관리" size="lg" onClick={()=>{
         router.push('/djemalsvpdlwl/manage-reservation');
       }}/>
-      <FullButton bgColor="primary_orange1" color="white" content="업체정보 관리" size="lg"/>
     </main>
   )
 }
