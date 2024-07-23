@@ -70,9 +70,7 @@ export default function Page({
   );
 
   const userInfoResponse = useGetUserInfo();
-  const clubSpecificInfoResponse = useGetSpecificClubInfo(
-    parseInt(params.clubId)
-  );
+  const clubSpecificInfoResponse = useGetSpecificClubInfo(params.clubId);
 
   const reservationSearchParmasObject = searchParams;
   const router = useRouter();

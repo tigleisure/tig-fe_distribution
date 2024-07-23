@@ -47,7 +47,7 @@ export default function ResultCard({
   return (
     <section
       onClick={() => {
-        router.push(`/detail-page/${id}`);
+        router.push(`/detail-page/${clubId}`);
       }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',

@@ -6,36 +6,35 @@ import TimeSVG from '@public/svg/time.svg';
 import CallSVG from '@public/svg/call.svg';
 import SnsSVG from '@public/svg/sns.svg';
 import { forwardRef } from 'react';
+import { categoryMapEngToKor } from '@constant/constant';
 
 interface DetailInfoCardProps {
-  clubType: string;
+  category: string;
   clubName: string;
-  AvgRating: number;
-  RatingCount: number;
-  location: string;
-  GameType: 'time' | 'game';
-  price: string;
-  startTime: string;
-  endTime: string;
+  avgRating: number;
+  ratingCount: number;
+  address: string;
+  type: 'TIME' | 'GAME';
+  price: number;
+  businessHours: string;
   phoneNumber: string;
-  sns: string;
+  snsLink: string;
 }
 
 // eslint-disable-next-line react/display-name
 export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
   (
     {
-      clubType,
+      category,
       clubName,
-      AvgRating,
-      RatingCount,
-      location,
-      GameType,
+      avgRating,
+      ratingCount,
+      address,
+      businessHours,
+      type,
       price,
-      startTime,
-      endTime,
       phoneNumber,
-      sns,
+      snsLink,
     },
     ref
   ) => {
@@ -45,32 +44,32 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
         
       >
         <div className="flex flex-col gap-[2px]">
-          <p className="text-grey5 title4">{clubType}</p>
+          <p className="text-grey5 title4">{categoryMapEngToKor[category]}</p>
           <div className="w-full justify-between items-center flex">
             <p className="headline1">{clubName}</p>
             <DetailEmptyHeartSVG />
           </div>
           <div className="flex gap-[4px] text-primary_orange1 headline2 mt-[6px]">
             <DetailPageStarSVG />
-            <p>{AvgRating}</p>
-            <p>({RatingCount})</p>
+            <p>{avgRating}</p>
+            <p>({ratingCount})</p>
           </div>
         </div>
         <div className="flex flex-col gap-[10px] body2 text-grey7">
           <div className="flex gap-2">
             <LocationPingSVG />
-            <p>{location}</p>
+            <p>{address}</p>
           </div>
           <div className="flex gap-2">
             <CardSVG />
             <p>
-              {GameType === 'time' ? '시간' : '게임'}당 {price}원
+              {type === 'TIME' ? '시간' : '게임'}당 {price}원
             </p>
           </div>
           <div className="flex gap-2" ref={ref}>
             <TimeSVG />
             <p>
-              {startTime} - {endTime}
+              {businessHours}
             </p>
           </div>
           <div className="flex gap-2">
@@ -79,7 +78,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           </div>
           <div className="flex gap-2">
             <SnsSVG />
-            <p>{sns}</p>
+            <p>{snsLink}</p>
           </div>
         </div>
       </section>

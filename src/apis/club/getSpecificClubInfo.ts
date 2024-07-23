@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '@apis/instance';
 
-interface clubInfoProps {
+export interface clubInfoProps {
   id: number;
   clubName: string;
   address: string;
@@ -9,9 +9,9 @@ interface clubInfoProps {
   ratingCount: number;
   avgRating: number;
   price: number;
-  phonenumber: string;
+  phoneNumber: string;
   snsLink: string;
-  businessHour: string;
+  businessHours: string;
   latitude: number;
   longitude: number;
   category: string;
@@ -27,12 +27,12 @@ interface SpecificClubInfoResponse {
 }
 
 export const getSpecificClubInfo = async (
-  clubId: number
+  clubId: string
 ): Promise<SpecificClubInfoResponse> => {
   return instance.get(`/api/v1/club/${clubId}`);
 };
 
-export const useGetSpecificClubInfo = (clubId: number) => {
+export const useGetSpecificClubInfo = (clubId: string) => {
   return useQuery({
     queryKey: ['specificClubInfo', clubId],
     queryFn: () => getSpecificClubInfo(clubId),
