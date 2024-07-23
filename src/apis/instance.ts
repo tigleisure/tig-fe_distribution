@@ -37,8 +37,21 @@ interface ReissueResponse {
 
 const regainAccessToken = async (): Promise<string | void> => {
   try {
-    const data = await instance.post<ReissueResponse>(REFRESH_URL);
-    console.log(data);
+    // const data = await instance.post<ReissueResponse>(REFRESH_URL);
+    // console.log(data);
+    // 일단 빌드 시에 타입 에러가 발생해서 fetch로 해결
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/member/reissue`,
+      {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
     localStorage.setItem('accessToken', data.result.accessToken);
 
     return data.result.accessToken;
