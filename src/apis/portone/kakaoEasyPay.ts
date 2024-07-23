@@ -27,6 +27,10 @@ const handleKakaokEasyPay = async (
     memberId: number;
   }
 ): Promise<kakaoEasyPayBackendResponse> => {
+  const clubDataResonse = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/${reservationData.clubId}`
+  );
+  const clubData = await clubDataResonse.json();
   // redirect로 보낼 query string임
   const query = {
     clubId: reservationData.clubId.toString(),
@@ -40,13 +44,14 @@ const handleKakaokEasyPay = async (
     teenagerCount: reservationData.teenagerCount.toString(),
     kidsCount: reservationData.kidsCount.toString(),
     // paymentId: customPaymentId,
-    clubPrice: (
-      paymentPrice /
-      calculateTimeDiff(
-        reservationData.endTime as string,
-        reservationData.startTime
-      )
-    ).toString(),
+    // clubPrice: (
+    //   paymentPrice /
+    //   calculateTimeDiff(
+    //     reservationData.endTime as string,
+    //     reservationData.startTime
+    //   )
+    // ).toString(),
+    clubPrice: clubData.result.price,
     paymentPrice: paymentPrice.toString(),
   };
 
@@ -85,12 +90,7 @@ const handleKakaokEasyPay = async (
       startTime: reservationData.startTime,
       endTime: reservationData.endTime,
       gameCount: reservationData.gameCount,
-      clubPrice:
-        paymentPrice /
-        calculateTimeDiff(
-          reservationData.endTime as string,
-          reservationData.startTime
-        ),
+      clubPrice: clubData.result.price,
       clubId: reservationData.clubId,
       paymentId: response?.paymentId,
       paymentPrice: paymentPrice,

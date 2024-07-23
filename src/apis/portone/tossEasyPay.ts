@@ -28,6 +28,10 @@ const handleTossEasyPay = async (
     memberId: number;
   }
 ): Promise<tossEasyPayBackendResponse> => {
+  const clubDataResonse = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/${reservationData.clubId}`
+  );
+  const clubData = await clubDataResonse.json();
   const query = {
     clubId: reservationData.clubId.toString(),
     date: reservationData.date,
@@ -40,13 +44,14 @@ const handleTossEasyPay = async (
     teenagerCount: reservationData.teenagerCount.toString(),
     kidsCount: reservationData.kidsCount.toString(),
     // paymentId: customPaymentId,
-    clubPrice: (
-      paymentPrice /
-      calculateTimeDiff(
-        reservationData.endTime as string,
-        reservationData.startTime
-      )
-    ).toString(),
+    // clubPrice: (
+    //   paymentPrice /
+    //   calculateTimeDiff(
+    //     reservationData.endTime as string,
+    //     reservationData.startTime
+    //   )
+    // ).toString(),
+    clubPrice: clubData.result.price,
     paymentPrice: paymentPrice.toString(),
   };
 
