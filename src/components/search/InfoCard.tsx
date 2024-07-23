@@ -6,7 +6,7 @@ export default function InfoCard({ number, content }: InfoCardProps) {
       <p className="w-[18px] h-[18px] rounded-full bg-primary_orange1 text-white title4 flex justify-center items-center pr-[1px] pt-[1px]">
         {number}
       </p>
-      <p className="title3 text-grey7">{content}</p>
+      <p className="title3 text-grey7 !leading-[1.4]">{content}</p>
     </article>
   );
 }

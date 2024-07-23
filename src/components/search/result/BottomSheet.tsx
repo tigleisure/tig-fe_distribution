@@ -19,7 +19,7 @@ export default function BottomSheet({
 
   useEffect(() => {
     function updateSnapPoints() {
-      const calculateHeight = window.innerHeight - 142;
+      const calculateHeight = window.innerHeight - 141;
       setHeight(calculateHeight);
     }
     updateSnapPoints();
@@ -40,7 +40,7 @@ export default function BottomSheet({
       snapPoints={[height, 234, 74]}
     >
       <Sheet.Container className="relative h-full w-full !shadow-none">
-        <Sheet.Header className="w-full h-[20px] flex justify-center pt-[6px] cursor-pointer relative">
+        <Sheet.Header className="w-full h-[40px] flex justify-center pt-[6px] cursor-pointer relative">
           <div className="w-[40px] h-[4px] rounded-[2px] bg-grey3" />
           <MylocationSVG
             className="absolute right-[20px] top-[-60px] shadow-locationButton rounded-full"
@@ -58,6 +58,8 @@ export default function BottomSheet({
             </div>
           )}
           {results.map((result, idx) => {
+            if(idx === 0)
+              return <ResultCard key={result.clubName} {...result} isFirst />
             if (idx === results.length - 1)
               return <ResultCard key={result.clubName} {...result} isLast />;
             return <ResultCard key={result.clubName} {...result} />;
