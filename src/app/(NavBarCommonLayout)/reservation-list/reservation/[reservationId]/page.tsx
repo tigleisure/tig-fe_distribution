@@ -30,7 +30,8 @@ export default async function page({
   // };
 
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${params.reservationId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${params.reservationId}`,
+    { cache: 'no-store' }
   );
 
   const data = await response.json();
