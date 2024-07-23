@@ -5,7 +5,7 @@ export const declineReservation = async (
   reservationId: number
 ): Promise<NoMeaningfulResultResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/vi/reservation/decline/${reservationId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/decline/${reservationId}`,
     {
       method: 'POST',
     }

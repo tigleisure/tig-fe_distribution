@@ -1,5 +1,5 @@
 import FullButton from '@components/all/FullButton';
-import { HistoryInProgressItemProps } from 'types/reservation-list/ReservationListPageTypes';
+import { HistoryInAdminItemProps } from 'types/reservation-list/ReservationListPageTypes';
 import useModal from '@store/modalStore';
 import Link from 'next/link';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
@@ -7,7 +7,7 @@ import { useConfirmReservation } from '@apis/djemalsvpdlwl/confirmReservation';
 import { useDeclineReservation } from '@apis/djemalsvpdlwl/declineReservation';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 
-export default function HistoryInProgressItem({
+export default function HistoryInAdminItem({
   imageUrl,
   clubName,
   clubAddress,
@@ -19,7 +19,7 @@ export default function HistoryInProgressItem({
   kidsCount,
   reservationId,
   paymentId,
-}: HistoryInProgressItemProps) {
+}: HistoryInAdminItemProps) {
   const { mutate: confirmReservation } = useConfirmReservation();
   const { mutate: declineReservation } = useDeclineReservation();
 
@@ -48,22 +48,22 @@ export default function HistoryInProgressItem({
           onClick={(ev) => {
             // atomic 보장해줘야 함 (예약 거절과 결제 취소는 동시에 이루어져야 함) -> 추후 수정 필요
             declineReservation(reservationId);
-            cancelPortOnePayment(paymentId || '');
+            // cancelPortOnePayment(paymentId || '');
             ev.stopPropagation();
             ev.preventDefault();
           }}
         />
         <FullButton
-          bgColor="primary_orange2"
-          color="primary_orange1"
+          bgColor="primary_orange1"
+          color="white"
           size="sm"
           content="예약 승인"
           onClick={(ev) => {
+            console.log('reservationId', reservationId);
             confirmReservation(reservationId);
             ev.stopPropagation();
             ev.preventDefault();
           }}
-          disabled
         />
       </div>
     </Link>

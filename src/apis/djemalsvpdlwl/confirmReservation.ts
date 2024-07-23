@@ -5,7 +5,7 @@ export const confirmReservation = async (
   reservationId: number
 ): Promise<NoMeaningfulResultResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/vi/reservation/confirm/${reservationId}`,
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/confirm/${reservationId}`,
     {
       method: 'POST',
     }
