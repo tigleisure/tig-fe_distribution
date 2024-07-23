@@ -38,7 +38,8 @@ export default async function PaymentAfterConfirm({
   reservationId,
 }: paymentAfterConfirmProp) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${reservationId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${reservationId}`,
+    { cache: 'no-store' }
   );
 
   const data: reservationInfoResponseProps = await response.json();
