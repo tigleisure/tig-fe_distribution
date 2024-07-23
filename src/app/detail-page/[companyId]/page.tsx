@@ -12,6 +12,7 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
+import DummyDetailImageSVG from '@public/svg/dummyDetailImage.svg';
 
 interface DetailPageProps {
   imageUrl: string[];
@@ -182,14 +183,9 @@ export default function Page({ params }: { params: { companyId: string } }) {
         className="top-[68px] !justify-around"
       />
       <div ref={detailInfoRef} />
-      <Image
-        src="/png/dummyDetailImage.png"
-        alt="dummyImage"
-        width={320}
-        height={240}
-        className="w-full p-5 pt-[138px]"
-        // ref={imageRef}
-      />
+      <div className="w-full max-w-[640px] p-5 pt-[138px]">
+        <DummyDetailImageSVG className="w-full h-auto" />
+      </div>
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
       <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef} />
       <ServicesCard
