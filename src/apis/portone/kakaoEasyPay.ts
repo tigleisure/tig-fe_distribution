@@ -27,6 +27,31 @@ const handleKakaokEasyPay = async (
     memberId: number;
   }
 ): Promise<kakaoEasyPayBackendResponse> => {
+  // redirect로 보낼 query string임
+  const query = {
+    clubId: reservationData.clubId.toString(),
+    date: reservationData.date,
+    startTime: reservationData.startTime,
+    endTime: reservationData.endTime ? reservationData.endTime : '',
+    gameCount: reservationData.gameCount
+      ? reservationData.gameCount.toString()
+      : '',
+    adultCount: reservationData.adultCount.toString(),
+    teenagerCount: reservationData.teenagerCount.toString(),
+    kidsCount: reservationData.kidsCount.toString(),
+    paymentId: customPaymentId,
+    clubPrice: (
+      paymentPrice /
+      calculateTimeDiff(
+        reservationData.endTime as string,
+        reservationData.startTime
+      )
+    ).toString(),
+    paymentPrice: paymentPrice.toString(),
+  };
+
+  const queryString = new URLSearchParams(query).toString();
+
   const response = await PortOne.requestPayment({
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
     channelKey: process.env.NEXT_PUBLIC_PORTONE_KAKAO_EASY_PAY_CHANNEL_KEY,
@@ -35,7 +60,7 @@ const handleKakaokEasyPay = async (
     totalAmount: paymentPrice,
     currency: 'CURRENCY_KRW',
     payMethod: 'EASY_PAY',
-    redirectUrl: 'https://localhost/payment/redirect',
+    redirectUrl: `${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/payment/redirect?${queryString}`,
     customData: {
       clubId: reservationData.clubId,
       date: reservationData.date,
