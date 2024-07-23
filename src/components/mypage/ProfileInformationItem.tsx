@@ -119,7 +119,11 @@ export default function ProfileInformationItem({
               'text-grey3': inputData === '',
             })}
           >
-            {inputData !== '' ? inputData : `${labelName}을 입력해주세요`}
+            {inputData !== ''
+              ? inputData
+              : `${labelName}${
+                  labelName === '휴대폰번호' ? '를' : '을'
+                } 입력해주세요`}
           </span>
         )}
         {inputBoxEditStage === 2 && (

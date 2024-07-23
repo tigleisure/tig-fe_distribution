@@ -31,7 +31,7 @@ interface searchParamsProps {
   endTime?: string | undefined;
   gameCount?: number | undefined;
   clubName: string | undefined;
-  clubAddress: string | undefined;
+  address: string | undefined;
   gameType: string | undefined;
 }
 
@@ -97,11 +97,14 @@ export default function Page({
       endTime: reservationSearchParmasObject.endTime
         ? reservationSearchParmasObject.endTime
         : '',
+      gameCount: reservationSearchParmasObject.gameCount
+        ? reservationSearchParmasObject.gameCount
+        : 0,
       clubName: reservationSearchParmasObject.clubName
         ? reservationSearchParmasObject.clubName
         : '',
-      clubAddress: reservationSearchParmasObject.clubAddress
-        ? reservationSearchParmasObject.clubAddress
+      clubAddress: reservationSearchParmasObject.address
+        ? reservationSearchParmasObject.address
         : '',
       // TIME 타입이면 종료시간 - 시작 시간을 빼서 가격과 곱하고, GAME 타입이면 게임 카운트를 가격에 곱해 계산. type 검사는 쿼리 스트링, 백엔드 api 응답 데이터 이중 검사
       price: clubSpecificInfoResponse.data?.result.price

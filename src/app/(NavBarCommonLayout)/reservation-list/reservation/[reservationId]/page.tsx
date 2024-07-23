@@ -49,7 +49,7 @@ export default async function page({
           date={data.result.date}
           startTime={data.result.startTime}
           endTime={data.result.endTime}
-          adultCount={data.result.adultCounts}
+          adultCount={data.result.adultCount}
           teenagerCount={data.result.teenagerCount}
           kidsCount={data.result.kidsCount}
           reservationId={data.result.reservationId}
@@ -58,8 +58,8 @@ export default async function page({
           paymentTime="2024.06.18 (화) 19:51"
           payMethod="카카오페이"
           price={data.result.price}
-          feePrice={0}
-          couponDiscountPrice={0}
+          feePrice={0} // 추후에 백엔드에서 보내줄 필요가 있음
+          couponDiscountPrice={0} // 백엔드에서 보내줄 필요가 있음
           cancelAvailableDate="2024년 08월 02일 13:00"
           status={data.result.status}
         />

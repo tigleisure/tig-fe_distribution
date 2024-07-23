@@ -49,7 +49,7 @@ export default function BeforeSecondStageUserInfoCard({
           value={userName}
           onChange={handleChangeUserNameInput}
           placeholder="예약자명 입력"
-          className="title4 w-[80%] border-b-[1px] border-grey3"
+          className="title4 w-[80%] border-b-[1px] border-grey3 !leading-[1.4] !tracking-[-0.02em]"
         />
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center gap-x-6">
