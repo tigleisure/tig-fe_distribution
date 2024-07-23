@@ -20,6 +20,27 @@ export interface HistoryInProgressItemProps {
   handleChangeCancelPaymentId: (paymentId: string) => void;
 }
 
+export interface HistoryInAdminItemProps {
+  imageUrl?: string;
+  clubName: string;
+  clubAddress: string;
+  eventDate: string;
+  eventStartTime: string;
+  eventEndTime: string;
+  adultCount?: number;
+  teenagerCount?: number;
+  kidsCount?: number;
+  reservationStatus:
+    | 'CONFIRMED'
+    | 'TBC'
+    | 'DECLINED'
+    | 'CANCELED'
+    | 'DONE'
+    | 'REVIEWED';
+  reservationId: number;
+  paymentId: string | null;
+}
+
 export interface HistoryComponentUpperSectionProps
   extends Omit<
     HistoryInProgressItemProps,
