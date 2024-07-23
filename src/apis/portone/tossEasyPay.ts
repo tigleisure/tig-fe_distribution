@@ -90,12 +90,7 @@ const handleTossEasyPay = async (
       startTime: reservationData.startTime,
       endTime: reservationData.endTime,
       gameCount: reservationData.gameCount,
-      clubPrice:
-        paymentPrice /
-        calculateTimeDiff(
-          reservationData.endTime as string,
-          reservationData.startTime
-        ),
+      clubPrice: clubData.result.price,
       clubId: reservationData.clubId,
       paymentId: response?.paymentId,
       paymentPrice: paymentPrice,
