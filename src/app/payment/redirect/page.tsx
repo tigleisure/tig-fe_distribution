@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { instance } from '@apis/instance';
 import { useEffect } from 'react';
 import { usePostReservation } from '@apis/payment/before/postReservation';
+import TigLoadingPage from '@components/all/TigLoadingPage';
 
 // 백엔드에 예약 정보를 paymentI와 함께 넘기고 ok면 진짜 예약을 진행하고, 결제를 취소한다.
 export interface EasyPayBackendResponse {
@@ -67,8 +68,10 @@ export default function PaymentRedirect({
         );
       }
     }
+
+    sendCheckingDataToBackend();
   }, []);
   console.log(searchParams);
 
-  return <div>This is redirect page</div>;
+  return <TigLoadingPage />;
 }
