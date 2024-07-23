@@ -4,6 +4,7 @@ import { cn } from '@utils/cn';
 import { set } from 'date-fns';
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useFilterOptionStore } from '@store/filterOptionStore';
 
 const filterOption = [
   '추천순',
@@ -16,7 +17,8 @@ const filterOption = [
 
 export default function FilterHeader() {
   const [isOpen, setIsOpen] = useState(false);
-  const [selected, setSelected] = useState(filterOption[0]);
+  const selected = useFilterOptionStore((state) => state.filterOption);
+  const setSelected = useFilterOptionStore((state) => state.setFilterOption);
   const ref = useRef<HTMLDivElement>(null);
 
   const handleClickOutside = (event: MouseEvent) => {
@@ -29,6 +31,7 @@ export default function FilterHeader() {
     document.addEventListener('click', handleClickOutside, true);
     return () => {
       document.removeEventListener('click', handleClickOutside, true);
+      setSelected('추천순');
     };
   }, []);
 
@@ -40,7 +43,7 @@ export default function FilterHeader() {
         setIsOpen(true);
       }}
     >
-      <p className='leading-[1.5]'>{selected}</p>
+      <p className="leading-[1.5]">{selected}</p>
       <CategorySVG />
       {isOpen && (
         <motion.div

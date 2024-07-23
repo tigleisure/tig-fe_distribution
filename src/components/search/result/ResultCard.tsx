@@ -17,6 +17,7 @@ export default function ResultCard({
   address,
   ratingSum,
   ratingCount,
+  avgRating,
   price,
   type,
   isEvent = false,
@@ -78,7 +79,7 @@ export default function ResultCard({
           <div className="flex gap-[6px] h-[25px]">
             <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center rounded-[4px]">
               <StarSVG />
-              {ratingSum}
+              {avgRating}
             </p>
             <p className="caption3 text-grey5 flex items-center">
               {ratingCount}명 평가
@@ -86,7 +87,7 @@ export default function ResultCard({
           </div>
         </div>
         <div className="flex flex-col gap-1">
-          <p className="headline2 text-grey7">{price.toLocaleString()}원</p>
+          <p className="headline2 text-grey7">{price && price.toLocaleString()}원</p>
           <p className="body4 text-grey4">
             {type === 'GAME' ? '게임' : '시간'}당 가격
           </p>
