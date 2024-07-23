@@ -4,6 +4,7 @@ export interface ResultCardProps {
   address: string;
   ratingSum: number; // 평점의 평균을 의미하는듯
   ratingCount: number; // 평점을 매긴 카운트
+  avgRating: number;
   price: number;
   type: 'GAME' | 'TIME';
   category:
@@ -19,4 +20,5 @@ export interface ResultCardProps {
   latitude?: number;
   longitude?: number;
   isFirst?: boolean;
+  distance?: number;
 }
