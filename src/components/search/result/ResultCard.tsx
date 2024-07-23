@@ -10,10 +10,12 @@ import { cn } from '@utils/cn';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
+import { useAddToWishList } from '@apis/wishlist/addToWishList';
 
 export default function ResultCard({
   clubName,
   id,
+  clubId,
   address,
   ratingSum,
   ratingCount,
@@ -28,11 +30,20 @@ export default function ResultCard({
 }: ResultCardProps) {
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
-  const { mutate } = useDeleteFromWishList();
-  const handleClick = (e: React.MouseEvent<SVGSVGElement>) => {
+  const { mutate: deleteFromWishList } = useDeleteFromWishList();
+  const { mutate: addToWishList } = useAddToWishList();
+  const handleFillHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    console.log('fill clicked');
+    deleteFromWishList(clubId || 0);
     e.stopPropagation();
-    mutate(id);
+    setIsHeartClicked(false);
   };
+  const handleEmptyHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    console.log('empty clicked');
+    addToWishList(clubId || 0);
+    e.stopPropagation();
+    setIsHeartClicked(true);
+  }
   return (
     <section
       onClick={() => {
@@ -42,7 +53,7 @@ export default function ResultCard({
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',
         {
           'pb-[60px] h-fit': isLast,
-          'pt-[0] h-fit': isFirst
+          'pt-[0] h-fit': isFirst,
         }
       )}
     >
@@ -58,14 +69,14 @@ export default function ResultCard({
           <FillHeartSVG
             className="absolute bottom-2 right-2 cursor-pointer"
             onClick={(e: React.MouseEvent<SVGSVGElement>) => {
-              handleClick(e);
+              handleFillHeartClick(e);
             }}
           />
         ) : (
           <EmptyHeartSVG
             className="absolute bottom-2 right-2 cursor-pointer"
             onClick={(e: React.MouseEvent<SVGSVGElement>) => {
-              handleClick(e);
+              handleEmptyHeartClick(e);
             }}
           />
         )}
@@ -87,7 +98,9 @@ export default function ResultCard({
           </div>
         </div>
         <div className="flex flex-col gap-1">
-          <p className="headline2 text-grey7">{price && price.toLocaleString()}원</p>
+          <p className="headline2 text-grey7">
+            {price && price.toLocaleString()}원
+          </p>
           <p className="body4 text-grey4">
             {type === 'GAME' ? '게임' : '시간'}당 가격
           </p>
