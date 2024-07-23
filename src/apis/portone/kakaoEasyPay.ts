@@ -39,7 +39,7 @@ const handleKakaokEasyPay = async (
     adultCount: reservationData.adultCount.toString(),
     teenagerCount: reservationData.teenagerCount.toString(),
     kidsCount: reservationData.kidsCount.toString(),
-    paymentId: customPaymentId,
+    // paymentId: customPaymentId,
     clubPrice: (
       paymentPrice /
       calculateTimeDiff(
