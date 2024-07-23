@@ -26,8 +26,12 @@ export default function BeforeFirstStageCard({
   kidsCount,
   startTime,
   endTime,
+  gameCount,
   price,
 }: BeforeFirstStageCardProps) {
+  console.log(clubAddress);
+  console.log(gameCount);
+  console.log(endTime);
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-5">
@@ -58,10 +62,16 @@ export default function BeforeFirstStageCard({
             {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
               ? '오전'
               : '오후'}{' '}
-            {extractOnlyTime(startTime)} -{' '}
+            {extractOnlyTime(startTime)} {endTime === '' ? '시작' : '- '}
             {endTime ? extractOnlyTime(endTime) : null}
           </span>
         </div>
+        {endTime === '' && gameCount !== 0 && (
+          <div className="w-full flex justify-between items-center">
+            <span className="title4 text-grey4">게임수</span>
+            <span className="body4 text-grey6">{gameCount}게임</span>
+          </div>
+        )}
         <div className="w-full border-b-[1px] border-grey4" />
         <div className="w-full h-fit flex justify-between gap-x-[126px]">
           <span className="title4 text-grey6">총 결제 금액</span>

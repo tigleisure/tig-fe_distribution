@@ -53,7 +53,9 @@ export default function PaymentRedirect({
             kidsCount: parseInt(searchParams.kidsCount as string),
             date: searchParams.date as string,
             startTime: searchParams.startTime as string,
-            endTime: searchParams.endTime as string,
+            endTime: (searchParams.endTime as string)
+              ? (searchParams.endTime as string)
+              : undefined,
             gameCount: parseInt(searchParams.gameCount as string),
             price: parseInt(searchParams.paymentPrice as string),
             status: 'TBC',

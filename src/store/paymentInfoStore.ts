@@ -29,6 +29,7 @@ export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
     kidsCount: 0,
     startTime: '',
     endTime: '',
+    gameCount: 0,
     price: 0,
   },
   setFirstStageInfoObject: (status: paymentFirstStageInfoProps) =>

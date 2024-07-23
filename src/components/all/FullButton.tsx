@@ -231,7 +231,10 @@ export default function FullButton({
                   kidsCount: firstStageInfoObject.kidsCount,
                   date: firstStageInfoObject.date,
                   startTime: firstStageInfoObject.startTime,
-                  endTime: firstStageInfoObject.endTime,
+                  endTime:
+                    firstStageInfoObject.endTime !== ''
+                      ? firstStageInfoObject.endTime
+                      : undefined,
                   gameCount: firstStageInfoObject.gameCount,
                   price:
                     secondStageInfoObject.price -
@@ -290,7 +293,10 @@ export default function FullButton({
                   kidsCount: firstStageInfoObject.kidsCount,
                   date: firstStageInfoObject.date,
                   startTime: firstStageInfoObject.startTime,
-                  endTime: firstStageInfoObject.endTime,
+                  endTime:
+                    firstStageInfoObject.endTime !== ''
+                      ? firstStageInfoObject.endTime
+                      : undefined,
                   gameCount: firstStageInfoObject.gameCount,
                   price:
                     secondStageInfoObject.price -
