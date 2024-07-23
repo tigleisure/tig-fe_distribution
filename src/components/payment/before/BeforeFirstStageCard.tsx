@@ -66,7 +66,12 @@ export default function BeforeFirstStageCard({
             {endTime ? extractOnlyTime(endTime) : null}
           </span>
         </div>
-        {}
+        {endTime === '' && gameCount !== 0 && (
+          <div className="w-full flex justify-between items-center">
+            <span className="title4 text-grey4">게임수</span>
+            <span className="body4 text-grey6">{gameCount}게임</span>
+          </div>
+        )}
         <div className="w-full border-b-[1px] border-grey4" />
         <div className="w-full h-fit flex justify-between gap-x-[126px]">
           <span className="title4 text-grey6">총 결제 금액</span>
