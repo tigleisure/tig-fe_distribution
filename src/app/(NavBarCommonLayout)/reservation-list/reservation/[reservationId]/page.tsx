@@ -55,8 +55,8 @@ export default async function page({
           reservationId={data.result.reservationId}
           memberName={data.result.memberName}
           phoneNumber="010-4925-1427"
-          paymentTime="2024.06.18 (화) 19:51"
-          payMethod="카카오페이"
+          paymentTime={data.result.updatedAt}
+          payMethod={data.result.provider}
           price={data.result.price}
           feePrice={0} // 추후에 백엔드에서 보내줄 필요가 있음
           couponDiscountPrice={0} // 백엔드에서 보내줄 필요가 있음

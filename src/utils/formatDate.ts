@@ -44,3 +44,23 @@ export const calculateTimeDiff = (
 
   return diffInHours;
 };
+
+export const extractReservationMoment = (timestamp: string): string => {
+  // 문자열을 Date 객체로 변환
+  let date = new Date(timestamp);
+
+  // 요일 정보
+  let days = ['일', '월', '화', '수', '목', '금', '토'];
+  let dayOfWeek = days[date.getUTCDay()];
+
+  // 원하는 형식으로 변환
+  let year = date.getUTCFullYear();
+  let month = ('0' + (date.getUTCMonth() + 1)).slice(-2);
+  let day = ('0' + date.getUTCDate()).slice(-2);
+  let hours = ('0' + date.getUTCHours()).slice(-2);
+  let minutes = ('0' + date.getUTCMinutes()).slice(-2);
+
+  let formattedTime = `${year}.${month}.${day} (${dayOfWeek}) ${hours}:${minutes}`;
+
+  return formattedTime;
+};
