@@ -19,7 +19,7 @@ export default function NaverMap({
   currentLatitude,
   currentLongitude,
 }: NaverMapProps) {
-  const mapRef = useRef<naver.maps.Map | null>(null);
+  const mapRef = useRef<naver.maps.Map | undefined>(undefined);
   const setIsBottomSheetOpen = useBottomSheetStore((state) => state.setIsBottomSheetOpen);
   const setPinCardIndex = usePinCardIndexStore ((state) => state.setPinCardIndex);
   const markersRef = useRef<naver.maps.Marker[]>([]); // Declare markersRef variable
