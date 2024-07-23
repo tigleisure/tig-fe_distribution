@@ -12,9 +12,12 @@ import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 import { addToWishList, useAddToWishList } from '@apis/wishlist/addToWishList';
+import { WishListResponse, wishListItemProps } from 'types/response/response';
+import { da } from 'date-fns/locale';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
+  const [wishList, setWishList] = useState<ResultCardProps[]>([]);
   const { data, isError, error, isSuccess } = useGetWishList();
   const mutation = useAddToWishList();
 
@@ -28,6 +31,16 @@ export default function Page() {
   //   mutation.mutate(15);
   //   mutation.mutate(16);
   // }, []);
+
+  useEffect(() => {
+    if (data) {
+      if (data.result === null) {
+        return; // 기존의 []로 계속 감
+      } else {
+        setWishList(data.result);
+      }
+    }
+  }, [data]);
 
   if (isError) {
     return <div>Error: {error.message}</div>;
@@ -45,9 +58,9 @@ export default function Page() {
 
       {selectedTab === '전체' &&
         (isSuccess ? (
-          data?.result.length > 0 ? (
+          wishList.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-              {data.result.map((wishListData) => (
+              {wishList.map((wishListData) => (
                 <ResultCard key={wishListData.id} {...wishListData} isHeart />
               ))}
             </main>
@@ -70,9 +83,9 @@ export default function Page() {
 
       {selectedTab !== '전체' &&
         (isSuccess ? (
-          data?.result.length > 0 ? (
+          wishList.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-              {data.result
+              {wishList
                 .filter((wishListItem) => {
                   const mappedCategory = categoryMapKorToEng[selectedTab];
                   return wishListItem.category === mappedCategory;

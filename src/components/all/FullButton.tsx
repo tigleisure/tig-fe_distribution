@@ -16,6 +16,10 @@ import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
 import handleTossEasyPay from '@apis/portone/tossEasyPay';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
+import { usePostReservation } from '@apis/payment/before/postReservation';
+import makePaymentId from '@utils/makePaymentId';
+import { AxiosResponse } from 'axios';
+import { kakaoEasyPayBackendResponse } from '@apis/portone/kakaoEasyPay';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -49,6 +53,10 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     reviewId?: number;
     reservationId?: number | null;
     selectedCouponPrice?: number;
+    reservationData?: {
+      clubId: number;
+      memberId: number;
+    };
   };
 }
 
@@ -90,6 +98,7 @@ export default function FullButton({
   const [toastId, setToastId] = useState<string | null>(null);
 
   const { data } = useGetUserInfo();
+  const postReservationMutation = usePostReservation();
 
   const colorClasses = {
     status_red1: 'text-status_red1',
@@ -185,25 +194,123 @@ export default function FullButton({
 
       // 이제 해당 정보를 백엔드로 전송하면 됨
 
-      if (secondStageInfoObject.paymentMethod === 'kakaoPayment' && data) {
-        handleKakaokEasyPay(
+      if (
+        secondStageInfoObject.paymentMethod === 'kakaoPayment' &&
+        data &&
+        sendingData?.reservationData?.clubId &&
+        sendingData.reservationData.memberId
+      ) {
+        const customPaymentId = makePaymentId(
           data.result.id,
-          new Date().toLocaleString(),
-          secondStageInfoObject.price -
-            secondStageInfoObject.couponDiscountPrice
+          new Date().toLocaleString()
         );
+
+        handleKakaokEasyPay(
+          customPaymentId,
+          secondStageInfoObject.price -
+            secondStageInfoObject.couponDiscountPrice,
+          {
+            clubId: sendingData?.reservationData?.clubId,
+            date: firstStageInfoObject.date,
+            startTime: firstStageInfoObject.startTime,
+            endTime: firstStageInfoObject.endTime,
+            gameCount: firstStageInfoObject.gameCount,
+            adultCount: firstStageInfoObject.adultCount,
+            teenagerCount: firstStageInfoObject.teenagerCount,
+            kidsCount: firstStageInfoObject.kidsCount,
+            userName: secondStageInfoObject.userName,
+            memberId: sendingData.reservationData.memberId,
+          }
+        )
+          .then((response) => {
+            if (response.resultCode === 200) {
+              postReservationMutation.mutate(
+                {
+                  adultCount: firstStageInfoObject.adultCount,
+                  teenagerCount: firstStageInfoObject.teenagerCount,
+                  kidsCount: firstStageInfoObject.kidsCount,
+                  date: firstStageInfoObject.date,
+                  startTime: firstStageInfoObject.startTime,
+                  endTime: firstStageInfoObject.endTime,
+                  gameCount: firstStageInfoObject.gameCount,
+                  price:
+                    secondStageInfoObject.price -
+                    secondStageInfoObject.couponDiscountPrice,
+                  status: 'TBC',
+                  clubId: sendingData.reservationData?.clubId as number,
+                  paymentId: customPaymentId,
+                },
+                {
+                  onSuccess(data, variables, context) {
+                    router.replace(
+                      `/payment/after/${data.result.reservationId}`
+                    );
+                  },
+                }
+              );
+            }
+          })
+          .catch((error) => console.log(error))
+          .finally(() => console.log('over'));
       }
 
       if (
         secondStageInfoObject.paymentMethod === 'tossAndCardPayment' &&
-        data
+        data &&
+        sendingData?.reservationData?.clubId &&
+        sendingData.reservationData.memberId
       ) {
-        handleTossEasyPay(
+        const customPaymentId = makePaymentId(
           data.result.id,
-          new Date().toLocaleString(),
-          secondStageInfoObject.price -
-            secondStageInfoObject.couponDiscountPrice
+          new Date().toLocaleString()
         );
+        handleTossEasyPay(
+          customPaymentId,
+          secondStageInfoObject.price -
+            secondStageInfoObject.couponDiscountPrice,
+          {
+            clubId: sendingData?.reservationData?.clubId,
+            date: firstStageInfoObject.date,
+            startTime: firstStageInfoObject.startTime,
+            endTime: firstStageInfoObject.endTime,
+            gameCount: firstStageInfoObject.gameCount,
+            adultCount: firstStageInfoObject.adultCount,
+            teenagerCount: firstStageInfoObject.teenagerCount,
+            kidsCount: firstStageInfoObject.kidsCount,
+            userName: secondStageInfoObject.userName,
+            memberId: sendingData.reservationData.memberId,
+          }
+        )
+          .then((response) => {
+            if (response.resultCode === 200) {
+              postReservationMutation.mutate(
+                {
+                  adultCount: firstStageInfoObject.adultCount,
+                  teenagerCount: firstStageInfoObject.teenagerCount,
+                  kidsCount: firstStageInfoObject.kidsCount,
+                  date: firstStageInfoObject.date,
+                  startTime: firstStageInfoObject.startTime,
+                  endTime: firstStageInfoObject.endTime,
+                  gameCount: firstStageInfoObject.gameCount,
+                  price:
+                    secondStageInfoObject.price -
+                    secondStageInfoObject.couponDiscountPrice,
+                  status: 'TBC',
+                  clubId: sendingData.reservationData?.clubId as number,
+                  paymentId: customPaymentId,
+                },
+                {
+                  onSuccess(data, variables, context) {
+                    router.replace(
+                      `/payment/after/${data.result.reservationId}`
+                    );
+                  },
+                }
+              );
+            }
+          })
+          .catch((error) => console.log(error))
+          .finally(() => console.log('over'));
       }
 
       // 백엔드 전송 로직

@@ -1,14 +1,47 @@
 // 백엔드로부터 예약 확정 정보를 받아오는 것이면 그냥 클라이언트 컴포넌트가 되어도 상관 없음
-'use client';
 import FortyEightTigSVG from '@public/svg/fortyEightTig.svg';
 // 하지만 사용자가 새로고침하면 전역 상태라고 하더라도 사라지기 때문에 백엔드로부터 받아오는 것이 더 맞지 않나싶음. 아니면 zustand persists
-import { usePaymentFirstStage } from '@store/paymentInfoStore';
 import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 
-export default function PaymentAfterConfirm() {
-  const firstStageInfoObject = usePaymentFirstStage(
-    (state) => state.firstStageInfoObject
+interface paymentAfterConfirmProp {
+  reservationId: string;
+}
+
+interface reservationInfoResponseProps {
+  result: {
+    adultCount: number;
+    teenagerCount: number;
+    kidsCount: number;
+    date: string;
+    startTime: string;
+    endTime: string;
+    gameCount: number;
+    price: number;
+    status: 'CONFIRMED' | 'TBC' | 'DECLINED' | 'CANCELED' | 'DONE' | 'REVIEWED';
+    memberId: number;
+    clubId: number;
+    type: 'GAME' | 'TIME';
+    businessHour: string;
+    clubName: string;
+    clubAddress: string;
+    reservationId: number;
+    memberName: string;
+    paymentId: string;
+    reviewId: number;
+    reviewed: boolean;
+  };
+  resultCode: number;
+  resultMsg: string;
+}
+
+export default async function PaymentAfterConfirm({
+  reservationId,
+}: paymentAfterConfirmProp) {
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${reservationId}`
   );
+
+  const data: reservationInfoResponseProps = await response.json();
   return (
     <section className="w-eightNineWidth flex flex-col items-center gap-y-10 pt-[78px]">
       <div className="w-fit h-fit flex flex-col items-center">
@@ -28,14 +61,14 @@ export default function PaymentAfterConfirm() {
         </div>
       </div>
       <HistoryComponentUpperSection
-        clubName={firstStageInfoObject.clubName}
-        clubAddress={firstStageInfoObject.clubAddress}
-        eventDate={firstStageInfoObject.date}
-        eventStartTime={firstStageInfoObject.startTime}
-        eventEndTime={firstStageInfoObject.endTime}
-        adultCount={firstStageInfoObject.adultCount}
-        teenagerCount={firstStageInfoObject.teenagerCount}
-        kidsCount={firstStageInfoObject.kidsCount}
+        clubName={data.result.clubName}
+        clubAddress={data.result.clubAddress}
+        eventDate={data.result.date}
+        eventStartTime={data.result.startTime}
+        eventEndTime={data.result.endTime}
+        adultCount={data.result.adultCount}
+        teenagerCount={data.result.teenagerCount}
+        kidsCount={data.result.kidsCount}
         className="bg-white p-5"
       />
     </section>

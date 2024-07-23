@@ -7,7 +7,8 @@ interface reservationRequestBodyProp {
   kidsCount: number;
   date: string;
   startTime: string;
-  endTime: string;
+  endTime?: string;
+  gameCount?: number;
   price: number;
   status: 'TBC';
   clubId: number;

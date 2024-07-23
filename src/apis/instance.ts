@@ -24,21 +24,24 @@ instance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  },
+  }
 );
+
+interface ReissueResponse {
+  result: {
+    accessToken: string;
+  };
+  resultCode: number;
+  resultMsg: string;
+}
 
 const regainAccessToken = async (): Promise<string | void> => {
   try {
-    const {
-      // 리프레시 토큰은 쿠키로 담김
-      data: { accessToken },
-    } = await axios.get<{ accessToken: string;}>(
-      REFRESH_URL,
-    );
+    const data = await instance.post<ReissueResponse>(REFRESH_URL);
+    console.log(data);
+    localStorage.setItem('accessToken', data.result.accessToken);
 
-    localStorage.setItem('accessToken', accessToken);
-
-    return accessToken;
+    return data.result.accessToken;
   } catch (e) {
     localStorage.removeItem('accessToken');
   }
@@ -63,9 +66,8 @@ instance.interceptors.response.use(
     if (accessToken) {
       config.headers.Authorization = `Bearer ${accessToken}`;
     }
-    
+
     // 새로운 토큰으로 재요청
     return instance(config);
-  },
+  }
 );
-

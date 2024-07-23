@@ -23,20 +23,27 @@ export default function Page() {
     '전체' | '진행중' | '종료된'
   >('전체');
   const [reservationList, setReservationList] = useState<
-    ReservationItemProps[]
+    ReservationItemProps[] | []
   >([]);
+
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cancelPaymentId, setCancelPaymentId] = useState<string | null>(null);
 
-  const inProgressReservationList = reservationList.filter(
-    (reservationItem) =>
-      reservationItem.status === 'CONFIRMED' || reservationItem.status === 'TBC'
-  );
+  const inProgressReservationList = reservationList
+    ? reservationList.filter(
+        (reservationItem) =>
+          reservationItem.status === 'CONFIRMED' ||
+          reservationItem.status === 'TBC'
+      )
+    : [];
 
-  const endReservationList = reservationList.filter(
-    (reservationItem) =>
-      reservationItem.status !== 'CONFIRMED' && reservationItem.status !== 'TBC'
-  );
+  const endReservationList = reservationList
+    ? reservationList.filter(
+        (reservationItem) =>
+          reservationItem.status !== 'CONFIRMED' &&
+          reservationItem.status !== 'TBC'
+      )
+    : [];
 
   const setSelectedIsModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
@@ -73,7 +80,13 @@ export default function Page() {
 
   useEffect(() => {
     if (data) {
-      setReservationList(data.result);
+      // 데이터가 없는 경우에는 result 필드가 null로 오기 때문에 아래에서 문제가 생기는 상황이 발생함
+      if (data.result === null) {
+        setReservationList([]);
+      } else {
+        setReservationList(data.result);
+      }
+
       setIsLoading(false);
     }
     // data의 resultCode가 오류이면 여기에서도 setIsLoading(false)로 바꾸고 reservationList는 빈 것으로 유지
@@ -86,7 +99,7 @@ export default function Page() {
 
   return (
     <>
-      {isLoading ? (
+      {isLoading || !reservationList ? (
         <TigLoadingPage />
       ) : (
         <div className="flex flex-col h-full pb-[54px] items-center">
