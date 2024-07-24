@@ -207,8 +207,8 @@ export default function Page({
               />
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
-                reservationUserName="김티그"
-                eventDate={data.result.date.replace(/-/g, '.')}
+                reservationUserName={data.result.memberName as string}
+                eventDate={data.result.date}
                 adultCount={data.result.adultCount}
                 teenagerCount={data.result.teenagerCount}
                 kidsCount={data.result.kidsCount}

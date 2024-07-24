@@ -28,7 +28,8 @@ interface reviewResponse {
 
 export default async function Page({ params }: reviewIdPathnameProp) {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/review/${params.reviewId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/review/${params.reviewId}`,
+    { cache: 'no-store' }
   );
 
   const reviewData = await response.json();
