@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { instance } from '@apis/instance';
 
 export interface clubInfoProps {
-  id: number;
+  id: string;
   clubName: string;
   address: string;
   ratingSum: number;
@@ -13,6 +13,7 @@ export interface clubInfoProps {
   snsLink: string;
   businessHours: string;
   latitude: number;
+  isHeart: boolean;
   longitude: number;
   category: string;
   type: 'GAME' | 'TIME';

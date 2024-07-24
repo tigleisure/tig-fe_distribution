@@ -89,13 +89,14 @@ const DUMMYDetailPage: DetailPageProps = {
 };
 
 const initialInofo: clubInfoProps = {
-  id: 0,
+  id: '0',
   clubName: 'Dummy',
   address: 'Dummy',
   ratingSum: 0,
   ratingCount: 0,
   avgRating: 0,
   price: 0,
+  isHeart: false,
   phoneNumber: '000-0000-0000',
   snsLink: 'https://dummy.link',
   businessHours: '00:00 - 00:00',
