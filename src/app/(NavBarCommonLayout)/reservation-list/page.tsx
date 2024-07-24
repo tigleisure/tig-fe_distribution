@@ -188,7 +188,7 @@ export default function Page() {
                     teenagerCount={data.teenagerCount}
                     kidsCount={data.kidsCount}
                     reservationStatus={data.status}
-                    reservationId={index}
+                    reservationId={data.reservationId}
                     paymentId={cancelPaymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
                   />
@@ -220,7 +220,7 @@ export default function Page() {
                   teenagerCount={data.teenagerCount}
                   kidsCount={data.kidsCount}
                   reservationStatus={data.status}
-                  reservationId={index}
+                  reservationId={data.reservationId}
                   reviewId={data.reviewId}
                 />
               ))}
