@@ -11,6 +11,11 @@ export default function ResButtonCard({
 }) {
   const router = useRouter();
   const handleReservation = () => {
+    if (!localStorage.getItem('accessToken')) {
+      router.push('/login');
+      return;
+    }
+
     if (type === 'GAME') {
       router.push(`/reservation/game/${companyId}`);
     } else {

@@ -6,7 +6,13 @@ import {
 } from '@store/makeReservationInfo';
 import { usePathname, useRouter } from 'next/navigation';
 
-export default function MakeResButtonCard() {
+export default function MakeResButtonCard({
+  clubName,
+  address,
+}: {
+  clubName: string;
+  address: string;
+}) {
   const router = useRouter();
   const pathname = usePathname();
   const clubId = pathname.split('/').at(-1);
@@ -38,8 +44,8 @@ export default function MakeResButtonCard() {
         adultCount: String(gameResInfo.adultCount),
         teenagerCount: String(gameResInfo.teenagerCount),
         kidsCount: String(gameResInfo.kidsCount),
-        clubName: '회사 이름 by BE',
-        address: '회사 주소 by BE',
+        clubName: clubName,
+        address: address,
       };
       const queryString = new URLSearchParams(query).toString();
       router.push(`/payment/before/${clubId}?${queryString}`);
@@ -64,8 +70,8 @@ export default function MakeResButtonCard() {
         adultCount: String(timeResInfo.adultCount),
         teenagerCount: String(timeResInfo.teenagerCount),
         kidsCount: String(timeResInfo.kidsCount),
-        clubName: '회사 이름 by BE',
-        address: '회사 주소 by BE',
+        clubName: clubName,
+        address: address,
       };
       const queryString = new URLSearchParams(query).toString();
       router.push(`/payment/before/${clubId}?${queryString}`);
