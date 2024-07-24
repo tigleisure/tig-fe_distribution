@@ -13,6 +13,7 @@ export default function HistoryDetail({
   date,
   startTime,
   endTime,
+  gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
@@ -35,6 +36,7 @@ export default function HistoryDetail({
         eventDate={date}
         eventStartTime={startTime}
         eventEndTime={endTime}
+        gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}

@@ -49,6 +49,7 @@ export default async function page({
           date={data.result.date}
           startTime={data.result.startTime}
           endTime={data.result.endTime}
+          gameCount={data.result.gameCount}
           adultCount={data.result.adultCount}
           teenagerCount={data.result.teenagerCount}
           kidsCount={data.result.kidsCount}
