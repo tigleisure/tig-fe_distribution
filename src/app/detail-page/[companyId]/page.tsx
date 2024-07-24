@@ -13,6 +13,11 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 import DummyDetailImageSVG from '@public/svg/dummyDetailImage.svg';
+import {
+  clubInfoProps,
+  useGetSpecificClubInfo,
+} from '@apis/club/getSpecificClubInfo';
+import TigLoadingPage from '@components/all/TigLoadingPage';
 
 interface DetailPageProps {
   imageUrl: string[];
@@ -83,7 +88,28 @@ const DUMMYDetailPage: DetailPageProps = {
   ],
 };
 
+const initialInofo: clubInfoProps = {
+  id: 0,
+  clubName: 'Dummy',
+  address: 'Dummy',
+  ratingSum: 0,
+  ratingCount: 0,
+  avgRating: 0,
+  price: 0,
+  phoneNumber: '000-0000-0000',
+  snsLink: 'https://dummy.link',
+  businessHours: '00:00 - 00:00',
+  latitude: 0.0,
+  longitude: 0.0,
+  category: 'Dummy Category',
+  type: 'TIME',
+  imageUrls: [],
+  presignedImageUrls: [],
+};
+
 export default function Page({ params }: { params: { companyId: string } }) {
+  const { data, isSuccess } = useGetSpecificClubInfo(params.companyId);
+  const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
   const tabArray = detailArray;
   // const imageRef = useRef<HTMLImageElement>(null);
   const mainRef = useRef<HTMLDivElement>(null);
@@ -108,9 +134,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
   }, [selectedTab]);
 
   useEffect(() => {
-    // 상세페이지 접근 시 GET 요청에 보낼 정보 (쿼리파라미터)
-    console.log(params.companyId);
-  }, []);
+    if (data) {
+      console.log(data);
+      setClubInfo(data.result);
+    }
+  }, [data]);
 
   useEffect(() => {
     // 처음 마운트 될 때 ref 간의 거리 차이를 계산함. 이건 calculate scroll 함수가 선언될 시점의 고정 값임 -> 클로저 개념ㄴ
@@ -174,6 +202,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
     }
   };
+
+  if (!isSuccess) {
+    return <TigLoadingPage />;
+  }
+
   return (
     <main className="w-full h-full overflow-y-scroll" ref={mainRef}>
       <Header buttonType="back" title="업체명" />
@@ -187,7 +220,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
         <DummyDetailImageSVG className="w-full h-auto" />
       </div>
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
-      <DetailInfoCard {...DUMMYDetailPage} ref={serviceRef} />
+      <DetailInfoCard {...clubInfo} ref={serviceRef} />
       <ServicesCard
         servicesIcon={DUMMYDetailPage.servicesIcon}
         services={DUMMYDetailPage.services}
@@ -199,7 +232,10 @@ export default function Page({ params }: { params: { companyId: string } }) {
         RatingCount={DUMMYDetailPage.RatingCount}
         // ref={visitedReviewRef}
       />
-      <ResButtonCard companyId={params.companyId} />
+      <ResButtonCard
+        companyId={params.companyId}
+        type={data?.result.type || 'TIME'}
+      />
     </main>
   );
 }

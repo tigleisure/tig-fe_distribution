@@ -1,4 +1,5 @@
 'use client';
+import { useGetSearchedResult } from '@apis/search/getSearchedResult';
 import NavBar from '@components/all/NavBar/NavBar';
 import SearchHeader from '@components/all/SearchHeader';
 import Tabs from '@components/all/Tabs/Tabs';
@@ -10,165 +11,23 @@ import PinCard from '@components/search/result/PinCard';
 import ResultCard from '@components/search/result/ResultCard';
 import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
 import { useBottomSheetStore } from '@store/bottomSheetStore';
+import { useFilterOptionStore } from '@store/filterOptionStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import useTab from '@store/tabNumberStore';
-import { formatDate, parse } from 'date-fns';
+import { formatDate, parse, set } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
-
-const DUMMYRESULTS: ResultCardProps[] = [
-  {
-    clubName: '스카이락볼링장1',
-    id: 1,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'BALLING',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장2',
-    id: 2,
-    address:
-      '서울특별시 강남구 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'BALLING',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장3',
-    id: 3,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'POCKET_BALL',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장4',
-    id: 4,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'POCKET_BALL',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장5',
-    id: 5,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'POCKET_BALL',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장6',
-    id: 6,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'TABLE_TENNIS',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장7',
-    id: 7,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'TABLE_TENNIS',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장8',
-    id: 8,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'TENNIS',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장9',
-    id: 9,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'BALLING',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-  {
-    clubName: '스카이락볼링장10',
-    id: 10,
-    address: '서울특별시 강남구 역삼동',
-    ratingSum: 4.5,
-    ratingCount: 100,
-    price: 10000,
-    type: 'GAME',
-    isEvent: true,
-    isHeart: true,
-    imageUrls: ['/png/dummyImage.png'],
-    category: 'BALLING',
-    latitude: 37.55527 + (Math.random() * 0.02 - 0.01),
-    longitude: 126.9366 + (Math.random() * 0.02 - 0.01),
-  },
-];
 
 const isResult = true;
 
 export function SearchResult() {
+  const [searchResult, setSearchResult] = useState<ResultCardProps[]>([]);
+  const selectedOption = useFilterOptionStore((state) => state.filterOption);
+  const [originalSearchResult, setOriginalSearchResult] = useState<
+    ResultCardProps[]
+  >([]);
   const tabArray = allleisureArray;
   const isBottomSheetOpen = useBottomSheetStore(
     (state) => state.isBottomSheetOpen
@@ -186,30 +45,79 @@ export function SearchResult() {
     Object.fromEntries(searchParams.entries());
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
+  const { data } = useGetSearchedResult(search);
+
+  useEffect(() => {
+    console.log(selectedOption);
+    if (selectedOption === '추천순') {
+      setSearchResult(originalSearchResult);
+    } else if (selectedOption === '인기순') {
+      const sortedResult = searchResult.sort((a, b) => {
+        return b.avgRating - a.avgRating;
+      });
+      setSearchResult(prev => sortedResult);
+      console.log(sortedResult);
+    } else if (selectedOption === '가까운순') {
+      const sortedResult = searchResult.sort((a, b) => {
+        return (a.distance || 0) - (b.distance || 0);
+      });
+      setSearchResult(prev => sortedResult);
+      console.log(sortedResult);
+    } else if (selectedOption === '고가순') {
+      const sortedResult = searchResult.sort((a, b) => {
+        return a.price - b.price;
+      });
+      setSearchResult(prev => sortedResult);
+      console.log(sortedResult);
+    } else if (selectedOption === '저가순') {
+      const sortedResult = searchResult.sort((a, b) => {
+        return b.price - a.price;
+      });
+      setSearchResult(prev => sortedResult);
+      console.log(sortedResult);
+    } else if (selectedOption === '리뷰많은순') {
+      const sortedResult = searchResult.sort((a, b) => {
+        return b.ratingCount - a.ratingCount;
+      });
+      setSearchResult(prev => sortedResult);
+      console.log(sortedResult);
+    }
+  }, [selectedOption]);
+
+  useEffect(() => {
+    if (data) {
+      console.log(data?.result.avgLatitude);
+      console.log(data?.result.avgLongitude);
+      console.log(data?.result.searchList);
+      setCurrentLocation({
+        latitude: data?.result.avgLatitude || 37.55527,
+        longitude: data?.result.avgLongitude || 126.9366,
+      });
+      setSearchResult(data?.result.searchList || []);
+      setOriginalSearchResult(data?.result.searchList || []);
+    }
+  }, [data]);
 
   const selectedTab = useTab((state) => state.selectedTab);
-  const [resultCards, setResultCards] =
-    useState<ResultCardProps[]>(DUMMYRESULTS);
 
   useEffect(() => {
     if (selectedTab == '전체') {
-      setResultCards(DUMMYRESULTS);
+      setSearchResult(originalSearchResult);
       return;
     } else {
-      const filteredResultCards = DUMMYRESULTS.filter(
+      const filteredResultCards = originalSearchResult.filter(
         (result) => categoryMapEngToKor[result.category] === selectedTab
       );
-      setResultCards(filteredResultCards);
+      setSearchResult(filteredResultCards);
     }
   }, [selectedTab]);
 
   useEffect(() => {
     setIsBottomSheetOpen(true);
-  }, []);
+  }, [selectedTab]);
 
   const handleMyLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
       setCurrentLocation({
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
@@ -239,7 +147,7 @@ export function SearchResult() {
       <FilterHeader />
       {isResult && (
         <NaverMap
-          locationArray={DUMMYRESULTS.map((result) => ({
+          locationArray={searchResult.map((result) => ({
             latitude: result.latitude || 0,
             longitude: result.longitude || 0,
           }))}
@@ -249,14 +157,14 @@ export function SearchResult() {
       )}
       {isResult && isBottomSheetOpen && (
         <BottomSheet
-          results={resultCards}
+          results={searchResult}
           handleMyLocation={handleMyLocation}
         />
       )}
       {/* <ResultCard {...DUMMYRESULTS[0]} /> */}
       {!isBottomSheetOpen && (
         <PinCard
-          PinCard={DUMMYRESULTS[pinCardIndex]}
+          PinCard={searchResult[pinCardIndex]}
           handleMyLocation={handleMyLocation}
         />
       )}

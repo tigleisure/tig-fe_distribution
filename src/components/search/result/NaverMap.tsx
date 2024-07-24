@@ -19,10 +19,11 @@ export default function NaverMap({
   currentLatitude,
   currentLongitude,
 }: NaverMapProps) {
-  const mapRef = useRef<naver.maps.Map | null>(null);
+  const mapRef = useRef<naver.maps.Map | undefined>(undefined);
   const setIsBottomSheetOpen = useBottomSheetStore((state) => state.setIsBottomSheetOpen);
   const setPinCardIndex = usePinCardIndexStore ((state) => state.setPinCardIndex);
-
+  const markersRef = useRef<naver.maps.Marker[]>([]); // Declare markersRef variable
+  
   useEffect(() => {
     if (mapRef.current) {
       mapRef.current.setCenter(
@@ -30,11 +31,39 @@ export default function NaverMap({
       );
     }
   }, [currentLatitude, currentLongitude]);
+  
+  useEffect(() => {
+    if (mapRef.current) {
+      // Remove existing markers
+      markersRef.current.forEach((marker) => marker.setMap(null));
+      markersRef.current = [];
+  
+      // Add new markers
+      const newMarkers = locationArray.map((location, i) => {
+        const marker = new naver.maps.Marker({
+          position: new naver.maps.LatLng(location.latitude, location.longitude),
+          map: mapRef.current,
+          icon: {
+            url: '/svg/ping.svg',
+          },
+        });
+  
+        naver.maps.Event.addListener(marker, 'click', () => {
+          setIsBottomSheetOpen(false);
+          setPinCardIndex(i);
+        });
+  
+        return marker;
+      });
+  
+      markersRef.current = newMarkers;
+    }
+  }, [locationArray]);
 
   const initializeMap = () => {
     const mapOptions = {
       center: new naver.maps.LatLng(currentLatitude, currentLongitude),
-      zoom: 14,
+      zoom: 13,
       logoControl: false,
       mapDataControl: false,
       scaleControl: false,

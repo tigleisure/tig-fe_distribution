@@ -13,6 +13,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isEvent: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    avgRating: 4.5,
   },
   {
     clubName: '스카이락볼링장2',
@@ -26,6 +27,7 @@ const DUMMYRESULTS: ResultCardProps[] = [
     isHeart: true,
     imageUrls: ['/png/dummyImage.png'],
     category: 'BALLING',
+    avgRating: 4.5,
   },
 ];
 
