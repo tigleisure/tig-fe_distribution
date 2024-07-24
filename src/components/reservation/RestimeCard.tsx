@@ -16,11 +16,19 @@ export default function RestimeCard({
   startTime: string;
   endTime: string;
 }) {
-  const timeSlotList = generateTimeSlots(startTime, endTime);
-  const initialSelectedSlot = Array(timeSlotList.length).fill(false);
+  console.log(startTime, endTime);
+  const [timeSlotList, setTimeSlotList] = useState<string[]>([]);
+  const [selectedIdx, setSelectedIdx] = useState<boolean[]>([]);
   // MVP에서는 선택불가능한 시간 없음
-  const DUMMYISDISABLE = Array(timeSlotList.length).fill(false);
-  const [selectedIdx, setSelectedIdx] = useState(initialSelectedSlot);
+  const [DUMMYISDISABLE, setDUMMYISDISABLE] = useState<boolean[]>([]);
+
+  useEffect(() => {
+    const generatedTimeSlots = generateTimeSlots(startTime, endTime);
+    setTimeSlotList(generatedTimeSlots);
+    setSelectedIdx(Array(generatedTimeSlots.length).fill(false));
+    setDUMMYISDISABLE(Array(generatedTimeSlots.length).fill(false));
+  }, [startTime, endTime]);
+  console.log(selectedIdx);
   const selectedDate = useSelectedDate((state) => state.selectedDate);
   const timeReservationInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
