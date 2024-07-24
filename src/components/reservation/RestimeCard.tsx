@@ -9,62 +9,26 @@ import { useTimeReservationStore } from '@store/makeReservationInfo';
 import { useSelectedDate } from '@store/selectedDateStore';
 import { generateTimeSlots } from '@utils/generateTimeSlots';
 
-// MVP에서는 선택불가능한 시간 없음
-const DUMMYISDISABLE = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-];
+export default function RestimeCard({
+  startTime,
+  endTime,
+}: {
+  startTime: string;
+  endTime: string;
+}) {
+  console.log(startTime, endTime);
+  const [timeSlotList, setTimeSlotList] = useState<string[]>([]);
+  const [selectedIdx, setSelectedIdx] = useState<boolean[]>([]);
+  // MVP에서는 선택불가능한 시간 없음
+  const [DUMMYISDISABLE, setDUMMYISDISABLE] = useState<boolean[]>([]);
 
-const DUMMYISSELECTED = [
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-  false,
-];
-
-export default function RestimeCard() {
-  // 백엔드로부터 제공받은 데이터
-  const statFromBackend = '10:00';
-  const endFromBackend = '20:00';
-  //
-  const DUMMYTIMELIST = generateTimeSlots(statFromBackend, endFromBackend);
-  const [selectedIdx, setSelectedIdx] = useState(DUMMYISSELECTED);
+  useEffect(() => {
+    const generatedTimeSlots = generateTimeSlots(startTime, endTime);
+    setTimeSlotList(generatedTimeSlots);
+    setSelectedIdx(Array(generatedTimeSlots.length).fill(false));
+    setDUMMYISDISABLE(Array(generatedTimeSlots.length).fill(false));
+  }, [startTime, endTime]);
+  console.log(selectedIdx);
   const selectedDate = useSelectedDate((state) => state.selectedDate);
   const timeReservationInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
@@ -121,7 +85,7 @@ export default function RestimeCard() {
       .filter((val) => val !== null);
     if (selectedIndices.length > 0) {
       // 마지막 시간에 +30분
-      const [hours, minutes] = DUMMYTIMELIST[
+      const [hours, minutes] = timeSlotList[
         selectedIndices[selectedIndices.length - 1] || 0
       ]
         .split(':')
@@ -142,7 +106,7 @@ export default function RestimeCard() {
       setTime({
         ...timeReservationInfo,
         startTime: `${selectedDate.slice(0, 11)}${
-          DUMMYTIMELIST[selectedIndices[0] || 0]
+          timeSlotList[selectedIndices[0] || 0]
         }:00`,
         endTime: newEndTime,
       });
@@ -153,7 +117,7 @@ export default function RestimeCard() {
     <section className="w-full flex flex-col gap-[14px] px-5 py-[40px] border-b border-grey2">
       <InfoCard number={2} content="시간을 선택해주세요." />
       <div className="overflow-x-scroll flex">
-        {DUMMYTIMELIST.map((time, idx) => {
+        {timeSlotList.map((time, idx) => {
           if (idx === 0)
             return (
               <TimeSelectCard
@@ -178,7 +142,7 @@ export default function RestimeCard() {
                 onClick={() => handleSelect(idx)}
               />
             );
-          else if (idx === DUMMYTIMELIST.length - 1)
+          else if (idx === timeSlotList.length - 1)
             return (
               <TimeSelectCard
                 key={time}

@@ -15,9 +15,15 @@ interface SearchResearchResponse {
 export const getUnLoginUserSearchedResult = async (
   search: string
 ): Promise<SearchResearchResponse> => {
-  return instance.get(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/search/guest?search=${search}`
   );
+  if (!response.ok) {
+    throw new Error('Failed to get search result');
+  }
+
+  const data = await response.json();
+  return data;
 };
 
 export const useGetUnLoginUserSearchedResult = (search: string) => {

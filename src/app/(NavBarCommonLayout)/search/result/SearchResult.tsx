@@ -47,12 +47,9 @@ export function SearchResult() {
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
   const loginUserSearchResult = useGetLoginUserSearchedResult(search);
-  console.log(loginUserSearchResult.data);
   const UnLoginUserSearchResult = useGetUnLoginUserSearchedResult(search);
-  console.log(UnLoginUserSearchResult.data);
 
   useEffect(() => {
-    console.log(selectedOption);
     if (selectedOption === '추천순') {
       setSearchResult(originalSearchResult);
     } else if (selectedOption === '인기순') {
@@ -89,10 +86,8 @@ export function SearchResult() {
   }, [selectedOption]);
 
   useEffect(() => {
-    if (loginUserSearchResult.data?.result !== null) {
-      console.log(loginUserSearchResult.data?.result.avgLatitude);
-      console.log(loginUserSearchResult.data?.result.avgLongitude);
-      console.log(loginUserSearchResult.data?.result.searchList);
+    if (localStorage.getItem('accessToken')) {
+      console.log('로그인 유저');
       setCurrentLocation({
         latitude: loginUserSearchResult.data?.result.avgLatitude || 37.55527,
         longitude: loginUserSearchResult.data?.result.avgLongitude || 126.9366,
@@ -101,13 +96,8 @@ export function SearchResult() {
       setOriginalSearchResult(
         loginUserSearchResult.data?.result.searchList || []
       );
-      return;
-    }
-
-    if (UnLoginUserSearchResult.data !== null) {
-      console.log(UnLoginUserSearchResult.data?.result.avgLatitude);
-      console.log(UnLoginUserSearchResult.data?.result.avgLongitude);
-      console.log(UnLoginUserSearchResult.data?.result.searchList);
+    } else {
+      console.log('비로그인 유저');
       setCurrentLocation({
         latitude: UnLoginUserSearchResult.data?.result.avgLatitude || 37.55527,
         longitude:
@@ -117,9 +107,8 @@ export function SearchResult() {
       setOriginalSearchResult(
         UnLoginUserSearchResult.data?.result.searchList || []
       );
-      return;
     }
-  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data]);
+  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data, searchResult]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 
@@ -147,9 +136,6 @@ export function SearchResult() {
       });
     });
   };
-
-  console.log(searchResult);
-  console.log(originalSearchResult);
 
   return (
     <div className="w-full h-full flex justify-center items-center text-[200px]">

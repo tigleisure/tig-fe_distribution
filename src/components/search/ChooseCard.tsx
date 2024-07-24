@@ -52,6 +52,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   );
 
   const countDownHandler = () => {
+    if(count === 0) return;
     setCount((prev) => prev - 1);
     if (pathname.startsWith('/reservation/game')) {
       if (title === '성인') {
@@ -182,7 +183,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
 
   return (
     <article
-      className={cn('h-[70px] w-full px-5 py-4 flex justify-between', {
+      className={cn('h-[70px] w-full py-4 flex justify-between', {
         'mt-1': title === '성인' || title === '게임',
         'border-b border-grey2': title !== '어린이' && title !== '게임',
       })}
