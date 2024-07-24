@@ -52,6 +52,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   );
 
   const countDownHandler = () => {
+    if(count === 0) return;
     setCount((prev) => prev - 1);
     if (pathname.startsWith('/reservation/game')) {
       if (title === '성인') {
