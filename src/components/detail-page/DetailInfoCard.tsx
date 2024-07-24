@@ -1,19 +1,25 @@
+'use client';
 import DetailEmptyHeartSVG from '@public/svg/detailEmptyHeart.svg';
+import DetailFillHeartSVG from '@public/svg/detailFillHeart.svg';
 import DetailPageStarSVG from '@public/svg/detailPageStar.svg';
 import LocationPingSVG from '@public/svg/locationPing.svg';
 import CardSVG from '@public/svg/card.svg';
 import TimeSVG from '@public/svg/time.svg';
 import CallSVG from '@public/svg/call.svg';
 import SnsSVG from '@public/svg/sns.svg';
-import { forwardRef } from 'react';
+import { forwardRef, useState } from 'react';
 import { categoryMapEngToKor } from '@constant/constant';
+import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
+import { useAddToWishList } from '@apis/wishlist/addToWishList';
 
 interface DetailInfoCardProps {
+  id: string;
   category: string;
   clubName: string;
   avgRating: number;
   ratingCount: number;
   address: string;
+  isHeart: boolean;
   type: 'TIME' | 'GAME';
   price: number;
   businessHours: string;
@@ -25,11 +31,13 @@ interface DetailInfoCardProps {
 export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
   (
     {
+      id,
       category,
       clubName,
       avgRating,
       ratingCount,
       address,
+      isHeart,
       businessHours,
       type,
       price,
@@ -38,16 +46,36 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
     },
     ref
   ) => {
+    const { mutate: deleteFromWishList } = useDeleteFromWishList();
+    const { mutate: addToWishList } = useAddToWishList();
+    console.log('isHeart', isHeart);
+    const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
+    const handleEmptyHeartClick = () => {
+      deleteFromWishList(parseInt(id));
+      setIsHeartClicked(true);
+    };
+    const handleFillHeartClick = () => {
+      addToWishList(parseInt(id));
+      setIsHeartClicked(false);
+    };
     return (
-      <section
-        className="w-full px-5 py-[30px] flex flex-col gap-6 border-b border-grey2"
-        
-      >
+      <section className="w-full px-5 py-[30px] flex flex-col gap-6 border-b border-grey2">
         <div className="flex flex-col gap-[2px]">
           <p className="text-grey5 title4">{categoryMapEngToKor[category]}</p>
           <div className="w-full justify-between items-center flex">
             <p className="headline1">{clubName}</p>
-            <DetailEmptyHeartSVG />
+            {isHeartClicked && (
+              <DetailFillHeartSVG
+                onClick={handleFillHeartClick}
+                className="cursor-pointer"
+              />
+            )}
+            {!isHeartClicked && (
+              <DetailEmptyHeartSVG
+                onClick={handleEmptyHeartClick}
+                className="cursor-pointer"
+              />
+            )}
           </div>
           <div className="flex gap-[4px] text-primary_orange1 headline2 mt-[6px]">
             <DetailPageStarSVG />
@@ -68,9 +96,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           </div>
           <div className="flex gap-2" ref={ref}>
             <TimeSVG />
-            <p>
-              {businessHours}
-            </p>
+            <p>{businessHours}</p>
           </div>
           <div className="flex gap-2">
             <CallSVG />
