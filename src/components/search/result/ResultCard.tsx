@@ -40,10 +40,15 @@ export default function ResultCard({
   };
   const handleEmptyHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
     console.log('empty clicked');
-    addToWishList(clubId || 0);
     e.stopPropagation();
+    if (!localStorage.getItem('accessToken')) {
+      console.log('로그인이 필요합니다');
+      router.push('/login');
+      return;
+    }
+    addToWishList(clubId || 0);
     setIsHeartClicked(true);
-  }
+  };
   return (
     <section
       onClick={() => {

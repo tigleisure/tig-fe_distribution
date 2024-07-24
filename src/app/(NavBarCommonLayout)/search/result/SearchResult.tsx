@@ -108,7 +108,7 @@ export function SearchResult() {
         UnLoginUserSearchResult.data?.result.searchList || []
       );
     }
-  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data]);
+  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data, searchResult]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 
