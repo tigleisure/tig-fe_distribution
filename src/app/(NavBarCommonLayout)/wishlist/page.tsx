@@ -61,7 +61,12 @@ export default function Page() {
           wishList.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
               {wishList.map((wishListData) => (
-                <ResultCard key={wishListData.id} {...wishListData} isHeart />
+                <ResultCard
+                  key={wishListData.id}
+                  {...wishListData}
+                  clubId={wishListData.id}
+                  isHeart
+                />
               ))}
             </main>
           ) : (
