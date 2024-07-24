@@ -155,7 +155,7 @@ export default function Page() {
                     kidsCount={reservationItem.kidsCount}
                     reservationStatus={reservationItem.status}
                     reservationId={reservationItem.reservationId} //일단 백엔드에서 추후에 예약과 review id를 줌
-                    // reviewId={}
+                    reviewId={reservationItem.reviewId}
                   />
                 )
               )}
@@ -221,7 +221,7 @@ export default function Page() {
                   kidsCount={data.kidsCount}
                   reservationStatus={data.status}
                   reservationId={index}
-                  reviewId={index}
+                  reviewId={data.reviewId}
                 />
               ))}
             </main>

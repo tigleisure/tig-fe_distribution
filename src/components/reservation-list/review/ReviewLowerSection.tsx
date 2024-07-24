@@ -2,6 +2,7 @@ import ReviewsFilledStar from '@public/svg/reviewFilledStar.svg';
 import ReviewsUnfilledStar from '@public/svg/reviewUnfilledStar.svg';
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 import { cn } from '@utils/cn';
+import { formatDate } from '@utils/formatDate';
 
 export default function ReviewLowerSection({
   reservationUserName,
@@ -20,12 +21,16 @@ export default function ReviewLowerSection({
       <div className="w-full h-fit flex flex-col items-start gap-y-[6px]">
         <span className="title3 text-grey7">{reservationUserName}</span>
         <div className="flex justify-between items-center gap-x-[6px]">
-          <p className="caption2 text-grey4">{eventDate}</p>
+          <p className="caption2 text-grey4">
+            {formatDate(new Date(eventDate))}
+          </p>
           <p className="caption2 text-grey3">|</p>
           <p className="caption2 text-grey4">
-            {adultCount && `성인 ${adultCount}명 `}
-            {teenagerCount && `청소년 ${teenagerCount}명 `}
-            {kidsCount && `어린이 ${kidsCount}명 `}
+            {adultCount !== 0 && `성인 ${adultCount}명`}
+            {adultCount !== 0 && (teenagerCount || kidsCount) !== 0 && ', '}
+            {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}
+            {teenagerCount !== 0 && kidsCount !== 0 && ', '}
+            {kidsCount !== 0 && `어린이 ${kidsCount}명`}
           </p>
         </div>
       </div>

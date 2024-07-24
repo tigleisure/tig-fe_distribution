@@ -88,4 +88,5 @@ export interface ReservationItemProps {
   reservationId: number;
   paymentId: string;
   memberName?: string;
+  reviewId: number;
 }
