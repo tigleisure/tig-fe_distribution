@@ -15,6 +15,7 @@ export default function HistoryComponentUpperSection({
   eventDate,
   eventStartTime,
   eventEndTime,
+  gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
@@ -51,11 +52,13 @@ export default function HistoryComponentUpperSection({
               {parseInt(extractOnlyTime(eventStartTime).slice(0, 2)) <= 12
                 ? '오전'
                 : '오후'}{' '}
-              {extractOnlyTime(eventStartTime)} ~{' '}
-              {parseInt(extractOnlyTime(eventEndTime).slice(0, 2)) <= 12
-                ? '오전'
-                : '오후'}{' '}
-              {extractOnlyTime(eventEndTime)}
+              {extractOnlyTime(eventStartTime)} {gameCount ? '시작, ' : '~ '}
+              {!gameCount
+                ? parseInt(extractOnlyTime(eventEndTime).slice(0, 2)) <= 12
+                  ? `오전 ${extractOnlyTime(eventEndTime)}`
+                  : `오후 ${extractOnlyTime(eventEndTime)}`
+                : `${gameCount}게임`}
+              {}
             </span>
           </div>
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">

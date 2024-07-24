@@ -67,6 +67,7 @@ export default async function PaymentAfterConfirm({
         eventDate={data.result.date}
         eventStartTime={data.result.startTime}
         eventEndTime={data.result.endTime}
+        gameCount={data.result.gameCount}
         adultCount={data.result.adultCount}
         teenagerCount={data.result.teenagerCount}
         kidsCount={data.result.kidsCount}

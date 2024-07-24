@@ -132,6 +132,7 @@ export default function Page() {
                     eventDate={reservationItem.date}
                     eventStartTime={reservationItem.startTime}
                     eventEndTime={reservationItem.endTime}
+                    gameCount={reservationItem.gameCount}
                     adultCount={reservationItem.adultCount}
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
@@ -148,12 +149,13 @@ export default function Page() {
                     eventDate={reservationItem.date}
                     eventStartTime={reservationItem.startTime}
                     eventEndTime={reservationItem.endTime}
+                    gameCount={reservationItem.gameCount}
                     adultCount={reservationItem.adultCount}
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
                     reservationStatus={reservationItem.status}
                     reservationId={reservationItem.reservationId} //일단 백엔드에서 추후에 예약과 review id를 줌
-                    // reviewId={}
+                    reviewId={reservationItem.reviewId}
                   />
                 )
               )}
@@ -181,11 +183,12 @@ export default function Page() {
                     eventDate={data.date}
                     eventStartTime={data.startTime}
                     eventEndTime={data.endTime}
+                    gameCount={data.gameCount}
                     adultCount={data.adultCount}
                     teenagerCount={data.teenagerCount}
                     kidsCount={data.kidsCount}
                     reservationStatus={data.status}
-                    reservationId={index}
+                    reservationId={data.reservationId}
                     paymentId={cancelPaymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
                   />
@@ -212,12 +215,13 @@ export default function Page() {
                   eventDate={data.date}
                   eventStartTime={data.startTime}
                   eventEndTime={data.endTime}
+                  gameCount={data.gameCount}
                   adultCount={data.adultCount}
                   teenagerCount={data.teenagerCount}
                   kidsCount={data.kidsCount}
                   reservationStatus={data.status}
-                  reservationId={index}
-                  reviewId={index}
+                  reservationId={data.reservationId}
+                  reviewId={data.reviewId}
                 />
               ))}
             </main>

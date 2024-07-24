@@ -12,20 +12,20 @@ interface SearchResearchResponse {
   resultMsg: string;
 }
 
-export const getSearchedResult = async (
+export const getUnLoginUserSearchedResult = async (
   search: string
 ): Promise<SearchResearchResponse> => {
   return instance.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/search?search=${search}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/search/guest?search=${search}`
   );
 };
 
-export const useGetSearchedResult = (search: string) => {
+export const useGetUnLoginUserSearchedResult = (search: string) => {
   return useQuery({
-    queryKey: ['searchedResult', search], // search를 queryKey에 포함
+    queryKey: ['unLoginUserSearchedResult', search], // search를 queryKey에 포함
     queryFn: ({ queryKey }) => {
       const searchParam = queryKey[1] as string; // search 인수 추출
-      return getSearchedResult(searchParam);
+      return getUnLoginUserSearchedResult(searchParam);
     },
   });
 };

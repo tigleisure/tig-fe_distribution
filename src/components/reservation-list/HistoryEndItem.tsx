@@ -10,6 +10,7 @@ export default function HistoryEndItem({
   eventDate,
   eventStartTime,
   eventEndTime,
+  gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
@@ -17,6 +18,7 @@ export default function HistoryEndItem({
   reservationId,
   reviewId,
 }: HistoryEndItemProps) {
+  console.log(reviewId);
   return (
     <Link
       href={`/reservation-list/reservation/${reservationId}`}
@@ -28,6 +30,7 @@ export default function HistoryEndItem({
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
+        gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}

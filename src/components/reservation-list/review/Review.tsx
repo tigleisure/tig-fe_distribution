@@ -9,6 +9,7 @@ export default function Review({
   eventDate,
   eventStartTime,
   eventEndTime,
+  gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
@@ -25,6 +26,7 @@ export default function Review({
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
+        gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
