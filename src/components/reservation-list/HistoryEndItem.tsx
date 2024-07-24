@@ -10,6 +10,7 @@ export default function HistoryEndItem({
   eventDate,
   eventStartTime,
   eventEndTime,
+  gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
@@ -28,6 +29,7 @@ export default function HistoryEndItem({
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
+        gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}

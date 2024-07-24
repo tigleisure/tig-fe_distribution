@@ -132,6 +132,7 @@ export default function Page() {
                     eventDate={reservationItem.date}
                     eventStartTime={reservationItem.startTime}
                     eventEndTime={reservationItem.endTime}
+                    gameCount={reservationItem.gameCount}
                     adultCount={reservationItem.adultCount}
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
@@ -148,6 +149,7 @@ export default function Page() {
                     eventDate={reservationItem.date}
                     eventStartTime={reservationItem.startTime}
                     eventEndTime={reservationItem.endTime}
+                    gameCount={reservationItem.gameCount}
                     adultCount={reservationItem.adultCount}
                     teenagerCount={reservationItem.teenagerCount}
                     kidsCount={reservationItem.kidsCount}
@@ -181,6 +183,7 @@ export default function Page() {
                     eventDate={data.date}
                     eventStartTime={data.startTime}
                     eventEndTime={data.endTime}
+                    gameCount={data.gameCount}
                     adultCount={data.adultCount}
                     teenagerCount={data.teenagerCount}
                     kidsCount={data.kidsCount}
@@ -212,6 +215,7 @@ export default function Page() {
                   eventDate={data.date}
                   eventStartTime={data.startTime}
                   eventEndTime={data.endTime}
+                  gameCount={data.gameCount}
                   adultCount={data.adultCount}
                   teenagerCount={data.teenagerCount}
                   kidsCount={data.kidsCount}
