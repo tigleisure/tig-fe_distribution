@@ -1,5 +1,5 @@
 'use client';
-import { useGetSearchedResult } from '@apis/search/getSearchedResult';
+import { useGetLoginUserSearchedResult } from '@apis/search/getLoginUserSearchedResult';
 import NavBar from '@components/all/NavBar/NavBar';
 import SearchHeader from '@components/all/SearchHeader';
 import Tabs from '@components/all/Tabs/Tabs';
@@ -19,6 +19,7 @@ import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 import { use, useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
+import { useGetUnLoginUserSearchedResult } from '@apis/search/getUnLoginUserSearchedResult';
 
 const isResult = true;
 
@@ -45,7 +46,10 @@ export function SearchResult() {
     Object.fromEntries(searchParams.entries());
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
-  const { data } = useGetSearchedResult(search);
+  const loginUserSearchResult = useGetLoginUserSearchedResult(search);
+  console.log(loginUserSearchResult.data);
+  const UnLoginUserSearchResult = useGetUnLoginUserSearchedResult(search);
+  console.log(UnLoginUserSearchResult.data);
 
   useEffect(() => {
     console.log(selectedOption);
@@ -55,48 +59,67 @@ export function SearchResult() {
       const sortedResult = searchResult.sort((a, b) => {
         return b.avgRating - a.avgRating;
       });
-      setSearchResult(prev => sortedResult);
+      setSearchResult((prev) => sortedResult);
       console.log(sortedResult);
     } else if (selectedOption === '가까운순') {
       const sortedResult = searchResult.sort((a, b) => {
         return (a.distance || 0) - (b.distance || 0);
       });
-      setSearchResult(prev => sortedResult);
+      setSearchResult((prev) => sortedResult);
       console.log(sortedResult);
     } else if (selectedOption === '고가순') {
       const sortedResult = searchResult.sort((a, b) => {
         return a.price - b.price;
       });
-      setSearchResult(prev => sortedResult);
+      setSearchResult((prev) => sortedResult);
       console.log(sortedResult);
     } else if (selectedOption === '저가순') {
       const sortedResult = searchResult.sort((a, b) => {
         return b.price - a.price;
       });
-      setSearchResult(prev => sortedResult);
+      setSearchResult((prev) => sortedResult);
       console.log(sortedResult);
     } else if (selectedOption === '리뷰많은순') {
       const sortedResult = searchResult.sort((a, b) => {
         return b.ratingCount - a.ratingCount;
       });
-      setSearchResult(prev => sortedResult);
+      setSearchResult((prev) => sortedResult);
       console.log(sortedResult);
     }
   }, [selectedOption]);
 
   useEffect(() => {
-    if (data) {
-      console.log(data?.result.avgLatitude);
-      console.log(data?.result.avgLongitude);
-      console.log(data?.result.searchList);
+    if (loginUserSearchResult.data?.result !== null) {
+      console.log(loginUserSearchResult.data?.result.avgLatitude);
+      console.log(loginUserSearchResult.data?.result.avgLongitude);
+      console.log(loginUserSearchResult.data?.result.searchList);
       setCurrentLocation({
-        latitude: data?.result.avgLatitude || 37.55527,
-        longitude: data?.result.avgLongitude || 126.9366,
+        latitude: loginUserSearchResult.data?.result.avgLatitude || 37.55527,
+        longitude: loginUserSearchResult.data?.result.avgLongitude || 126.9366,
       });
-      setSearchResult(data?.result.searchList || []);
-      setOriginalSearchResult(data?.result.searchList || []);
+      setSearchResult(loginUserSearchResult.data?.result.searchList || []);
+      setOriginalSearchResult(
+        loginUserSearchResult.data?.result.searchList || []
+      );
+      return;
     }
-  }, [data]);
+
+    if (UnLoginUserSearchResult.data !== null) {
+      console.log(UnLoginUserSearchResult.data?.result.avgLatitude);
+      console.log(UnLoginUserSearchResult.data?.result.avgLongitude);
+      console.log(UnLoginUserSearchResult.data?.result.searchList);
+      setCurrentLocation({
+        latitude: UnLoginUserSearchResult.data?.result.avgLatitude || 37.55527,
+        longitude:
+          UnLoginUserSearchResult.data?.result.avgLongitude || 126.9366,
+      });
+      setSearchResult(UnLoginUserSearchResult.data?.result.searchList || []);
+      setOriginalSearchResult(
+        UnLoginUserSearchResult.data?.result.searchList || []
+      );
+      return;
+    }
+  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 
@@ -124,6 +147,9 @@ export function SearchResult() {
       });
     });
   };
+
+  console.log(searchResult);
+  console.log(originalSearchResult);
 
   return (
     <div className="w-full h-full flex justify-center items-center text-[200px]">
