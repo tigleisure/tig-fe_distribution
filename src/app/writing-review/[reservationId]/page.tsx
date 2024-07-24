@@ -22,6 +22,7 @@ const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
   eventDate: '05.10 (수)',
   eventStartTime: '오전 10:00',
   eventEndTime: '오전 11:00',
+  gameCount: 0,
   adultCount: 8,
 };
 
@@ -83,10 +84,11 @@ export default function Page({
               <div className="w-full h-fit bg-white p-5 rounded-xl">
                 <HistoryComponentUpperSection
                   className="bg-white"
-                  imageUrl={DUMMYREVIEWDATA.imageUrl}
+                  // imageUrl={DUMMYREVIEWDATA.imageUrl}
                   clubAddress={data.result.clubAddress}
                   clubName={data.result.clubName}
                   eventDate={data.result.date}
+                  gameCount={data.result.gameCount}
                   eventEndTime={data.result.endTime}
                   eventStartTime={data.result.startTime}
                   adultCount={data.result.adultCount}
@@ -192,10 +194,11 @@ export default function Page({
             <section className="w-full h-fit p-5 flex flex-col gap-y-5 bg-white">
               <HistoryComponentUpperSection
                 className="bg-white"
-                imageUrl={DUMMYREVIEWDATA.imageUrl}
+                // imageUrl={DUMMYREVIEWDATA.imageUrl}
                 clubAddress={data.result.clubAddress}
                 clubName={data.result.clubName}
                 eventDate={data.result.date}
+                gameCount={data.result.gameCount}
                 eventEndTime={data.result.endTime}
                 eventStartTime={data.result.startTime}
                 adultCount={data.result.adultCount}
