@@ -26,6 +26,7 @@ export default function RequestCard() {
   );
 
   const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    if (e.target.value.length > 100) return;
     setInputValue(e.target.value);
     setInputLength(e.target.value.length);
     if (pathname.startsWith('/reservation/game')) {
