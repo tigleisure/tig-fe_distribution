@@ -5,6 +5,7 @@ export interface ReservationDetailProps {
   date: string;
   startTime: string;
   endTime: string;
+  gameCount: number | null;
   adultCount: number;
   teenagerCount: number;
   kidsCount: number;

@@ -34,6 +34,7 @@ export default function HistoryInAdminItem({
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
+        gameCount={0}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
