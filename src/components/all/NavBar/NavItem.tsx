@@ -36,14 +36,15 @@ export default function NavItem({
 
   const isActive =
     pathname === '/'
-      ? pathname === path
+      ? pathname === targetPath
         ? true
         : false
-      : path === '/'
+      : targetPath === '/'
       ? false
-      : pathname?.startsWith(path)
+      : pathname?.startsWith(targetPath)
       ? true
       : false;
+
   return (
     <Link href={targetPath} className="cursor-pointer">
       {isActive ? <ActiveIcon /> : <InactiveIcon />}
