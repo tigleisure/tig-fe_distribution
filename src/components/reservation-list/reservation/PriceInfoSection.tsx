@@ -11,7 +11,7 @@ export default function PriceInfoSection({
 }: PriceInfoProps) {
   console.log(reservationPrice);
   return (
-    <section className="w-sevenEightWidth h-fit flex flex-col items-start gap-y-5">
+    <section className="w-full h-fit flex flex-col items-start gap-y-5">
       <div className="title3 text-grey7">결제 금액</div>
       <div className="w-full flex flex-col gap-y-[14px]">
         <div className="w-full flex justify-between items-center">

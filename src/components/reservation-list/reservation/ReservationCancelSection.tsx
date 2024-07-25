@@ -1,7 +1,6 @@
 'use client';
 import { usePathname } from 'next/navigation';
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
-import { stat } from 'fs';
 
 interface ReservationCancelProps {
   cancelAvailableDate: string;
@@ -22,10 +21,10 @@ export default function ReservationCancelSection({
   console.log(data);
 
   return (
-    <section className="w-sevenEightWidth h-fit flex flex-col items-start gap-y-5 ">
+    <section className="w-full h-fit flex flex-col items-start gap-y-5 ">
       <div className="flex flex-col w-full items-start gap-y-[10px]">
         <span className="title3 text-grey7">예약 취소</span>
-        <span className="caption4 text-grey4">
+        <span className="caption2 text-grey4">
           {cancelAvailableDate}까지 무료 취소 가능합니다
         </span>
       </div>

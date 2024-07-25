@@ -96,7 +96,12 @@ export default function Page() {
                   return wishListItem.category === mappedCategory;
                 })
                 .map((wishListData) => (
-                  <ResultCard key={wishListData.id} {...wishListData} isHeart />
+                  <ResultCard
+                    key={wishListData.id}
+                    {...wishListData}
+                    clubId={wishListData.id}
+                    isHeart
+                  />
                 ))}
             </main>
           ) : (

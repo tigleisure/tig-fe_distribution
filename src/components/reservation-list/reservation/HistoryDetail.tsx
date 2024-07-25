@@ -57,7 +57,7 @@ export default function HistoryDetail({
       />
       <div className="w-full border-[1px] border-grey2" />
       <TotalPriceSection totalPrice={price + feePrice - couponDiscountPrice} />
-      <div className="w-sevenEightWidth border-[1px] border-grey2" />
+      <div className="w-full border-[1px] border-grey2" />
       <ReservationCancelSection
         cancelAvailableDate={cancelAvailableDate}
         status={status}
