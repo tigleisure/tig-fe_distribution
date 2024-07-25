@@ -123,6 +123,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
+                isEven={(idx % 2) === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isFirst
@@ -135,6 +136,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
+                isEven={(idx % 2) === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isAfternoon
@@ -147,6 +149,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
+                isEven={(idx % 2) === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isLast
@@ -159,6 +162,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
+                isEven={(idx % 2) === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 idx={idx}
