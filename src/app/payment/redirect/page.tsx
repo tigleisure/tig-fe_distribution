@@ -5,6 +5,8 @@ import { instance } from '@apis/instance';
 import { useEffect } from 'react';
 import { usePostReservation } from '@apis/payment/before/postReservation';
 import TigLoadingPage from '@components/all/TigLoadingPage';
+import cancelPortOnePayment from '@apis/portone/cancelPayment';
+import { CustomPaymentError } from '@apis/portone/CustomPaymentError';
 
 // 백엔드에 예약 정보를 paymentI와 함께 넘기고 ok면 진짜 예약을 진행하고, 결제를 취소한다.
 export interface EasyPayBackendResponse {
@@ -39,6 +41,19 @@ export default function PaymentRedirect({
   };
 
   useEffect(() => {
+    async function cancelPaymentWithPaymentId(paymentId: string) {
+      const response = await cancelPortOnePayment(
+        paymentId,
+        'portOne 결제 오류로 인한 취소입니다'
+      );
+      console.log(response);
+    }
+
+    // 결제 실패 시
+    if (searchParams.code) {
+      cancelPaymentWithPaymentId(searchParams.paymentId as string);
+    }
+
     async function sendCheckingDataToBackend() {
       const response: EasyPayBackendResponse = await instance.post(
         `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,
@@ -68,10 +83,26 @@ export default function PaymentRedirect({
             },
           }
         );
+      } else {
+        // 백엔드에서의 검사 로직이 실패한 경우
+        const paymentError = new Error(
+          'Backend Verification Failed'
+        ) as CustomPaymentError;
+        paymentError.paymentId = searchParams.paymentId as string;
+        throw paymentError;
       }
     }
 
-    sendCheckingDataToBackend();
+    sendCheckingDataToBackend()
+      .then((response) => response)
+      .catch(async (error: CustomPaymentError) => {
+        const response = await cancelPortOnePayment(
+          error.paymentId,
+          'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+        ); // 백엔드 검증 로직 실패 시
+        console.log(response);
+        router.replace('/');
+      });
   }, []);
   console.log(searchParams);
 

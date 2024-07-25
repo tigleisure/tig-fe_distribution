@@ -27,6 +27,7 @@ export default function HistoryDetail({
   couponDiscountPrice,
   cancelAvailableDate,
   status,
+  paymentId,
 }: ReservationDetailProps) {
   return (
     <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[30px] bg-white shadow-myPageLogoutButton">
@@ -61,6 +62,7 @@ export default function HistoryDetail({
       <ReservationCancelSection
         cancelAvailableDate={cancelAvailableDate}
         status={status}
+        paymentId={paymentId}
       />
     </div>
   );

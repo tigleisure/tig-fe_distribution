@@ -2,6 +2,7 @@ import * as PortOne from '@portone/browser-sdk/v2';
 import makePaymentId from '@utils/makePaymentId';
 import { instance } from '@apis/instance';
 import { calculateTimeDiff } from '@utils/formatDate';
+import { CustomPaymentError } from './CustomPaymentError';
 
 export interface tossEasyPayBackendResponse {
   result: {
@@ -29,7 +30,7 @@ const handleTossEasyPay = async (
   }
 ): Promise<tossEasyPayBackendResponse> => {
   const clubDataResonse = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/${reservationData.clubId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/${reservationData.clubId}`
   );
   const clubData = await clubDataResonse.json();
   const query = {
@@ -79,6 +80,13 @@ const handleTossEasyPay = async (
       memberId: reservationData.memberId,
     },
   });
+
+  // 포트원 결제 자체가 실패할 확률은 낮지만(아마 결제 자체가 안되긴 할듯), 확실하게 우리가 가진 paymentId로 결제 취소
+  if (response?.code) {
+    const paymentError = new Error('payment Failed') as CustomPaymentError;
+    paymentError.paymentId = customPaymentId;
+    throw paymentError;
+  }
 
   const result: tossEasyPayBackendResponse = await instance.post(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,

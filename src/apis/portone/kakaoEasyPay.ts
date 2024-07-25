@@ -1,6 +1,7 @@
 import { instance } from '@apis/instance';
 import * as PortOne from '@portone/browser-sdk/v2';
 import { calculateTimeDiff } from '@utils/formatDate';
+import { CustomPaymentError } from './CustomPaymentError';
 
 export interface kakaoEasyPayBackendResponse {
   result: {
@@ -28,7 +29,7 @@ const handleKakaokEasyPay = async (
   }
 ): Promise<kakaoEasyPayBackendResponse> => {
   const clubDataResonse = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/${reservationData.clubId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/${reservationData.clubId}`
   );
   const clubData = await clubDataResonse.json();
   // redirect로 보낼 query string임
@@ -79,6 +80,13 @@ const handleKakaokEasyPay = async (
       memberId: reservationData.memberId,
     },
   });
+
+  // 포트원 결제 자체가 실패할 확률은 낮지만(아마 결제 자체가 안되긴 할듯), 확실하게 우리가 가진 paymentId로 결제 취소
+  if (response?.code) {
+    const paymentError = new Error('payment Failed') as CustomPaymentError;
+    paymentError.paymentId = customPaymentId;
+    throw paymentError;
+  }
 
   const result: kakaoEasyPayBackendResponse = await instance.post(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/pay/verification`,
