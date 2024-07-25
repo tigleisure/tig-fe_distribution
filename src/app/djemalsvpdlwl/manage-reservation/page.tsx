@@ -22,6 +22,7 @@ export default function Page() {
             reservationId={reservationInfo.reservationId}
             paymentId={reservationInfo.paymentId}
             memberName={reservationInfo.memberName || ''}
+            clubPhoneNumber={reservationInfo.clubPhoneNumber}
           />
         ))}
     </main>
