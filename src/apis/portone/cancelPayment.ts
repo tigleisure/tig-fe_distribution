@@ -10,12 +10,14 @@ interface cancelRequestProp {
 }
 
 interface cancelPortoneResponseProp {
-  status: 'FAILED' | 'REQUESTED' | 'SUCCEEDED';
-  id: string; // 취소 내역 ID
-  totalAmount: number;
-  taxFreeAmount: number;
-  vatAmount: number;
-  reason: string;
+  cancellation: {
+    status: 'FAILED' | 'REQUESTED' | 'SUCCEEDED';
+    id: string; // 취소 내역 ID
+    totalAmount: number;
+    taxFreeAmount: number;
+    vatAmount: number;
+    reason: string;
+  };
 }
 
 const cancelPortOnePayment = async (
@@ -41,15 +43,15 @@ const cancelPortOnePayment = async (
 
   const responseData: cancelPortoneResponseProp = await response.json();
 
-  if (responseData.status === 'FAILED') {
+  if (responseData.cancellation.status === 'FAILED') {
     // 결제취소 실패 로직
-  } else if (responseData.status === 'REQUESTED') {
+  } else if (responseData.cancellation.status === 'REQUESTED') {
     // 결제 취소 진행중 로직
-  } else if (responseData.status === 'SUCCEEDED') {
+  } else if (responseData.cancellation.status === 'SUCCEEDED') {
     // 결제취소 성공 로직, 여기에서 백엔드로 우리 서비스 단의 예약 취소가 이루어지면 됨ㄴ
   }
   // 일단 결제 응답만 반환한 뒤, redirect 페이지나 FullButton 컴포넌트에서 예약 취소를 진행
-  return responseData;
+  return responseData.cancellation;
 };
 
 export default cancelPortOnePayment;
