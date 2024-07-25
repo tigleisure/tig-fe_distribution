@@ -10,7 +10,7 @@ export default function ReservationInfoSection({
   phoneNumber,
 }: ReservationInfoProps) {
   return (
-    <section className="w-sevenEightWidth h-fit flex flex-col items-start gap-y-5">
+    <section className="w-full h-fit flex flex-col items-start gap-y-5">
       <div className="title3 text-grey7">예약정보</div>
       <div className="flex flex-col gap-y-[14px]">
         <div className="flex items-center gap-x-5">
