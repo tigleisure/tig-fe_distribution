@@ -30,7 +30,7 @@ interface SpecificClubInfoResponse {
 export const getSpecificClubInfo = async (
   clubId: string
 ): Promise<SpecificClubInfoResponse> => {
-  return instance.get(`/api/v1/club/user/${clubId}`);
+  return instance.get(`/api/v1/club/guest/${clubId}`);
 };
 
 export const useGetSpecificClubInfo = (clubId: string) => {
