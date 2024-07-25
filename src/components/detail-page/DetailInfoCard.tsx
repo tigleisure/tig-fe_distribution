@@ -26,7 +26,7 @@ interface DetailInfoCardProps {
   price: number;
   businessHours: string;
   phoneNumber: string;
-  snsLink: string;
+  snsLink: string | null;
 }
 
 // eslint-disable-next-line react/display-name
@@ -44,7 +44,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
       type,
       price,
       phoneNumber,
-      snsLink,
+      snsLink = '/',
     },
     ref
   ) => {
@@ -114,7 +114,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           </div>
           <div className="flex gap-2">
             <SnsSVG />
-            <Link href={snsLink}>{snsLink}</Link>
+            {snsLink ? <Link href={snsLink}>{snsLink}</Link> : <p>-</p>}
           </div>
         </div>
       </section>
