@@ -31,7 +31,7 @@ export default function BottomSheet({
 
   return (
     <Sheet
-      className="mx-auto w-full min-w-[360px] max-w-[480px] !z-10"
+      className="mx-auto w-full min-w-[360px] max-w-[480px] !z-[150]"
       isOpen={true}
       // close 할일은 없지만 필수로 넣어야 함
       onClose={() => setOpen(false)}

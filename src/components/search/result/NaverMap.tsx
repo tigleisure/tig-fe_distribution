@@ -67,6 +67,12 @@ export default function NaverMap({
       logoControl: false,
       mapDataControl: false,
       scaleControl: false,
+      zoomControl: true,
+      zoomControlOptions: {
+        style: naver.maps.ZoomControlStyle.SMALL,
+        position: naver.maps.Position.RIGHT_CENTER,
+        legendDisabled: false,
+      },
     };
     const map = new naver.maps.Map('map', mapOptions);
     mapRef.current = map;
