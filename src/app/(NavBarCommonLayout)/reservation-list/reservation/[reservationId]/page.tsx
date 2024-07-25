@@ -63,6 +63,7 @@ export default async function page({
           couponDiscountPrice={0} // 백엔드에서 보내줄 필요가 있음
           cancelAvailableDate="2024년 08월 02일 13:00"
           status={data.result.status}
+          paymentId={data.result.paymentId}
         />
       </main>
       {/* <NavBar /> */}

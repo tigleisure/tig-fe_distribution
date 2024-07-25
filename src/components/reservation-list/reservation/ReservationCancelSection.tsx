@@ -1,22 +1,29 @@
 'use client';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
+import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
+import cancelPortOnePayment from '@apis/portone/cancelPayment';
 
 interface ReservationCancelProps {
   cancelAvailableDate: string;
   status: 'TBC' | 'CONFIRMED' | 'DECLINED' | 'CANCELED' | 'REVIEWED' | 'DONE';
+  paymentId: string;
 }
 
 export default function ReservationCancelSection({
   cancelAvailableDate,
   status,
+  paymentId,
 }: ReservationCancelProps) {
   const pathname = usePathname();
   const reservationId = pathname.split('/').at(-1);
+  const router = useRouter();
 
   const { data } = useGetUserSpecificReservationInfo(
     parseInt(reservationId as string)
   );
+
+  const cancelReservationMutation = useDeleteUserSpecificReservation();
 
   console.log(data);
 
@@ -29,7 +36,23 @@ export default function ReservationCancelSection({
         </span>
       </div>
       {status === 'TBC' || status === 'CONFIRMED' ? (
-        <button className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton">
+        <button
+          className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton"
+          onClick={() => {
+            cancelReservationMutation.mutate(
+              parseInt(reservationId as string),
+              {
+                onSuccess() {
+                  cancelPortOnePayment(
+                    paymentId,
+                    '고객에 의한 예약 취소입니다'
+                  );
+                  router.push('/reservation-list');
+                },
+              }
+            );
+          }}
+        >
           예약취소
         </button>
       ) : (
