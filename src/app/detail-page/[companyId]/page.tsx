@@ -210,7 +210,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   return (
     <main className="w-full h-full overflow-y-scroll" ref={mainRef}>
-      <Header buttonType="back" title="업체명" />
+      <Header buttonType="back" title={data.result.clubName} />
       <Tabs
         tabArray={tabArray}
         from="detail"
