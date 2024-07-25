@@ -18,6 +18,7 @@ import {
   useGetSpecificClubInfo,
 } from '@apis/club/getSpecificClubInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
+import { useGetSpecificClubInfoForLogin } from '@apis/club/getSpeicificClubInfoForLogin';
 
 interface DetailPageProps {
   imageUrl: string[];
@@ -109,7 +110,14 @@ const initialInofo: clubInfoProps = {
 };
 
 export default function Page({ params }: { params: { companyId: string } }) {
-  const { data, isSuccess } = useGetSpecificClubInfo(params.companyId);
+  const { data: specificInfoForGuest, isSuccess:isSuccessInfo1 } = useGetSpecificClubInfo(
+    params.companyId
+  );
+  console.log(specificInfoForGuest)
+  const { data: specificInfoForUser, isSuccess:isSuccessInfo2 } = useGetSpecificClubInfoForLogin(
+    params.companyId
+  );
+  console.log(specificInfoForUser)
   const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
   const tabArray = detailArray;
   // const imageRef = useRef<HTMLImageElement>(null);
@@ -135,11 +143,15 @@ export default function Page({ params }: { params: { companyId: string } }) {
   }, [selectedTab]);
 
   useEffect(() => {
-    if (data) {
-      console.log(data);
-      setClubInfo(data.result);
+    console.log(localStorage.getItem('accessToken'))
+    if (localStorage.getItem('accessToken')) {
+      console.log(specificInfoForUser)
+      setClubInfo(specificInfoForUser?.result || initialInofo);
+    } else {
+      console.log(specificInfoForGuest)
+      setClubInfo(specificInfoForGuest?.result || initialInofo);
     }
-  }, [data]);
+  }, [specificInfoForGuest, specificInfoForUser]);
 
   useEffect(() => {
     // 처음 마운트 될 때 ref 간의 거리 차이를 계산함. 이건 calculate scroll 함수가 선언될 시점의 고정 값임 -> 클로저 개념ㄴ
@@ -204,13 +216,13 @@ export default function Page({ params }: { params: { companyId: string } }) {
     }
   };
 
-  if (!isSuccess) {
+  if (!isSuccessInfo1 || !isSuccessInfo2) {
     return <TigLoadingPage />;
   }
 
   return (
     <main className="w-full h-full overflow-y-scroll" ref={mainRef}>
-      <Header buttonType="back" title={data.result.clubName} />
+      <Header buttonType="back" title={clubInfo.clubName} />
       <Tabs
         tabArray={tabArray}
         from="detail"
@@ -235,7 +247,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       />
       <ResButtonCard
         companyId={params.companyId}
-        type={data?.result.type || 'TIME'}
+        type={clubInfo.type || 'TIME'}
       />
     </main>
   );

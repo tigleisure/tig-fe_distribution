@@ -27,15 +27,15 @@ interface SpecificClubInfoResponse {
   resultMsg: string;
 }
 
-export const getSpecificClubInfo = async (
+export const getSpecificClubInfoForLogin = async (
   clubId: string
 ): Promise<SpecificClubInfoResponse> => {
   return instance.get(`/api/v1/club/user/${clubId}`);
 };
 
-export const useGetSpecificClubInfo = (clubId: string) => {
+export const useGetSpecificClubInfoForLogin = (clubId: string) => {
   return useQuery({
-    queryKey: ['specificClubInfo', clubId],
-    queryFn: () => getSpecificClubInfo(clubId),
+    queryKey: ['specificClubInfoForLogin', clubId],
+    queryFn: () => getSpecificClubInfoForLogin(clubId),
   });
 };
