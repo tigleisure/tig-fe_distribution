@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useGetTBCReservationList } from '@apis/djemalsvpdlwl/getTBCReservation';
 import HistoryInAdminItem from '@components/djemalsvpdlwl/HistoryAdminItem';
 
@@ -21,6 +21,7 @@ export default function Page() {
             reservationStatus={reservationInfo.status}
             reservationId={reservationInfo.reservationId}
             paymentId={reservationInfo.paymentId}
+            memberName={reservationInfo.memberName || ''}
           />
         ))}
     </main>
