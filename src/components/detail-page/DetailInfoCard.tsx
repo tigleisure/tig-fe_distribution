@@ -7,11 +7,12 @@ import CardSVG from '@public/svg/card.svg';
 import TimeSVG from '@public/svg/time.svg';
 import CallSVG from '@public/svg/call.svg';
 import SnsSVG from '@public/svg/sns.svg';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import { categoryMapEngToKor } from '@constant/constant';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 interface DetailInfoCardProps {
   id: string;
@@ -47,18 +48,26 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
     },
     ref
   ) => {
+    const router = useRouter();
     const { mutate: deleteFromWishList } = useDeleteFromWishList();
     const { mutate: addToWishList } = useAddToWishList();
     console.log('isHeart', isHeart);
-    const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
+    const [isHeartClicked, setIsHeartClicked] = useState(false);
     const handleEmptyHeartClick = () => {
-      deleteFromWishList(parseInt(id));
+      if (!localStorage.getItem('accessToken')) {
+        router.push('/login');
+        return;
+      }
+      addToWishList(parseInt(id));
       setIsHeartClicked(true);
     };
     const handleFillHeartClick = () => {
-      addToWishList(parseInt(id));
+      deleteFromWishList(parseInt(id));
       setIsHeartClicked(false);
     };
+    useEffect(() => {
+      setIsHeartClicked(isHeart);
+    }, [isHeart]);
     return (
       <section className="w-full px-5 py-[30px] flex flex-col gap-6 border-b border-grey2">
         <div className="flex flex-col gap-[2px]">
