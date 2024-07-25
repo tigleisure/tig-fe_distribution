@@ -108,6 +108,11 @@ export default function ProfileInformationItem({
     }
   };
 
+  const handleBlur = () => {
+    setInputBoxEditStage(1);
+    setInputData(inputValue);
+  }
+
   return (
     <div className={cn('w-full h-fit flex items-center', {})}>
       <span className="caption2 text-grey5 w-[84px]">{labelName}</span>
@@ -132,6 +137,7 @@ export default function ProfileInformationItem({
             onChange={handleChangeInputData}
             ref={inputRef}
             onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
             className="body4 w-[150px] text-grey7 shadow-writingReviewInput flex rounded-[4px] justify-start items-center pt-2 pl-2 pb-2"
           />
         )}
