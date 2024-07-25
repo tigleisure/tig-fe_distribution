@@ -28,3 +28,15 @@ export const useIsCouponPageOpen = create<isCouponPageOpenProps>((set) => ({
   isCouponPageOpen: false,
   setIsCouponPageOpen: (status) => set({ isCouponPageOpen: status }),
 }));
+
+interface selectedCouponNumberProps {
+  selectedCouponNumber: number;
+  setSelectedCouponNumber: (status: number) => void;
+}
+
+export const useSelectedCouponNumber = create<selectedCouponNumberProps>(
+  (set) => ({
+    selectedCouponNumber: -1,
+    setSelectedCouponNumber: (status) => set({ selectedCouponNumber: status }),
+  })
+);

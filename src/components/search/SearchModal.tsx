@@ -9,11 +9,20 @@ import { useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import useSearchModalInput from '@store/searchModalInputStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
+import { useGetRecentSearch } from '@apis/search/getRecentSearch';
+import { RecentSearches } from 'types/response/response';
+import { useDeleteSearchLog } from '@apis/search/deleteSearchLog';
+import { useDeleteSearchAllLogs } from '@apis/search/deleteSearchAllLogs';
 
-const DUMMYRECENTSEARCH = ['신촌', '볼링', '탁구', '당구', '잠실'];
+const DUMMYRECENTSEARCH: RecentSearches[] = [{ name: '신촌', createdAt: '1' }];
 
 export default function SearchModal() {
-  const [recentSearch, setRecentSearch] = useState(DUMMYRECENTSEARCH);
+  const { data } = useGetRecentSearch();
+  const { mutate: deleteSearchLog } = useDeleteSearchLog();
+  const { mutate: deleteSearchAllLogs } = useDeleteSearchAllLogs();
+  console.log(data);
+  const [recentSearch, setRecentSearch] =
+    useState<RecentSearches[]>(DUMMYRECENTSEARCH);
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
   const isModalOpen = useSearchModal(
@@ -27,10 +36,12 @@ export default function SearchModal() {
 
   const deleteHandler = (idx: number) => () => {
     setRecentSearch((prev) => prev.filter((_, i) => i !== idx));
+    deleteSearchLog(recentSearch[idx].name);
   };
 
   const deleteAllHanler = () => {
     setRecentSearch([]);
+    deleteSearchAllLogs();
   };
 
   useEffect(() => {
@@ -44,9 +55,11 @@ export default function SearchModal() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    // 최근 검색어 get 요청
-    setRecentSearch(DUMMYRECENTSEARCH);
-  }, []);
+    if (data) {
+      setRecentSearch(data.result);
+      console.log(data.result);
+    }
+  }, [data]);
 
   const inputHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue({ ...inputValue, searchValue: e.target.value });
@@ -99,18 +112,18 @@ export default function SearchModal() {
       </div>
       {recentSearch.map((search, idx) => (
         <div
-          key={idx + search}
+          key={idx + search.name}
           className="w-full flex justify-between items-center gap-[10px] px-5"
         >
           <p
             className="body2 cursor-pointer"
             onClick={() => {
               router.push(
-                `/search/result?location=${search}&date=2024-07-11T00:00:00&adultCount=5&teenagerCount=5&kidsCount=5`
+                `/search/result?search=${search.name}&date=${search.createdAt.slice(0,19)}&adultCount=1&teenagerCount=0&kidsCount=0`
               );
             }}
           >
-            {search}
+            {search.name}
           </p>
           <SearchCloseSVG
             className="cursor-pointer"

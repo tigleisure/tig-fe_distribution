@@ -11,6 +11,7 @@ export default function HistoryInAdminItem({
   imageUrl,
   clubName,
   clubAddress,
+  memberName,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -18,19 +19,19 @@ export default function HistoryInAdminItem({
   teenagerCount,
   kidsCount,
   reservationId,
+  clubPhoneNumber,
   paymentId,
 }: HistoryInAdminItemProps) {
   const { mutate: confirmReservation } = useConfirmReservation();
   const { mutate: declineReservation } = useDeclineReservation();
-
   return (
     <Link
       href={`/reservation-list/reservation/${reservationId}`}
-      className="w-eightNineWidth h-fit p-5 gap-y-6 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
+      className="w-eightNineWidth h-fit p-5 gap-y-2 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
     >
       <HistoryComponentUpperSection
         clubName={clubName}
-        clubAddress={clubAddress}
+        clubAddress={`reservation id: ${String(reservationId)}`}
         eventDate={eventDate}
         eventStartTime={eventStartTime}
         eventEndTime={eventEndTime}
@@ -39,6 +40,8 @@ export default function HistoryInAdminItem({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
       />
+        <p className='body4'>예약자 이름: {memberName}</p>
+        <p className='body4'>업체 번호: {clubPhoneNumber}</p>
       <div className="w-full h-fit flex gap-[10px]">
         <FullButton
           bgColor="white"

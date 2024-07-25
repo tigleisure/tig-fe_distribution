@@ -26,6 +26,8 @@ export interface HistoryInAdminItemProps {
   imageUrl?: string;
   clubName: string;
   clubAddress: string;
+  memberName: string;
+  clubPhoneNumber: string;
   eventDate: string;
   eventStartTime: string;
   eventEndTime: string;

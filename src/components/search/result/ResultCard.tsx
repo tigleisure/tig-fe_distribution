@@ -7,7 +7,7 @@ import FillHeartSVG from '@public/svg/fillHeart.svg';
 import DiscountSVG from '@public/svg/discount.svg';
 import Link from 'next/link';
 import { cn } from '@utils/cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
@@ -30,6 +30,7 @@ export default function ResultCard({
 }: ResultCardProps) {
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
+  console.log(isHeartClicked);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
   const handleFillHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
@@ -49,6 +50,11 @@ export default function ResultCard({
     addToWishList(clubId || 0);
     setIsHeartClicked(true);
   };
+
+  useEffect(() => {
+    setIsHeartClicked(isHeart);
+  }, [isHeart]);
+
   return (
     <section
       onClick={() => {

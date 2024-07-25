@@ -46,8 +46,9 @@ export function SearchResult() {
     Object.fromEntries(searchParams.entries());
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
-  const loginUserSearchResult = useGetLoginUserSearchedResult(search);
-  const UnLoginUserSearchResult = useGetUnLoginUserSearchedResult(search);
+  const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(search);
+  const { data: unLoginUserSearchResult } =
+    useGetUnLoginUserSearchedResult(search);
 
   useEffect(() => {
     if (selectedOption === '추천순') {
@@ -88,27 +89,28 @@ export function SearchResult() {
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
       console.log('로그인 유저');
+      console.log(loginUserSearchResult);
       setCurrentLocation({
-        latitude: loginUserSearchResult.data?.result.avgLatitude || 37.55527,
-        longitude: loginUserSearchResult.data?.result.avgLongitude || 126.9366,
+        latitude: loginUserSearchResult?.result.avgLatitude || 37.55527,
+        longitude: loginUserSearchResult?.result.avgLongitude || 126.9366,
       });
-      setSearchResult(loginUserSearchResult.data?.result.searchList || []);
+      setSearchResult(loginUserSearchResult?.result.searchList || []);
       setOriginalSearchResult(
-        loginUserSearchResult.data?.result.searchList || []
+        loginUserSearchResult?.result.searchList || []
       );
     } else {
       console.log('비로그인 유저');
       setCurrentLocation({
-        latitude: UnLoginUserSearchResult.data?.result.avgLatitude || 37.55527,
+        latitude: unLoginUserSearchResult?.result.avgLatitude || 37.55527,
         longitude:
-          UnLoginUserSearchResult.data?.result.avgLongitude || 126.9366,
+          unLoginUserSearchResult?.result.avgLongitude || 126.9366,
       });
-      setSearchResult(UnLoginUserSearchResult.data?.result.searchList || []);
+      setSearchResult(unLoginUserSearchResult?.result.searchList || []);
       setOriginalSearchResult(
-        UnLoginUserSearchResult.data?.result.searchList || []
+        unLoginUserSearchResult?.result.searchList || []
       );
     }
-  }, [loginUserSearchResult.data, UnLoginUserSearchResult.data, searchResult]);
+  }, [loginUserSearchResult, unLoginUserSearchResult, searchResult]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 

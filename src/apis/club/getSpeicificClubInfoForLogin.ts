@@ -37,5 +37,6 @@ export const useGetSpecificClubInfoForLogin = (clubId: string) => {
   return useQuery({
     queryKey: ['specificClubInfoForLogin', clubId],
     queryFn: () => getSpecificClubInfoForLogin(clubId),
+    refetchOnMount: 'always',
   });
 };
