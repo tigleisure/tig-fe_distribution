@@ -266,6 +266,7 @@ export default function FullButton({
           .catch(async (error: CustomPaymentError) => {
             const response = await cancelPortOnePayment(error.paymentId);
             console.log(response);
+            router.replace('/');
           })
           .finally(() => console.log('over'));
       }
@@ -337,8 +338,8 @@ export default function FullButton({
           })
           .catch(async (error: CustomPaymentError) => {
             const response = await cancelPortOnePayment(error.paymentId);
-
             console.log(response);
+            router.replace('/');
           })
           .finally(() => console.log('over'));
       }
