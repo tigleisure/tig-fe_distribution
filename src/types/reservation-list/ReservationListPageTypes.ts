@@ -19,6 +19,7 @@ export interface HistoryInProgressItemProps {
   reservationId: number;
   paymentId: string | null;
   handleChangeCancelPaymentId: (paymentId: string) => void;
+  handleChangeCancelReservationId: (reservationId: number) => void;
 }
 
 export interface HistoryInAdminItemProps {
@@ -49,6 +50,7 @@ export interface HistoryComponentUpperSectionProps
     | 'reservationId'
     | 'handleChangeCancelPaymentId'
     | 'paymentId'
+    | 'handleChangeCancelReservationId'
   > {
   className?: string;
 }
@@ -56,7 +58,9 @@ export interface HistoryComponentUpperSectionProps
 export interface HistoryEndItemProps
   extends Omit<
     HistoryInProgressItemProps,
-    'handleChangeCancelPaymentId' | 'paymentId'
+    | 'handleChangeCancelPaymentId'
+    | 'paymentId'
+    | 'handleChangeCancelReservationId'
   > {
   reviewId?: number;
 }

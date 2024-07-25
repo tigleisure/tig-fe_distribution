@@ -17,6 +17,7 @@ import { usePostReservation } from '@apis/payment/before/postReservation';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { useRouter } from 'next/navigation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
+import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
@@ -28,6 +29,9 @@ export default function Page() {
 
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [cancelPaymentId, setCancelPaymentId] = useState<string | null>(null);
+  const [cancelReservationId, setCancelReservationId] = useState<number | null>(
+    null
+  );
 
   const inProgressReservationList = reservationList
     ? reservationList.filter(
@@ -50,6 +54,7 @@ export default function Page() {
   );
 
   const { data, isError } = useGetReservationList();
+  const cancelReservationMutation = useDeleteUserSpecificReservation();
 
   const router = useRouter();
 
@@ -138,8 +143,9 @@ export default function Page() {
                     kidsCount={reservationItem.kidsCount}
                     reservationStatus={reservationItem.status}
                     reservationId={reservationItem.reservationId}
-                    paymentId={cancelPaymentId}
+                    paymentId={reservationItem.paymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
+                    handleChangeCancelReservationId={setCancelReservationId}
                   />
                 ) : (
                   <HistoryEndItem
@@ -189,8 +195,9 @@ export default function Page() {
                     kidsCount={data.kidsCount}
                     reservationStatus={data.status}
                     reservationId={data.reservationId}
-                    paymentId={cancelPaymentId}
+                    paymentId={data.paymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
+                    handleChangeCancelReservationId={setCancelReservationId}
                   />
                 ))}
               </main>
@@ -232,9 +239,21 @@ export default function Page() {
             button2Content="취소하기"
             title="예약을 취소하시겠습니까?"
             subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
-            secondButtonFunc={() =>
-              cancelPortOnePayment(cancelPaymentId as string)
-            }
+            secondButtonFunc={() => {
+              cancelReservationMutation.mutate(cancelReservationId as number, {
+                onSuccess() {
+                  cancelPortOnePayment(
+                    cancelPaymentId as string,
+                    '고객에 의한 예약 취소입니다'
+                  );
+                  router.push('/reservation-list');
+                },
+              });
+              // cancelPortOnePayment(
+              //   cancelPaymentId as string,
+              //   '고객에 의한 예약 취소입니다.'
+              // );
+            }}
           />
         </div>
       )}

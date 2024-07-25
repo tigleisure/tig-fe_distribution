@@ -264,7 +264,10 @@ export default function FullButton({
             }
           })
           .catch(async (error: CustomPaymentError) => {
-            const response = await cancelPortOnePayment(error.paymentId);
+            const response = await cancelPortOnePayment(
+              error.paymentId,
+              'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+            );
             console.log(response);
             router.replace('/');
           })
@@ -337,7 +340,10 @@ export default function FullButton({
             }
           })
           .catch(async (error: CustomPaymentError) => {
-            const response = await cancelPortOnePayment(error.paymentId);
+            const response = await cancelPortOnePayment(
+              error.paymentId,
+              'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+            );
             console.log(response);
             router.replace('/');
           })

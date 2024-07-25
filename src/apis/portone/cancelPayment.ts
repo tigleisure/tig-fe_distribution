@@ -18,10 +18,13 @@ interface cancelPortoneResponseProp {
   reason: string;
 }
 
-const cancelPortOnePayment = async (paymentId: string) => {
+const cancelPortOnePayment = async (
+  paymentId: string,
+  cancelReasonString: string
+) => {
   const cancleRequestData: cancelRequestProp = {
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
-    reason: '고객의 TIG 사이트를 통한 체험 프로그램 예약 취소입니다', // 이거 말고 딱히 쓸 말이 없는듯? 아니면 고객한테 사유도 입력 받아야함
+    reason: cancelReasonString, // 이거 말고 딱히 쓸 말이 없는듯? 아니면 고객한테 사유도 입력 받아야함
   };
 
   const response = await fetch(
