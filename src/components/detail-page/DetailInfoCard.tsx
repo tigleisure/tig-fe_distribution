@@ -11,6 +11,7 @@ import { forwardRef, useState } from 'react';
 import { categoryMapEngToKor } from '@constant/constant';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
+import Link from 'next/link';
 
 interface DetailInfoCardProps {
   id: string;
@@ -104,7 +105,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           </div>
           <div className="flex gap-2">
             <SnsSVG />
-            <p>{snsLink}</p>
+            <Link href={snsLink}>{snsLink}</Link>
           </div>
         </div>
       </section>
