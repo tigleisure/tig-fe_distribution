@@ -47,7 +47,7 @@ export default function ReservationCancelSection({
                     paymentId,
                     '고객에 의한 예약 취소입니다'
                   );
-                  router.push('/reservation-list');
+                  router.push('/');
                 },
               }
             );
