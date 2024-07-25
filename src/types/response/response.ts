@@ -85,3 +85,13 @@ export interface noDataServerErrorResponse {
   errors: any;
   reason: string; // 못 찾은 이유를 백엔드에서 보내줌
 }
+
+export interface RecentSearches {
+  name: string;
+  createdAt: string;
+}
+export interface RecentSearchResponse {
+  result: RecentSearches[];
+  resultCode: number;
+  resultMsg: string;
+}
