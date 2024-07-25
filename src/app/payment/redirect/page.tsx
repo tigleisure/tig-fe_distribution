@@ -93,7 +93,8 @@ export default function PaymentRedirect({
     sendCheckingDataToBackend()
       .then((response) => response)
       .catch(async (error: CustomPaymentError) => {
-        cancelPortOnePayment(error.paymentId); // 백엔드 검증 로직 실패 시
+        const response = await cancelPortOnePayment(error.paymentId); // 백엔드 검증 로직 실패 시
+        console.log(response);
         router.replace('/');
       });
   }, []);
