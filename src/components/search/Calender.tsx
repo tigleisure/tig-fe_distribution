@@ -7,7 +7,7 @@ import { cn } from '@utils/cn';
 import CalenderLeftSVG from '@public/svg/calenderLeft.svg';
 import CalenderRightSVG from '@public/svg/calenderRight.svg';
 import { useSearchInputInfo } from '@store/searchInfoStore';
-import { formatDate, set } from 'date-fns';
+import { formatDate, subDays } from 'date-fns';
 import { usePathname } from 'next/navigation';
 import {
   useGameReservationStore,
@@ -15,7 +15,7 @@ import {
 } from '@store/makeReservationInfo';
 import { useSelectedDate } from '@store/selectedDateStore';
 
-const date = ['일', '월', '화', '수', '목', '금', '토'];
+const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
 export default function Calender() {
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
@@ -50,6 +50,9 @@ export default function Calender() {
   };
   const calendarList = createCalendarList(calendarMonth);
   const handleClickDate = (date: Date) => {
+    if (date < subDays(new Date(), 1)){
+      return;
+    }
     const formattedDate = formatDate(date, "yyyy-MM-dd'T'HH:mm:ss");
     if (pathname.startsWith('/reservation/game')) {
       setGameReservationInfo({ ...gameReservationInfo, date: formattedDate });
@@ -60,6 +63,7 @@ export default function Calender() {
     }
     setSelectedDate(formattedDate);
   };
+
   return (
     <section className="w-full flex flex-col gap-[6px] items-center self-center">
       <div className="flex justify-between gap-2 items-center mb-[14px]">
@@ -74,7 +78,7 @@ export default function Calender() {
         </button>
       </div>
       <div className="w-full flex justify-center body4">
-        {date.map((day, idx) => (
+        {daysOfWeek.map((day, idx) => (
           <div
             key={idx}
             className="w-[44px] h-[17px] flex justify-center items-center body2 text-grey3"
@@ -93,27 +97,32 @@ export default function Calender() {
           }
           return (
             <div key={idx} className="w-full flex">
-              {week.map((day, idx) => (
-                <div
-                  key={idx + 1}
-                  onClick={() => {
-                    handleClickDate(day);
-                  }}
-                  className={cn(
-                    'w-[44px] h-[44px] grey6 flex justify-center items-center cursor-pointer body2',
-                    {
-                      'rounded-full bg-primary_orange1 text-white':
-                        day.getMonth() ===
-                          parseInt(selectedDate.substring(5, 7), 10) - 1 &&
-                        day.getDate() ===
-                          parseInt(selectedDate.substring(8, 10), 10),
-                      'text-grey3': day.getMonth() !== calendarMonth.getMonth(),
-                    }
-                  )}
-                >
-                  {day.getDate()}
-                </div>
-              ))}
+              {week.map((day, idx) => {
+                const isPast = day < subDays(new Date(), 1);
+                const isSelected =
+                  day.getMonth() ===
+                    parseInt(selectedDate.substring(5, 7), 10) - 1 &&
+                  day.getDate() === parseInt(selectedDate.substring(8, 10), 10);
+                return (
+                  <div
+                    key={idx}
+                    onClick={() => {
+                      if (!isPast) handleClickDate(day);
+                    }}
+                    className={cn(
+                      'w-[44px] h-[44px] grey6 flex justify-center items-center cursor-pointer body2',
+                      {
+                        'rounded-full bg-primary_orange1 text-white': isSelected,
+                        'text-grey3': day.getMonth() !== calendarMonth.getMonth() || isPast,
+                        'line-through': isPast,
+                        'cursor-not-allowed': isPast,
+                      }
+                    )}
+                  >
+                    {day.getDate()}
+                  </div>
+                );
+              })}
             </div>
           );
         })}

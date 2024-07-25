@@ -12,7 +12,7 @@ export default function HomeCardList({ title, Card }: HomeCardListProps) {
       <div className="w-full flex">
         <p className="headline2 text-grey7">{title}</p>
       </div>
-      <div className="w-full flex gap-[10px] overflow-x-scroll">
+      <div className="w-full flex gap-[10px] overflow-x-scroll pr-[20px]">
         {Card.map((card, idx) => (
           <HomeCard key={card.imageUrls + String(idx)} {...card} />
         ))}

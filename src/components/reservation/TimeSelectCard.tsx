@@ -3,6 +3,7 @@ import { cn } from '@utils/cn';
 interface TimeSelectCardProps {
   isFirst?: boolean;
   isLast?: boolean;
+  isEven: boolean;
   isAfternoon?: boolean;
   disable?: boolean;
   selected: boolean;
@@ -13,6 +14,7 @@ interface TimeSelectCardProps {
 export default function TimeSelectCard({
   isFirst = false,
   isLast = false,
+  isEven,
   isAfternoon = false,
   disable = false,
   selected,
@@ -20,10 +22,11 @@ export default function TimeSelectCard({
   onClick,
   idx,
 }: TimeSelectCardProps) {
+  console.log(isEven, isLast)
   return (
-    <div className="flex flex-col w-[30px] gap-[6px] cursor-pointer">
+    <div className="flex flex-col w-[30px] cursor-pointer">
       <p
-        className={cn('caption2 text-white', {
+        className={cn('caption2 text-white pb-[6px]', {
           'text-grey4': isAfternoon || isFirst,
           invisible: !(isAfternoon || isFirst),
         })}
@@ -31,13 +34,16 @@ export default function TimeSelectCard({
         {isAfternoon ? '오후' : isFirst ? '오전' : 'ㅇㅇ'}
       </p>
       <p
-        className={cn('body4 text-white pb-1', {
+        className={cn('body4 text-white pb-[6px]', {
           'text-grey6': time.slice(3) === '00',
           invisible: time.slice(3) !== '00',
         })}
       >
         {time.slice(3) === '00' ? `${time.slice(0, 2)}시` : 'ㅇㅇ'}
       </p>
+      <div className={cn("h-[4px]",{
+        'border-r border-r-grey4': !isLast && isEven
+      })}></div>
       <button
         className={cn(
           'w-[30px] h-[34px] bg-primary_orange2 border-r border-white',

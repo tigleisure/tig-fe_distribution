@@ -13,6 +13,9 @@ export const useAddToWishList = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: addToWishList,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['wishlist'] });
+    },
 
     // onMutate: async (clubId: number) => {
     //   await queryClient.cancelQueries({ queryKey: ['wishlist'] });

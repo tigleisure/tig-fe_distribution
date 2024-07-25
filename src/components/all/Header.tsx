@@ -78,7 +78,7 @@ export default function Header({
       >
         {buttonType === 'back' ? <ArrowLeftSVG /> : <CloseSVG />}
       </div>
-      <p className="mt-[4px]">{title}</p>
+      <p>{title}</p>
     </header>
   );
 }
