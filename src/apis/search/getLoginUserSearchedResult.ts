@@ -27,5 +27,6 @@ export const useGetLoginUserSearchedResult = (search: string) => {
       const searchParam = queryKey[1] as string; // search 인수 추출
       return getLoginUserSearchedResult(searchParam);
     },
+    refetchOnMount: 'always',
   });
 };
