@@ -1,5 +1,5 @@
 'use client';
-import useCoupon from '@store/couponStore';
+import useCoupon, { useSelectedCouponNumber } from '@store/couponStore';
 import { useState, useEffect } from 'react';
 import Header from '@components/all/Header';
 import { cn } from '@utils/cn';
@@ -15,6 +15,7 @@ interface couponDetail {
 
 interface couponItemDetail extends couponDetail {
   selectedCouponNumber: number;
+  handleCancelCoupon: (st: boolean) => void;
   handleClickCoupon: (st: number) => void;
   couponIndex: number;
 }
@@ -22,7 +23,13 @@ interface couponItemDetail extends couponDetail {
 export default function CouponPage() {
   const couponList = useCoupon((state) => state.couponList);
   const setCouponList = useCoupon((state) => state.setCouponList);
-  const [selectedCouponNumber, setselectedCouponNumber] = useState<number>(-1);
+  const [isCouponCancel, setIsCouponCancel] = useState<boolean>(false);
+  const selectedCouponNumber = useSelectedCouponNumber(
+    (state) => state.selectedCouponNumber
+  );
+  const setSelectedCouponNumber = useSelectedCouponNumber(
+    (state) => state.setSelectedCouponNumber
+  );
 
   useEffect(() => {
     // 원래는 백엔드로부터 쿠폰 리스트들을 받아오는 로직이 존재
@@ -83,19 +90,34 @@ export default function CouponPage() {
             isValid={coupon.isValid}
             couponExpireDate={coupon.couponExpireDate}
             selectedCouponNumber={selectedCouponNumber}
-            handleClickCoupon={setselectedCouponNumber}
+            handleClickCoupon={setSelectedCouponNumber}
+            handleCancelCoupon={setIsCouponCancel}
             couponIndex={index}
           />
         ))}
       </div>
       {selectedCouponNumber === -1 ? (
-        <FullButton
-          size="lg"
-          color="white"
-          bgColor="grey3"
-          content="적용하기"
-          className="absolute bottom-[30px] !w-eightNineWidth"
-        />
+        isCouponCancel ? (
+          <FullButton
+            size="lg"
+            color="white"
+            bgColor="primary_orange1"
+            content="적용 취소하기"
+            className="absolute bottom-[30px] !w-eightNineWidth"
+            clickTask="apply-coupon"
+            sendingData={{
+              selectedCouponPrice: 0,
+            }}
+          />
+        ) : (
+          <FullButton
+            size="lg"
+            color="white"
+            bgColor="grey3"
+            content="적용하기"
+            className="absolute bottom-[30px] !w-eightNineWidth"
+          />
+        )
       ) : (
         <FullButton
           size="lg"
@@ -121,8 +143,10 @@ function CouponItem({
   couponExpireDate,
   selectedCouponNumber,
   handleClickCoupon,
+  handleCancelCoupon,
   couponIndex,
 }: couponItemDetail) {
+  console.log(selectedCouponNumber, couponIndex);
   return (
     <section
       className={cn(
@@ -133,7 +157,13 @@ function CouponItem({
       )}
       onClick={() => {
         if (isValid) {
-          handleClickCoupon(couponIndex);
+          if (selectedCouponNumber === couponIndex) {
+            handleClickCoupon(-1);
+            handleCancelCoupon(true);
+          } else {
+            handleClickCoupon(couponIndex);
+            handleCancelCoupon(false);
+          }
         } else {
           return;
         }
