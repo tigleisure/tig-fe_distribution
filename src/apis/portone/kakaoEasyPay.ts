@@ -29,7 +29,7 @@ const handleKakaokEasyPay = async (
   }
 ): Promise<kakaoEasyPayBackendResponse> => {
   const clubDataResonse = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/${reservationData.clubId}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/${reservationData.clubId}`
   );
   const clubData = await clubDataResonse.json();
   // redirect로 보낼 query string임
