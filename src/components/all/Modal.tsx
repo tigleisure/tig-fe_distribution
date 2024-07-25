@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import useModal from '@store/modalStore';
 import ReactModal from 'react-modal';
 import WarningSVG from '@public/svg/warning.svg';
