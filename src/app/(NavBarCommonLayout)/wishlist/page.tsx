@@ -107,7 +107,7 @@ export default function Page() {
           ) : (
             <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
               <NoneResultUI
-                message="위시리스트에 담긴 곳이 없어요"
+                message="위시리스트에 담긴 곳이 없어요."
                 subMessage="마음에 드는 장소를 찾아 담아보세요!"
               />
             </div>
