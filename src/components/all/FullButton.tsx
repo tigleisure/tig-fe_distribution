@@ -20,6 +20,8 @@ import { usePostReservation } from '@apis/payment/before/postReservation';
 import makePaymentId from '@utils/makePaymentId';
 import { AxiosResponse } from 'axios';
 import { kakaoEasyPayBackendResponse } from '@apis/portone/kakaoEasyPay';
+import { CustomPaymentError } from '@apis/portone/CustomPaymentError';
+import cancelPortOnePayment from '@apis/portone/cancelPayment';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -223,6 +225,7 @@ export default function FullButton({
           }
         )
           .then((response) => {
+            console.log(response);
             if (response.resultCode === 200) {
               postReservationMutation.mutate(
                 {
@@ -251,9 +254,19 @@ export default function FullButton({
                   },
                 }
               );
+            } else {
+              // 백엔드에서의 검증 로직이 실패한 경우
+              const paymentError = new Error(
+                'Backend Verification Failed'
+              ) as CustomPaymentError;
+              paymentError.paymentId = customPaymentId;
+              throw paymentError;
             }
           })
-          .catch((error) => console.log(error))
+          .catch(async (error: CustomPaymentError) => {
+            const response = await cancelPortOnePayment(error.paymentId);
+            console.log(response);
+          })
           .finally(() => console.log('over'));
       }
 
@@ -313,9 +326,20 @@ export default function FullButton({
                   },
                 }
               );
+            } else {
+              // 백엔드에서의 검증 로직이 실패한 경우
+              const paymentError = new Error(
+                'Backend Verification Failed'
+              ) as CustomPaymentError;
+              paymentError.paymentId = customPaymentId;
+              throw paymentError;
             }
           })
-          .catch((error) => console.log(error))
+          .catch(async (error: CustomPaymentError) => {
+            const response = await cancelPortOnePayment(error.paymentId);
+
+            console.log(response);
+          })
           .finally(() => console.log('over'));
       }
 

@@ -30,6 +30,7 @@ const cancelPortOnePayment = async (paymentId: string) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        Authorization: `${process.env.NEXT_PUBLIC_PORTONE_API_SECRET_KEY}`,
       },
       body: JSON.stringify(cancleRequestData),
     }
@@ -44,6 +45,8 @@ const cancelPortOnePayment = async (paymentId: string) => {
   } else if (responseData.status === 'SUCCEEDED') {
     // 결제취소 성공 로직, 여기에서 백엔드로 우리 서비스 단의 예약 취소가 이루어지면 됨ㄴ
   }
+  // 일단 결제 응답만 반환한 뒤, redirect 페이지나 FullButton 컴포넌트에서 예약 취소를 진행
+  return responseData;
 };
 
 export default cancelPortOnePayment;
