@@ -1,9 +1,14 @@
-import { categoryMapEngToKor } from '@constant/constant';
+import { categoryMapEngToKor, categoryMapKorToEng } from '@constant/constant';
 import useTab from '@store/tabNumberStore';
 import { MutateOptions } from '@tanstack/react-query';
+import { set } from 'date-fns';
 import { useEffect, useState } from 'react';
 import { PostHomePayload } from 'types/payload/payload';
-import { Club, PostHomeResponse } from 'types/response/response';
+import {
+  Club,
+  NearestClubsByCategory,
+  PostHomeResponse,
+} from 'types/response/response';
 
 export const useGeolocation = (
   mutate: (
@@ -14,6 +19,9 @@ export const useGeolocation = (
   ) => void
 ) => {
   const [originalClubCards, setOriginalClubCards] = useState<Club[]>([]);
+  const [nearestClubsByCategory, setNearestClubsByCategory] =
+    useState<NearestClubsByCategory>({});
+  console.log('nearestClubsByCategory', nearestClubsByCategory);
   const [clubCards, setClubCards] = useState<Club[]>([]);
   const [recommendClubCards, setRecommendClubCards] = useState<Club[]>([]);
   // 이벤트용 클럽 카드
@@ -26,12 +34,11 @@ export const useGeolocation = (
     if (selectedTab === '홈') {
       setClubCards(originalClubCards);
     } else {
-      const filteredClubCards = originalClubCards.filter(
-        (card) => categoryMapEngToKor[card.category] === selectedTab
+      setClubCards(
+        nearestClubsByCategory[categoryMapKorToEng[selectedTab]] || []
       );
-      setClubCards(filteredClubCards);
     }
-  }, [selectedTab, originalClubCards]);
+  }, [selectedTab, originalClubCards, nearestClubsByCategory]);
 
   useEffect(() => {
     const handleSuccess = (position: GeolocationPosition) => {
@@ -53,6 +60,7 @@ export const useGeolocation = (
             setOriginalClubCards(data.result[0].nearestClubs);
             setClubCards(data.result[0].nearestClubs);
             setRecommendClubCards(data.result[0].recommendedClubs);
+            setNearestClubsByCategory(data.result[0].nearestClubsByCategory);
           },
           onError: (error) => {
             console.log(error);
