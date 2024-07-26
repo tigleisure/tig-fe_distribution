@@ -134,7 +134,7 @@ export default function ProfileInformationItem({
         {inputBoxEditStage === 2 && (
           <input
             value={inputData}
-            type={labelName === '휴대폰번호' ? 'number' : 'text'}
+            type={labelName === '휴대폰번호' ? 'tel' : 'text'}
             onChange={handleChangeInputData}
             ref={inputRef}
             onKeyDown={handleKeyDown}
