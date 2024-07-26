@@ -1,127 +1,50 @@
 'use client';
-import NavBar from '@components/all/NavBar/NavBar';
-import Tabs from '@components/all/Tabs/Tabs';
-import { allleisureArray, categoryMapKorToEng } from '@constant/constant';
-import NoneArrowHeader from '@components/all/NoneArrowHeader';
-import { ResultCardProps } from 'types/search/result/searchResult';
+import { categoryMapKorToEng } from '@constant/constant';
 import ResultCard from '@components/search/result/ResultCard';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
-import Lottie from 'lottie-react';
-import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
-import { addToWishList, useAddToWishList } from '@apis/wishlist/addToWishList';
-import { WishListResponse, wishListItemProps } from 'types/response/response';
-import { da } from 'date-fns/locale';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
-  const [wishList, setWishList] = useState<ResultCardProps[]>([]);
-  const { data, isError, error, isSuccess } = useGetWishList();
-  const mutation = useAddToWishList();
-
-  const tabArray = allleisureArray;
-
-  // useEffect(() => {
-  //   mutation.mutate(11);
-  //   mutation.mutate(12);
-  //   mutation.mutate(13);
-  //   mutation.mutate(14);
-  //   mutation.mutate(15);
-  //   mutation.mutate(16);
-  // }, []);
-
+  const { data: wishList } = useGetWishList();
+  const [filteredWishList, setFilteredWishList] = useState(wishList.result);
+  
   useEffect(() => {
-    if (data) {
-      if (data.result === null) {
-        return; // 기존의 []로 계속 감
-      } else {
-        setWishList(data.result);
-      }
+    if (selectedTab === '전체') {
+      setFilteredWishList(wishList.result);
+    } else {
+      const mappedCategory = categoryMapKorToEng[selectedTab];
+      setFilteredWishList(
+        wishList.result.filter((wishListItem) => {
+          return wishListItem.category === mappedCategory;
+        })
+      );
     }
-  }, [data]);
-
-  if (isError) {
-    return <div>Error: {error.message}</div>;
-  }
+  }, [selectedTab, wishList.result]);
 
   return (
-    <div className="flex flex-col h-full pb-[54px] items-center">
-      <NoneArrowHeader title="위시리스트" />
-      <Tabs
-        tabArray={tabArray}
-        rounded
-        from="wishlist"
-        className="w-full px-5 top-[58px]"
-      />
-
-      {selectedTab === '전체' &&
-        (isSuccess ? (
-          wishList.length > 0 ? (
-            <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-              {wishList.map((wishListData) => (
-                <ResultCard
-                  key={wishListData.id}
-                  {...wishListData}
-                  clubId={wishListData.id}
-                  isHeart
-                />
-              ))}
-            </main>
-          ) : (
-            <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-              <NoneResultUI
-                message="위시리스트에 담긴 곳이 없어요."
-                subMessage="마음에 드는 장소를 찾아 담아보세요!"
-              />
-            </div>
-          )
-        ) : (
-          <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-            <Lottie
-              animationData={TigLoadingAnimation}
-              style={{ width: '30%' }}
+    <Fragment>
+      {filteredWishList.length > 0 ? (
+        <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
+          {filteredWishList.map((wishListData) => (
+            <ResultCard
+              key={wishListData.id}
+              {...wishListData}
+              clubId={wishListData.id}
+              isHeart
             />
-          </div>
-        ))}
-
-      {selectedTab !== '전체' &&
-        (isSuccess ? (
-          wishList.length > 0 ? (
-            <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-              {wishList
-                .filter((wishListItem) => {
-                  const mappedCategory = categoryMapKorToEng[selectedTab];
-                  return wishListItem.category === mappedCategory;
-                })
-                .map((wishListData) => (
-                  <ResultCard
-                    key={wishListData.id}
-                    {...wishListData}
-                    clubId={wishListData.id}
-                    isHeart
-                  />
-                ))}
-            </main>
-          ) : (
-            <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-              <NoneResultUI
-                message="위시리스트에 담긴 곳이 없어요."
-                subMessage="마음에 드는 장소를 찾아 담아보세요!"
-              />
-            </div>
-          )
-        ) : (
-          <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
-            <Lottie
-              animationData={TigLoadingAnimation}
-              style={{ width: '30%' }}
-            />
-          </div>
-        ))}
-
-      {/* <NavBar /> */}
-    </div>
+          ))}
+        </main>
+      ) : (
+        <div className="flex w-full h-full justify-center items-center pt-[120px]  title2 text-grey7">
+          <NoneResultUI
+            message="위시리스트에 담긴 곳이 없어요."
+            subMessage="마음에 드는 장소를 찾아 담아보세요!"
+          />
+        </div>
+      )}
+    </Fragment>
   );
 }

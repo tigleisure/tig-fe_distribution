@@ -21,7 +21,7 @@ export interface wishListItemProps {
 }
 
 export interface WishListResponse {
-  result: ResultCardProps[] | null;
+  result: ResultCardProps[];
   resultCode: number;
   resultMsg: string;
 }

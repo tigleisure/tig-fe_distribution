@@ -55,9 +55,13 @@ export default function SearchModal() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    if (data) {
-      setRecentSearch(data.result);
-      console.log(data.result);
+    if (localStorage.getItem('accessToken')) {
+      if (data) {
+        setRecentSearch(data.result);
+        console.log(data.result);
+      }
+    } else {
+      setRecentSearch([]);
     }
   }, [data]);
 
@@ -119,7 +123,12 @@ export default function SearchModal() {
             className="body2 cursor-pointer"
             onClick={() => {
               router.push(
-                `/search/result?search=${search.name}&date=${search.createdAt.slice(0,19)}&adultCount=1&teenagerCount=0&kidsCount=0`
+                `/search/result?search=${
+                  search.name
+                }&date=${search.createdAt.slice(
+                  0,
+                  19
+                )}&adultCount=1&teenagerCount=0&kidsCount=0`
               );
             }}
           >

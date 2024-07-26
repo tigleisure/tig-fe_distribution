@@ -1,5 +1,5 @@
 import { instance } from '@apis/instance';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { WishListResponse } from 'types/response/response';
 
 export const getWishList = async (): Promise<WishListResponse> => {
@@ -7,7 +7,7 @@ export const getWishList = async (): Promise<WishListResponse> => {
 };
 
 export const useGetWishList = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['wishlist'],
     queryFn: getWishList,
   });

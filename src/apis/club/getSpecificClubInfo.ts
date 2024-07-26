@@ -19,6 +19,7 @@ export interface clubInfoProps {
   type: 'GAME' | 'TIME';
   imageUrls: string[];
   presignedImageUrls: string[];
+  amenities: string[];
 }
 
 interface SpecificClubInfoResponse {

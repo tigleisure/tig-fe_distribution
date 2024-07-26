@@ -10,15 +10,17 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config) => {
-    let token: string | null = null;
-    if (config.url !== REFRESH_URL) {
-      token = localStorage.getItem('accessToken');
-    } else {
-      // 리프레시 토큰은 쿠키로 담김
-    }
-    if (token) {
-      // 헤더 설정
-      config.headers.Authorization = `Bearer ${token}`;
+    if (typeof window !== 'undefined') {
+      let token: string | null = null;
+      if (config.url !== REFRESH_URL) {
+        token = localStorage.getItem('accessToken');
+      } else {
+        // 리프레시 토큰은 쿠키로 담김
+      }
+      if (token) {
+        // 헤더 설정
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
     return config;
   },
@@ -37,36 +39,35 @@ interface ReissueResponse {
 
 const regainAccessToken = async (): Promise<string | void> => {
   try {
-    // const data = await instance.post<ReissueResponse>(REFRESH_URL);
-    // console.log(data);
-    // 일단 빌드 시에 타입 에러가 발생해서 fetch로 해결
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/member/reissue`,
-      {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
-        },
-        credentials: 'include',
-      }
-    );
+    if (typeof window !== 'undefined') {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/member/reissue`,
+        {
+          method: 'POST',
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+          },
+          credentials: 'include',
+        }
+      );
 
-    const data = await response.json();
-    localStorage.setItem('accessToken', data.result.accessToken);
+      const data = await response.json();
+      localStorage.setItem('accessToken', data.result.accessToken);
 
-    return data.result.accessToken;
+      return data.result.accessToken;
+    }
   } catch (e) {
-    localStorage.removeItem('accessToken');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('accessToken');
+    }
   }
 };
 
 instance.interceptors.response.use(
   (res) => res.data,
   async (err) => {
-    const {
-      config,
-      response: { status },
-    } = err;
+    const { config, response } = err;
+    const status = response ? response.status : null;
 
     // 일반에러 처리
     if (config.url === REFRESH_URL || status !== 401 || config.sent) {

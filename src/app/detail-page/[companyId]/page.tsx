@@ -24,7 +24,6 @@ import TigLoadingPage from '@components/all/TigLoadingPage';
 import { useGetSpecificClubInfoForLogin } from '@apis/club/getSpeicificClubInfoForLogin';
 import { useGetAllClubReview } from '@apis/detail-page/getAllClubReview';
 
-
 const servicesIcon = ['wifi', 'wifi', 'wifi', 'wifi'];
 const services = ['무선 인터넷', '무선 인터넷', '무선 인터넷', '무선 인터넷'];
 
@@ -46,6 +45,7 @@ const initialInofo: clubInfoProps = {
   type: 'TIME',
   imageUrls: [],
   presignedImageUrls: [],
+  amenities: [],
 };
 
 export default function Page({ params }: { params: { companyId: string } }) {
@@ -178,11 +178,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       </div>
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
       <DetailInfoCard {...clubInfo} ref={serviceRef} />
-      <ServicesCard
-        servicesIcon={servicesIcon}
-        services={services}
-        ref={reviewRef}
-      />
+      <ServicesCard services={clubInfo.amenities || services} ref={reviewRef} />
       <VisitedReviewCard
         avgRating={clubInfo.avgRating}
         ratingCount={clubInfo.ratingCount}
