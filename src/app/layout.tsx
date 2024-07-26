@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     title: '티그',
     images: [
       {
-        url: '/png/tigOpenGraphImg.png',
+        url: 'https://tigleisure.com/png/tigOpenGraphImg.png',
       },
     ],
     type: 'website',
