@@ -1,13 +1,22 @@
 export const generateTimeSlots = (start: string, end: string) => {
+  if (start === '00:00' && end === '24:00') {
+    end = '23:30';
+  } else if (end === '24:00') {
+    end = '00:00';
+  }
+
+  console.log(start, end);
   const timeSlots = [];
   let [startHour, startMinute] = start.split(':').map(Number);
   let [endHour, endMinute] = end.split(':').map(Number);
 
-  let endNextDay = startHour > endHour || (startHour === endHour && startMinute > endMinute);
+  let endNextDay =
+    startHour > endHour || (startHour === endHour && startMinute > endMinute);
 
   while (
-    startHour < 24 &&
-    (startHour < endHour || (startHour === endHour && startMinute < endMinute)) ||
+    (startHour < 24 &&
+      (startHour < endHour ||
+        (startHour === endHour && startMinute < endMinute))) ||
     endNextDay
   ) {
     const hour = startHour.toString().padStart(2, '0');
@@ -25,7 +34,10 @@ export const generateTimeSlots = (start: string, end: string) => {
   }
 
   // 종료 시간이 다음 날인 경우, 자정 이후의 타임 슬롯 생성
-  while (endNextDay && (startHour < endHour || (startHour === endHour && startMinute < endMinute))) {
+  while (
+    endNextDay &&
+    (startHour < endHour || (startHour === endHour && startMinute < endMinute))
+  ) {
     const hour = startHour.toString().padStart(2, '0');
     const minute = startMinute.toString().padStart(2, '0');
     timeSlots.push(`${hour}:${minute}`);
@@ -36,10 +48,9 @@ export const generateTimeSlots = (start: string, end: string) => {
     }
   }
 
-  // 마지막 타임 슬롯 제거
-  if (timeSlots.length > 1 && timeSlots[timeSlots.length - 1] === end) {
-    timeSlots.pop();
-  }
+  // 마지막 타임 슬롯 추가
+  if (timeSlots[0] === '00:00' && timeSlots[timeSlots.length - 1] === '23:00')
+    timeSlots.push('23:30');
 
   return timeSlots;
 };
