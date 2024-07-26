@@ -37,13 +37,13 @@ export default function CouponPage() {
       {
         discountPrice: 7000,
         couponDescription: '[티그 첫 고객 이벤트] 쿠폰 내용 어쩌구....',
-        isValid: true,
+        isValid: false,
         couponExpireDate: '2024-10-10',
       },
       {
         discountPrice: 7000,
         couponDescription: '[티그 첫 고객 이벤트] 쿠폰 내용 어쩌구....',
-        isValid: true,
+        isValid: false,
         couponExpireDate: '2024-10-10',
       },
       {
@@ -55,7 +55,7 @@ export default function CouponPage() {
       {
         discountPrice: 5000,
         couponDescription: '[티그 첫 고객 이벤트] 쿠폰 내용 어쩌구....',
-        isValid: true,
+        isValid: false,
         couponExpireDate: '2024-10-12',
       },
       {
@@ -67,7 +67,7 @@ export default function CouponPage() {
       {
         discountPrice: 3000,
         couponDescription: '[티그 첫 고객 이벤트] 쿠폰 내용 어쩌구....',
-        isValid: true,
+        isValid: false,
         couponExpireDate: '2024-10-14',
       },
     ];

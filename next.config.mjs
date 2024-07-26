@@ -1,7 +1,12 @@
+import { hostname } from 'os';
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ['t1.kakaocdn.net'],
+    remotePatterns: [
+      { protocol: 'https', hostname: '**' },
+      { protocol: 'http', hostname: '**' },
+    ],
   },
   webpack: (config) => {
     config.module.rules.push({

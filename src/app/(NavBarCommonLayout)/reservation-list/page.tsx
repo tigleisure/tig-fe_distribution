@@ -239,20 +239,31 @@ export default function Page() {
             button2Content="취소하기"
             title="예약을 취소하시겠습니까?"
             subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
-            secondButtonFunc={() => {
-              cancelReservationMutation.mutate(cancelReservationId as number, {
-                onSuccess() {
-                  cancelPortOnePayment(
-                    cancelPaymentId as string,
-                    '고객에 의한 예약 취소입니다'
-                  );
-                  router.push('/');
-                },
-              });
-              // cancelPortOnePayment(
-              //   cancelPaymentId as string,
-              //   '고객에 의한 예약 취소입니다.'
-              // );
+            secondButtonFunc={async () => {
+              const cancelPortOneResponse = await cancelPortOnePayment(
+                cancelPaymentId as string,
+                '고객에 의한 예약 취소입니다'
+              );
+
+              if (cancelPortOneResponse.status !== 'SUCCEEDED') {
+                alert(
+                  '결제 취소 요청이 실패했습니다! TIG 팀에 문의주시면 감사하겠습니다'
+                );
+              } else {
+                cancelReservationMutation.mutate(
+                  cancelReservationId as number,
+                  {
+                    onSuccess(data, variables, context) {
+                      // 성공적인 tig 예약 취소가 이루어짐.
+                      if (data.resultCode === 200) {
+                        router.replace('/');
+                      } else {
+                        // Discord로 기획 쪽에 알리는 로직
+                      }
+                    },
+                  }
+                );
+              }
             }}
           />
         </div>

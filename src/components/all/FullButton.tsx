@@ -260,13 +260,15 @@ export default function FullButton({
                 'Backend Verification Failed'
               ) as CustomPaymentError;
               paymentError.paymentId = customPaymentId;
+              paymentError.cancelReason =
+                'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다';
               throw paymentError;
             }
           })
           .catch(async (error: CustomPaymentError) => {
             const response = await cancelPortOnePayment(
               error.paymentId,
-              'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+              error.cancelReason
             );
             console.log(response);
             router.replace('/');
@@ -336,13 +338,15 @@ export default function FullButton({
                 'Backend Verification Failed'
               ) as CustomPaymentError;
               paymentError.paymentId = customPaymentId;
+              paymentError.cancelReason =
+                'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다';
               throw paymentError;
             }
           })
           .catch(async (error: CustomPaymentError) => {
             const response = await cancelPortOnePayment(
               error.paymentId,
-              'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+              error.cancelReason
             );
             console.log(response);
             router.replace('/');

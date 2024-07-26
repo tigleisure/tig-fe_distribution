@@ -25,8 +25,6 @@ export default function ReservationCancelSection({
 
   const cancelReservationMutation = useDeleteUserSpecificReservation();
 
-  console.log(data);
-
   return (
     <section className="w-full h-fit flex flex-col items-start gap-y-5 ">
       <div className="flex flex-col w-full items-start gap-y-[10px]">
@@ -38,19 +36,30 @@ export default function ReservationCancelSection({
       {status === 'TBC' || status === 'CONFIRMED' ? (
         <button
           className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton"
-          onClick={() => {
-            cancelReservationMutation.mutate(
-              parseInt(reservationId as string),
-              {
-                onSuccess() {
-                  cancelPortOnePayment(
-                    paymentId,
-                    '고객에 의한 예약 취소입니다'
-                  );
-                  router.push('/');
-                },
-              }
+          onClick={async () => {
+            const cancelPortOneResponse = await cancelPortOnePayment(
+              paymentId,
+              '고객에 의한 예약 취소입니다'
             );
+
+            if (cancelPortOneResponse.status !== 'SUCCEEDED') {
+              alert(
+                '결제 취소 요청이 실패했습니다! TIG 팀에 문의주시면 감사하겠습니다'
+              );
+            } else {
+              cancelReservationMutation.mutate(
+                parseInt(reservationId as string),
+                {
+                  onSuccess(data, variables, context) {
+                    if (data.resultCode === 200) {
+                      router.replace('/');
+                    } else {
+                      // Discord로 기획 쪽에 알리는 로직
+                    }
+                  },
+                }
+              );
+            }
           }}
         >
           예약취소

@@ -85,6 +85,7 @@ const handleKakaokEasyPay = async (
   if (response?.code) {
     const paymentError = new Error('payment Failed') as CustomPaymentError;
     paymentError.paymentId = customPaymentId;
+    paymentError.cancelReason = 'portOne 자체 결제 오류';
     throw paymentError;
   }
 
