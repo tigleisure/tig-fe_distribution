@@ -7,7 +7,6 @@ export interface ReviewProps extends HistoryComponentUpperSectionProps {
 }
 
 export interface ReviewLowerSectionProps {
-  reservationId: number;
   rating: number;
   contents: string;
   userName: string;
