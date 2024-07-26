@@ -30,9 +30,6 @@ export interface Club {
   id: number;
   clubName: string;
   address: string;
-  ratingSum: number | null;
-  ratingCount: number | null;
-  avgRating: number | null;
   price: number;
   phoneNumber: string;
   snsLink: string;
@@ -42,13 +39,17 @@ export interface Club {
   category: string;
   type: string;
   imageUrls: string[];
-  presignedImageUrls: string[] | null;
+}
+
+export interface NearestClubsByCategory {
+  [key: string]: Club[];
 }
 
 interface Result {
   nearestClubs: Club[];
   popularClubs: Club[];
   recommendedClubs: Club[];
+  nearestClubsByCategory: NearestClubsByCategory;
 }
 export interface PostHomeResponse {
   result: Result[];

@@ -58,7 +58,7 @@ export default function BeforeSecondStageUserInfoCard({
           <div className="h-full title4 text-status_red1">*</div>
         </span>
         <input
-          type="text"
+          type="tel"
           value={phoneNumber}
           onChange={handleChangeUserPhoneNumberInput}
           placeholder="휴대폰 번호 입력"

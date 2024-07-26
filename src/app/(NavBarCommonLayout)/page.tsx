@@ -18,60 +18,22 @@ import { Club } from 'types/response/response';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 import TigLoadingPage from '@components/all/TigLoadingPage';
+import useGeolocation from '@hooks/home/useGeoLocation';
 
 export default function Home() {
   const homeArray = homeleisureArray;
-  const selectedTab = useTab((state) => state.selectedTab);
-  const { mutate, isPending, isSuccess } = usePostHome();
-  const [clubCards, setClubCards] = useState<Club[]>([]);
-  const [recommendClubCards, setRecommendClubCards] = useState<Club[]>([]);
-  const [originalClubCards, setOriginalClubCards] = useState<Club[]>([]);
-  // 이런스포츠 어때요는 상시 표기, 진행중인 이벤트에 대해 original 필요함
-  // const [originalEventClubCards, setOriginalEventClubCards] = useState<
-  //   Club[]
-  // >([]);
-
-  useEffect(() => {
-    if (selectedTab === '홈') {
-      setClubCards(originalClubCards);
-    } else {
-      const filteredClubCards = originalClubCards.filter(
-        (card) => categoryMapEngToKor[card.category] === selectedTab
-      );
-      setClubCards(filteredClubCards);
-    }
-  }, [selectedTab, originalClubCards]);
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      mutate(
-        {
-          latitude: position.coords.latitude,
-          longitude: position.coords.longitude,
-        },
-        {
-          onSuccess: (data) => {
-            console.log(data);
-            setOriginalClubCards(data.result[0].nearestClubs);
-            // setOriginalEventClubCards(data.result[0].popularClubs);
-            setClubCards(data.result[0].nearestClubs);
-            setRecommendClubCards(data.result[0].recommendedClubs);
-          },
-          onError: (error) => {
-            console.log(error);
-          },
-        }
-      );
-    });
-  }, [mutate]);
+  const { mutate, isSuccess } = usePostHome();
+  const { clubCards, recommendClubCards } = useGeolocation(mutate);
 
   return (
     <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
       <SearchHeader isHomeOrResultPage />
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
-      {isSuccess && <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
-        <HomeBannerSVG className="w-full h-auto" />
-      </div>}
+      {isSuccess && (
+        <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
+          <HomeBannerSVG className="w-full h-auto" />
+        </div>
+      )}
       {!isSuccess ? (
         <TigLoadingPage />
       ) : (
@@ -86,7 +48,6 @@ export default function Home() {
       {isSuccess && (
         <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
       )}
-
     </main>
   );
 }

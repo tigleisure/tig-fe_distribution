@@ -1,10 +1,13 @@
 'use client';
 import FullButton from '@components/all/FullButton';
+import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
 import {
   useGameReservationStore,
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
 import { usePathname, useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 export default function MakeResButtonCard({
   clubName,
@@ -16,12 +19,29 @@ export default function MakeResButtonCard({
   const router = useRouter();
   const pathname = usePathname();
   const clubId = pathname.split('/').at(-1);
+  const [toastId, setToastId] = useState<string | null>(null);
   const timeResInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
   );
+  const handleWrongSubmit = () => {
+    console.log(toastId);
+    if (toastId !== null) {
+      toast.remove(toastId);
+    }
+    const id = toast.custom(
+      <ToastUI message="시간과 인원을 선택해주세요" iswarning={true} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
+
+    setToastId(id);
+    return;
+  };
+
   const handleReservation = () => {
     if (pathname.startsWith('/reservation/game')) {
       console.log('gameResInfo', gameResInfo);
@@ -32,8 +52,10 @@ export default function MakeResButtonCard({
         (gameResInfo.adultCount === 0 &&
           gameResInfo.teenagerCount === 0 &&
           gameResInfo.kidsCount === 0)
-      )
+      ) {
+        handleWrongSubmit();
         return; // clubId가 undefined, null, ''과 같은 경우
+      }
       const query = {
         gameType: 'GAME',
         date: gameResInfo.date,
@@ -58,8 +80,10 @@ export default function MakeResButtonCard({
         (timeResInfo.adultCount === 0 &&
           timeResInfo.teenagerCount === 0 &&
           timeResInfo.kidsCount === 0)
-      )
+      ) {
+        handleWrongSubmit();
         return; // clubId가 undefined, null, ''과 같은 경우
+      }
       const query = {
         gameType: 'TIME',
         date: timeResInfo.date,
