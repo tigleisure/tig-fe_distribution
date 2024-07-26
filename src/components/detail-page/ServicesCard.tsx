@@ -43,10 +43,10 @@ export const ServicesCard = forwardRef<HTMLDivElement, ServicesCardProps>(
             >
               {service === 'WIRELESS_INTERNET' && <WIRELESS_INTERNETSVG />}
               {service === 'DELIVERY_AVAILABLE' && <DELIVERY_AVAILABLESVG />}
-              {service === 'DISABLED' && <DISABLEDSVG />}
               {service === 'DRESSING_ROOM' && <DRESSING_ROOMSVG />}
               {service === 'GROUP_AVAILABILITY' && <GROUP_AVAILABILITYSVG />}
               {service === 'KIDS_FACILITY' && <KIDS_FACILITYSVG />}
+              {service === 'PARKING_AVAILABLE' && <PAID_PARKINGSVG />}
               {service === 'PAID_PARKING' && <PAID_PARKINGSVG />}
               {service === 'PERSONAL_LOCKER' && <PERSONAL_LOCKERSVG />}
               {service === 'PET_ALLOWED' && <PET_ALLOWEDSVG />}
@@ -55,6 +55,10 @@ export const ServicesCard = forwardRef<HTMLDivElement, ServicesCardProps>(
               {service === 'VISIT_SERVICE' && <VISIT_SERVICESVG />}
               {service === 'WAITING_SPACE' && <WAITING_SPACESVG />}
               {service === 'WATER_PURIFIER' && <WATER_PURIFIERSVG />}
+              {service === 'WHEELCHAIR_ACCESSIBLE' && <DISABLEDSVG />}
+              {service === 'ENTRANCE_WHEELCHAIR_ACCESSIBLE' && <DISABLEDSVG />}
+              {service === 'SEAT_WHEELCHAIR_ACCESSIBLE' && <DISABLEDSVG />}
+              {service === 'DISABLED_PARKING' && <DISABLEDSVG />}
               <p className="title4 text-grey7">
                 {facilityMapEngToKor[service]}
               </p>
