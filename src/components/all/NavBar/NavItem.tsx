@@ -27,15 +27,25 @@ export default function NavItem({
     setLocalStoraeAccessTokenState(localStorage.getItem('accessToken'));
   }, []);
 
-  const targetPath =
-    path !== '/mypage'
-      ? path
-      : localStorageAccessTokenState === null
-      ? '/login'
-      : '/mypage';
+  const restrictedPaths = ['/mypage', '/reservation-list', '/wishlist'];
+
+  let targetPath = path;
+
+  if (
+    (path === '/mypage' ||
+      path === '/reservation-list' ||
+      path === '/wishlist') &&
+    localStorageAccessTokenState === null
+  ) {
+    targetPath = '/login';
+  }
 
   const isActive =
-    pathname === '/'
+    pathname === '/login'
+      ? path === '/mypage'
+        ? true
+        : false
+      : pathname === '/'
       ? pathname === targetPath
         ? true
         : false
