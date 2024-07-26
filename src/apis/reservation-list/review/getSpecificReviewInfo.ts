@@ -6,6 +6,11 @@ export interface reviewInfoProps {
   reservationId: number;
   rating: number;
   contents: string;
+  userName: string;
+  adultCount: number;
+  teenagerCount: number;
+  kidsCount: number;
+  startTime: string;
 }
 
 export interface specifiReviewInfoResponse {

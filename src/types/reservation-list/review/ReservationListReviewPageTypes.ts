@@ -7,12 +7,13 @@ export interface ReviewProps extends HistoryComponentUpperSectionProps {
 }
 
 export interface ReviewLowerSectionProps {
-  reservationUserName: string;
-  eventDate: string;
-  adultCount?: number;
-  teenagerCount?: number;
-  kidsCount?: number;
+  reservationId: number;
   rating: number;
-  rateContent: string;
+  contents: string;
+  userName: string;
+  adultCount: number;
+  teenagerCount: number;
+  kidsCount: number;
+  startTime: string;
   className?: string;
 }

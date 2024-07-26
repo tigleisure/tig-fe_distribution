@@ -5,13 +5,13 @@ import { cn } from '@utils/cn';
 import { formatDate } from '@utils/formatDate';
 
 export default function ReviewLowerSection({
-  reservationUserName,
-  eventDate,
+  userName,
+  startTime,
   adultCount,
   teenagerCount,
   kidsCount,
   rating,
-  rateContent,
+  contents,
   className,
 }: ReviewLowerSectionProps) {
   return (
@@ -19,10 +19,10 @@ export default function ReviewLowerSection({
       className={cn('w-full px-5 h-fit flex flex-col gap-y-4', className)}
     >
       <div className="w-full h-fit flex flex-col items-start gap-y-[6px]">
-        <span className="title3 text-grey7">{reservationUserName}</span>
+        <span className="title3 text-grey7">{userName}</span>
         <div className="flex justify-between items-center gap-x-[6px]">
           <p className="caption2 text-grey4">
-            {formatDate(new Date(eventDate))}
+            {formatDate(new Date(startTime))}
           </p>
           <p className="caption2 text-grey3">|</p>
           <p className="caption2 text-grey4">
@@ -44,7 +44,7 @@ export default function ReviewLowerSection({
             )
           )}
         </p>
-        <span className="body5 text-grey6">{rateContent}</span>
+        <span className="body5 text-grey6">{contents}</span>
       </div>
     </section>
   );
