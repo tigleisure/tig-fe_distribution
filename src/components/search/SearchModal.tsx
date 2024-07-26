@@ -46,15 +46,17 @@ export default function SearchModal() {
 
   useEffect(() => {
     if (isModalOpen) {
-      setTimeout(() => {
+      const focusInput = () => {
         if (inputRef.current) {
           inputRef.current.focus();
         }
-      }, 10); // 모달 렌더링이 끝난 이후 input창에 포커싱
+      };
+      requestAnimationFrame(focusInput);
     }
   }, [isModalOpen]);
 
   useEffect(() => {
+    setModal(true);
     if (localStorage.getItem('accessToken')) {
       if (data) {
         setRecentSearch(data.result);
@@ -103,6 +105,7 @@ export default function SearchModal() {
           onChange={inputHandler}
           onKeyDown={handleKeyPress}
           ref={inputRef}
+          autoFocus
         />
       </div>
       <div className="w-full flex justify-between items-center px-5">
