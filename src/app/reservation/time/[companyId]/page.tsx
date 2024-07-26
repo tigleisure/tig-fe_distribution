@@ -15,6 +15,7 @@ import {
 import { useGetClubResInfo } from '@apis/reservation/getClubResInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { set } from 'date-fns';
+import { Toaster } from 'react-hot-toast';
 
 const DUMMYPRICE = '10,000';
 
@@ -50,6 +51,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <ResPeopleCountCard />
       <RequestCard />
       <MakeResButtonCard clubName={clubName} address={address} />
+      <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </main>
   );
 }

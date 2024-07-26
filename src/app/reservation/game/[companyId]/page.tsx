@@ -13,6 +13,7 @@ import {
   gameReservationInfoInitialState,
 } from '@store/makeReservationInfo';
 import { useGetClubResInfo } from '@apis/reservation/getClubResInfo';
+import { Toaster } from 'react-hot-toast';
 
 export default function Page({ params }: { params: { companyId: string } }) {
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
@@ -45,6 +46,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <GameCountCard />
       <RequestCard />
       <MakeResButtonCard clubName={clubName} address={address} />
+      <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </main>
   );
 }
