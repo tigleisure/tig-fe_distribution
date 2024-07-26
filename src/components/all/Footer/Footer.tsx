@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="w-full h-fit px-[15px] py-[30px] flex flex-col gap-y-[15px] absolute bottom-[54px] bg-grey2">
+    <footer className="w-full h-[25%] px-[15px]  flex flex-col justify-center gap-y-[15px] absolute bottom-[54px] bg-grey2">
       <div>
         <span className="body3 text-grey7">TIG</span>
       </div>
