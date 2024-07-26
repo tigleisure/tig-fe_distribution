@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import useLocalStorageState from '@store/localStorageAccessTokenStore';
 import { removeUserRefreshToken } from '@apis/mypage/removeRefreshToken';
+import Footer from '@components/all/Footer/Footer';
 
 export default function Page() {
   const setSelectedIsModalOpen = useModal(
@@ -56,7 +57,7 @@ export default function Page() {
             title="로그아웃 하시겠습니까?"
             secondButtonFunc={handleClickLogoutButton}
           />
-
+          <Footer />
           <Toaster
             position="bottom-center"
             containerStyle={{ bottom: '75px' }}

@@ -10,8 +10,12 @@ interface SnsLoginProps {
 function SnsLoginComponent({ companyName }: SnsLoginProps) {
   return (
     <Link
-      href={`https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0307650b397857dfa903ca697df83f62&redirect_uri=${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/login/oauth2/code/kakao`}
-      id="kakaoLogo"
+      href={
+        companyName === 'kakao'
+          ? `https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=0307650b397857dfa903ca697df83f62&redirect_uri=${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/login/oauth2/code/kakao`
+          : `https://accounts.google.com/o/oauth2/v2/auth/oauthchooseaccount?client_id=919789255688-7lighranof25v146aafb6uhl48pbcn2e.apps.googleusercontent.com&response_type=code&redirect_uri=${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/login/oauth2/code/google&scope=email%20profile&service=lso&o2v=2&ddm=0&flowName=GeneralOAuthFlow`
+      }
+      id={companyName === 'kakao' ? 'kakaoLogo' : 'googleLogo'}
       className={cn(
         'w-full h-[47px] flex justify-center items-center rounded-[10px] hover:cursor-pointer',
         {
