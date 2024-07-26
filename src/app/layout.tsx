@@ -7,10 +7,19 @@ import ReactQueryProvider from '@providers/ReactQueryProvider';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TIG Frontend',
-  description: 'This is TIG frontend Project',
+  title: 'TIG | 티그',
+  description: '쉽고 편리한 여가 예약 플랫폼',
   icons: {
     icon: '/svg/tig.svg',
+  },
+  openGraph: {
+    title: '티그',
+    images: [
+      {
+        url: '/png/tigOpenGraphImg.png',
+      },
+    ],
+    type: 'website',
   },
 };
 
