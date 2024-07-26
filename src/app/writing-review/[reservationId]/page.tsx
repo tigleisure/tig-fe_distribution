@@ -152,6 +152,11 @@ export default function Page({
                     reservationId: params.reservationId,
                     rating: starCount,
                     contents: reviewContents,
+                    adultCount: data.result.adultCount,
+                    teenagerCount: data.result.teenagerCount,
+                    kidsCount: data.result.kidsCount,
+                    startTime: data.result.startTime,
+                    userName: data.result.memberName || '',
                   },
                   {
                     onSuccess: () => {
@@ -207,13 +212,13 @@ export default function Page({
               />
               <div className="w-full border-b-[1px] border-grey2" />
               <ReviewLowerSection
-                reservationUserName={data.result.memberName as string}
-                eventDate={data.result.date}
+                userName={data.result.memberName as string}
+                startTime={data.result.date}
                 adultCount={data.result.adultCount}
                 teenagerCount={data.result.teenagerCount}
                 kidsCount={data.result.kidsCount}
                 rating={starCount}
-                rateContent={reviewContents}
+                contents={reviewContents}
               />
             </section>
           </main>

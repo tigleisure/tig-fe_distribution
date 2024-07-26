@@ -34,13 +34,13 @@ export default function Review({
       <div className="w-full border-[1px] border-grey2" />
 
       <ReviewLowerSection
-        reservationUserName={reservationUserName}
-        eventDate={eventDate}
-        adultCount={adultCount}
-        teenagerCount={teenagerCount}
-        kidsCount={kidsCount}
+        userName={reservationUserName}
+        startTime={eventDate}
+        adultCount={adultCount || 0}
+        teenagerCount={teenagerCount || 0}
+        kidsCount={kidsCount || 0}
         rating={rating}
-        rateContent={rateContent}
+        contents={rateContent}
         className="!px-0"
       />
     </div>

@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { reviewInfoProps } from '@apis/reservation-list/review/getSpecificReviewInfo';
 import { instance } from '@apis/instance';
 
@@ -9,13 +9,13 @@ export interface getAllClubReviewResponse {
 }
 
 export const getAllClubReview = async (
-  clubId: number
+  clubId: string
 ): Promise<getAllClubReviewResponse> => {
   return instance.get(`/api/v1/review/club/${clubId}`);
 };
 
-export const useGetAllClubReview = (clubId: number) => {
-  return useQuery({
+export const useGetAllClubReview = (clubId: string) => {
+  return useSuspenseQuery({
     queryKey: ['clubReview', clubId],
     queryFn: () => getAllClubReview(clubId),
   });
