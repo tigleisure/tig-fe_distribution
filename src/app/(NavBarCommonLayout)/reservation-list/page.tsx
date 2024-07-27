@@ -19,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 import { useQueryClient } from '@tanstack/react-query';
+import handleSendTigCancelFailToDiscord from '@apis/discord/sendBackendCancelFailMessageToDiscord';
 
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
@@ -55,6 +56,7 @@ export default function Page() {
   );
 
   const { data, isError } = useGetReservationList();
+
   const cancelReservationMutation = useDeleteUserSpecificReservation();
 
   const router = useRouter();
@@ -264,6 +266,10 @@ export default function Page() {
                         router.replace('/');
                       } else {
                         // Discord로 기획 쪽에 알리는 로직
+                        handleSendTigCancelFailToDiscord(
+                          cancelReservationId as number,
+                          cancelPaymentId as string
+                        );
                       }
                     },
                   }
