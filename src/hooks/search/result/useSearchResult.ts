@@ -9,6 +9,10 @@ import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 
 export const useSearchResult = (search: string) => {
+  const [isResult, setIsResult] = useState(false);
+  const [recommendedResult, setRecommendedResult] = useState<ResultCardProps[]>(
+    []
+  );
   const [filteredSearchResult, setFilteredSearchResult] = useState<
     ResultCardProps[]
   >([]);
@@ -38,12 +42,20 @@ export const useSearchResult = (search: string) => {
         longitude: loginUserSearchResult?.result.avgLongitude || 126.9366,
       });
       setOriginalSearchResult(loginUserSearchResult?.result.searchList || []);
+      setIsResult(loginUserSearchResult?.result.isResult || false);
+      if (!loginUserSearchResult?.result.isResult) {
+        setRecommendedResult(loginUserSearchResult?.result.searchList || []);
+      }
     } else {
       setCurrentLocation({
         latitude: unLoginUserSearchResult?.result.avgLatitude || 37.55527,
         longitude: unLoginUserSearchResult?.result.avgLongitude || 126.9366,
       });
       setOriginalSearchResult(unLoginUserSearchResult?.result.searchList || []);
+      setIsResult(unLoginUserSearchResult?.result.isResult || false);
+      if (!unLoginUserSearchResult?.result.isResult) {
+        setRecommendedResult(unLoginUserSearchResult?.result.searchList || []);
+      }
     }
   }, [loginUserSearchResult, unLoginUserSearchResult]);
 
@@ -94,14 +106,13 @@ export const useSearchResult = (search: string) => {
 
   return {
     filteredSearchResult,
-    setFilteredSearchResult,
     selectedOption,
     originalSearchResult,
-    setOriginalSearchResult,
     pinCardIndex,
     currentLocation,
-    setCurrentLocation,
-    handleMyLocation,
     isBottomSheetOpen,
+    isResult,
+    recommendedResult,
+    handleMyLocation,
   };
 };

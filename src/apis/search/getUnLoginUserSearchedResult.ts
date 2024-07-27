@@ -1,16 +1,7 @@
 import { instance } from '@apis/instance';
 import { useQuery } from '@tanstack/react-query';
 import { ResultCardProps } from 'types/search/result/searchResult';
-
-interface SearchResearchResponse {
-  result: {
-    searchList: ResultCardProps[];
-    avgLatitude: number;
-    avgLongitude: number;
-  };
-  resultCode: number;
-  resultMsg: string;
-}
+import { SearchResearchResponse } from './getLoginUserSearchedResult';
 
 export const getUnLoginUserSearchedResult = async (
   search: string

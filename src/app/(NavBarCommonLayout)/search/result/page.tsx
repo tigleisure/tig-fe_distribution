@@ -12,8 +12,6 @@ import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 import { useSearchResult } from '@hooks/search/result/useSearchResult';
 
-const isResult = true;
-
 export default function Page() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
@@ -27,6 +25,8 @@ export default function Page() {
     handleMyLocation,
     pinCardIndex,
     isBottomSheetOpen,
+    isResult,
+    recommendedResult,
   } = useSearchResult(search);
 
   return (
@@ -69,7 +69,7 @@ export default function Page() {
           handleMyLocation={handleMyLocation}
         />
       )}
-      {!isResult && <NoSearchResult />}
+      {!isResult && <NoSearchResult results={recommendedResult} />}
     </main>
   );
 }

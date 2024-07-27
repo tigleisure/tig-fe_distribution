@@ -2,11 +2,12 @@ import { instance } from '@apis/instance';
 import { useQuery } from '@tanstack/react-query';
 import { ResultCardProps } from 'types/search/result/searchResult';
 
-interface SearchResearchResponse {
+export interface SearchResearchResponse {
   result: {
     searchList: ResultCardProps[];
     avgLatitude: number;
     avgLongitude: number;
+    isResult: boolean;
   };
   resultCode: number;
   resultMsg: string;
