@@ -18,6 +18,7 @@ import TigLoadingPage from '@components/all/TigLoadingPage';
 import { useRouter } from 'next/navigation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Page() {
   const [historyHeadState, setHistoryHeadState] = useState<
@@ -61,6 +62,7 @@ export default function Page() {
   console.log(data);
 
   const mutation = usePostReservation();
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     return () => {
@@ -255,6 +257,9 @@ export default function Page() {
                   {
                     onSuccess(data, variables, context) {
                       // 성공적인 tig 예약 취소가 이루어짐.
+                      queryClient.invalidateQueries({
+                        queryKey: ['userReservationList'],
+                      });
                       if (data.resultCode === 200) {
                         router.replace('/');
                       } else {

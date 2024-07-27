@@ -3,6 +3,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
+import { useQueryClient } from '@tanstack/react-query';
 
 interface ReservationCancelProps {
   cancelAvailableDate: string;
@@ -22,6 +23,8 @@ export default function ReservationCancelSection({
   const { data } = useGetUserSpecificReservationInfo(
     parseInt(reservationId as string)
   );
+
+  const queryClient = useQueryClient();
 
   const cancelReservationMutation = useDeleteUserSpecificReservation();
 
@@ -51,6 +54,9 @@ export default function ReservationCancelSection({
                 parseInt(reservationId as string),
                 {
                   onSuccess(data, variables, context) {
+                    queryClient.invalidateQueries({
+                      queryKey: ['userReservationList'],
+                    });
                     if (data.resultCode === 200) {
                       router.replace('/');
                     } else {
