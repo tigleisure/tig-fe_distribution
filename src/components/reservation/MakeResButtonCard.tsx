@@ -26,13 +26,19 @@ export default function MakeResButtonCard({
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
   );
-  const handleWrongSubmit = () => {
-    console.log(toastId);
+  const handleWrongSubmit = (type: 'GAME' | 'TIME') => {
     if (toastId !== null) {
       toast.remove(toastId);
     }
     const id = toast.custom(
-      <ToastUI message="시간과 인원을 선택해주세요" iswarning={true} />,
+      <ToastUI
+        message={
+          type === 'GAME'
+            ? '게임 수, 시작 시간, 인원을 선택해주세요'
+            : '시작 및 종료 시간, 인원을 선택해주세요'
+        }
+        iswarning={true}
+      />,
       {
         duration: toastUIDuration,
       }
@@ -53,7 +59,7 @@ export default function MakeResButtonCard({
           gameResInfo.teenagerCount === 0 &&
           gameResInfo.kidsCount === 0)
       ) {
-        handleWrongSubmit();
+        handleWrongSubmit('GAME');
         return; // clubId가 undefined, null, ''과 같은 경우
       }
       const query = {
@@ -81,7 +87,7 @@ export default function MakeResButtonCard({
           timeResInfo.teenagerCount === 0 &&
           timeResInfo.kidsCount === 0)
       ) {
-        handleWrongSubmit();
+        handleWrongSubmit('TIME');
         return; // clubId가 undefined, null, ''과 같은 경우
       }
       const query = {
