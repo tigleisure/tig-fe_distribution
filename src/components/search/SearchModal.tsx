@@ -56,7 +56,6 @@ export default function SearchModal() {
   }, [isModalOpen]);
 
   useEffect(() => {
-    setModal(true);
     if (localStorage.getItem('accessToken')) {
       if (data) {
         setRecentSearch(data.result);
