@@ -14,17 +14,19 @@ import { useBottomSheetStore } from '@store/bottomSheetStore';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import useTab from '@store/tabNumberStore';
-import { formatDate, parse, set } from 'date-fns';
+import { formatDate, parse } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import { useGetUnLoginUserSearchedResult } from '@apis/search/getUnLoginUserSearchedResult';
 
 const isResult = true;
 
 export function SearchResult() {
-  const [searchResult, setSearchResult] = useState<ResultCardProps[]>([]);
+  const [filteredSearchResult, setFilteredSearchResult] = useState<
+    ResultCardProps[]
+  >([]);
   const selectedOption = useFilterOptionStore((state) => state.filterOption);
   const [originalSearchResult, setOriginalSearchResult] = useState<
     ResultCardProps[]
@@ -37,7 +39,7 @@ export function SearchResult() {
   const setIsBottomSheetOpen = useBottomSheetStore(
     (state) => state.setIsBottomSheetOpen
   );
-  const [currentLociation, setCurrentLocation] = useState({
+  const [currentLocation, setCurrentLocation] = useState({
     latitude: 37.55527,
     longitude: 126.9366,
   });
@@ -51,80 +53,52 @@ export function SearchResult() {
     useGetUnLoginUserSearchedResult(search);
 
   useEffect(() => {
-    if (selectedOption === '추천순') {
-      setSearchResult(originalSearchResult);
-    } else if (selectedOption === '인기순') {
-      const sortedResult = searchResult.sort((a, b) => {
-        return b.avgRating - a.avgRating;
-      });
-      setSearchResult((prev) => sortedResult);
-      console.log(sortedResult);
-    } else if (selectedOption === '가까운순') {
-      const sortedResult = searchResult.sort((a, b) => {
-        return (a.distance || 0) - (b.distance || 0);
-      });
-      setSearchResult((prev) => sortedResult);
-      console.log(sortedResult);
-    } else if (selectedOption === '고가순') {
-      const sortedResult = searchResult.sort((a, b) => {
-        return a.price - b.price;
-      });
-      setSearchResult((prev) => sortedResult);
-      console.log(sortedResult);
-    } else if (selectedOption === '저가순') {
-      const sortedResult = searchResult.sort((a, b) => {
-        return b.price - a.price;
-      });
-      setSearchResult((prev) => sortedResult);
-      console.log(sortedResult);
-    } else if (selectedOption === '리뷰많은순') {
-      const sortedResult = searchResult.sort((a, b) => {
-        return b.ratingCount - a.ratingCount;
-      });
-      setSearchResult((prev) => sortedResult);
-      console.log(sortedResult);
-    }
-  }, [selectedOption]);
-
-  useEffect(() => {
     if (localStorage.getItem('accessToken')) {
-      console.log('로그인 유저');
-      console.log(loginUserSearchResult);
       setCurrentLocation({
         latitude: loginUserSearchResult?.result.avgLatitude || 37.55527,
         longitude: loginUserSearchResult?.result.avgLongitude || 126.9366,
       });
-      setSearchResult(loginUserSearchResult?.result.searchList || []);
-      setOriginalSearchResult(
-        loginUserSearchResult?.result.searchList || []
-      );
+      setOriginalSearchResult(loginUserSearchResult?.result.searchList || []);
     } else {
-      console.log('비로그인 유저');
       setCurrentLocation({
         latitude: unLoginUserSearchResult?.result.avgLatitude || 37.55527,
-        longitude:
-          unLoginUserSearchResult?.result.avgLongitude || 126.9366,
+        longitude: unLoginUserSearchResult?.result.avgLongitude || 126.9366,
       });
-      setSearchResult(unLoginUserSearchResult?.result.searchList || []);
-      setOriginalSearchResult(
-        unLoginUserSearchResult?.result.searchList || []
-      );
+      setOriginalSearchResult(unLoginUserSearchResult?.result.searchList || []);
     }
-  }, [loginUserSearchResult, unLoginUserSearchResult, searchResult]);
+  }, [loginUserSearchResult, unLoginUserSearchResult]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 
-  useEffect(() => {
-    if (selectedTab == '전체') {
-      setSearchResult(originalSearchResult);
-      return;
-    } else {
-      const filteredResultCards = originalSearchResult.filter(
-        (result) => categoryMapEngToKor[result.category] === selectedTab
+  const filterAndSortResults = () => {
+    let result = [...originalSearchResult];
+
+    if (selectedTab !== '전체') {
+      result = result.filter(
+        (item) => categoryMapEngToKor[item.category] === selectedTab
       );
-      setSearchResult(filteredResultCards);
     }
-  }, [selectedTab]);
+
+    if (selectedOption === '추천순') {
+      setFilteredSearchResult(result);
+    } else if (selectedOption === '인기순') {
+      result.sort((a, b) => b.avgRating - a.avgRating);
+    } else if (selectedOption === '가까운순') {
+      result.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+    } else if (selectedOption === '고가순') {
+      result.sort((a, b) => b.price - a.price);
+    } else if (selectedOption === '저가순') {
+      result.sort((a, b) => a.price - b.price);
+    } else if (selectedOption === '리뷰많은순') {
+      result.sort((a, b) => b.ratingCount - a.ratingCount);
+    }
+
+    setFilteredSearchResult(result);
+  };
+
+  useEffect(() => {
+    filterAndSortResults();
+  }, [selectedOption, selectedTab, originalSearchResult]);
 
   useEffect(() => {
     setIsBottomSheetOpen(true);
@@ -139,6 +113,8 @@ export function SearchResult() {
     });
   };
 
+  console.log(filteredSearchResult);
+
   return (
     <div className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
@@ -150,40 +126,36 @@ export function SearchResult() {
         }`}
         isHomeOrResultPage
       />
-
       <Tabs
         tabArray={tabArray}
         rounded
         from="search"
         className="w-full px-5 top-[58px]"
       />
-
       <FilterHeader />
       {isResult && (
         <NaverMap
-          locationArray={searchResult.map((result) => ({
+          locationArray={filteredSearchResult.map((result) => ({
             latitude: result.latitude || 0,
             longitude: result.longitude || 0,
           }))}
-          currentLatitude={currentLociation.latitude}
-          currentLongitude={currentLociation.longitude}
+          currentLatitude={currentLocation.latitude}
+          currentLongitude={currentLocation.longitude}
         />
       )}
       {isResult && isBottomSheetOpen && (
         <BottomSheet
-          results={searchResult}
+          results={filteredSearchResult}
           handleMyLocation={handleMyLocation}
         />
       )}
-      {/* <ResultCard {...DUMMYRESULTS[0]} /> */}
       {!isBottomSheetOpen && (
         <PinCard
-          PinCard={searchResult[pinCardIndex]}
+          PinCard={filteredSearchResult[pinCardIndex]}
           handleMyLocation={handleMyLocation}
         />
       )}
       {!isResult && <NoSearchResult />}
-      {/* <NavBar /> */}
     </div>
   );
 }
