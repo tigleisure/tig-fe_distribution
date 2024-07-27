@@ -61,11 +61,20 @@ export default function Calender() {
     } else {
       setSearchInputInfo({ ...searchInputInfo, searchDate: formattedDate });
     }
-    
+
     if (date.getMonth() < calendarMonth.getMonth()) {
-      setCalendarMonth(subMonths(calendarMonth, 1));
+      if (date.getMonth() === 0) {
+        setCalendarMonth(addMonths(calendarMonth, 1));
+      } else {
+        setCalendarMonth(subMonths(calendarMonth, 1));
+      }
     } else if (date.getMonth() > calendarMonth.getMonth()) {
-      setCalendarMonth(addMonths(calendarMonth, 1));
+      if (date.getMonth() === 11) {
+        console.log(date.getMonth(), calendarMonth.getMonth());
+        setCalendarMonth(subMonths(calendarMonth, 1));
+      } else {
+        setCalendarMonth(addMonths(calendarMonth, 1));
+      }
     }
     setSelectedDate(formattedDate);
   };
