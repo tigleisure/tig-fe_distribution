@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+
 export const formatDate = (date: Date): string => {
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -63,4 +65,29 @@ export const extractReservationMoment = (timestamp: string): string => {
   let formattedTime = `${year}.${month}.${day} (${dayOfWeek}) ${hours}:${minutes}`;
 
   return formattedTime;
+};
+
+// 시간 비교를 위한 함수
+const timeToMinutes = (time: string) => {
+  const [hours, minutes] = time.split(':').map(Number);
+  return hours * 60 + minutes;
+};
+
+// 예약한 시간이 다음 날 일때 업체 시작시간과 비교하여 작다면 다음날로 변환
+export const convertToNextDayIfNextDay = (
+  reservationStartTime: string,
+  clubStartTime: string,
+  date: string
+) => {
+  if (timeToMinutes(reservationStartTime) < timeToMinutes(clubStartTime)) {
+    const newDate = new Date(date.slice(0, 10));
+    console.log('newDate', newDate);
+    const returnNextDay = format(
+      new Date(newDate.setDate(newDate.getDate() + 1)),
+      'yyyy-MM-dd'
+    );
+    console.log('returnNextDay', returnNextDay);
+    return `${returnNextDay}T00:00:00`;
+  }
+  return date;
 };

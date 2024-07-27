@@ -22,6 +22,7 @@ const DUMMYPRICE = '10,000';
 export default function Page({ params }: { params: { companyId: string } }) {
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
   const [startTime, setStartTime] = useState('');
+  console.log('startTime', startTime);
   const [endTime, setEndTime] = useState('');
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
@@ -50,7 +51,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <RestimeCard startTime={startTime} endTime={endTime} />
       <ResPeopleCountCard />
       <RequestCard />
-      <MakeResButtonCard clubName={clubName} address={address} />
+      <MakeResButtonCard clubName={clubName} address={address} clubStartTime={startTime}/>
       <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </main>
   );

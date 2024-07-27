@@ -22,16 +22,23 @@ export default function TimeSelectCard({
   onClick,
   idx,
 }: TimeSelectCardProps) {
-  console.log(isEven, isLast)
   return (
     <div className="flex flex-col w-[30px] cursor-pointer">
       <p
         className={cn('caption2 text-white pb-[6px]', {
-          'text-grey4': isAfternoon || isFirst,
-          invisible: !(isAfternoon || isFirst),
+          'text-grey4': isAfternoon || isFirst || time === '00:00',
+          invisible: !(isAfternoon || isFirst || time === '00:00'),
         })}
       >
-        {isAfternoon ? '오후' : isFirst ? '오전' : 'ㅇㅇ'}
+        {isAfternoon
+          ? '오후'
+          : isFirst
+          ? parseInt(time.slice(0, 2)) < 12
+            ? '오전'
+            : '오후'
+          : time === '00:00'
+          ? '오전'
+          : 'ㅇㅇ'}
       </p>
       <p
         className={cn('body4 text-white pb-[6px]', {
@@ -41,9 +48,11 @@ export default function TimeSelectCard({
       >
         {time.slice(3) === '00' ? `${time.slice(0, 2)}시` : 'ㅇㅇ'}
       </p>
-      <div className={cn("h-[4px]",{
-        'border-r border-r-grey4': !isLast && isEven
-      })}></div>
+      <div
+        className={cn('h-[4px]', {
+          'border-r border-r-grey4': !isLast && isEven,
+        })}
+      ></div>
       <button
         className={cn(
           'w-[30px] h-[34px] bg-primary_orange2 border-r border-white',

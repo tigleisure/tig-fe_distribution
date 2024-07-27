@@ -45,6 +45,11 @@ export default function Page({
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
   );
+
+  const setReservationStageState = useReservationStage(
+    (state) => state.setReservationStage
+  );
+
   const isCouponPageOpen = useIsCouponPageOpen(
     (state) => state.isCouponPageOpen
   );
@@ -177,7 +182,10 @@ export default function Page({
   ]);
 
   useEffect(() => {
-    return () => setSelectedIsModalOpen(false);
+    return () => {
+      setSelectedIsModalOpen(false)
+      setReservationStageState(1);
+    }
   }, []);
 
   return !isCouponPageOpen ? (

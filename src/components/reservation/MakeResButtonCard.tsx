@@ -5,6 +5,7 @@ import {
   useGameReservationStore,
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
+import { convertToNextDayIfNextDay } from '@utils/formatDate';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
@@ -12,9 +13,11 @@ import toast from 'react-hot-toast';
 export default function MakeResButtonCard({
   clubName,
   address,
+  clubStartTime,
 }: {
   clubName: string;
   address: string;
+  clubStartTime: string;
 }) {
   const router = useRouter();
   const pathname = usePathname();
@@ -62,9 +65,15 @@ export default function MakeResButtonCard({
         handleWrongSubmit('GAME');
         return; // clubId가 undefined, null, ''과 같은 경우
       }
+      const calculateDate = convertToNextDayIfNextDay(
+        gameResInfo.startTime?.slice(11, 16) || '',
+        clubStartTime,
+        gameResInfo.date
+      );
+
       const query = {
         gameType: 'GAME',
-        date: gameResInfo.date,
+        date: calculateDate,
         startTime: gameResInfo.startTime,
         gameCount: String(gameResInfo.gameCount),
         request: gameResInfo.request,
@@ -90,9 +99,15 @@ export default function MakeResButtonCard({
         handleWrongSubmit('TIME');
         return; // clubId가 undefined, null, ''과 같은 경우
       }
+      const calculateDate = convertToNextDayIfNextDay(
+        timeResInfo.startTime?.slice(11, 16) || '',
+        clubStartTime,
+        timeResInfo.date
+      );
+
       const query = {
         gameType: 'TIME',
-        date: timeResInfo.date,
+        date: calculateDate,
         startTime: timeResInfo.startTime,
         endTime: timeResInfo.endTime,
         request: timeResInfo.request,

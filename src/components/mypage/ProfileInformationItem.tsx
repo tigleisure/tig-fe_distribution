@@ -160,6 +160,7 @@ export default function ProfileInformationItem({
         )}
         {inputBoxEditStage === 2 && (
           <button
+            onMouseDown={(e) => e.preventDefault()}
             className="w-fit h-fit rounded-md title4 text-white bg-primary_orange1 px-[14px] py-[8px]"
             onClick={handleSubmit}
           >

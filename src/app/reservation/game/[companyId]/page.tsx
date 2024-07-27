@@ -45,7 +45,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <ResPeopleCountCard />
       <GameCountCard />
       <RequestCard />
-      <MakeResButtonCard clubName={clubName} address={address} />
+      <MakeResButtonCard clubName={clubName} address={address} clubStartTime={startTime}/>
       <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </main>
   );
