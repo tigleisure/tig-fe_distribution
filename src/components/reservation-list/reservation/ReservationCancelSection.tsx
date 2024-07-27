@@ -4,6 +4,7 @@ import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reserv
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useQueryClient } from '@tanstack/react-query';
+import handleSendTigCancelFailToDiscord from '@apis/discord/sendBackendCancelFailMessageToDiscord';
 
 interface ReservationCancelProps {
   cancelAvailableDate: string;
@@ -61,6 +62,10 @@ export default function ReservationCancelSection({
                       router.replace('/');
                     } else {
                       // Discord로 기획 쪽에 알리는 로직
+                      handleSendTigCancelFailToDiscord(
+                        parseInt(reservationId as string),
+                        paymentId
+                      );
                     }
                   },
                 }
