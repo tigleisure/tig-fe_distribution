@@ -1,29 +1,14 @@
-'use client';
 import { useGetLoginUserSearchedResult } from '@apis/search/getLoginUserSearchedResult';
-import NavBar from '@components/all/NavBar/NavBar';
-import SearchHeader from '@components/all/SearchHeader';
-import Tabs from '@components/all/Tabs/Tabs';
-import BottomSheet from '@components/search/result/BottomSheet';
-import FilterHeader from '@components/search/result/FilterHeader';
-import NaverMap from '@components/search/result/NaverMap';
-import NoSearchResult from '@components/search/result/NoSearchResult';
-import PinCard from '@components/search/result/PinCard';
-import ResultCard from '@components/search/result/ResultCard';
-import { allleisureArray, categoryMapEngToKor } from '@constant/constant';
+import { useGetUnLoginUserSearchedResult } from '@apis/search/getUnLoginUserSearchedResult';
+import { categoryMapEngToKor } from '@constant/constant';
 import { useBottomSheetStore } from '@store/bottomSheetStore';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import useTab from '@store/tabNumberStore';
-import { formatDate, parse } from 'date-fns';
-import { ko } from 'date-fns/locale';
-import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
-import { useGetUnLoginUserSearchedResult } from '@apis/search/getUnLoginUserSearchedResult';
 
-const isResult = true;
-
-export function SearchResult() {
+export const useSearchResult = (search: string) => {
   const [filteredSearchResult, setFilteredSearchResult] = useState<
     ResultCardProps[]
   >([]);
@@ -31,10 +16,6 @@ export function SearchResult() {
   const [originalSearchResult, setOriginalSearchResult] = useState<
     ResultCardProps[]
   >([]);
-  const tabArray = allleisureArray;
-  const isBottomSheetOpen = useBottomSheetStore(
-    (state) => state.isBottomSheetOpen
-  );
   const pinCardIndex = usePinCardIndexStore((state) => state.pinCardIndex);
   const setIsBottomSheetOpen = useBottomSheetStore(
     (state) => state.setIsBottomSheetOpen
@@ -43,11 +24,9 @@ export function SearchResult() {
     latitude: 37.55527,
     longitude: 126.9366,
   });
-  const searchParams = useSearchParams();
-  const { search, date, adultCount, teenagerCount, kidsCount } =
-    Object.fromEntries(searchParams.entries());
-  const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
-  const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
+  const isBottomSheetOpen = useBottomSheetStore(
+    (state) => state.isBottomSheetOpen
+  );
   const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(search);
   const { data: unLoginUserSearchResult } =
     useGetUnLoginUserSearchedResult(search);
@@ -113,49 +92,16 @@ export function SearchResult() {
     });
   };
 
-  console.log(filteredSearchResult);
-
-  return (
-    <div className="w-full h-full flex justify-center items-center text-[200px]">
-      <SearchHeader
-        result
-        placeholder={`${search}, ${formattedDate}${
-          adultCount === '0' ? '' : `, 성인 ${adultCount}명`
-        }${teenagerCount === '0' ? '' : `, 청소년 ${teenagerCount}명`}${
-          kidsCount === '0' ? '' : `, 어린이 ${kidsCount}명 `
-        }`}
-        isHomeOrResultPage
-      />
-      <Tabs
-        tabArray={tabArray}
-        rounded
-        from="search"
-        className="w-full px-5 top-[58px]"
-      />
-      <FilterHeader />
-      {isResult && (
-        <NaverMap
-          locationArray={filteredSearchResult.map((result) => ({
-            latitude: result.latitude || 0,
-            longitude: result.longitude || 0,
-          }))}
-          currentLatitude={currentLocation.latitude}
-          currentLongitude={currentLocation.longitude}
-        />
-      )}
-      {isResult && isBottomSheetOpen && (
-        <BottomSheet
-          results={filteredSearchResult}
-          handleMyLocation={handleMyLocation}
-        />
-      )}
-      {!isBottomSheetOpen && (
-        <PinCard
-          PinCard={filteredSearchResult[pinCardIndex]}
-          handleMyLocation={handleMyLocation}
-        />
-      )}
-      {!isResult && <NoSearchResult />}
-    </div>
-  );
-}
+  return {
+    filteredSearchResult,
+    setFilteredSearchResult,
+    selectedOption,
+    originalSearchResult,
+    setOriginalSearchResult,
+    pinCardIndex,
+    currentLocation,
+    setCurrentLocation,
+    handleMyLocation,
+    isBottomSheetOpen,
+  };
+};
