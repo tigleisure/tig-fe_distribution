@@ -1,9 +1,7 @@
 import { useBottomSheetStore } from '@store/bottomSheetStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
-import { info } from 'console';
-import { set } from 'date-fns';
 import Script from 'next/script';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface NaverMapProps {
   locationArray: {
@@ -19,46 +17,55 @@ export default function NaverMap({
   currentLatitude,
   currentLongitude,
 }: NaverMapProps) {
+  const [isMapLoaded, setIsMapLoaded] = useState(false);
   const mapRef = useRef<naver.maps.Map | undefined>(undefined);
-  const setIsBottomSheetOpen = useBottomSheetStore((state) => state.setIsBottomSheetOpen);
-  const setPinCardIndex = usePinCardIndexStore ((state) => state.setPinCardIndex);
-  const markersRef = useRef<naver.maps.Marker[]>([]); // Declare markersRef variable
-  
+  const setIsBottomSheetOpen = useBottomSheetStore(
+    (state) => state.setIsBottomSheetOpen
+  );
+  const setPinCardIndex = usePinCardIndexStore(
+    (state) => state.setPinCardIndex
+  );
+  const markersRef = useRef<naver.maps.Marker[]>([]);
+
   useEffect(() => {
-    if (mapRef.current) {
+    if (isMapLoaded && mapRef.current) {
       mapRef.current.setCenter(
         new naver.maps.LatLng(currentLatitude, currentLongitude)
       );
     }
-  }, [currentLatitude, currentLongitude]);
-  
+  }, [currentLatitude, currentLongitude, isMapLoaded]);
+
   useEffect(() => {
-    if (mapRef.current) {
+    if (isMapLoaded && mapRef.current) {
+      console.log('locationArray', locationArray);
       // Remove existing markers
       markersRef.current.forEach((marker) => marker.setMap(null));
       markersRef.current = [];
-  
+
       // Add new markers
       const newMarkers = locationArray.map((location, i) => {
         const marker = new naver.maps.Marker({
-          position: new naver.maps.LatLng(location.latitude, location.longitude),
+          position: new naver.maps.LatLng(
+            location.latitude,
+            location.longitude
+          ),
           map: mapRef.current,
           icon: {
             url: '/svg/ping.svg',
           },
         });
-  
+
         naver.maps.Event.addListener(marker, 'click', () => {
           setIsBottomSheetOpen(false);
           setPinCardIndex(i);
         });
-  
+
         return marker;
       });
-  
+
       markersRef.current = newMarkers;
     }
-  }, [locationArray]);
+  }, [locationArray, setIsBottomSheetOpen, setPinCardIndex, isMapLoaded]);
 
   const initializeMap = () => {
     const mapOptions = {
@@ -76,93 +83,61 @@ export default function NaverMap({
     };
     const map = new naver.maps.Map('map', mapOptions);
     mapRef.current = map;
-    const markers: naver.maps.Marker[] = [];
-    const infoWindows: naver.maps.InfoWindow[] = [];
-    for (let i = 0; i < locationArray.length; i++) {
-      markers.push(
-        new naver.maps.Marker({
-          position: new naver.maps.LatLng(
-            locationArray[i].latitude,
-            locationArray[i].longitude
-          ),
-          map: map,
-          icon: {
-            url: '/svg/ping.svg',
-          },
-        })
-      );
-      naver.maps.Event.addListener(markers[i], 'click', function () {
+
+    // 초기 마커 추가
+    const newMarkers = locationArray.map((location, i) => {
+      const marker = new naver.maps.Marker({
+        position: new naver.maps.LatLng(location.latitude, location.longitude),
+        map: map,
+        icon: {
+          url: '/svg/ping.svg',
+        },
+      });
+
+      naver.maps.Event.addListener(marker, 'click', () => {
         setIsBottomSheetOpen(false);
         setPinCardIndex(i);
       });
-      // 정보창이 예상대로 동작하지 않음. 필요하지 않으면 안 쓰는게 나을듯
-      // infoWindows.push(
-      //   new naver.maps.InfoWindow({
-      //     content: [
-      //       '<div style="width: 140px; height: 100px; padding: 10px; box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 16px 0px;">',
-      //       `   <div style="font-weight: bold; margin-bottom: 5px; font-size: 20px;">${i}번째 marker</div>`,
-      //       `   <div style="font-size: 14px;">${'hello'}<div>`,
-      //       "</div>",
-      //     ].join(""),
-      //     maxWidth: 300,
-      //     anchorSize: {
-      //       width: 12,
-      //       height: 14,
-      //     },
-      //     borderColor: "#cecdc7",
-      //   })
-      // );
-    }
-    naver.maps.Event.addListener(map, 'zoom_changed', function () {
-      updateMarkers(map, markers);
+
+      return marker;
     });
 
-    naver.maps.Event.addListener(map, 'dragend', function () {
-      updateMarkers(map, markers);
+    markersRef.current = newMarkers;
+
+    naver.maps.Event.addListener(map, 'zoom_changed', () => {
+      updateMarkers(map, markersRef.current);
     });
 
-    const updateMarkers = (
-      map: naver.maps.Map,
-      markers: naver.maps.Marker[]
-    ) => {
-      const mapBounds: any = map.getBounds();
+    naver.maps.Event.addListener(map, 'dragend', () => {
+      updateMarkers(map, markersRef.current);
+    });
+  };
 
-      for (let i = 0; i < markers.length; i++) {
-        const position = markers[i].getPosition();
+  const updateMarkers = (map: naver.maps.Map, markers: naver.maps.Marker[]) => {
+    const mapBounds: any = map.getBounds();
 
-        if (mapBounds.hasLatLng(position)) {
-          showMarker(map, markers[i]);
-        } else {
-          hideMarker(map, markers[i]);
-        }
+    for (let i = 0; i < markers.length; i++) {
+      const position = markers[i].getPosition();
+
+      if (mapBounds.hasLatLng(position)) {
+        showMarker(map, markers[i]);
+      } else {
+        hideMarker(map, markers[i]);
       }
-    };
+    }
+  };
 
-    const showMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
-      marker.setMap(map);
-    };
+  const showMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
+    marker.setMap(map);
+  };
 
-    // 마커 숨김 함수
-    const hideMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
-      marker.setMap(null);
-    };
+  const hideMarker = (map: naver.maps.Map, marker: naver.maps.Marker) => {
+    marker.setMap(null);
+  };
 
-    //   function getClickHandler(seq:number) {
-    //     return function() {
-    //         var marker = markers[seq],
-    //             infoWindow = infoWindows[seq];
-
-    //         if (infoWindow.getMap()) {
-    //             infoWindow.close();
-    //         } else {
-    //             infoWindow.open(map, marker);
-    //         }
-    //     }
-    // }
-
-    // for (var i=0, ii=markers.length; i<ii; i++) {
-    //     naver.maps.Event.addListener(markers[i], 'click', getClickHandler(i));
-    // }
+  const handleMapLoad = () => {
+    setIsMapLoaded(true);
+    initializeMap();
   };
 
   return (
@@ -170,7 +145,7 @@ export default function NaverMap({
       <Script
         type="text/javascript"
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID}`}
-        onReady={initializeMap}
+        onReady={handleMapLoad}
       />
       <div id="map" className="w-full h-full" />
     </section>
