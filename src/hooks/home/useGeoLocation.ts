@@ -21,7 +21,6 @@ export const useGeolocation = (
   const [originalClubCards, setOriginalClubCards] = useState<Club[]>([]);
   const [nearestClubsByCategory, setNearestClubsByCategory] =
     useState<NearestClubsByCategory>({});
-  console.log('nearestClubsByCategory', nearestClubsByCategory);
   const [clubCards, setClubCards] = useState<Club[]>([]);
   const [recommendClubCards, setRecommendClubCards] = useState<Club[]>([]);
   // 이벤트용 클럽 카드
@@ -56,7 +55,6 @@ export const useGeolocation = (
         { latitude, longitude },
         {
           onSuccess: (data) => {
-            console.log(data);
             setOriginalClubCards(data.result[0].nearestClubs);
             setClubCards(data.result[0].nearestClubs);
             setRecommendClubCards(data.result[0].recommendedClubs);

@@ -56,12 +56,9 @@ const initialInofo: clubInfoProps = {
 export default function Page({ params }: { params: { companyId: string } }) {
   const { data: specificInfoForGuest, isSuccess: isSuccessInfo1 } =
     useGetSpecificClubInfo(params.companyId);
-  console.log(specificInfoForGuest);
   const { data: specificInfoForUser, isSuccess: isSuccessInfo2 } =
     useGetSpecificClubInfoForLogin(params.companyId);
-  console.log(specificInfoForUser);
   const { data: reviewList } = useGetAllClubReview(params.companyId);
-  console.log(reviewList);
   const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
   const detailtabArrayWhenNoReview = detailArrayWhenNoReview;
   const detailtabArrayWhenReview = detailArrayWhenReview;
@@ -88,15 +85,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
     } else {
     }
   }, [selectedTab]);
-  console.log('clubInfo.imageUrls', clubInfo.imageUrls);
 
   useEffect(() => {
-    console.log(localStorage.getItem('accessToken'));
     if (localStorage.getItem('accessToken')) {
-      console.log(specificInfoForUser);
       setClubInfo(specificInfoForUser?.result || initialInofo);
     } else {
-      console.log(specificInfoForGuest);
       setClubInfo(specificInfoForGuest?.result || initialInofo);
     }
   }, [specificInfoForGuest, specificInfoForUser]);

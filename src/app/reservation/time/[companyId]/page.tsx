@@ -22,7 +22,6 @@ const DUMMYPRICE = '10,000';
 export default function Page({ params }: { params: { companyId: string } }) {
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
   const [startTime, setStartTime] = useState('');
-  console.log('startTime', startTime);
   const [endTime, setEndTime] = useState('');
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
@@ -33,7 +32,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       setStartTime(data?.result.businessHours.slice(0, 5) || '10:00');
       setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
       setClubName(data?.result.clubName || '');

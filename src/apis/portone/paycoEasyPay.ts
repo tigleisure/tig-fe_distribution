@@ -14,8 +14,6 @@ const handlePaycoEasyPay = async (
     currency: 'CURRENCY_KRW',
     payMethod: 'CARD',
   });
-
-  console.log(response);
 };
 
 export default handlePaycoEasyPay;

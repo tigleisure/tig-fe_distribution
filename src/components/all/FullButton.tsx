@@ -223,7 +223,6 @@ export default function FullButton({
           }
         )
           .then((response) => {
-            console.log(response);
             if (response.resultCode === 200) {
               postReservationMutation.mutate(
                 {
@@ -270,8 +269,7 @@ export default function FullButton({
               error.cancelReason
             );
             router.replace('/');
-          })
-          .finally(() => console.log('over'));
+          });
       }
 
       if (
@@ -348,8 +346,7 @@ export default function FullButton({
               error.cancelReason
             );
             router.replace('/');
-          })
-          .finally(() => console.log('over'));
+          });
       }
     }
   }

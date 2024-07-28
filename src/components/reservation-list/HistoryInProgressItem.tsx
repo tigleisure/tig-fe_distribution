@@ -22,7 +22,6 @@ export default function HistoryInProgressItem({
   handleChangeCancelReservationId,
 }: HistoryInProgressItemProps) {
   const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
-  console.log(paymentId);
 
   return (
     <Link
@@ -53,7 +52,6 @@ export default function HistoryInProgressItem({
               handleChangeCancelPaymentId(paymentId as string);
               handleChangeCancelReservationId(reservationId);
               setModalOpen(true);
-              console.log('예약취소 요청!');
               ev.stopPropagation();
               ev.preventDefault();
             }}
@@ -81,7 +79,6 @@ export default function HistoryInProgressItem({
               handleChangeCancelPaymentId(paymentId as string);
               setModalOpen(true);
               handleChangeCancelReservationId(reservationId);
-              console.log('예약취소 요청!');
               ev.stopPropagation();
               ev.preventDefault();
             }}

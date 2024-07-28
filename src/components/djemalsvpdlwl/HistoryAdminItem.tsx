@@ -63,7 +63,6 @@ export default function HistoryInAdminItem({
           size="sm"
           content="예약 승인"
           onClick={(ev) => {
-            console.log('reservationId', reservationId);
             confirmReservation(reservationId);
             ev.stopPropagation();
             ev.preventDefault();

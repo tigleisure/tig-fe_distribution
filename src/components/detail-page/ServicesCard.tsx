@@ -25,7 +25,6 @@ interface ServicesCardProps {
 // eslint-disable-next-line react/display-name
 export const ServicesCard = forwardRef<HTMLDivElement, ServicesCardProps>(
   ({ services }, ref) => {
-    console.log(services);
     // const survicesRef = useRef<HTMLDivElement>(null);
     const setSelectedTab = useTab((state) => state.setSelectedTab);
     // useIntersectionObserver(survicesRef, () => setSelectedTab('편의시설'),1);

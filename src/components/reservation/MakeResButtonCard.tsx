@@ -53,7 +53,6 @@ export default function MakeResButtonCard({
 
   const handleReservation = () => {
     if (pathname.startsWith('/reservation/game')) {
-      console.log('gameResInfo', gameResInfo);
       if (
         !clubId ||
         !gameResInfo.startTime ||
@@ -87,7 +86,6 @@ export default function MakeResButtonCard({
       const queryString = new URLSearchParams(query).toString();
       router.push(`/payment/before/${clubId}?${queryString}`);
     } else {
-      console.log('timeResInfo', timeResInfo);
       if (
         !clubId ||
         !timeResInfo.startTime ||
