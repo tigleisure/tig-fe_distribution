@@ -63,14 +63,13 @@ export default function Calender() {
     }
 
     if (date.getMonth() < calendarMonth.getMonth()) {
-      if (date.getMonth() === 0) {
+      if (date.getMonth() === 0 && calendarMonth.getMonth() === 11) {
         setCalendarMonth(addMonths(calendarMonth, 1));
       } else {
         setCalendarMonth(subMonths(calendarMonth, 1));
       }
     } else if (date.getMonth() > calendarMonth.getMonth()) {
-      if (date.getMonth() === 11) {
-        console.log(date.getMonth(), calendarMonth.getMonth());
+      if (date.getMonth() === 11 && calendarMonth.getMonth() === 0) {
         setCalendarMonth(subMonths(calendarMonth, 1));
       } else {
         setCalendarMonth(addMonths(calendarMonth, 1));
