@@ -16,6 +16,8 @@ import { useSearchParams } from 'next/navigation';
 import { useState, useEffect, useRef } from 'react';
 import { ReviewLowerSectionProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 import DummyDetailImageSVG from '@public/svg/dummyDetailImage.svg';
+import LeftGreyArrow from '@public/svg/leftGreyArrow.svg';
+import RightGreyArrow from '@public/svg/rightGreyArrow.svg';
 import {
   clubInfoProps,
   useGetSpecificClubInfo,
@@ -23,6 +25,9 @@ import {
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { useGetSpecificClubInfoForLogin } from '@apis/club/getSpeicificClubInfoForLogin';
 import { useGetAllClubReview } from '@apis/detail-page/getAllClubReview';
+import { cn } from '@utils/cn';
+import { AnimatePresence, motion } from 'framer-motion';
+import { set } from 'date-fns';
 
 const servicesIcon = ['wifi', 'wifi', 'wifi', 'wifi'];
 const services = ['무선 인터넷', '무선 인터넷', '무선 인터넷', '무선 인터넷'];
@@ -43,7 +48,7 @@ const initialInofo: clubInfoProps = {
   longitude: 0.0,
   category: 'Dummy Category',
   type: 'TIME',
-  imageUrls: [],
+  imageUrls: ['https://dummy.link'],
   presignedImageUrls: [],
   amenities: [],
 };
@@ -70,6 +75,8 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const setSelectedTab = useTab((state) => state.setSelectedTab);
   // useIntersectionObserver(imageRef, () => setSelectedTab('기본정보'),1);
   // useIntersectionObserver(visitedReviewRef, () => setSelectedTab('방문자 리뷰'),1);
+  const [imageCount, setImageCount] = useState(0);
+  const [back, setBack] = useState(false);
 
   useEffect(() => {
     if (selectedTab === '기본정보') {
@@ -81,6 +88,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
     } else {
     }
   }, [selectedTab]);
+  console.log('clubInfo.imageUrls', clubInfo.imageUrls);
 
   useEffect(() => {
     console.log(localStorage.getItem('accessToken'));
@@ -156,6 +164,48 @@ export default function Page({ params }: { params: { companyId: string } }) {
     }
   };
 
+  const handleNextImage = () => {
+    setImageCount((prev) => {
+      if (prev === clubInfo.imageUrls.length - 1) {
+        return 0;
+      } else {
+        return prev + 1;
+      }
+    });
+    setBack(false);
+  };
+
+  const handlePrevImage = () => {
+    setImageCount((prev) => {
+      if (prev === 0) {
+        return clubInfo.imageUrls.length - 1;
+      } else {
+        return prev - 1;
+      }
+    });
+    setBack(true);
+  };
+
+  const imageVariant = {
+    entry: (back: boolean) => ({
+      x: back ? -500 : 500,
+      opacity: 0,
+      scale: 0
+    }),
+    center: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { duration: 0.5 }
+    },
+    exit: (back: boolean) => ({
+      x: back ? 500 : -500,
+      opacity: 0,
+      scale: 0,
+      transition: { duration: 0.5 }
+    })
+  };
+
   if (!isSuccessInfo1 || !isSuccessInfo2) {
     return <TigLoadingPage />;
   }
@@ -173,8 +223,48 @@ export default function Page({ params }: { params: { companyId: string } }) {
         className="top-[68px] !justify-around"
       />
       <div ref={detailInfoRef} />
-      <div className="w-full max-w-[640px] p-5 pt-[138px]">
-        <DummyDetailImageSVG className="w-full h-auto" />
+      <div className="w-full h-[240px] max-w-[640px] mt-[138px] relative rounded-[10px] overflow-hidden px-5">
+        <div className="w-[38px] h-[21px] absolute bottom-[16px] right-[36px] bg-grey7 text-grey3 title4 z-[100] rounded-[50px] flex justify-center items-center ">
+          {imageCount + 1} / {clubInfo.imageUrls.length || 1}
+        </div>
+        <LeftGreyArrow
+          className={cn(
+            'absolute top-[50%] left-[20px] transform -translate-y-1/2 w-[20px] h-[20px] z-[100] cursor-pointer',
+            {
+              hidden: imageCount === 0,
+            }
+          )}
+          onClick={handlePrevImage}
+        />
+        <RightGreyArrow
+          className={cn(
+            'absolute top-[50%] right-[23px] transform -translate-y-1/2 w-[20px] h-[20px] z-[100] cursor-pointer',
+            {
+              hidden: imageCount === clubInfo.imageUrls.length - 1,
+            }
+          )}
+          onClick={handleNextImage}
+        />
+        <div className="relative w-full h-full">
+          <AnimatePresence custom={back}>
+            <motion.img
+              key={imageCount}
+              custom={back}
+              variants={imageVariant}
+              initial="entry"
+              animate="center"
+              exit="exit"
+              className="absolute w-full h-full object-cover rounded-[10px] select-none"
+              src={
+                clubInfo.imageUrls.length !== 0
+                  ? clubInfo.imageUrls[imageCount].slice(28)
+                  : '/png/dummyDetailImage.png'
+              }
+              alt="업체 이미지"
+            >
+            </motion.img>
+          </AnimatePresence>
+        </div>
       </div>
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
       <DetailInfoCard {...clubInfo} ref={serviceRef} />
