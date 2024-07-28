@@ -95,4 +95,5 @@ export interface ReservationItemProps {
   paymentId: string;
   memberName?: string;
   reviewId: number;
+  message: string;
 }
