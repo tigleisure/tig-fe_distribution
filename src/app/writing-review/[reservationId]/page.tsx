@@ -15,16 +15,7 @@ import ReviewLowerSection from '@components/reservation-list/review/ReviewLowerS
 import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { usePostReview } from '@apis/writing-review/postReview';
-
-const DUMMYREVIEWDATA: HistoryComponentUpperSectionProps = {
-  clubName: '스카이락볼링장',
-  clubAddress: '서울 서대문구 신촌로 73',
-  eventDate: '05.10 (수)',
-  eventStartTime: '오전 10:00',
-  eventEndTime: '오전 11:00',
-  gameCount: 0,
-  adultCount: 8,
-};
+import { QueryClient } from '@tanstack/react-query';
 
 export default function Page({
   params,
