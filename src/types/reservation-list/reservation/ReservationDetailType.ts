@@ -20,4 +20,5 @@ export interface ReservationDetailProps {
   cancelAvailableDate: string;
   status: 'TBC' | 'CONFIRMED' | 'DECLINED' | 'CANCELED' | 'REVIEWED' | 'DONE';
   paymentId: string;
+  message: string;
 }
