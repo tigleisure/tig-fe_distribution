@@ -10,7 +10,6 @@ interface PinCardProps {
 }
 
 export default function PinCard({ PinCard, handleMyLocation }: PinCardProps) {
-  console.log(PinCard);
   const setIsBottomSheetOpen = useBottomSheetStore(
     (state) => state.setIsBottomSheetOpen
   );

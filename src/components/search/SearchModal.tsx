@@ -20,7 +20,6 @@ export default function SearchModal() {
   const { data } = useGetRecentSearch();
   const { mutate: deleteSearchLog } = useDeleteSearchLog();
   const { mutate: deleteSearchAllLogs } = useDeleteSearchAllLogs();
-  console.log(data);
   const [recentSearch, setRecentSearch] =
     useState<RecentSearches[]>(DUMMYRECENTSEARCH);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -59,7 +58,6 @@ export default function SearchModal() {
     if (localStorage.getItem('accessToken')) {
       if (data) {
         setRecentSearch(data.result);
-        console.log(data.result);
       }
     } else {
       setRecentSearch([]);

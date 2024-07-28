@@ -46,7 +46,6 @@ export default function PaymentRedirect({
         paymentId,
         'portOne 결제 오류로 인한 취소입니다'
       );
-      console.log(response);
     }
 
     // 결제 실패 시
@@ -101,11 +100,10 @@ export default function PaymentRedirect({
           error.paymentId,
           'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
         ); // 백엔드 검증 로직 실패 시
-        console.log(response);
+        (response);
         router.replace('/');
       });
   }, []);
-  console.log(searchParams);
 
   return <TigLoadingPage />;
 }

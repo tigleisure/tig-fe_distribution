@@ -25,7 +25,6 @@ export const VisitedReviewCard = forwardRef<
     { length: (reviewList.length - 1) / 4 + 1 },
     (_, i) => i + 1
   );
-  console.log(reviewPages);
   const [selectedReviewPage, setSelectedReviewPage] = useState(1);
   const [renderingReviewList, setRenderingReviewList] = useState(reviewList.slice(0, 4));
   if (reviewList.length === 0) return <div className="pb-[78px]"></div>;

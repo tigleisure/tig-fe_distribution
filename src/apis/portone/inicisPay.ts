@@ -17,8 +17,6 @@ const handleInicisPay = async (memberId: number, currentDateString: string) => {
     },
     redirectUrl: 'https://localhost/payment/redirect',
   });
-
-  console.log(response);
 };
 
 export default handleInicisPay;

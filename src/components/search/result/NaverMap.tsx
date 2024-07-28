@@ -37,7 +37,6 @@ export default function NaverMap({
 
   useEffect(() => {
     if (isMapLoaded && mapRef.current) {
-      console.log('locationArray', locationArray);
       // Remove existing markers
       markersRef.current.forEach((marker) => marker.setMap(null));
       markersRef.current = [];

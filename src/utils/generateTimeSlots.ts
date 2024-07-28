@@ -5,7 +5,6 @@ export const generateTimeSlots = (start: string, end: string) => {
     end = '00:00';
   }
 
-  console.log(start, end);
   const timeSlots = [];
   let [startHour, startMinute] = start.split(':').map(Number);
   let [endHour, endMinute] = end.split(':').map(Number);

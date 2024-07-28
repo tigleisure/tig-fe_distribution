@@ -28,22 +28,18 @@ export default function ResultCard({
   isLast = false,
   isFirst = false,
 }: ResultCardProps) {
-  console.log('imageUrls', imageUrls);
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
   const handleFillHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    console.log('fill clicked');
     deleteFromWishList(clubId || 0);
     e.stopPropagation();
     setIsHeartClicked(false);
   };
   const handleEmptyHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
-    console.log('empty clicked');
     e.stopPropagation();
     if (!localStorage.getItem('accessToken')) {
-      console.log('로그인이 필요합니다');
       router.push('/login');
       return;
     }

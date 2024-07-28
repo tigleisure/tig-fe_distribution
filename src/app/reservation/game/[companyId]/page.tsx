@@ -21,14 +21,12 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const [endTime, setEndTime] = useState('');
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
-  console.log(data);
   const setGameReservationInfo = useGameReservationStore(
     (state) => state.setGameReservationInfo
   );
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(data);
       setStartTime(data?.result.businessHours.slice(0, 5) || '10:00');
       setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
       setClubName(data?.result.clubName || '');
