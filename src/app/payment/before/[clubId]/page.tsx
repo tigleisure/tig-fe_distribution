@@ -126,7 +126,7 @@ export default function Page({
             reservationSearchParmasObject.gameCount
           : 0
         : 0,
-      request: reservationSearchParmasObject.request || ''
+      message: reservationSearchParmasObject.request || ''
     };
 
     setFirstStageInfoObject(firstStageObjData);
