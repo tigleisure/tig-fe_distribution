@@ -33,6 +33,7 @@ interface searchParamsProps {
   clubName: string | undefined;
   address: string | undefined;
   gameType: string | undefined;
+  request: string | undefined;
 }
 
 export default function Page({
@@ -125,6 +126,7 @@ export default function Page({
             reservationSearchParmasObject.gameCount
           : 0
         : 0,
+      message: reservationSearchParmasObject.request || ''
     };
 
     setFirstStageInfoObject(firstStageObjData);

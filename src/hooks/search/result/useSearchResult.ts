@@ -4,6 +4,7 @@ import { categoryMapEngToKor } from '@constant/constant';
 import { useBottomSheetStore } from '@store/bottomSheetStore';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
+import { useSearchInputInfo } from '@store/searchInfoStore';
 import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
@@ -34,6 +35,8 @@ export const useSearchResult = (search: string) => {
   const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(search);
   const { data: unLoginUserSearchResult } =
     useGetUnLoginUserSearchedResult(search);
+
+  const setSearchInput = useSearchInputInfo((state) => state.setSearchInput);
 
   useEffect(() => {
     if (localStorage.getItem('accessToken')) {
@@ -94,6 +97,18 @@ export const useSearchResult = (search: string) => {
   useEffect(() => {
     setIsBottomSheetOpen(true);
   }, [selectedTab]);
+
+  useEffect(() => {
+    return () => {
+      setSearchInput({
+        searchDate: '',
+        searchValue: '',
+        adultCount: 0,
+        teenagerCount: 0,
+        kidsCount: 0,
+      });
+    };
+  }, []);
 
   const handleMyLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {
