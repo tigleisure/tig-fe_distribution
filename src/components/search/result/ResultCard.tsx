@@ -30,7 +30,6 @@ export default function ResultCard({
 }: ResultCardProps) {
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
-  console.log(isHeartClicked);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
   const handleFillHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {

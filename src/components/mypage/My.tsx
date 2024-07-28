@@ -17,13 +17,14 @@ export default function My() {
       <div className="w-eightNineWidth mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
         {/* <MyProfileDefaultImage /> */}
         {data.result.profileImage ? (
-          <Image
-            src={data.result.profileImage}
-            alt="프로필 이미지"
-            className="rounded-[50%]"
-            width={80}
-            height={80}
-          />
+          <div className="relative w-[80px] h-[80px] rounded-full overflow-hidden">
+            <Image
+              src={data.result.profileImage}
+              alt="프로필 이미지"
+              className="object-cover"
+              layout="fill"
+            />
+          </div>
         ) : (
           <MyProfileDefaultImage />
         )}

@@ -50,7 +50,7 @@ export default function Calender() {
   };
   const calendarList = createCalendarList(calendarMonth);
   const handleClickDate = (date: Date) => {
-    if (date < subDays(new Date(), 1)){
+    if (date < subDays(new Date(), 1)) {
       return;
     }
     const formattedDate = formatDate(date, "yyyy-MM-dd'T'HH:mm:ss");
@@ -60,6 +60,21 @@ export default function Calender() {
       setTimeReservationInfo({ ...timeReservationInfo, date: formattedDate });
     } else {
       setSearchInputInfo({ ...searchInputInfo, searchDate: formattedDate });
+    }
+
+    if (date.getMonth() < calendarMonth.getMonth()) {
+      if (date.getMonth() === 0) {
+        setCalendarMonth(addMonths(calendarMonth, 1));
+      } else {
+        setCalendarMonth(subMonths(calendarMonth, 1));
+      }
+    } else if (date.getMonth() > calendarMonth.getMonth()) {
+      if (date.getMonth() === 11) {
+        console.log(date.getMonth(), calendarMonth.getMonth());
+        setCalendarMonth(subMonths(calendarMonth, 1));
+      } else {
+        setCalendarMonth(addMonths(calendarMonth, 1));
+      }
     }
     setSelectedDate(formattedDate);
   };
@@ -112,8 +127,10 @@ export default function Calender() {
                     className={cn(
                       'w-[44px] h-[44px] grey6 flex justify-center items-center cursor-pointer body2',
                       {
-                        'rounded-full bg-primary_orange1 text-white': isSelected,
-                        'text-grey3': day.getMonth() !== calendarMonth.getMonth() || isPast,
+                        'rounded-full bg-primary_orange1 text-white':
+                          isSelected,
+                        'text-grey3':
+                          day.getMonth() !== calendarMonth.getMonth() || isPast,
                         'line-through': isPast,
                         'cursor-not-allowed': isPast,
                       }
