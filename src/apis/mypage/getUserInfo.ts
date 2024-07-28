@@ -1,5 +1,5 @@
 import { instance } from '@apis/instance';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { UserInfoResponse } from 'types/response/response';
 
 const getUserInfo = async (): Promise<UserInfoResponse> => {
@@ -7,5 +7,5 @@ const getUserInfo = async (): Promise<UserInfoResponse> => {
 };
 
 export const useGetUserInfo = () => {
-  return useQuery({ queryKey: ['userInfo'], queryFn: getUserInfo });
+  return useSuspenseQuery({ queryKey: ['userInfo'], queryFn: getUserInfo });
 };
