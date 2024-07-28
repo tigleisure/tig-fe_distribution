@@ -239,6 +239,7 @@ export default function FullButton({
                       ? firstStageInfoObject.endTime
                       : undefined,
                   gameCount: firstStageInfoObject.gameCount,
+                  request: firstStageInfoObject.request,
                   price:
                     secondStageInfoObject.price -
                     secondStageInfoObject.couponDiscountPrice,
@@ -317,6 +318,7 @@ export default function FullButton({
                       ? firstStageInfoObject.endTime
                       : undefined,
                   gameCount: firstStageInfoObject.gameCount,
+                  request: firstStageInfoObject.request,
                   price:
                     secondStageInfoObject.price -
                     secondStageInfoObject.couponDiscountPrice,

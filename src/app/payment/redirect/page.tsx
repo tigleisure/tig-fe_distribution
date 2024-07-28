@@ -71,6 +71,7 @@ export default function PaymentRedirect({
             endTime: (searchParams.endTime as string)
               ? (searchParams.endTime as string)
               : undefined,
+            request: searchParams.request as string,
             gameCount: parseInt(searchParams.gameCount as string),
             price: parseInt(searchParams.paymentPrice as string),
             status: 'TBC',
