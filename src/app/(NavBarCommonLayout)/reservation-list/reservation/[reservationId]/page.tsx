@@ -41,6 +41,7 @@ export default async function page({
           cancelAvailableDate="2024년 08월 02일 13:00"
           status={data.result.status}
           paymentId={data.result.paymentId}
+          message={data.result.message}
         />
       </main>
     </div>

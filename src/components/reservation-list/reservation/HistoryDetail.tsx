@@ -5,6 +5,7 @@ import PriceInfoSection from './PriceInfoSection';
 import TotalPriceSection from './TotalPriceSection';
 import ReservationCancelSection from './ReservationCancelSection';
 import { ReservationDetailProps } from 'types/reservation-list/reservation/ReservationDetailType';
+import RequestMessageSection from './RequestMessageSection';
 
 export default function HistoryDetail({
   imageUrl,
@@ -28,6 +29,7 @@ export default function HistoryDetail({
   cancelAvailableDate,
   status,
   paymentId,
+  message,
 }: ReservationDetailProps) {
   return (
     <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[30px] bg-white shadow-myPageLogoutButton">
@@ -58,6 +60,8 @@ export default function HistoryDetail({
       />
       <div className="w-full border-[1px] border-grey2" />
       <TotalPriceSection totalPrice={price + feePrice - couponDiscountPrice} />
+      <div className="w-full border-[1px] border-grey2" />
+      <RequestMessageSection message={message} />
       <div className="w-full border-[1px] border-grey2" />
       <ReservationCancelSection
         cancelAvailableDate={cancelAvailableDate}
