@@ -23,6 +23,7 @@
       "@assets/*": ["./assets/*"],
       "@styles/*": ["./styles/*"],
       "@store/*": ["./store/*"],
+      "@lib/*": ["./lib/*"],
       "@context/*": ["./context/*"],
       "@constant/*": ["./constant/*"],
       "@hooks/*": ["./hooks/*"],

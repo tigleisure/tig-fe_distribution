@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import Head from 'next/head';
 import ReactQueryProvider from '@providers/ReactQueryProvider';
+import GoogleAnalytics from '@lib/GoogleAnalytics';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -38,6 +39,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
+        {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
+        ) : null}
         <ReactQueryProvider>{children}</ReactQueryProvider>
       </body>
     </html>
