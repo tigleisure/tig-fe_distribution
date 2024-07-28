@@ -9,7 +9,6 @@ export default function PriceInfoSection({
   feePrice,
   couponDiscountPrice,
 }: PriceInfoProps) {
-  console.log(reservationPrice);
   return (
     <section className="w-full h-fit flex flex-col items-start gap-y-5">
       <div className="title3 text-grey7">결제 금액</div>
