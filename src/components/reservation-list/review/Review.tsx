@@ -32,7 +32,6 @@ export default function Review({
         kidsCount={kidsCount}
       />
       <div className="w-full border-[1px] border-grey2" />
-
       <ReviewLowerSection
         userName={reservationUserName}
         startTime={eventDate}
