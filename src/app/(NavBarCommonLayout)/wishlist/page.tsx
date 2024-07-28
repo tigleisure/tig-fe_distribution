@@ -10,7 +10,7 @@ export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
   const { data: wishList } = useGetWishList();
   const [filteredWishList, setFilteredWishList] = useState(wishList.result);
-  
+
   useEffect(() => {
     if (selectedTab === '전체') {
       setFilteredWishList(wishList.result);

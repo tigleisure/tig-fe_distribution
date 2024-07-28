@@ -18,8 +18,6 @@ import handleTossEasyPay from '@apis/portone/tossEasyPay';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import { usePostReservation } from '@apis/payment/before/postReservation';
 import makePaymentId from '@utils/makePaymentId';
-import { AxiosResponse } from 'axios';
-import { kakaoEasyPayBackendResponse } from '@apis/portone/kakaoEasyPay';
 import { CustomPaymentError } from '@apis/portone/CustomPaymentError';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 
@@ -248,7 +246,7 @@ export default function FullButton({
                   paymentId: customPaymentId,
                 },
                 {
-                  onSuccess(data, variables, context) {
+                  onSuccess(data) {
                     router.replace(
                       `/payment/after/${data.result.reservationId}`
                     );
@@ -271,7 +269,6 @@ export default function FullButton({
               error.paymentId,
               error.cancelReason
             );
-            console.log(response);
             router.replace('/');
           })
           .finally(() => console.log('over'));
@@ -327,7 +324,7 @@ export default function FullButton({
                   paymentId: customPaymentId,
                 },
                 {
-                  onSuccess(data, variables, context) {
+                  onSuccess(data) {
                     router.replace(
                       `/payment/after/${data.result.reservationId}`
                     );
@@ -350,16 +347,10 @@ export default function FullButton({
               error.paymentId,
               error.cancelReason
             );
-            console.log(response);
             router.replace('/');
           })
           .finally(() => console.log('over'));
       }
-
-      // 백엔드 전송 로직
-      // 실제로는 companyId를 다음 주소로 넘겨야함
-      // router.replace(`/payment/after/${firstStageInfoObject.clubName}`);
-      // /payment/after/{reservationId}로 넘겨야함
     }
   }
 
