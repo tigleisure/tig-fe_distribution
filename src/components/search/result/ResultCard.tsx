@@ -24,10 +24,11 @@ export default function ResultCard({
   type,
   isEvent = false,
   isHeart = false,
-  imageUrls,
+  imageUrls = [],
   isLast = false,
   isFirst = false,
 }: ResultCardProps) {
+  console.log('imageUrls', imageUrls);
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
@@ -68,12 +69,13 @@ export default function ResultCard({
       )}
     >
       <div className="relative shrink-0">
-        <Image
-          src={'/png/dummyImage.png'}
-          alt={clubName}
-          width={128}
-          height={128}
-        />
+        <div className='relative w-[128px] h-[128px] rounded-[10px] overflow-hidden'>
+          <Image
+            src={imageUrls.length !== 0 ? imageUrls[0] : '/png/dummyImage.png'}
+            alt='업체 사진'
+            fill
+          />
+        </div>
         {isEvent && <DiscountSVG className="absolute top-2 left-2" />}
         {isHeartClicked ? (
           <FillHeartSVG
