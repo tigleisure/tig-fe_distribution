@@ -1,4 +1,3 @@
-import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import ProfileInformationItem from './ProfileInformationItem';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import Lottie from 'lottie-react';

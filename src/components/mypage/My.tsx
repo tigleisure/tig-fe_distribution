@@ -1,21 +1,17 @@
 'use client';
 import MyProfileDefaultImage from '@public/svg/myProfileDefaultImage.svg';
 import ProfileInformation from './ProfileInformation';
-import ToastUI from './ToastUI';
 import useModal from '@store/modalStore';
 import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import Image from 'next/image';
-import TigLoadingPage from '@components/all/TigLoadingPage';
 
 export default function My() {
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
-  const { data, isSuccess } = useGetUserInfo();
-  console.log(data?.result);
-  if (!isSuccess) return <TigLoadingPage />;
+  const { data } = useGetUserInfo();
+
   return (
     <div className="w-full flex flex-col items-center absolute top-[68px] pt-5">
       <div className="w-eightNineWidth mypageWidth h-fit flex flex-col items-center gap-y-[30px] mb-[30px]">
-        {/* <MyProfileDefaultImage /> */}
         {data.result.profileImage ? (
           <div className="relative w-[80px] h-[80px] rounded-full overflow-hidden">
             <Image

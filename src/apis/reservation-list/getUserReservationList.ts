@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { ReservationItemProps } from 'types/reservation-list/ReservationListPageTypes';
 import { instance } from '@apis/instance';
 
@@ -14,7 +14,7 @@ export const getUserReservationList =
   };
 
 export const useGetReservationList = () => {
-  return useQuery({
+  return useSuspenseQuery({
     queryKey: ['userReservationList'],
     queryFn: getUserReservationList,
   });
