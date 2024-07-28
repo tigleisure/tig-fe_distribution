@@ -2,7 +2,6 @@ import {
   formatReservationShowingDate,
   extractOnlyTime,
 } from '@utils/formatDate';
-import { start } from 'repl';
 
 interface BeforeFirstStageCardProps {
   clubName: string;
@@ -29,9 +28,6 @@ export default function BeforeFirstStageCard({
   gameCount,
   price,
 }: BeforeFirstStageCardProps) {
-  console.log(clubAddress);
-  console.log(gameCount);
-  console.log(endTime);
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
       <div className="w-sevenEightWidth h-fit flex flex-col gap-y-5">
@@ -59,9 +55,9 @@ export default function BeforeFirstStageCard({
         <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey4">이용 시간</span>
           <span className="body4 text-grey6">
-            {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
+            {/* {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
               ? '오전'
-              : '오후'}{' '}
+              : '오후'}{' '} */}
             {extractOnlyTime(startTime)} {endTime === '' ? '시작' : '- '}
             {endTime ? extractOnlyTime(endTime) : null}
           </span>

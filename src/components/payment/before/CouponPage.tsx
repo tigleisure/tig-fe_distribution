@@ -146,7 +146,6 @@ function CouponItem({
   handleCancelCoupon,
   couponIndex,
 }: couponItemDetail) {
-  console.log(selectedCouponNumber, couponIndex);
   return (
     <section
       className={cn(

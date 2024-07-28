@@ -21,9 +21,6 @@ export default function HistoryComponentUpperSection({
   kidsCount,
   className,
 }: HistoryComponentUpperSectionProps) {
-  console.log(teenagerCount);
-  console.log(kidsCount);
-  console.log(adultCount);
   return (
     <section
       id="this-is-upper-section"

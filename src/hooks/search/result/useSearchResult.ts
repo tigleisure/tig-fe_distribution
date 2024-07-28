@@ -8,6 +8,7 @@ import { useSearchInputInfo } from '@store/searchInfoStore';
 import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
+import { formatDate } from 'date-fns';
 
 export const useSearchResult = (search: string) => {
   const [isResult, setIsResult] = useState(false);
@@ -101,8 +102,8 @@ export const useSearchResult = (search: string) => {
   useEffect(() => {
     return () => {
       setSearchInput({
-        searchDate: '',
         searchValue: '',
+        searchDate: formatDate(new Date(), "yyyy-MM-dd'T'00:00:00"),
         adultCount: 0,
         teenagerCount: 0,
         kidsCount: 0,

@@ -18,7 +18,6 @@ export default function HistoryEndItem({
   reservationId,
   reviewId,
 }: HistoryEndItemProps) {
-  console.log(reviewId);
   return (
     <Link
       href={`/reservation-list/reservation/${reservationId}`}

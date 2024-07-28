@@ -1,6 +1,5 @@
 'use client';
 import { usePathname, useRouter } from 'next/navigation';
-import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reservation/getUserSpecificReservationInfo';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useQueryClient } from '@tanstack/react-query';
@@ -20,10 +19,6 @@ export default function ReservationCancelSection({
   const pathname = usePathname();
   const reservationId = pathname.split('/').at(-1);
   const router = useRouter();
-
-  const { data } = useGetUserSpecificReservationInfo(
-    parseInt(reservationId as string)
-  );
 
   const queryClient = useQueryClient();
 
