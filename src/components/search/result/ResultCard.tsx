@@ -30,6 +30,7 @@ export default function ResultCard({
   isLast = false,
   isFirst = false,
 }: ResultCardProps) {
+  console.log(date);
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();

@@ -73,7 +73,6 @@ export default function Page({
     message: '',
     reviewed: false,
   });
-  console.log(data);
   const setIsModalOpen = useModal((state) => state.setSelectedIsModalOpen);
   useEffect(() => {
     const fetchReservation = async () => {
@@ -83,7 +82,6 @@ export default function Page({
       );
       const data = await response.json();
       setData(data.result);
-
     };
     fetchReservation();
     return () => {

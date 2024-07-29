@@ -7,6 +7,7 @@ import ReservationCancelSection from './ReservationCancelSection';
 import { ReservationDetailProps } from 'types/reservation-list/reservation/ReservationDetailType';
 import RequestMessageSection from './RequestMessageSection';
 import { useRouter } from 'next/navigation';
+import { formatDate } from 'date-fns';
 
 export default function HistoryDetail({
   imageUrl,
@@ -47,7 +48,7 @@ export default function HistoryDetail({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
         onClick={()=>{
-          router.push(`/detail-page/${clubId}`)
+          router.push(`/detail-page/${clubId}?date=${formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss")}`)
         }}
       />
       <div className="w-full border-[1px] border-grey2" />
