@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     ],
     type: 'website',
   },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
@@ -39,9 +42,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <Head>
-        <meta name="format-detection" content="telephone=no" />
-      </Head>
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
