@@ -124,6 +124,7 @@ export default function Page({
           status={data.status}
           paymentId={data.paymentId}
           message={data.message}
+          clubId={String(data.clubId)}
         />
         <Modal
           size="lg"

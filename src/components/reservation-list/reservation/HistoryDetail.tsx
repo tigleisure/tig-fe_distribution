@@ -6,6 +6,7 @@ import TotalPriceSection from './TotalPriceSection';
 import ReservationCancelSection from './ReservationCancelSection';
 import { ReservationDetailProps } from 'types/reservation-list/reservation/ReservationDetailType';
 import RequestMessageSection from './RequestMessageSection';
+import { useRouter } from 'next/navigation';
 
 export default function HistoryDetail({
   imageUrl,
@@ -30,7 +31,9 @@ export default function HistoryDetail({
   status,
   paymentId,
   message,
+  clubId,
 }: ReservationDetailProps) {
+  const router = useRouter();
   return (
     <div className="mt-[20px] mb-[80px] p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-[30px] bg-white shadow-myPageLogoutButton">
       <HistoryComponentUpperSection
@@ -43,6 +46,9 @@ export default function HistoryDetail({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
+        onClick={()=>{
+          router.push(`/detail-page/${clubId}`)
+        }}
       />
       <div className="w-full border-[1px] border-grey2" />
       <ReservationInfoSection

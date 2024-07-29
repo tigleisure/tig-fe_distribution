@@ -55,6 +55,7 @@ export interface HistoryComponentUpperSectionProps
     | 'handleChangeCancelReservationId'
   > {
   className?: string;
+  onClick?: () => void;
 }
 
 export interface HistoryEndItemProps

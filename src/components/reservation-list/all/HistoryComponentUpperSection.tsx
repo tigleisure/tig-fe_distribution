@@ -20,11 +20,13 @@ export default function HistoryComponentUpperSection({
   teenagerCount,
   kidsCount,
   className,
+  ...props
 }: HistoryComponentUpperSectionProps) {
   return (
     <section
       id="this-is-upper-section"
-      className={cn('w-full h-fit flex  gap-x-4', className)}
+      className={cn('w-full h-fit flex  gap-x-4 cursor-pointer', className)}
+      {...props}
     >
       <NullImageSVG className="shrink-0" />
       <div className="h-fit flex flex-col justify-between items-start gap-y-3 grow txt-overflow-ellipsis">
