@@ -33,7 +33,7 @@ export default function Page() {
     <main className="w-full h-full flex justify-center items-center text-[200px]">
       <SearchHeader
         result
-        placeholder={`${search}, ${formattedDate}${
+        placeholder={`${decodeURIComponent(search)}, ${formattedDate}${
           adultCount === '0' ? '' : `, 성인 ${adultCount}명`
         }${teenagerCount === '0' ? '' : `, 청소년 ${teenagerCount}명`}${
           kidsCount === '0' ? '' : `, 어린이 ${kidsCount}명 `
