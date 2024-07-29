@@ -8,11 +8,13 @@ import MylocationSVG from '@public/svg/myLocation.svg';
 interface BottomSheetProps {
   results: ResultCardProps[];
   handleMyLocation?: () => void;
+  date: string;
 }
 
 export default function BottomSheet({
   results,
   handleMyLocation,
+  date,
 }: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
@@ -58,11 +60,25 @@ export default function BottomSheet({
             </div>
           )}
           {results.map((result, idx) => {
-            if(idx === 0)
-              return <ResultCard key={result.clubId} {...result} isFirst />
+            if (idx === 0)
+              return (
+                <ResultCard
+                  key={result.clubId}
+                  {...result}
+                  isFirst
+                  date={date}
+                />
+              );
             if (idx === results.length - 1)
-              return <ResultCard key={result.clubId} {...result} isLast />;
-            return <ResultCard key={result.clubId} {...result} />;
+              return (
+                <ResultCard
+                  key={result.clubId}
+                  {...result}
+                  isLast
+                  date={date}
+                />
+              );
+            return <ResultCard key={result.clubId} {...result} date={date} />;
           })}
         </Sheet.Content>
       </Sheet.Container>

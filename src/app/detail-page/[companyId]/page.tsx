@@ -74,6 +74,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
   // useIntersectionObserver(visitedReviewRef, () => setSelectedTab('방문자 리뷰'),1);
   const [imageCount, setImageCount] = useState(0);
   const [back, setBack] = useState(false);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (selectedTab === '기본정보') {
@@ -183,20 +184,20 @@ export default function Page({ params }: { params: { companyId: string } }) {
     entry: (back: boolean) => ({
       x: back ? -500 : 500,
       opacity: 0,
-      scale: 0
+      scale: 0,
     }),
     center: {
       opacity: 1,
       x: 0,
       scale: 1,
-      transition: { duration: 0.5 }
+      transition: { duration: 0.5 },
     },
     exit: (back: boolean) => ({
       x: back ? 500 : -500,
       opacity: 0,
       scale: 0,
-      transition: { duration: 0.5 }
-    })
+      transition: { duration: 0.5 },
+    }),
   };
 
   if (!isSuccessInfo1 || !isSuccessInfo2) {
@@ -254,8 +255,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
                   : '/png/dummyDetailImage.png'
               }
               alt="업체 이미지"
-            >
-            </motion.img>
+            ></motion.img>
           </AnimatePresence>
         </div>
       </div>
@@ -271,6 +271,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <ResButtonCard
         companyId={params.companyId}
         type={clubInfo.type || 'TIME'}
+        date={searchParams.get('date') || ''}
       />
     </main>
   );

@@ -61,12 +61,14 @@ export default function Page() {
         <BottomSheet
           results={filteredSearchResult}
           handleMyLocation={handleMyLocation}
+          date={date}
         />
       )}
       {!isBottomSheetOpen && (
         <PinCard
           PinCard={filteredSearchResult[pinCardIndex]}
           handleMyLocation={handleMyLocation}
+          date={date}
         />
       )}
       {!isResult && <NoSearchResult results={recommendedResult} />}

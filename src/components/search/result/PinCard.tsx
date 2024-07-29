@@ -7,9 +7,14 @@ import { useBottomSheetStore } from '@store/bottomSheetStore';
 interface PinCardProps {
   PinCard: ResultCardProps;
   handleMyLocation?: () => void;
+  date: string;
 }
 
-export default function PinCard({ PinCard, handleMyLocation }: PinCardProps) {
+export default function PinCard({
+  PinCard,
+  handleMyLocation,
+  date,
+}: PinCardProps) {
   const setIsBottomSheetOpen = useBottomSheetStore(
     (state) => state.setIsBottomSheetOpen
   );
@@ -30,7 +35,7 @@ export default function PinCard({ PinCard, handleMyLocation }: PinCardProps) {
           onClick={handleMyLocation}
         />
       </div>
-      <ResultCard {...PinCard} />
+      <ResultCard {...PinCard} date={date} />
     </article>
   );
 }

@@ -11,6 +11,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
+import { formatDate } from 'date-fns';
 
 export default function ResultCard({
   clubName,
@@ -22,6 +23,7 @@ export default function ResultCard({
   avgRating,
   price,
   type,
+  date = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   isEvent = false,
   isHeart = false,
   imageUrls = [],
@@ -54,7 +56,7 @@ export default function ResultCard({
   return (
     <section
       onClick={() => {
-        router.push(`/detail-page/${clubId}`);
+        router.push(`/detail-page/${clubId}?date=${date}`);
       }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',
@@ -65,10 +67,10 @@ export default function ResultCard({
       )}
     >
       <div className="relative shrink-0">
-        <div className='relative w-[128px] h-[128px] rounded-[10px] overflow-hidden'>
+        <div className="relative w-[128px] h-[128px] rounded-[10px] overflow-hidden">
           <Image
             src={imageUrls.length !== 0 ? imageUrls[0] : '/png/dummyImage.png'}
-            alt='업체 사진'
+            alt="업체 사진"
             fill
           />
         </div>
