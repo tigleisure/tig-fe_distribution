@@ -4,6 +4,7 @@ import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reserva
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useQueryClient } from '@tanstack/react-query';
 import handleSendTigCancelFailToDiscord from '@apis/discord/sendBackendCancelFailMessageToDiscord';
+import useModal from '@store/modalStore';
 
 interface ReservationCancelProps {
   cancelAvailableDate: string;
@@ -17,12 +18,8 @@ export default function ReservationCancelSection({
   paymentId,
 }: ReservationCancelProps) {
   const pathname = usePathname();
-  const reservationId = pathname.split('/').at(-1);
-  const router = useRouter();
 
-  const queryClient = useQueryClient();
-
-  const cancelReservationMutation = useDeleteUserSpecificReservation();
+  const setIsModalOpen = useModal((state) => state.setSelectedIsModalOpen);
 
   return (
     <section className="w-full h-fit flex flex-col items-start gap-y-5 ">
@@ -35,37 +32,8 @@ export default function ReservationCancelSection({
       {status === 'TBC' || status === 'CONFIRMED' ? (
         <button
           className="w-[72px] h-[33px] rounded-[4px] bg-white text-status_red1 body4 shadow-cancelButton"
-          onClick={async () => {
-            const cancelPortOneResponse = await cancelPortOnePayment(
-              paymentId,
-              '고객에 의한 예약 취소입니다'
-            );
-
-            if (cancelPortOneResponse.status !== 'SUCCEEDED') {
-              alert(
-                '결제 취소 요청이 실패했습니다! TIG 팀에 문의주시면 감사하겠습니다'
-              );
-            } else {
-              cancelReservationMutation.mutate(
-                parseInt(reservationId as string),
-                {
-                  onSuccess(data, variables, context) {
-                    queryClient.invalidateQueries({
-                      queryKey: ['userReservationList'],
-                    });
-                    if (data.resultCode === 200) {
-                      router.replace('/');
-                    } else {
-                      // Discord로 기획 쪽에 알리는 로직
-                      handleSendTigCancelFailToDiscord(
-                        parseInt(reservationId as string),
-                        paymentId
-                      );
-                    }
-                  },
-                }
-              );
-            }
+          onClick={() => {
+            setIsModalOpen(true);
           }}
         >
           예약취소

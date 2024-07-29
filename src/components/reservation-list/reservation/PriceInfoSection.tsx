@@ -5,9 +5,9 @@ interface PriceInfoProps {
 }
 
 export default function PriceInfoSection({
-  reservationPrice,
-  feePrice,
-  couponDiscountPrice,
+  reservationPrice = 0,
+  feePrice = 0,
+  couponDiscountPrice = 0,
 }: PriceInfoProps) {
   return (
     <section className="w-full h-fit flex flex-col items-start gap-y-5">
