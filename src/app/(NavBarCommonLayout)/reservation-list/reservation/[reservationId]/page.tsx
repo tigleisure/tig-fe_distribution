@@ -31,8 +31,8 @@ export default async function page({
           teenagerCount={data.result.teenagerCount}
           kidsCount={data.result.kidsCount}
           reservationId={data.result.reservationId}
-          memberName={data.result.memberName}
-          phoneNumber="010-4925-1427"
+          memberName={data.result.userName}
+          phoneNumber={data.result.phoneNumber}
           paymentTime={data.result.updatedAt}
           payMethod={data.result.provider}
           price={data.result.price}
