@@ -78,6 +78,11 @@ export default function Calender() {
     setSelectedDate(formattedDate);
   };
 
+  useEffect(() => {
+    setCalendarMonth(new Date(selectedDate));
+  }, [selectedDate]);
+  console.log(calendarMonth);
+
   return (
     <section className="w-full flex flex-col gap-[6px] items-center self-center">
       <div className="flex justify-between gap-2 items-center mb-[14px]">
@@ -116,8 +121,10 @@ export default function Calender() {
                 const isSelected =
                   day.getMonth() ===
                     parseInt(selectedDate.substring(5, 7), 10) - 1 &&
-                  day.getDate() === parseInt(selectedDate.substring(8, 10), 10) &&
-                  day.getFullYear() === parseInt(selectedDate.substring(0, 4), 10);
+                  day.getDate() ===
+                    parseInt(selectedDate.substring(8, 10), 10) &&
+                  day.getFullYear() ===
+                    parseInt(selectedDate.substring(0, 4), 10);
                 return (
                   <div
                     key={idx}
