@@ -4,6 +4,7 @@ import './globals.css';
 import Head from 'next/head';
 import ReactQueryProvider from '@providers/ReactQueryProvider';
 import GoogleAnalytics from '@lib/GoogleAnalytics';
+import ObserveRouteLogin from '@components/all/ObserveRouteLogin';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -43,6 +44,7 @@ export default function RootLayout({
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         ) : null}
         <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ObserveRouteLogin />
       </body>
     </html>
   );
