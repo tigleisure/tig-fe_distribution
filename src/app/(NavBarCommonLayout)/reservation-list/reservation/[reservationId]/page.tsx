@@ -51,7 +51,7 @@ export default function Page({
     teenagerCount: 0,
     kidsCount: 0,
     date: '',
-    startTime: '',
+    startTime: '2024-01-01T00:00:00',
     endTime: '',
     gameCount: 0,
     price: 1000,
@@ -120,7 +120,7 @@ export default function Page({
           price={data.price}
           feePrice={0} // 추후에 백엔드에서 보내줄 필요가 있음
           couponDiscountPrice={0} // 백엔드에서 보내줄 필요가 있음
-          cancelAvailableDate="2024년 08월 02일 13:00"
+          cancelAvailableDate={data.startTime} // 시작시간 하루 전까지 취소가능
           status={data.status}
           paymentId={data.paymentId}
           message={data.message}
