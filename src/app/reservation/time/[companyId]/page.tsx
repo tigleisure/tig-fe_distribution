@@ -17,6 +17,7 @@ import TigLoadingPage from '@components/all/TigLoadingPage';
 import { set } from 'date-fns';
 import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
+import { useSelectedDate } from '@store/selectedDateStore';
 
 const DUMMYPRICE = '10,000';
 
@@ -35,6 +36,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const setTimeReservationInfo = useTimeReservationStore(
     (state) => state.setTimeReservationInfo
   );
+  const setSelectedDate = useSelectedDate((state) => state.setSelectedDate);
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,6 +48,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
         ...timeReservationInfo,
         date: searchParam.get('date') || '',
       });
+    setSelectedDate(searchParam.get('date') || '');
     }
     // 언마운트될 때 다시 초기화
     return () => setTimeReservationInfo(timeReservationInfoInitialState);
