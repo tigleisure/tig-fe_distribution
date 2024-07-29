@@ -116,7 +116,8 @@ export default function Calender() {
                 const isSelected =
                   day.getMonth() ===
                     parseInt(selectedDate.substring(5, 7), 10) - 1 &&
-                  day.getDate() === parseInt(selectedDate.substring(8, 10), 10);
+                  day.getDate() === parseInt(selectedDate.substring(8, 10), 10) &&
+                  day.getFullYear() === parseInt(selectedDate.substring(0, 4), 10);
                 return (
                   <div
                     key={idx}
