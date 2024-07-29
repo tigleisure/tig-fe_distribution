@@ -42,17 +42,20 @@ export default function BeforeSecondStageUserInfoCard({
         <span className="title3 text-grey7">예약 고객</span>
         <div className="w-full border-b-[1px] border-grey2" />
       </div>
-      <div className="w-sevenEightWidth flex justify-between items-center gap-x-[43px]">
-        <span className="title4 w-[21px] text-grey6">이름</span>
+      <div className="w-sevenEightWidth flex justify-between items-center">
+      <span className="w-[40px] flex gap-x-[1px] items-center title4 text-grey6 ">
+          {'이름'}
+          <div className="h-full title4 text-status_red1">*</div>
+        </span>
         <input
           type="text"
           value={userName}
           onChange={handleChangeUserNameInput}
           placeholder="예약자명 입력"
-          className="title4 w-[80%] border-b-[1px] border-grey3 !leading-[1.4] !tracking-[-0.02em] p-1"
+          className="title4 w-[80%] border-b-[1px] border-grey3 !leading-[1.4] !tracking-[-0.02em] p-1 placeholder:font-medium placeholder:leading-[1.4] placeholder:tracking-[-0.02em] placeholder:text-grey3"
         />
       </div>
-      <div className="w-sevenEightWidth flex justify-between items-center gap-x-6">
+      <div className="w-sevenEightWidth flex justify-between items-center">
         <span className="w-[40px] flex gap-x-[1px] items-center title4 text-grey6 ">
           {'연락처'}
           <div className="h-full title4 text-status_red1">*</div>

@@ -158,7 +158,7 @@ export default function FullButton({
     }
 
     if (clickTask === 'request-payment') {
-      if (secondStageInfoObject.phoneNumber === '') {
+      if (secondStageInfoObject.phoneNumber === '' || secondStageInfoObject.userName === '') {
         setSelectedIsModalOpen(true);
         return;
       }
