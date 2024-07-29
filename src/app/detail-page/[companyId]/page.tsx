@@ -94,43 +94,43 @@ export default function Page({ params }: { params: { companyId: string } }) {
     }
   }, [specificInfoForGuest, specificInfoForUser]);
 
-  useEffect(() => {
-    // 처음 마운트 될 때 ref 간의 거리 차이를 계산함. 이건 calculate scroll 함수가 선언될 시점의 고정 값임 -> 클로저 개념ㄴ
-    const originReviewDetailDiff =
-      (reviewRef.current?.getBoundingClientRect().y as number) -
-      (detailInfoRef.current?.getBoundingClientRect().y as number);
+  // useEffect(() => {
+  //   // 처음 마운트 될 때 ref 간의 거리 차이를 계산함. 이건 calculate scroll 함수가 선언될 시점의 고정 값임 -> 클로저 개념ㄴ
+  //   const originReviewDetailDiff =
+  //     (reviewRef.current?.getBoundingClientRect().y as number) -
+  //     (detailInfoRef.current?.getBoundingClientRect().y as number);
 
-    const originReviewServiceDiff =
-      (reviewRef.current?.getBoundingClientRect().y as number) -
-      (serviceRef.current?.getBoundingClientRect().y as number);
+  //   const originReviewServiceDiff =
+  //     (reviewRef.current?.getBoundingClientRect().y as number) -
+  //     (serviceRef.current?.getBoundingClientRect().y as number);
 
-    function calculateScroll() {
-      // 중간에 스크롤되다가 setSelectedTab('편의시설')에 걸리면 안되니까 가장 아래 요소인 reviewRef의 높이를 기준으로 감지
-      const reviewRefYValue = reviewRef.current?.getBoundingClientRect().y;
+  //   function calculateScroll() {
+  //     // 중간에 스크롤되다가 setSelectedTab('편의시설')에 걸리면 안되니까 가장 아래 요소인 reviewRef의 높이를 기준으로 감지
+  //     const reviewRefYValue = reviewRef.current?.getBoundingClientRect().y;
 
-      if (reviewRefYValue === originReviewDetailDiff) {
-        setSelectedTab('기본정보');
-      }
+  //     if (reviewRefYValue === originReviewDetailDiff) {
+  //       setSelectedTab('기본정보');
+  //     }
 
-      if (
-        (reviewRefYValue as number) >= 1 &&
-        (reviewRefYValue as number) <= originReviewServiceDiff
-      ) {
-        setSelectedTab('편의시설');
-      }
+  //     if (
+  //       (reviewRefYValue as number) >= 1 &&
+  //       (reviewRefYValue as number) <= originReviewServiceDiff
+  //     ) {
+  //       setSelectedTab('편의시설');
+  //     }
 
-      // 방문자 리뷰 탭 쪽에서 reviewRefYValue가 디바이스별로 항상 0. 몇 뭐시기 정도 나옴
-      if ((reviewRefYValue as number) < 1) {
-        setSelectedTab('방문자 리뷰');
-      }
-    }
+  //     // 방문자 리뷰 탭 쪽에서 reviewRefYValue가 디바이스별로 항상 0. 몇 뭐시기 정도 나옴
+  //     if ((reviewRefYValue as number) < 1) {
+  //       setSelectedTab('방문자 리뷰');
+  //     }
+  //   }
 
-    const intervalId = setInterval(calculateScroll, 10);
+  //   const intervalId = setInterval(calculateScroll, 10);
 
-    return () => {
-      clearInterval(intervalId);
-    };
-  }, []);
+  //   return () => {
+  //     clearInterval(intervalId);
+  //   };
+  // }, []);
 
   const scrollToDetailInfoRef = () => {
     if (detailInfoRef.current) {
