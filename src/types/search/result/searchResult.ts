@@ -22,5 +22,4 @@ export interface ResultCardProps {
   longitude?: number;
   isFirst?: boolean;
   distance?: number;
-  date?: string;
 }

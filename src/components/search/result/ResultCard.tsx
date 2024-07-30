@@ -8,7 +8,7 @@ import DiscountSVG from '@public/svg/discount.svg';
 import Link from 'next/link';
 import { cn } from '@utils/cn';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
 import { formatDate } from 'date-fns';
@@ -23,18 +23,17 @@ export default function ResultCard({
   avgRating,
   price,
   type,
-  date = formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   isEvent = false,
   isHeart = false,
   imageUrls = [],
   isLast = false,
   isFirst = false,
 }: ResultCardProps) {
-  console.log(date);
   const router = useRouter();
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
+  const searchParams = useSearchParams();
   const handleFillHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
     deleteFromWishList(clubId || 0);
     e.stopPropagation();
@@ -57,7 +56,7 @@ export default function ResultCard({
   return (
     <section
       onClick={() => {
-        router.push(`/detail-page/${clubId}?date=${date}`);
+        router.push(`/detail-page/${clubId}?date=${searchParams.get('date')}`);
       }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',

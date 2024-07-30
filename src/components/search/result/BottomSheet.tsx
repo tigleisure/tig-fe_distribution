@@ -61,24 +61,10 @@ export default function BottomSheet({
           )}
           {results.map((result, idx) => {
             if (idx === 0)
-              return (
-                <ResultCard
-                  key={result.clubId}
-                  {...result}
-                  isFirst
-                  date={date}
-                />
-              );
+              return <ResultCard key={result.clubId} {...result} isFirst />;
             if (idx === results.length - 1)
-              return (
-                <ResultCard
-                  key={result.clubId}
-                  {...result}
-                  isLast
-                  date={date}
-                />
-              );
-            return <ResultCard key={result.clubId} {...result} date={date} />;
+              return <ResultCard key={result.clubId} {...result} isLast />;
+            return <ResultCard key={result.clubId} {...result} />;
           })}
         </Sheet.Content>
       </Sheet.Container>
