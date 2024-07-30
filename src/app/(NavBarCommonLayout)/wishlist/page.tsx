@@ -5,6 +5,7 @@ import { Fragment, useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
+import { ResultCardProps } from 'types/search/result/searchResult';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);
@@ -25,8 +26,8 @@ export default function Page() {
   }, [selectedTab, wishList.result]);
 
   return (
-    <Fragment>
-      {filteredWishList.length > 0 ? (
+    <>
+      {filteredWishList ? (
         <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
           {filteredWishList.map((wishListData) => (
             <ResultCard
@@ -45,6 +46,6 @@ export default function Page() {
           />
         </div>
       )}
-    </Fragment>
+    </>
   );
 }
