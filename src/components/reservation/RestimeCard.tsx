@@ -34,7 +34,7 @@ export default function RestimeCard({
   const setTime = useTimeReservationStore(
     (state) => state.setTimeReservationInfo
   );
-
+  
   const handleSelect = (idx: number) => {
     // 하나라도 클릭된게 있다면
     // 새로 클릭된게 그전 클릭보다 인덱스(클릭 된 인덱스 중 마지막)가 크다면

@@ -1,5 +1,6 @@
 import { categoryMapEngToKor } from '@constant/constant';
 import { cn } from '@utils/cn';
+import { formatDate } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Club } from 'types/response/response';
@@ -15,7 +16,7 @@ export default function HomeCard({
   return (
     <Link
       className="w-[152px] flex flex-col gap-[6px] shrink-0"
-      href={`/detail-page/${id}`}
+      href={`/detail-page/${id}?date=${formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss")}`}
     >
       {/* 서버 더미 이미지들이 제대로 렌더링되지 못해 로컬 더미이미지 사용*/}
       <Image src={'/png/dummyImage.png'} alt={clubName} width={152} height={152} />

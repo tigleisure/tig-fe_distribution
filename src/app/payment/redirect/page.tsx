@@ -76,6 +76,8 @@ export default function PaymentRedirect({
             status: 'TBC',
             clubId: parseInt(searchParams.clubId as string),
             paymentId: searchParams.paymentId as string,
+            userName: searchParams.userName as string,
+            phoneNumber: searchParams.phoneNumber as string,
           },
           {
             onSuccess(data, variables, context) {

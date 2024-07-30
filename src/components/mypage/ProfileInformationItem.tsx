@@ -74,6 +74,20 @@ export default function ProfileInformationItem({
     setToastId(id);
   };
 
+  const handleWrongNameSave = () => {
+    if (toastId !== null) {
+      toast.remove(toastId);
+    }
+    const id = toast.custom(
+      <ToastUI message="올바른 이름이 아닙니다" iswarning={true} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
+
+    setToastId(id);
+  };
+
   useEffect(() => {
     if (inputBoxEditStage === 2) {
       inputRef.current?.focus();
@@ -90,6 +104,11 @@ export default function ProfileInformationItem({
     if (labelName === '휴대폰번호' && !isValidPhoneNumber(inputData)) {
       // toastUI를 띄워주는 로직
       handleWrongPhoneNumberSave();
+      return;
+    }
+
+    if (labelName === '이름' && inputData.trim() === '') {
+      handleWrongNameSave();
       return;
     }
 

@@ -16,6 +16,8 @@ import { useGetUserSpecificReservationInfo } from '@apis/reservation-list/reserv
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { usePostReview } from '@apis/writing-review/postReview';
 import { QueryClient } from '@tanstack/react-query';
+import toast, { Toaster } from 'react-hot-toast';
+import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
 
 export default function Page({
   params,
@@ -33,6 +35,20 @@ export default function Page({
   const { data, isError, isFetching } = useGetUserSpecificReservationInfo(
     params.reservationId
   );
+  const [toastId, setToastId] = useState<string | null>(null);
+  const handleRating = () => {
+    if (toastId !== null) {
+      toast.remove(toastId);
+    }
+    const id = toast.custom(
+      <ToastUI message="별점을 선택해주세요" iswarning={true} />,
+      {
+        duration: toastUIDuration,
+      }
+    );
+
+    setToastId(id);
+  };
 
   useEffect(() => {
     if (data && data.result.status !== 'DONE') {
@@ -44,6 +60,33 @@ export default function Page({
 
   const [starCount, setStarCount] = useState<number>(0);
   const [reviewContents, setReviewContents] = useState<string>('');
+
+  const handleSubmitReview = () => {
+    if (starCount === 0) {
+      handleRating();
+      return;
+    }
+    mutation.mutate(
+      {
+        reservationId: params.reservationId,
+        rating: starCount,
+        contents: reviewContents,
+        adultCount: data?.result.adultCount || 0,
+        teenagerCount: data?.result.teenagerCount || 0,
+        kidsCount: data?.result.kidsCount || 0,
+        startTime: data?.result.startTime || '',
+        userName: data?.result.memberName || '',
+      },
+      {
+        onSuccess: () => {
+          setIsReviewSubmitted(true);
+        },
+        onError: () => {
+          alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
+        },
+      }
+    );
+  };
 
   useEffect(() => {
     if (isError === true) {
@@ -137,28 +180,7 @@ export default function Page({
               bgColor="black"
               content="작성 완료"
               className="writingReviewButton absolute bottom-[30px]"
-              onClick={() => {
-                mutation.mutate(
-                  {
-                    reservationId: params.reservationId,
-                    rating: starCount,
-                    contents: reviewContents,
-                    adultCount: data.result.adultCount,
-                    teenagerCount: data.result.teenagerCount,
-                    kidsCount: data.result.kidsCount,
-                    startTime: data.result.startTime,
-                    userName: data.result.memberName || '',
-                  },
-                  {
-                    onSuccess: () => {
-                      setIsReviewSubmitted(true);
-                    },
-                    onError: () => {
-                      alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
-                    },
-                  }
-                );
-              }} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
+              onClick={handleSubmitReview} // 해당 로직에서 백엔드로 전송을 하고 성공하면 그떄 상태를 변경시키는 것이 최종 목적임
             />
             <Modal
               size="lg"
@@ -223,6 +245,7 @@ export default function Page({
           />
         </div>
       )}
+      <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </>
   );
 }

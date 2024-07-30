@@ -4,6 +4,7 @@ import './globals.css';
 import Head from 'next/head';
 import ReactQueryProvider from '@providers/ReactQueryProvider';
 import GoogleAnalytics from '@lib/GoogleAnalytics';
+import ObserveRouteLogin from '@components/all/ObserveRouteLogin';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -22,6 +23,9 @@ export const metadata: Metadata = {
     ],
     type: 'website',
   },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
@@ -37,12 +41,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ko">
       <body className={inter.className}>
         {process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS ? (
           <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS} />
         ) : null}
         <ReactQueryProvider>{children}</ReactQueryProvider>
+        <ObserveRouteLogin />
       </body>
     </html>
   );

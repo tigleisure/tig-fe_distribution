@@ -14,6 +14,8 @@ interface reservationRequestBodyProp {
   clubId: number;
   paymentId: string;
   message: string;
+  userName: string;
+  phoneNumber: string;
 }
 
 interface reservationResponseBodyProp {

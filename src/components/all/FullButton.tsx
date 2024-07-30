@@ -158,7 +158,7 @@ export default function FullButton({
     }
 
     if (clickTask === 'request-payment') {
-      if (secondStageInfoObject.phoneNumber === '') {
+      if (secondStageInfoObject.phoneNumber === '' || secondStageInfoObject.userName === '') {
         setSelectedIsModalOpen(true);
         return;
       }
@@ -219,6 +219,7 @@ export default function FullButton({
             teenagerCount: firstStageInfoObject.teenagerCount,
             kidsCount: firstStageInfoObject.kidsCount,
             userName: secondStageInfoObject.userName,
+            phoneNumber: secondStageInfoObject.phoneNumber,
             memberId: sendingData.reservationData.memberId,
           }
         )
@@ -243,6 +244,8 @@ export default function FullButton({
                   status: 'TBC',
                   clubId: sendingData.reservationData?.clubId as number,
                   paymentId: customPaymentId,
+                  phoneNumber: secondStageInfoObject.phoneNumber,
+                  userName: secondStageInfoObject.userName,
                 },
                 {
                   onSuccess(data) {
@@ -297,6 +300,7 @@ export default function FullButton({
             kidsCount: firstStageInfoObject.kidsCount,
             userName: secondStageInfoObject.userName,
             memberId: sendingData.reservationData.memberId,
+            phoneNumber: secondStageInfoObject.phoneNumber,
           }
         )
           .then((response) => {
@@ -320,6 +324,9 @@ export default function FullButton({
                   status: 'TBC',
                   clubId: sendingData.reservationData?.clubId as number,
                   paymentId: customPaymentId,
+                  phoneNumber: secondStageInfoObject.phoneNumber,
+
+                  userName: secondStageInfoObject.userName,
                 },
                 {
                   onSuccess(data) {

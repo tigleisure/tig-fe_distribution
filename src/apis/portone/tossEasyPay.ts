@@ -26,6 +26,7 @@ const handleTossEasyPay = async (
     teenagerCount: number;
     kidsCount: number;
     userName: string;
+    phoneNumber: string;
     memberId: number;
   }
 ): Promise<tossEasyPayBackendResponse> => {
@@ -54,6 +55,8 @@ const handleTossEasyPay = async (
     // ).toString(),
     clubPrice: clubData.result.price,
     paymentPrice: paymentPrice.toString(),
+    userName: reservationData.userName,
+    phoneNumnber: reservationData.phoneNumber,
   };
 
   const queryString = new URLSearchParams(query).toString();

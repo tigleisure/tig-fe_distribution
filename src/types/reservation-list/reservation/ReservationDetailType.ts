@@ -21,4 +21,5 @@ export interface ReservationDetailProps {
   status: 'TBC' | 'CONFIRMED' | 'DECLINED' | 'CANCELED' | 'REVIEWED' | 'DONE';
   paymentId: string;
   message: string;
+  clubId: string;
 }

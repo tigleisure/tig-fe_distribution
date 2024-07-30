@@ -243,7 +243,7 @@ export default function Page({
       <Modal
         size="sm"
         button2Content="확인"
-        title="휴대폰 번호를 입력해주세요"
+        title="이름과 휴대폰 번호를 입력해주세요."
         secondButtonFunc={() => setSelectedIsModalOpen(false)}
       />
       <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
