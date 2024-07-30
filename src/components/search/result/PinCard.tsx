@@ -35,7 +35,7 @@ export default function PinCard({
           onClick={handleMyLocation}
         />
       </div>
-      <ResultCard {...PinCard} date={date} />
+      <ResultCard {...PinCard}/>
     </article>
   );
 }

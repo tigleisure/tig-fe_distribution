@@ -67,6 +67,8 @@ export const useGeolocation = (
       );
     };
 
+    fetchData(37.5665, 126.978);
+
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
       timeout: 5000,
     });
