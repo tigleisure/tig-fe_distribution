@@ -16,13 +16,23 @@ export default function HomeCard({
   return (
     <Link
       className="w-[152px] flex flex-col gap-[6px] shrink-0"
-      href={`/detail-page/${id}?date=${formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss")}`}
+      href={`/detail-page/${id}?date=${formatDate(
+        new Date(),
+        "yyyy-MM-dd'T'HH:mm:ss"
+      )}`}
     >
-      {/* 서버 더미 이미지들이 제대로 렌더링되지 못해 로컬 더미이미지 사용*/}
-      <Image src={'/png/dummyImage.png'} alt={clubName} width={152} height={152} />
+      <div className="relative w-[152px] h-[152px] rounded-[10px] overflow-hidden">
+        <Image
+          src={imageUrls.length !== 0 ? imageUrls[0] : '/png/dummyImage.png'}
+          alt={clubName}
+          fill
+        />
+      </div>
       <div className="flex gap-[6px] mt-[6px]">
         <p className="title3 text-grey7 line-clamp-1 w-fit">{clubName}</p>
-        <p className="body4 text-grey5 shrink-0">{categoryMapEngToKor[category]}</p>
+        <p className="body4 text-grey5 shrink-0">
+          {categoryMapEngToKor[category]}
+        </p>
       </div>
       <div
         className={cn('w-fit line-clamp-1', {
