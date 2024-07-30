@@ -81,7 +81,6 @@ export default function Calender() {
   useEffect(() => {
     setCalendarMonth(new Date(selectedDate));
   }, [selectedDate]);
-  console.log(calendarMonth);
 
   return (
     <section className="w-full flex flex-col gap-[6px] items-center self-center">
