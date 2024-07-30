@@ -31,7 +31,7 @@ export default function GoogleLoginLogic() {
         if (response.ok) {
           const data: GoogleLoginResponseProp = await response.json();
           localStorage.setItem('accessToken', data.result.accessToken);
-          router.push(window.sessionStorage.getItem('prev') || '/');
+          router.push(sessionStorage.getItem('prev') || '/');
         } else {
           throw new Error(
             '인증 코드를 기반으로 로그인 하는 데에 실패했습니다!'
