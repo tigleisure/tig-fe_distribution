@@ -72,7 +72,7 @@ export const useGeolocation = (
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
       timeout: 5000,
     });
-  }, [mutate]);
+  }, []);
 
   return {
     clubCards,
