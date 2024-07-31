@@ -32,6 +32,16 @@ import { set } from 'date-fns';
 const servicesIcon = ['wifi', 'wifi', 'wifi', 'wifi'];
 const services = ['무선 인터넷', '무선 인터넷', '무선 인터넷', '무선 인터넷'];
 
+function debounce(func: () => void, wait: number) {
+  let timeout: NodeJS.Timeout | null = null;
+  return () => {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+    timeout = setTimeout(func, wait);
+  };
+}
+
 const initialInofo: clubInfoProps = {
   id: '0',
   clubName: 'Dummy',
@@ -62,12 +72,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
   const detailtabArrayWhenNoReview = detailArrayWhenNoReview;
   const detailtabArrayWhenReview = detailArrayWhenReview;
-  // const imageRef = useRef<HTMLImageElement>(null);
-  const mainRef = useRef<HTMLDivElement>(null);
-  const detailInfoRef = useRef<HTMLDivElement>(null);
-  const serviceRef = useRef<HTMLDivElement>(null);
-  const reviewRef = useRef<HTMLDivElement>(null);
-  // const visitedReviewRef = useRef<HTMLDivElement>(null);
+  // const detailInfoRef = useRef<HTMLDivElement>(null);
+  // const serviceRef = useRef<HTMLDivElement>(null);
+  // const reviewRef = useRef<HTMLDivElement>(null);
+  const mainRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement[] | null[]>([]);
   const selectedTab = useTab((state) => state.selectedTab);
   const setSelectedTab = useTab((state) => state.setSelectedTab);
   // useIntersectionObserver(imageRef, () => setSelectedTab('기본정보'),1);
@@ -134,24 +143,24 @@ export default function Page({ params }: { params: { companyId: string } }) {
   // }, []);
 
   const scrollToDetailInfoRef = () => {
-    if (detailInfoRef.current) {
-      detailInfoRef.current.scrollIntoView({
+    if (scrollRef.current[0]) {
+      scrollRef.current[0].scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
     }
   };
   const scrollToServiceRef = () => {
-    if (serviceRef.current) {
-      serviceRef.current.scrollIntoView({
+    if (scrollRef.current[1]) {
+      scrollRef.current[1].scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
     }
   };
   const scrollToReviewRef = () => {
-    if (reviewRef.current) {
-      reviewRef.current.scrollIntoView({
+    if (scrollRef.current[2]) {
+      scrollRef.current[2].scrollIntoView({
         behavior: 'smooth',
         block: 'start',
       });
@@ -199,13 +208,44 @@ export default function Page({ params }: { params: { companyId: string } }) {
       transition: { duration: 0.5 },
     }),
   };
+  useEffect(() => {
+    const changeNavBtn = () => {
+      scrollRef.current.forEach((ref, idx) => {
+        const topOffset = (ref?.offsetTop ?? 0) - 50;
+        const scrollTop = mainRef.current?.scrollTop ?? 0;
+        console.log('topOffset', topOffset);
+        console.log('scrollTop', scrollTop);
+        if (scrollTop > topOffset) {
+          if (idx === 0) setSelectedTab('기본정보');
+          if (idx === 1) setSelectedTab('편의시설');
+          if (idx === 2) setSelectedTab('방문자 리뷰');
+        }
+      });
+    };
+
+    const debouncedChangeNavBtn = debounce(changeNavBtn, 30);
+
+    const scroll = mainRef.current;
+
+    if (scroll) {
+      scroll.addEventListener('scroll', debouncedChangeNavBtn);
+      console.log('Event listener added to scroll container');
+    }
+
+    return () => {
+      if (scroll) {
+        scroll.removeEventListener('scroll', debouncedChangeNavBtn);
+        console.log('Event listener removed from scroll container');
+      }
+    };
+  }, [mainRef.current]);
 
   if (!isSuccessInfo1 || !isSuccessInfo2) {
     return <TigLoadingPage />;
   }
 
   return (
-    <main className="w-full h-full overflow-y-scroll" ref={mainRef}>
+    <div className="w-full h-full overflow-y-scroll" ref={mainRef}>
       <Header buttonType="back" title={clubInfo.clubName} />
       <Tabs
         tabArray={
@@ -216,7 +256,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
         from="detail"
         className="top-[68px] !justify-around"
       />
-      <div ref={detailInfoRef} />
+      <div
+        ref={(element) => {
+          scrollRef.current[0] = element;
+        }}
+      />
       <div className="w-full h-[240px] max-w-[640px] mt-[138px] relative rounded-[10px] overflow-hidden px-5">
         <div className="w-[38px] h-[21px] absolute bottom-[16px] right-[36px] bg-grey7 text-grey3 title4 z-[100] rounded-[50px] flex justify-center items-center ">
           {imageCount + 1} / {clubInfo.imageUrls.length || 1}
@@ -260,8 +304,18 @@ export default function Page({ params }: { params: { companyId: string } }) {
         </div>
       </div>
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
-      <DetailInfoCard {...clubInfo} ref={serviceRef} />
-      <ServicesCard services={clubInfo.amenities || services} ref={reviewRef} />
+      <DetailInfoCard
+        {...clubInfo}
+        ref={(element) => {
+          scrollRef.current[1] = element;
+        }}
+      />
+      <ServicesCard
+        services={clubInfo.amenities || services}
+        ref={(element) => {
+          scrollRef.current[2] = element;
+        }}
+      />
       <VisitedReviewCard
         avgRating={clubInfo.avgRating}
         ratingCount={clubInfo.ratingCount}
@@ -273,6 +327,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
         type={clubInfo.type || 'TIME'}
         date={searchParams.get('date') || ''}
       />
-    </main>
+    </div>
   );
 }
