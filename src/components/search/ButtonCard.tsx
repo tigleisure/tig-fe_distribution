@@ -16,9 +16,8 @@ export default function ButtonCard() {
     navigator.geolocation.getCurrentPosition((position) => {
       nearestDistrictMutation.mutate(
         {
-          // 서버이슈로 임의로 바꿔둚
-          latitude: position.coords.longitude,
-          longitude: position.coords.latitude,
+          latitude: position.coords.latitude,
+          longitude: position.coords.longitude,
         },
         {
           onSuccess(data) {
