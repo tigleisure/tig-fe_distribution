@@ -223,7 +223,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
     };
 
-    const debouncedChangeNavBtn = debounce(changeNavBtn, 30);
+    const debouncedChangeNavBtn = debounce(changeNavBtn, 50);
 
     const scroll = mainRef.current;
 
