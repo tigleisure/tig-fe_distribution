@@ -171,6 +171,7 @@ export default function Page() {
                     paymentId={data.paymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
                     handleChangeCancelReservationId={setCancelReservationId}
+                    imageUrls={data.imageUrls}
                   />
                 ))}
               </main>
@@ -200,6 +201,7 @@ export default function Page() {
                   reservationStatus={data.status}
                   reservationId={data.reservationId}
                   reviewId={data.reviewId}
+                  imageUrls={data.imageUrls}
                 />
               ))}
             </main>
