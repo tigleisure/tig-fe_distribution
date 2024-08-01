@@ -11,6 +11,7 @@ import { formatDate, parse } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 import { useSearchResult } from '@hooks/search/result/useSearchResult';
+import { useState } from 'react';
 
 export default function Page() {
   const tabArray = allleisureArray;
@@ -28,6 +29,12 @@ export default function Page() {
     isResult,
     recommendedResult,
   } = useSearchResult(search);
+  const [isCurrentLocationUIClicked, setIsCurrentLocationUIClicked] =
+    useState<boolean>(false);
+
+  const handleClickCurrentLocationUIButton = () => {
+    setIsCurrentLocationUIClicked((prev) => !prev);
+  };
 
   return (
     <main className="w-full h-full flex justify-center items-center text-[200px]">
@@ -55,6 +62,7 @@ export default function Page() {
           }))}
           currentLatitude={currentLocation.latitude}
           currentLongitude={currentLocation.longitude}
+          isCurrentLocationUIClicked={isCurrentLocationUIClicked}
         />
       )}
       {isResult && isBottomSheetOpen && (
@@ -62,6 +70,9 @@ export default function Page() {
           results={filteredSearchResult}
           handleMyLocation={handleMyLocation}
           date={date}
+          handleClickCurrentLocationUIButton={
+            handleClickCurrentLocationUIButton
+          }
         />
       )}
       {!isBottomSheetOpen && (
@@ -69,6 +80,9 @@ export default function Page() {
           PinCard={filteredSearchResult[pinCardIndex]}
           handleMyLocation={handleMyLocation}
           date={date}
+          handleClickCurrentLocationUIButton={
+            handleClickCurrentLocationUIButton
+          }
         />
       )}
       {!isResult && <NoSearchResult results={recommendedResult} />}

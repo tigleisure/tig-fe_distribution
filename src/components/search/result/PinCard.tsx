@@ -8,12 +8,14 @@ interface PinCardProps {
   PinCard: ResultCardProps;
   handleMyLocation?: () => void;
   date: string;
+  handleClickCurrentLocationUIButton: () => void;
 }
 
 export default function PinCard({
   PinCard,
   handleMyLocation,
   date,
+  handleClickCurrentLocationUIButton,
 }: PinCardProps) {
   const setIsBottomSheetOpen = useBottomSheetStore(
     (state) => state.setIsBottomSheetOpen
@@ -32,10 +34,15 @@ export default function PinCard({
         </div>
         <MyLocationSVG
           className="absolute right-[20px] top-[-3px] shadow-locationButton cursor-pointer rounded-full"
-          onClick={handleMyLocation}
+          onClick={() => {
+            handleClickCurrentLocationUIButton();
+            if (handleMyLocation) {
+              handleMyLocation();
+            }
+          }}
         />
       </div>
-      <ResultCard {...PinCard}/>
+      <ResultCard {...PinCard} />
     </article>
   );
 }
