@@ -10,12 +10,14 @@ interface NaverMapProps {
   }[];
   currentLatitude: number;
   currentLongitude: number;
+  isCurrentLocationUIClicked: boolean;
 }
 
 export default function NaverMap({
   locationArray,
   currentLatitude,
   currentLongitude,
+  isCurrentLocationUIClicked,
 }: NaverMapProps) {
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const mapRef = useRef<naver.maps.Map | undefined>(undefined);
@@ -33,7 +35,12 @@ export default function NaverMap({
         new naver.maps.LatLng(currentLatitude, currentLongitude)
       );
     }
-  }, [currentLatitude, currentLongitude, isMapLoaded]);
+  }, [
+    currentLatitude,
+    currentLongitude,
+    isMapLoaded,
+    isCurrentLocationUIClicked,
+  ]);
 
   useEffect(() => {
     if (isMapLoaded && mapRef.current) {

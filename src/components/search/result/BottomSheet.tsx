@@ -9,12 +9,14 @@ interface BottomSheetProps {
   results: ResultCardProps[];
   handleMyLocation?: () => void;
   date: string;
+  handleClickCurrentLocationUIButton: () => void;
 }
 
 export default function BottomSheet({
   results,
   handleMyLocation,
   date,
+  handleClickCurrentLocationUIButton,
 }: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
@@ -46,7 +48,12 @@ export default function BottomSheet({
           <div className="w-[40px] h-[4px] rounded-[2px] bg-grey3" />
           <MylocationSVG
             className="absolute right-[20px] top-[-60px] shadow-locationButton rounded-full"
-            onClick={handleMyLocation}
+            onClick={() => {
+              handleClickCurrentLocationUIButton();
+              if (handleMyLocation) {
+                handleMyLocation();
+              }
+            }}
           />
         </Sheet.Header>
         <Sheet.Content
