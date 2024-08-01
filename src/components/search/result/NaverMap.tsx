@@ -8,6 +8,7 @@ interface NaverMapProps {
     latitude: number;
     longitude: number;
   }[];
+  userCurrentPingPosition: { latitude: number; longitude: number };
   currentLatitude: number;
   currentLongitude: number;
   isCurrentLocationUIClicked: boolean;
@@ -17,8 +18,10 @@ export default function NaverMap({
   locationArray,
   currentLatitude,
   currentLongitude,
+  userCurrentPingPosition,
   isCurrentLocationUIClicked,
 }: NaverMapProps) {
+  locationArray.push(userCurrentPingPosition);
   const [isMapLoaded, setIsMapLoaded] = useState(false);
   const mapRef = useRef<naver.maps.Map | undefined>(undefined);
   const setIsBottomSheetOpen = useBottomSheetStore(
@@ -57,13 +60,18 @@ export default function NaverMap({
           ),
           map: mapRef.current,
           icon: {
-            url: '/svg/ping.svg',
+            url:
+              i === locationArray.length - 1
+                ? '/svg/siuu.svg'
+                : '/svg/ping.svg',
           },
         });
 
         naver.maps.Event.addListener(marker, 'click', () => {
-          setIsBottomSheetOpen(false);
-          setPinCardIndex(i);
+          if (i !== locationArray.length - 1) {
+            setIsBottomSheetOpen(false);
+            setPinCardIndex(i);
+          }
         });
 
         return marker;

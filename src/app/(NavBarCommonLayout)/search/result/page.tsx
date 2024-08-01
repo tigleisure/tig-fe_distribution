@@ -11,7 +11,12 @@ import { formatDate, parse } from 'date-fns';
 import { ko } from 'date-fns/locale';
 import { useSearchParams } from 'next/navigation';
 import { useSearchResult } from '@hooks/search/result/useSearchResult';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+
+interface userCurrentPingPositionProp {
+  latitude: number;
+  longitude: number;
+}
 
 export default function Page() {
   const tabArray = allleisureArray;
@@ -32,9 +37,25 @@ export default function Page() {
   const [isCurrentLocationUIClicked, setIsCurrentLocationUIClicked] =
     useState<boolean>(false);
 
+  const [userCurrentPingPosition, setUserCurrentPingPosition] =
+    useState<userCurrentPingPositionProp>({
+      // 일단 초깃값은 신촌좌표로
+      latitude: 37.55527,
+      longitude: 126.9366,
+    });
+
   const handleClickCurrentLocationUIButton = () => {
     setIsCurrentLocationUIClicked((prev) => !prev);
   };
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      setUserCurrentPingPosition({
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+      });
+    });
+  }, []);
 
   return (
     <main className="w-full h-full flex justify-center items-center text-[200px]">
@@ -60,6 +81,9 @@ export default function Page() {
             latitude: result.latitude || 0,
             longitude: result.longitude || 0,
           }))}
+          userCurrentPingPosition={
+            userCurrentPingPosition as userCurrentPingPositionProp
+          }
           currentLatitude={currentLocation.latitude}
           currentLongitude={currentLocation.longitude}
           isCurrentLocationUIClicked={isCurrentLocationUIClicked}
