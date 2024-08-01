@@ -70,7 +70,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
     setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
   }, [selectedDate]);
 
-  console.log(startTime, endTime);
 
   if (!isSuccess) return <TigLoadingPage />;
   return (
