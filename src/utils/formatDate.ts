@@ -68,7 +68,7 @@ export const extractReservationMoment = (timestamp: string): string => {
 };
 
 // 시간 비교를 위한 함수
-const timeToMinutes = (time: string) => {
+export const timeToMinutes = (time: string) => {
   const [hours, minutes] = time.split(':').map(Number);
   return hours * 60 + minutes;
 };
