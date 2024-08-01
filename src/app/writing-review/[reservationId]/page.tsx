@@ -18,6 +18,7 @@ import { usePostReview } from '@apis/writing-review/postReview';
 import { QueryClient } from '@tanstack/react-query';
 import toast, { Toaster } from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Page({
   params,
@@ -60,6 +61,7 @@ export default function Page({
 
   const [starCount, setStarCount] = useState<number>(0);
   const [reviewContents, setReviewContents] = useState<string>('');
+  const queryClient = useQueryClient();
 
   const handleSubmitReview = () => {
     if (starCount === 0) {
@@ -80,6 +82,7 @@ export default function Page({
       {
         onSuccess: () => {
           setIsReviewSubmitted(true);
+          queryClient.invalidateQueries({ queryKey: ['userReservationList'] });
         },
         onError: () => {
           alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
