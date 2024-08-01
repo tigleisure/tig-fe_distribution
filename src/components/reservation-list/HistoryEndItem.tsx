@@ -4,7 +4,6 @@ import FullButton from '@components/all/FullButton';
 import Link from 'next/link';
 
 export default function HistoryEndItem({
-  imageUrl,
   clubName,
   clubAddress,
   eventDate,
@@ -17,6 +16,7 @@ export default function HistoryEndItem({
   reservationStatus,
   reservationId,
   reviewId,
+  imageUrls,
 }: HistoryEndItemProps) {
   return (
     <Link
@@ -33,6 +33,7 @@ export default function HistoryEndItem({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
+        imageUrls={imageUrls}
       />
       {reservationStatus === 'DONE' && (
         <FullButton

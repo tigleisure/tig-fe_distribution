@@ -3,7 +3,7 @@ import ReviewLowerSection from './ReviewLowerSection';
 import { ReviewProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 
 export default function Review({
-  imageUrl,
+  imageUrls,
   clubName,
   clubAddress,
   eventDate,
@@ -20,7 +20,7 @@ export default function Review({
   return (
     <div className="mt-5 p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-5 bg-white shadow-myPageLogoutButton">
       <HistoryComponentUpperSection
-        imageUrl={imageUrl}
+        imageUrls={imageUrls}
         clubName={clubName}
         clubAddress={clubAddress}
         eventDate={eventDate}

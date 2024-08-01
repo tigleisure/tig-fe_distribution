@@ -1,5 +1,5 @@
 export interface HistoryInProgressItemProps {
-  imageUrl?: string;
+  imageUrls?: string[];
   clubName: string;
   clubAddress: string;
   eventDate: string;
@@ -97,4 +97,5 @@ export interface ReservationItemProps {
   memberName?: string;
   reviewId: number;
   message: string;
+  imageUrls: string[];
 }

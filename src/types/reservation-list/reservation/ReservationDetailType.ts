@@ -1,5 +1,5 @@
 export interface ReservationDetailProps {
-  imageUrl?: string;
+  imageUrls?: string[];
   clubName: string;
   clubAddress: string;
   date: string;

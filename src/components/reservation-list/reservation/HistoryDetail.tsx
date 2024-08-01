@@ -10,7 +10,6 @@ import { useRouter } from 'next/navigation';
 import { formatDate } from 'date-fns';
 
 export default function HistoryDetail({
-  imageUrl,
   clubName,
   clubAddress,
   date,
@@ -33,6 +32,7 @@ export default function HistoryDetail({
   paymentId,
   message,
   clubId,
+  imageUrls,
 }: ReservationDetailProps) {
   const router = useRouter();
   return (
@@ -47,8 +47,14 @@ export default function HistoryDetail({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
-        onClick={()=>{
-          router.push(`/detail-page/${clubId}?date=${formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss")}`)
+        imageUrls={imageUrls}
+        onClick={() => {
+          router.push(
+            `/detail-page/${clubId}?date=${formatDate(
+              new Date(),
+              "yyyy-MM-dd'T'HH:mm:ss"
+            )}`
+          );
         }}
       />
       <div className="w-full border-[1px] border-grey2" />
