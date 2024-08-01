@@ -99,6 +99,8 @@ export default function Page({
       setIsSelectedModalOpen(false);
     };
   }, []);
+
+  console.log(data);
   return (
     <>
       {isFetching && <TigLoadingPage />}
@@ -118,7 +120,7 @@ export default function Page({
               <div className="w-full h-fit bg-white p-5 rounded-xl">
                 <HistoryComponentUpperSection
                   className="bg-white"
-                  // imageUrl={DUMMYREVIEWDATA.imageUrl}
+                  imageUrls={data.result.imageUrls}
                   clubAddress={data.result.clubAddress}
                   clubName={data.result.clubName}
                   eventDate={data.result.date}
