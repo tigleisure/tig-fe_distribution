@@ -28,6 +28,7 @@ export default async function Page({ params }: reviewIdPathnameProp) {
     reservationUserName: reviewData.result.reservation.memberName,
     rating: reviewData.result.review.rating,
     rateContent: reviewData.result.review.contents,
+    imageUrls: reviewData.result.reservation.imageUrls,
   };
 
   return (

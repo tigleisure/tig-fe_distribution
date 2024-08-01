@@ -5,7 +5,6 @@ import useModal from '@store/modalStore';
 import Link from 'next/link';
 
 export default function HistoryInProgressItem({
-  imageUrl,
   clubName,
   clubAddress,
   eventDate,
@@ -18,11 +17,12 @@ export default function HistoryInProgressItem({
   reservationStatus,
   reservationId,
   paymentId,
+  imageUrls,
   handleChangeCancelPaymentId,
   handleChangeCancelReservationId,
 }: HistoryInProgressItemProps) {
   const setModalOpen = useModal((state) => state.setSelectedIsModalOpen);
-
+  
   return (
     <Link
       href={`/reservation-list/reservation/${reservationId}`}
@@ -38,6 +38,7 @@ export default function HistoryInProgressItem({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
+        imageUrls={imageUrls}
       />
       {reservationStatus === 'TBC' && (
         <div className="w-full h-fit flex gap-[10px]">

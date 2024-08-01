@@ -65,7 +65,7 @@ const handleTossEasyPay = async (
     storeId: process.env.NEXT_PUBLIC_PORTONE_STORE_ID as string,
     channelKey: process.env.NEXT_PUBLIC_PORTONE_TOSS_EASY_PAY_CHANNEL_KEY,
     paymentId: customPaymentId,
-    orderName: '나이키 와플 트레이너 2 SD',
+    orderName: `${reservationData.userName}님의 티그예약`,
     totalAmount: paymentPrice,
     currency: 'CURRENCY_KRW',
     payMethod: 'CARD',

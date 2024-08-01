@@ -119,6 +119,7 @@ export default function Page() {
                     paymentId={reservationItem.paymentId}
                     handleChangeCancelPaymentId={setCancelPaymentId}
                     handleChangeCancelReservationId={setCancelReservationId}
+                    imageUrls={reservationItem.imageUrls}
                   />
                 ) : (
                   <HistoryEndItem
@@ -135,6 +136,7 @@ export default function Page() {
                     reservationStatus={reservationItem.status}
                     reservationId={reservationItem.reservationId} //일단 백엔드에서 추후에 예약과 review id를 줌
                     reviewId={reservationItem.reviewId}
+                    imageUrls={reservationItem.imageUrls}
                   />
                 )
               )}

@@ -4,6 +4,7 @@ import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
 import Header from '@components/all/Header';
 import Modal from '@components/all/Modal';
+import TigLoadingPage from '@components/all/TigLoadingPage';
 import HistoryDetail from '@components/reservation-list/reservation/HistoryDetail';
 import useModal from '@store/modalStore';
 import { useQueryClient } from '@tanstack/react-query';
@@ -37,6 +38,7 @@ interface ReservationResult {
   updatedAt: string;
   message: string;
   reviewed: boolean;
+  imageUrls: string[];
 }
 
 export default function Page({
@@ -72,18 +74,28 @@ export default function Page({
     updatedAt: '',
     message: '',
     reviewed: false,
+    imageUrls: ['/png/dummyImage.png'],
   });
   const setIsModalOpen = useModal((state) => state.setSelectedIsModalOpen);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchReservation = async () => {
-      const response = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${params.reservationId}`,
-        { cache: 'no-store' }
-      );
-      const data = await response.json();
-      setData(data.result);
+      try {
+        const response = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/${params.reservationId}`,
+          { cache: 'no-store' }
+        );
+        const data = await response.json();
+        setData(data.result);
+      } catch (error) {
+        console.error('Failed to fetch reservation:', error);
+      } finally {
+        setIsLoading(false);
+      }
     };
+
     fetchReservation();
+
     return () => {
       setIsModalOpen(false);
     };
@@ -94,6 +106,10 @@ export default function Page({
   const router = useRouter();
 
   const queryClient = useQueryClient();
+  console.log(isLoading);
+  if (isLoading) {
+    return <TigLoadingPage />;
+  }
 
   return (
     <div className="flex flex-col h-full relative ">
@@ -123,6 +139,7 @@ export default function Page({
           paymentId={data.paymentId}
           message={data.message}
           clubId={String(data.clubId)}
+          imageUrls={data.imageUrls}
         />
         <Modal
           size="lg"

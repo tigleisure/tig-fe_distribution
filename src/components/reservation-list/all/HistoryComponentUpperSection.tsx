@@ -8,6 +8,7 @@ import {
   formatReservationShowingDate,
   extractOnlyTime,
 } from '@utils/formatDate';
+import Image from 'next/image';
 
 export default function HistoryComponentUpperSection({
   clubName,
@@ -20,6 +21,7 @@ export default function HistoryComponentUpperSection({
   teenagerCount,
   kidsCount,
   className,
+  imageUrls,
   ...props
 }: HistoryComponentUpperSectionProps) {
   return (
@@ -28,7 +30,13 @@ export default function HistoryComponentUpperSection({
       className={cn('w-full h-fit flex  gap-x-4 cursor-pointer', className)}
       {...props}
     >
-      <NullImageSVG className="shrink-0" />
+      <div className="relative w-[106px] h-[106px] rounded-[10px] overflow-hidden">
+        <Image
+          src={imageUrls ? imageUrls[0] : '/png/dummyImage.png'}
+          alt="업체 사진"
+          fill
+        />
+      </div>
       <div className="h-fit flex flex-col justify-between items-start gap-y-3 grow txt-overflow-ellipsis">
         <div className="w-full h-fit flex flex-col justify-between items-start gap-y-1">
           <span className="w-full title3 text-grey7 txt-overflow-ellipsis">
