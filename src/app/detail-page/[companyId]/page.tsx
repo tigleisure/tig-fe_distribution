@@ -295,7 +295,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
               className="absolute w-full h-full object-cover rounded-[10px] select-none"
               src={
                 clubInfo.imageUrls.length !== 0
-                  ? clubInfo.imageUrls[imageCount].slice(28)
+                  ? clubInfo.imageUrls[imageCount]
                   : '/png/dummyDetailImage.png'
               }
               alt="업체 이미지"
