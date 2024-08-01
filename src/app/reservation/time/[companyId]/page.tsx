@@ -14,10 +14,11 @@ import {
 } from '@store/makeReservationInfo';
 import { useGetClubResInfo } from '@apis/reservation/getClubResInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
-import { set } from 'date-fns';
+import { addHours, formatDate, set } from 'date-fns';
 import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import { useSelectedDate } from '@store/selectedDateStore';
+import { timeToMinutes } from '@utils/formatDate';
 
 const DUMMYPRICE = '10,000';
 
@@ -37,6 +38,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
     (state) => state.setTimeReservationInfo
   );
   const setSelectedDate = useSelectedDate((state) => state.setSelectedDate);
+  const selectedDate = useSelectedDate((state) => state.selectedDate);
 
   useEffect(() => {
     if (isSuccess) {
@@ -48,11 +50,27 @@ export default function Page({ params }: { params: { companyId: string } }) {
         ...timeReservationInfo,
         date: searchParam.get('date') || '',
       });
-    setSelectedDate(searchParam.get('date') || '');
+      setSelectedDate(searchParam.get('date') || '');
     }
     // 언마운트될 때 다시 초기화
     return () => setTimeReservationInfo(timeReservationInfoInitialState);
   }, [data]);
+
+  useEffect(() => {
+    const now = formatDate(addHours(new Date(), 1), 'HH:00');
+    if (
+      timeToMinutes(data?.result.businessHours?.slice(0, 5) || '10:00') <
+        timeToMinutes(now) &&
+      selectedDate.slice(0, 10) === formatDate(new Date(), 'yyyy-MM-dd')
+    ) {
+      setStartTime(now);
+    } else {
+      setStartTime(data?.result.businessHours.slice(0, 5) || '10:00');
+    }
+    setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
+  }, [selectedDate]);
+
+  console.log(startTime, endTime);
 
   if (!isSuccess) return <TigLoadingPage />;
   return (
@@ -62,7 +80,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <RestimeCard startTime={startTime} endTime={endTime} />
       <ResPeopleCountCard />
       <RequestCard />
-      <MakeResButtonCard clubName={clubName} address={address} clubStartTime={startTime}/>
+      <MakeResButtonCard
+        clubName={clubName}
+        address={address}
+        clubStartTime={startTime}
+      />
       <Toaster position="bottom-center" containerStyle={{ bottom: '90px' }} />
     </main>
   );
