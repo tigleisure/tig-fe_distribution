@@ -98,12 +98,13 @@ export default function PaymentRedirect({
     sendCheckingDataToBackend()
       .then((response) => response)
       .catch(async (error: CustomPaymentError) => {
-        const response = await cancelPortOnePayment(
-          error.paymentId,
-          'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
-        ); // 백엔드 검증 로직 실패 시
-        (response);
-        router.replace('/');
+        if (error.cancelReason.trim() !== 'portOne 자체 결제 오류') {
+          const response = await cancelPortOnePayment(
+            error.paymentId,
+            'Tig 백엔드 로직에서의 verification 오류로 인한 취소입니다'
+          );
+          router.replace('/');
+        }
       });
   }, []);
 

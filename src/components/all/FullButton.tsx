@@ -272,11 +272,13 @@ export default function FullButton({
             }
           })
           .catch(async (error: CustomPaymentError) => {
-            const response = await cancelPortOnePayment(
-              error.paymentId,
-              error.cancelReason
-            );
-            router.replace('/');
+            if (error.cancelReason.trim() !== 'portOne 자체 결제 오류') {
+              const response = await cancelPortOnePayment(
+                error.paymentId,
+                error.cancelReason
+              );
+              router.replace('/');
+            }
           });
       }
 
@@ -353,11 +355,13 @@ export default function FullButton({
             }
           })
           .catch(async (error: CustomPaymentError) => {
-            const response = await cancelPortOnePayment(
-              error.paymentId,
-              error.cancelReason
-            );
-            router.replace('/');
+            if (error.cancelReason.trim() !== 'portOne 자체 결제 오류') {
+              const response = await cancelPortOnePayment(
+                error.paymentId,
+                error.cancelReason
+              );
+              router.replace('/');
+            }
           });
       }
     }
