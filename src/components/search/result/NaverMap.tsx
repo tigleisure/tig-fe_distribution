@@ -62,7 +62,8 @@ export default function NaverMap({
           icon: {
             url:
               i === locationArray.length - 1
-                ? '/svg/siuu.svg'
+                ? // ? '/svg/siuu.svg'
+                  '/svg/ping.svg'
                 : '/svg/ping.svg',
           },
         });
