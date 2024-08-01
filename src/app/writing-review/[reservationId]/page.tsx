@@ -213,7 +213,7 @@ export default function Page({
             <section className="w-full h-fit p-5 flex flex-col gap-y-5 bg-white">
               <HistoryComponentUpperSection
                 className="bg-white"
-                // imageUrl={DUMMYREVIEWDATA.imageUrl}
+                imageUrls={data.result.imageUrls}
                 clubAddress={data.result.clubAddress}
                 clubName={data.result.clubName}
                 eventDate={data.result.date}
