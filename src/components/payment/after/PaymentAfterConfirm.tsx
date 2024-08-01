@@ -29,6 +29,7 @@ interface reservationInfoResponseProps {
     paymentId: string;
     reviewId: number;
     reviewed: boolean;
+    imageUrls: string[];
   };
   resultCode: number;
   resultMsg: string;
@@ -43,6 +44,7 @@ export default async function PaymentAfterConfirm({
   );
 
   const data: reservationInfoResponseProps = await response.json();
+
   return (
     <section className="w-eightNineWidth flex flex-col items-center gap-y-10 pt-[78px]">
       <div className="w-fit h-fit flex flex-col items-center">
@@ -62,6 +64,7 @@ export default async function PaymentAfterConfirm({
         </div>
       </div>
       <HistoryComponentUpperSection
+        imageUrls={data.result.imageUrls}
         clubName={data.result.clubName}
         clubAddress={data.result.clubAddress}
         eventDate={data.result.date}
