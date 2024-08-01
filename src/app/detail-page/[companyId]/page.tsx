@@ -213,8 +213,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       scrollRef.current.forEach((ref, idx) => {
         const topOffset = (ref?.offsetTop ?? 0) - 50;
         const scrollTop = mainRef.current?.scrollTop ?? 0;
-        console.log('topOffset', topOffset);
-        console.log('scrollTop', scrollTop);
+
         if (scrollTop > topOffset) {
           if (idx === 0) setSelectedTab('기본정보');
           if (idx === 1) setSelectedTab('편의시설');
@@ -229,13 +228,11 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
     if (scroll) {
       scroll.addEventListener('scroll', debouncedChangeNavBtn);
-      console.log('Event listener added to scroll container');
     }
 
     return () => {
       if (scroll) {
         scroll.removeEventListener('scroll', debouncedChangeNavBtn);
-        console.log('Event listener removed from scroll container');
       }
     };
   }, [mainRef.current]);

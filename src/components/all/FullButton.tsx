@@ -158,7 +158,10 @@ export default function FullButton({
     }
 
     if (clickTask === 'request-payment') {
-      if (secondStageInfoObject.phoneNumber === '' || secondStageInfoObject.userName === '') {
+      if (
+        secondStageInfoObject.phoneNumber === '' ||
+        secondStageInfoObject.userName === ''
+      ) {
         setSelectedIsModalOpen(true);
         return;
       }
@@ -250,7 +253,7 @@ export default function FullButton({
                 {
                   onSuccess(data) {
                     // 현재 data가 null값이 오는 중
-                    console.log(data)
+
                     router.replace(
                       `/payment/after/${data.result.reservationId}`
                     );
@@ -332,7 +335,6 @@ export default function FullButton({
                 },
                 {
                   onSuccess(data) {
-                    console.log('예약성공')
                     router.replace(
                       `/payment/after/${data.result.reservationId}`
                     );

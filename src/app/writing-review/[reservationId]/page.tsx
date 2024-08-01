@@ -18,6 +18,7 @@ import { usePostReview } from '@apis/writing-review/postReview';
 import { QueryClient } from '@tanstack/react-query';
 import toast, { Toaster } from 'react-hot-toast';
 import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Page({
   params,
@@ -60,6 +61,7 @@ export default function Page({
 
   const [starCount, setStarCount] = useState<number>(0);
   const [reviewContents, setReviewContents] = useState<string>('');
+  const queryClient = useQueryClient();
 
   const handleSubmitReview = () => {
     if (starCount === 0) {
@@ -80,6 +82,7 @@ export default function Page({
       {
         onSuccess: () => {
           setIsReviewSubmitted(true);
+          queryClient.invalidateQueries({ queryKey: ['userReservationList'] });
         },
         onError: () => {
           alert('리뷰 작성이 실패했습니다! 다시 시도해보세요');
@@ -99,6 +102,7 @@ export default function Page({
       setIsSelectedModalOpen(false);
     };
   }, []);
+
   return (
     <>
       {isFetching && <TigLoadingPage />}
@@ -118,7 +122,7 @@ export default function Page({
               <div className="w-full h-fit bg-white p-5 rounded-xl">
                 <HistoryComponentUpperSection
                   className="bg-white"
-                  // imageUrl={DUMMYREVIEWDATA.imageUrl}
+                  imageUrls={data.result.imageUrls}
                   clubAddress={data.result.clubAddress}
                   clubName={data.result.clubName}
                   eventDate={data.result.date}
@@ -212,7 +216,7 @@ export default function Page({
             <section className="w-full h-fit p-5 flex flex-col gap-y-5 bg-white">
               <HistoryComponentUpperSection
                 className="bg-white"
-                // imageUrl={DUMMYREVIEWDATA.imageUrl}
+                imageUrls={data.result.imageUrls}
                 clubAddress={data.result.clubAddress}
                 clubName={data.result.clubName}
                 eventDate={data.result.date}

@@ -106,7 +106,7 @@ export default function Page({
   const router = useRouter();
 
   const queryClient = useQueryClient();
-  console.log(isLoading);
+
   if (isLoading) {
     return <TigLoadingPage />;
   }
