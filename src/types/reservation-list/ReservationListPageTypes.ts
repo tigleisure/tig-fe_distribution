@@ -26,7 +26,6 @@ export interface HistoryInAdminItemProps {
   imageUrl?: string;
   clubName: string;
   clubAddress: string;
-  memberName: string;
   clubPhoneNumber: string;
   eventDate: string;
   eventStartTime: string;
@@ -34,6 +33,7 @@ export interface HistoryInAdminItemProps {
   adultCount?: number;
   teenagerCount?: number;
   kidsCount?: number;
+  userName: string;
   reservationStatus:
     | 'CONFIRMED'
     | 'TBC'

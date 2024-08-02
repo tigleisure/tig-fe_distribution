@@ -21,7 +21,7 @@ export default function Page() {
             reservationStatus={reservationInfo.status}
             reservationId={reservationInfo.reservationId}
             paymentId={reservationInfo.paymentId}
-            memberName={reservationInfo.memberName || ''}
+            userName={reservationInfo.userName || ''}
             clubPhoneNumber={reservationInfo.clubPhoneNumber}
           />
         ))}

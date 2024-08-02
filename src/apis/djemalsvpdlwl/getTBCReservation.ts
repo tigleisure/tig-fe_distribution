@@ -19,9 +19,9 @@ export interface TBCReservationItemProps {
   clubAddress: string;
   reservationId: number;
   paymentId: string;
-  memberName?: string;
   clubPhoneNumber: string;
   reviewId: number;
+  userName: string;
 }
 export interface TBCReservationListResponse {
   result: TBCReservationItemProps[];
