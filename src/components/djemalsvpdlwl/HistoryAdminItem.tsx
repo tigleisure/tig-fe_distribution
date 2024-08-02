@@ -11,7 +11,7 @@ export default function HistoryInAdminItem({
   imageUrl,
   clubName,
   clubAddress,
-  memberName,
+  userName,
   eventDate,
   eventStartTime,
   eventEndTime,
@@ -40,7 +40,7 @@ export default function HistoryInAdminItem({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
       />
-        <p className='body4'>예약자 이름: {memberName}</p>
+        <p className='body4'>예약자 이름: {userName}</p>
         <p className='body4'>업체 번호: {clubPhoneNumber}</p>
       <div className="w-full h-fit flex gap-[10px]">
         <FullButton
