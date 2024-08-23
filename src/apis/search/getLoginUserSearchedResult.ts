@@ -14,20 +14,21 @@ export interface SearchResearchResponse {
 }
 
 export const getLoginUserSearchedResult = async (
-  search: string
+  search: string,
+  isKeyword: string
 ): Promise<SearchResearchResponse> => {
   return instance.get(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/search/user?search=${search}`
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/search/user?search=${search}&isKeyword=${isKeyword}`
   );
 };
 
-export const useGetLoginUserSearchedResult = (search: string) => {
+export const useGetLoginUserSearchedResult = (
+  search: string,
+  isKeyword: string
+) => {
   return useSuspenseQuery({
     queryKey: ['loginUserSearchedResult', search], // search를 queryKey에 포함
-    queryFn: ({ queryKey }) => {
-      const searchParam = queryKey[1] as string; // search 인수 추출
-      return getLoginUserSearchedResult(searchParam);
-    },
+    queryFn: () => getLoginUserSearchedResult(search, isKeyword),
     refetchOnMount: 'always',
   });
 };

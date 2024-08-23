@@ -10,7 +10,7 @@ import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import { formatDate } from 'date-fns';
 
-export const useSearchResult = (search: string) => {
+export const useSearchResult = (search: string, isKeyword: string) => {
   const [isResult, setIsResult] = useState(false);
   const [recommendedResult, setRecommendedResult] = useState<ResultCardProps[]>(
     []
@@ -33,7 +33,10 @@ export const useSearchResult = (search: string) => {
   const isBottomSheetOpen = useBottomSheetStore(
     (state) => state.isBottomSheetOpen
   );
-  const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(search);
+  const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(
+    search,
+    isKeyword
+  );
   const { data: unLoginUserSearchResult } =
     useGetUnLoginUserSearchedResult(search);
 

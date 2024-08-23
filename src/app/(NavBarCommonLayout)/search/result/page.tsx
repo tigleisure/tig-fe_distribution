@@ -21,7 +21,7 @@ interface userCurrentPingPositionProp {
 export default function Page() {
   const tabArray = allleisureArray;
   const searchParams = useSearchParams();
-  const { search, date, adultCount, teenagerCount, kidsCount } =
+  const { search, date, adultCount, teenagerCount, kidsCount, isKeyword } =
     Object.fromEntries(searchParams.entries());
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
@@ -33,7 +33,7 @@ export default function Page() {
     isBottomSheetOpen,
     isResult,
     recommendedResult,
-  } = useSearchResult(search);
+  } = useSearchResult(search, isKeyword);
   const [isCurrentLocationUIClicked, setIsCurrentLocationUIClicked] =
     useState<boolean>(false);
 

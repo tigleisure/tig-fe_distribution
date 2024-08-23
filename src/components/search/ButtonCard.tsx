@@ -49,6 +49,7 @@ export default function ButtonCard() {
       ),
       teenagerCount: String(inputValue.teenagerCount),
       kidsCount: String(inputValue.kidsCount),
+      isKeyword: inputValue.searchValue === '' ? 'false' : 'true',
     };
     const queryString = new URLSearchParams(query).toString();
     router.push(`/search/result?${queryString}`);
