@@ -1,10 +1,10 @@
-import { reviewInfoProps } from '@apis/reservation-list/review/getSpecificReviewInfo';
+import { eachReviewInfoProps } from '@apis/reservation-list/review/getSpecificReviewInfo';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { NoMeaningfulResultResponse } from 'types/response/response';
 import { instance } from '@apis/instance';
 
 export const postReview = async (
-  postReviewData: reviewInfoProps
+  postReviewData: eachReviewInfoProps
 ): Promise<NoMeaningfulResultResponse> => {
   return instance.post(
     `/api/v1/review/${postReviewData.reservationId}`,

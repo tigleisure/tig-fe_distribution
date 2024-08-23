@@ -1,6 +1,6 @@
 'use client';
-import { useState, useEffect } from 'react';
-import { Sheet } from 'react-modal-sheet';
+import { useState, useEffect, useRef } from 'react';
+import { Sheet, SheetRef } from 'react-modal-sheet';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import ResultCard from './ResultCard';
 import MylocationSVG from '@public/svg/myLocation.svg';
@@ -20,6 +20,8 @@ export default function BottomSheet({
 }: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
+  // const ref = useRef<SheetRef>();
+  // const snapTo = (i: number) => ref.current?.snapTo(i);
 
   useEffect(() => {
     function updateSnapPoints() {
@@ -36,6 +38,7 @@ export default function BottomSheet({
   return (
     <Sheet
       className="mx-auto w-full min-w-[360px] max-w-[480px] !z-[150]"
+      // ref={ref}
       isOpen={true}
       // close 할일은 없지만 필수로 넣어야 함
       onClose={() => setOpen(false)}
@@ -55,6 +58,9 @@ export default function BottomSheet({
               }
             }}
           />
+          {/* <button className='absolute left-[20px] top-[-60px] shadow-locationButton rounded-full bg-white' onClick={()=>{
+            snapTo(0)
+          }}>목록보기</button> */}
         </Sheet.Header>
         <Sheet.Content
           className="overflow-y-scroll z-10 h-full w-full relative !grow-0"

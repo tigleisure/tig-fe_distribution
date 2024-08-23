@@ -3,7 +3,7 @@ import { reviewInfoProps } from '@apis/reservation-list/review/getSpecificReview
 import { instance } from '@apis/instance';
 
 export interface getAllClubReviewResponse {
-  result: reviewInfoProps[];
+  result: reviewInfoProps;
   resultCode: number;
   resultMsg: string;
 }

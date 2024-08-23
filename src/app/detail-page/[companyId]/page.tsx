@@ -213,6 +213,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       scrollRef.current.forEach((ref, idx) => {
         const topOffset = (ref?.offsetTop ?? 0) - 50;
         const scrollTop = mainRef.current?.scrollTop ?? 0;
+        console.log(scrollTop, topOffset);
 
         if (scrollTop > topOffset) {
           if (idx === 0) setSelectedTab('기본정보');
@@ -246,7 +247,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <Header buttonType="back" title={clubInfo.clubName} />
       <Tabs
         tabArray={
-          reviewList.result.length === 0
+          reviewList.result.reviews.length === 0
             ? detailtabArrayWhenNoReview
             : detailtabArrayWhenReview
         }
@@ -316,7 +317,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <VisitedReviewCard
         avgRating={clubInfo.avgRating}
         ratingCount={clubInfo.ratingCount}
-        reviewList={reviewList.result}
+        reviewList={reviewList.result.reviews}
         // ref={visitedReviewRef}
       />
       <ResButtonCard
