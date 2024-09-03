@@ -205,7 +205,7 @@ export default function Page({
       )}
 
       {reservationStageState === 2 && (
-        <BeforeSecondStageCard {...secondStageInfoObject} />
+        <BeforeSecondStageCard {...secondStageInfoObject}  />
       )}
 
       {reservationStageState === 1 && (
