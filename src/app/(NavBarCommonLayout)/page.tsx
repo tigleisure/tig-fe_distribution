@@ -19,6 +19,8 @@ import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import useGeolocation from '@hooks/home/useGeoLocation';
+import Link from 'next/link';
+import Footer from '@components/all/Footer/Footer';
 
 export default function Home() {
   const homeArray = homeleisureArray;
@@ -48,6 +50,7 @@ export default function Home() {
       {isSuccess && (
         <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
       )}
+      <Footer />
     </main>
   );
 }

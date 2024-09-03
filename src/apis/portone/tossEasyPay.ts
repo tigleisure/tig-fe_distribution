@@ -68,7 +68,7 @@ const handleTossEasyPay = async (
     orderName: `${reservationData.userName}님의 티그예약`,
     totalAmount: paymentPrice,
     currency: 'CURRENCY_KRW',
-    payMethod: 'CARD',
+    payMethod: 'EASY_PAY',
     redirectUrl: `${process.env.NEXT_PUBLIC_FRONTEND_DOMAIN}/payment/redirect?${queryString}`,
     customData: {
       clubId: reservationData.clubId,

@@ -5,6 +5,7 @@ import DateCard from '@components/search/DateCard';
 import LocationCard from '@components/search/LocationCard';
 import PeopleCountCard from '@components/search/PeopleCountCard';
 import SearchModal from '@components/search/SearchModal';
+import TimePickerCard from '@components/search/TimePickerCard';
 import useSearchModal from '@store/searchModalStore';
 
 export default function Page() {
@@ -18,6 +19,7 @@ export default function Page() {
       )}
       <LocationCard />
       <DateCard />
+      <TimePickerCard />
       <PeopleCountCard />
       <ButtonCard />
       {isModalOpen && <SearchModal />}

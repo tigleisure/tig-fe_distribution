@@ -2,6 +2,7 @@ import BeforeSecondStageUserInfoCard from './BeforeSecondStageUserInfoCard';
 import BeforeSecondStageCouponCard from './BeforeSecondStageCouponCard';
 import BeforeSecondStageFinalPriceCard from './BeforeSecondStageFinalPriceCard';
 import BeforeSecondStagePaymentSelectionCard from './BeforeSecondStagePaymentSelectionCard';
+import Footer from '@components/all/Footer/Footer';
 
 interface BeforeSecondStageCardProps {
   userName: string;
@@ -20,7 +21,7 @@ export default function BeforeSecondStageCard({
   paymentMethod,
 }: BeforeSecondStageCardProps) {
   return (
-    <section className="w-eightNineWidth h-fit  flex flex-col gap-y-[10px] mt-[30px] mb-[30px]">
+    <section className="w-eightNineWidth h-fit  flex flex-col gap-y-[10px] mt-[30px]">
       <BeforeSecondStageUserInfoCard
         userName={userName}
         phoneNumber={phoneNumber}
@@ -31,6 +32,7 @@ export default function BeforeSecondStageCard({
         couponDiscountPrice={couponDiscountPrice}
         defaultPrice={price}
       />
+      <Footer />
     </section>
   );
 }
