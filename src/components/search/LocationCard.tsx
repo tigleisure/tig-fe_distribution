@@ -1,6 +1,6 @@
 'use client';
 import { SearchInput } from '@components/all/SearchInput';
-import InfoCard from './InfoCard';
+import InfoCard from '../all/InfoCard';
 import useSearchModal from '@store/searchModalStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
 

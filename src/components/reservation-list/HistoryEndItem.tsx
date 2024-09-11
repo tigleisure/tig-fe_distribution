@@ -1,4 +1,4 @@
-import HistoryComponentUpperSection from './all/HistoryComponentUpperSection';
+import HistoryComponentUpperSection from '../all/HistoryComponentUpperSection';
 import { HistoryEndItemProps } from 'types/reservation-list/ReservationListPageTypes';
 import FullButton from '@components/all/FullButton';
 import Link from 'next/link';
@@ -6,14 +6,14 @@ import Link from 'next/link';
 export default function HistoryEndItem({
   clubName,
   clubAddress,
-  eventDate,
-  eventStartTime,
-  eventEndTime,
+  date,
+  startTime,
+  endTime,
   gameCount,
   adultCount,
   teenagerCount,
   kidsCount,
-  reservationStatus,
+  status,
   reservationId,
   reviewId,
   imageUrls,
@@ -26,16 +26,16 @@ export default function HistoryEndItem({
       <HistoryComponentUpperSection
         clubName={clubName}
         clubAddress={clubAddress}
-        eventDate={eventDate}
-        eventStartTime={eventStartTime}
-        eventEndTime={eventEndTime}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
         gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
         imageUrls={imageUrls}
       />
-      {reservationStatus === 'DONE' && (
+      {status === 'DONE' && (
         <FullButton
           size="sm"
           color="white"
@@ -47,7 +47,7 @@ export default function HistoryEndItem({
           }}
         />
       )}
-      {reservationStatus === 'REVIEWED' && (
+      {status === 'REVIEWED' && (
         <FullButton
           size="sm"
           color="grey5"
@@ -60,7 +60,7 @@ export default function HistoryEndItem({
           }}
         />
       )}
-      {reservationStatus === 'DECLINED' && (
+      {status === 'DECLINED' && (
         <FullButton
           bgColor="grey3"
           color="white"
@@ -69,7 +69,7 @@ export default function HistoryEndItem({
           disabled
         />
       )}
-      {reservationStatus === 'CANCELED' && (
+      {status === 'CANCELED' && (
         <FullButton
           bgColor="status_red1_opacity"
           color="status_red1"

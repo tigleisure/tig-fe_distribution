@@ -1,26 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { instance } from '@apis/instance';
+import { clubInfoProps } from 'types/all/ClubInfoTypes';
+import { getSpecificClubInfoPayload } from 'types/payload/payload';
 
-export interface clubInfoProps {
-  id: string;
-  clubName: string;
-  address: string;
-  ratingSum: number;
-  ratingCount: number;
-  avgRating: number;
-  price: number;
-  phoneNumber: string;
-  snsLink: string;
-  businessHours: string;
-  latitude: number;
-  isHeart: boolean;
-  longitude: number;
-  category: string;
-  type: 'GAME' | 'TIME';
-  imageUrls: string[];
-  presignedImageUrls: string[];
-  amenities: string[];
-}
+
 
 interface SpecificClubInfoResponse {
   result: clubInfoProps;

@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function MypageFooter() {
   return (
     <footer className="w-full h-[25%] px-footerHorizontal flex flex-col justify-center gap-y-[15px] absolute bottom-[54px] bg-grey2">
-      <span className="body3 text-grey7">TIG</span>
+      <span className="body3 text-grey7">주식회사 징고</span>
       <div className="flex flex-col gap-y-[2px]">
         <div className="flex flex-start items-center gap-x-[10px]">
           <div className="flex flex-start items-center gap-x-[10px]">
@@ -29,7 +29,7 @@ export default function MypageFooter() {
         <div className="flex flex-start items-center gap-x-[10px]">
           <span className="caption2 text-grey5">주소</span>
           <span className="caption2 text-grey4">
-            서울특별시 광진구 광나루로 17길 14-4(가온누리5) 201-1호
+            충남 홍성군 광천읍 광천로359번길 21-16, 1차동 303호(거성아파트)
           </span>
         </div>
       </div>

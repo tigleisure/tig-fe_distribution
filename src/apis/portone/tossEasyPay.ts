@@ -4,7 +4,7 @@ import { instance } from '@apis/instance';
 import { calculateTimeDiff } from '@utils/formatDate';
 import { CustomPaymentError } from './CustomPaymentError';
 
-export interface tossEasyPayBackendResponse {
+interface tossEasyPayBackendResponse {
   result: {
     resultMsg: string;
     resultCode: number;

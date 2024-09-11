@@ -1,4 +1,3 @@
-import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
 import ReservationInfoSection from './ReservationInfoSection';
 import PaymentInfoSection from './PaymentInfoSection';
 import PriceInfoSection from './PriceInfoSection';
@@ -8,6 +7,7 @@ import { ReservationDetailProps } from 'types/reservation-list/reservation/Reser
 import RequestMessageSection from './RequestMessageSection';
 import { useRouter } from 'next/navigation';
 import { formatDate } from 'date-fns';
+import HistoryComponentUpperSection from '@components/all/HistoryComponentUpperSection';
 
 export default function HistoryDetail({
   clubName,
@@ -20,14 +20,13 @@ export default function HistoryDetail({
   teenagerCount,
   kidsCount,
   reservationId,
-  memberName,
+  userName,
   phoneNumber,
-  paymentTime,
-  payMethod,
+  updateAt: paymentTime,
+  provider: payMethod,
   price,
   feePrice,
   couponDiscountPrice,
-  cancelAvailableDate,
   status,
   paymentId,
   message,
@@ -40,9 +39,9 @@ export default function HistoryDetail({
       <HistoryComponentUpperSection
         clubName={clubName}
         clubAddress={clubAddress}
-        eventDate={date}
-        eventStartTime={startTime}
-        eventEndTime={endTime}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
         gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
@@ -60,7 +59,7 @@ export default function HistoryDetail({
       <div className="w-full border-[1px] border-grey2" />
       <ReservationInfoSection
         reservationId={reservationId}
-        reservationUserName={memberName}
+        reservationUserName={userName}
         phoneNumber={phoneNumber}
       />
       <div className="w-full border-[1px] border-grey2" />
@@ -77,7 +76,7 @@ export default function HistoryDetail({
       <RequestMessageSection message={message} />
       <div className="w-full border-[1px] border-grey2" />
       <ReservationCancelSection
-        cancelAvailableDate={cancelAvailableDate}
+        cancelAvailableDate={startTime}
         status={status}
         paymentId={paymentId}
       />

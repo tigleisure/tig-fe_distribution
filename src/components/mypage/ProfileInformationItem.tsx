@@ -4,7 +4,7 @@ import { ProfileInformationItemProps } from 'types/mypage/MyPageTypes';
 import { useState, useEffect, useRef } from 'react';
 import { isValidEmail, isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
-import ToastUI from './ToastUI';
+import ToastUI from '../all/ToastUI';
 import { formatPhoneNumber } from '@utils/formattingPhoneNumber';
 import { useChangeUserEmail } from '@apis/mypage/changeUserEmail';
 import { useChangeUserPhoneNumber } from '@apis/mypage/changeUserPhoneNumber';

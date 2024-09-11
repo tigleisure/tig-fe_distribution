@@ -9,7 +9,6 @@ import {
   detailArrayWhenNoReview,
   detailArrayWhenReview,
 } from '@constant/constant';
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import useTab from '@store/tabNumberStore';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -19,7 +18,6 @@ import DummyDetailImageSVG from '@public/svg/dummyDetailImage.svg';
 import LeftGreyArrow from '@public/svg/leftGreyArrow.svg';
 import RightGreyArrow from '@public/svg/rightGreyArrow.svg';
 import {
-  clubInfoProps,
   useGetSpecificClubInfo,
 } from '@apis/club/getSpecificClubInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
@@ -28,6 +26,7 @@ import { useGetAllClubReview } from '@apis/detail-page/getAllClubReview';
 import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { set } from 'date-fns';
+import { clubInfoProps } from 'types/all/ClubInfoTypes';
 
 const servicesIcon = ['wifi', 'wifi', 'wifi', 'wifi'];
 const services = ['무선 인터넷', '무선 인터넷', '무선 인터넷', '무선 인터넷'];

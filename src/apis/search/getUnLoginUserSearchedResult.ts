@@ -20,9 +20,6 @@ export const getUnLoginUserSearchedResult = async (
 export const useGetUnLoginUserSearchedResult = (search: string) => {
   return useSuspenseQuery({
     queryKey: ['unLoginUserSearchedResult', search], // search를 queryKey에 포함
-    queryFn: ({ queryKey }) => {
-      const searchParam = queryKey[1] as string; // search 인수 추출
-      return getUnLoginUserSearchedResult(searchParam);
-    },
+    queryFn: () => getUnLoginUserSearchedResult(search),
   });
 };

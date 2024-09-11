@@ -2,53 +2,33 @@ export interface HistoryInProgressItemProps {
   imageUrls?: string[];
   clubName: string;
   clubAddress: string;
-  eventDate: string;
-  eventStartTime: string;
-  eventEndTime: string;
+  date: string;
+  startTime: string;
+  endTime: string;
   gameCount: number | null;
   adultCount?: number;
   teenagerCount?: number;
   kidsCount?: number;
-  reservationStatus:
-    | 'CONFIRMED'
-    | 'TBC'
-    | 'DECLINED'
-    | 'CANCELED'
-    | 'DONE'
-    | 'REVIEWED';
+  status: 'CONFIRMED' | 'TBC' | 'DECLINED' | 'CANCELED' | 'DONE' | 'REVIEWED';
   reservationId: number;
   paymentId: string | null;
   handleChangeCancelPaymentId: (paymentId: string) => void;
   handleChangeCancelReservationId: (reservationId: number) => void;
 }
 
-export interface HistoryInAdminItemProps {
-  imageUrl?: string;
-  clubName: string;
-  clubAddress: string;
-  clubPhoneNumber: string;
-  eventDate: string;
-  eventStartTime: string;
-  eventEndTime: string;
-  adultCount?: number;
-  teenagerCount?: number;
-  kidsCount?: number;
-  userName: string;
-  reservationStatus:
-    | 'CONFIRMED'
-    | 'TBC'
-    | 'DECLINED'
-    | 'CANCELED'
-    | 'DONE'
-    | 'REVIEWED';
-  reservationId: number;
-  paymentId: string | null;
-}
+export interface HistoryInAdminItemProps
+  extends Omit<
+    HistoryInProgressItemProps,
+    'status' | 'handleChangeCancelPaymentId' | 'handleChangeCancelReservationId'
+  > {
+    userName: string;
+    clubPhoneNumber: string;
+  }
 
 export interface HistoryComponentUpperSectionProps
   extends Omit<
     HistoryInProgressItemProps,
-    | 'reservationStatus'
+    | 'status'
     | 'reservationId'
     | 'handleChangeCancelPaymentId'
     | 'paymentId'

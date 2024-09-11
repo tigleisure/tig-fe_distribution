@@ -1,7 +1,7 @@
 'use client';
 import { ChooseCardProps } from 'types/search/SearchTypes';
-import ChooseCard from './ChooseCard';
-import InfoCard from './InfoCard';
+import ChooseCard from '../reservation/ChooseCard';
+import InfoCard from '../all/InfoCard';
 import { useSearchInputInfo } from '@store/searchInfoStore';
 import { useEffect } from 'react';
 

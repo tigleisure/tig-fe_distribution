@@ -10,7 +10,6 @@ import { useIsCouponPageOpen } from '@store/couponStore';
 import useModal from '@store/modalStore';
 import { isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
-import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
 import { useEffect, useState } from 'react';
 import { ButtonMouseEvent } from 'types/all/FullButtonTypes';
 import handleKakaokEasyPay from '@apis/portone/kakaoEasyPay';
@@ -20,6 +19,7 @@ import { usePostReservation } from '@apis/payment/before/postReservation';
 import makePaymentId from '@utils/makePaymentId';
 import { CustomPaymentError } from '@apis/portone/CustomPaymentError';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
+import ToastUI, { toastUIDuration } from './ToastUI';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';

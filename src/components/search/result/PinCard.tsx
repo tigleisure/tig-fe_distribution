@@ -1,6 +1,6 @@
 import HamburgerSVG from '@public/svg/hamburger.svg';
 import MyLocationSVG from '@public/svg/myLocation.svg';
-import ResultCard from './ResultCard';
+import ResultCard from '../../all/ResultCard';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import { useBottomSheetStore } from '@store/bottomSheetStore';
 

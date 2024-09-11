@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import InfoCard from './InfoCard';
+import InfoCard from '../all/InfoCard';
 import { set } from 'date-fns';
 
 export default function TimePickerCard() {
@@ -28,11 +28,9 @@ export default function TimePickerCard() {
         >
           {hours.map((hour, idx) => (
             <SwiperSlide
-              key={hour+'hour'}
+              key={hour + 'hour'}
               className={`h-[40px] w-[50px] flex justify-center items-center cursor-pointer ${
-                idx === selectedHour
-                  ? 'text-black'
-                  : 'text-grey4'
+                idx === selectedHour ? 'text-black' : 'text-grey4'
               }`}
             >
               {hour}
@@ -49,13 +47,11 @@ export default function TimePickerCard() {
           centeredSlides={true}
           onSlideChange={(swiper) => setSelectedMinute(swiper.realIndex)}
         >
-          {minutes.map((minute,idx) => (
+          {minutes.map((minute, idx) => (
             <SwiperSlide
-              key={minute+'minute'}
+              key={minute + 'minute'}
               className={`h-[40px] w-[50px] flex justify-center items-center cursor-pointer ${
-                idx === selectedMinute
-                  ? 'text-black'
-                  : 'text-grey4'
+                idx === selectedMinute ? 'text-black' : 'text-grey4'
               }`}
             >
               {minute}

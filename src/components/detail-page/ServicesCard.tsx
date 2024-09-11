@@ -1,5 +1,4 @@
 import { facilityMapEngToKor } from '@constant/constant';
-import useIntersectionObserver from '@hooks/useIntersectionObserver';
 import useTab from '@store/tabNumberStore';
 import { forwardRef, useRef } from 'react';
 import DELIVERY_AVAILABLESVG from '@public/svg/amenities/DELIVERY_AVAILABLE.svg';

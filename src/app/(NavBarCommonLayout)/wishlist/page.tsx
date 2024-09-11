@@ -1,6 +1,5 @@
 'use client';
 import { categoryMapKorToEng } from '@constant/constant';
-import ResultCard from '@components/search/result/ResultCard';
 import { useEffect, useState } from 'react';
 import useTab from '@store/tabNumberStore';
 import { useGetWishList } from '@apis/wishlist/getWishList';
@@ -9,6 +8,7 @@ import Tabs from '@components/all/Tabs/Tabs';
 import { allleisureArray } from '@constant/constant';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import NoLoginWishList from '@components/writing-review/NoLoginWishlist';
+import ResultCard from '@components/all/ResultCard';
 
 export default function Page() {
   const selectedTab = useTab((state) => state.selectedTab);

@@ -1,5 +1,5 @@
+import InfoCard from "@components/all/InfoCard";
 import Calender from "@components/search/Calender";
-import InfoCard from "@components/search/InfoCard";
 
 export default function ResDateCard() {
   return (

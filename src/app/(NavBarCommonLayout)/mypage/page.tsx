@@ -22,11 +22,11 @@ export default function Page() {
     if (localStorage.getItem('accessToken') === null) {
       router.replace('/login');
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);
-  }, []);
+  }, [setSelectedIsModalOpen]);
 
   const handleClickLogoutButton = (): void => {
     removeUserRefreshToken().then((response) =>

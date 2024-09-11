@@ -10,14 +10,13 @@ export interface ReservationDetailProps {
   teenagerCount: number;
   kidsCount: number;
   reservationId: string;
-  memberName: string;
+  userName: string;
   phoneNumber: string;
-  paymentTime: string;
-  payMethod: string;
+  updateAt: string;
+  provider: string;
   price: number;
   feePrice: number;
   couponDiscountPrice: number;
-  cancelAvailableDate: string;
   status: 'TBC' | 'CONFIRMED' | 'DECLINED' | 'CANCELED' | 'REVIEWED' | 'DONE';
   paymentId: string;
   message: string;

@@ -1,5 +1,5 @@
 import Calender from './Calender';
-import InfoCard from './InfoCard';
+import InfoCard from '../all/InfoCard';
 
 export default function DateCard() {
   return (

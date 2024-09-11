@@ -10,19 +10,7 @@ export default function Page() {
         data.result.map((reservationInfo) => (
           <HistoryInAdminItem
             key={reservationInfo.reservationId}
-            clubName={reservationInfo.clubName}
-            clubAddress={reservationInfo.clubAddress}
-            eventDate={reservationInfo.date}
-            eventStartTime={reservationInfo.startTime}
-            eventEndTime={reservationInfo.endTime}
-            adultCount={reservationInfo.adultCount}
-            teenagerCount={reservationInfo.teenagerCount}
-            kidsCount={reservationInfo.kidsCount}
-            reservationStatus={reservationInfo.status}
-            reservationId={reservationInfo.reservationId}
-            paymentId={reservationInfo.paymentId}
-            userName={reservationInfo.userName || ''}
-            clubPhoneNumber={reservationInfo.clubPhoneNumber}
+            {...reservationInfo}
           />
         ))}
     </main>

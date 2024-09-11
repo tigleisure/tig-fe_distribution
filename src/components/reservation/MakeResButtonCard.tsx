@@ -1,6 +1,6 @@
 'use client';
 import FullButton from '@components/all/FullButton';
-import ToastUI, { toastUIDuration } from '@components/mypage/ToastUI';
+import ToastUI, { toastUIDuration } from '@components/all/ToastUI';
 import {
   useGameReservationStore,
   useTimeReservationStore,

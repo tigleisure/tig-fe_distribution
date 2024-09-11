@@ -5,22 +5,19 @@ import Link from 'next/link';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useConfirmReservation } from '@apis/djemalsvpdlwl/confirmReservation';
 import { useDeclineReservation } from '@apis/djemalsvpdlwl/declineReservation';
-import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
+import HistoryComponentUpperSection from '@components/all/HistoryComponentUpperSection';
 
 export default function HistoryInAdminItem({
-  imageUrl,
   clubName,
-  clubAddress,
   userName,
-  eventDate,
-  eventStartTime,
-  eventEndTime,
+  date,
+  startTime,
+  endTime,
   adultCount,
   teenagerCount,
   kidsCount,
   reservationId,
   clubPhoneNumber,
-  paymentId,
 }: HistoryInAdminItemProps) {
   const { mutate: confirmReservation } = useConfirmReservation();
   const { mutate: declineReservation } = useDeclineReservation();
@@ -32,16 +29,16 @@ export default function HistoryInAdminItem({
       <HistoryComponentUpperSection
         clubName={clubName}
         clubAddress={`reservation id: ${String(reservationId)}`}
-        eventDate={eventDate}
-        eventStartTime={eventStartTime}
-        eventEndTime={eventEndTime}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
         gameCount={0}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
       />
-        <p className='body4'>예약자 이름: {userName}</p>
-        <p className='body4'>업체 번호: {clubPhoneNumber}</p>
+      <p className="body4">예약자 이름: {userName}</p>
+      <p className="body4">업체 번호: {clubPhoneNumber}</p>
       <div className="w-full h-fit flex gap-[10px]">
         <FullButton
           bgColor="white"

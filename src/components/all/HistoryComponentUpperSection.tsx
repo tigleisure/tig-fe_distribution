@@ -13,9 +13,9 @@ import Image from 'next/image';
 export default function HistoryComponentUpperSection({
   clubName,
   clubAddress,
-  eventDate,
-  eventStartTime,
-  eventEndTime,
+  date,
+  startTime,
+  endTime,
   gameCount,
   adultCount,
   teenagerCount,
@@ -50,20 +50,20 @@ export default function HistoryComponentUpperSection({
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallCalendarSVG />
             <span className="body4 text-grey7">
-              {formatReservationShowingDate(eventDate)}
+              {formatReservationShowingDate(date)}
             </span>
           </div>
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallClockSVG />
             <span className="body4 text-grey7">
-              {parseInt(extractOnlyTime(eventStartTime).slice(0, 2)) <= 12
+              {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
                 ? '오전'
                 : '오후'}{' '}
-              {extractOnlyTime(eventStartTime)} {gameCount ? '시작, ' : '~ '}
+              {extractOnlyTime(startTime)} {gameCount ? '시작, ' : '~ '}
               {!gameCount
-                ? parseInt(extractOnlyTime(eventEndTime).slice(0, 2)) <= 12
-                  ? `오전 ${extractOnlyTime(eventEndTime)}`
-                  : `오후 ${extractOnlyTime(eventEndTime)}`
+                ? parseInt(extractOnlyTime(endTime).slice(0, 2)) <= 12
+                  ? `오전 ${extractOnlyTime(endTime)}`
+                  : `오후 ${extractOnlyTime(endTime)}`
                 : `${gameCount}게임`}
               {}
             </span>

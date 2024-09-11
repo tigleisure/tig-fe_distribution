@@ -1,5 +1,5 @@
-import ChooseCard from '@components/search/ChooseCard';
-import InfoCard from '@components/search/InfoCard';
+import InfoCard from '@components/all/InfoCard';
+import ChooseCard from '@components/reservation/ChooseCard';
 import { ChooseCardProps } from 'types/search/SearchTypes';
 
 const chooseLists: ChooseCardProps[] = [

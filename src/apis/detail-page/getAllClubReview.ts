@@ -1,8 +1,7 @@
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { reviewInfoProps } from '@apis/reservation-list/review/getSpecificReviewInfo';
 import { instance } from '@apis/instance';
-
-export interface getAllClubReviewResponse {
+interface getAllClubReviewResponse {
   result: reviewInfoProps;
   resultCode: number;
   resultMsg: string;

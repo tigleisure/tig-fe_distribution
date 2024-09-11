@@ -1,5 +1,5 @@
 import { ResultCardProps } from 'types/search/result/searchResult';
-import ResultCard from './ResultCard';
+import ResultCard from '../../all/ResultCard';
 
 interface NoSearchResultProps {
   results: ResultCardProps[];

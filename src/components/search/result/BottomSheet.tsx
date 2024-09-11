@@ -2,7 +2,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Sheet, SheetRef } from 'react-modal-sheet';
 import { ResultCardProps } from 'types/search/result/searchResult';
-import ResultCard from './ResultCard';
+import ResultCard from '../../all/ResultCard';
 import MylocationSVG from '@public/svg/myLocation.svg';
 
 interface BottomSheetProps {

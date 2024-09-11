@@ -13,7 +13,7 @@ export default function Page() {
     }
 
     setIsLoading(false);
-  }, []);
+  }, [router]);
 
   return (
     <>

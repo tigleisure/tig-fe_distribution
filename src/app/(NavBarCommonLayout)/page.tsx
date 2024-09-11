@@ -31,26 +31,22 @@ export default function Home() {
     <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
       <SearchHeader isHomeOrResultPage />
       <Tabs tabArray={homeArray} from="home" className="top-[58px]" />
+      {!isSuccess && <TigLoadingPage />}
       {isSuccess && (
-        <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
-          <HomeBannerSVG className="w-full h-auto" />
-        </div>
+        <>
+          <div className="w-full max-w-[640px] mt-[111px] p-5 mb-5">
+            <HomeBannerSVG className="w-full h-auto" />
+          </div>
+          {clubCards.length !== 0 && (
+            <HomeCardList
+              title="근처에서 즐길 수 있는 스포츠예요"
+              Card={clubCards}
+            />
+          )}
+          <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
+          <Footer />
+        </>
       )}
-      {!isSuccess ? (
-        <TigLoadingPage />
-      ) : (
-        clubCards.length !== 0 && (
-          <HomeCardList
-            title="근처에서 즐길 수 있는 스포츠예요"
-            Card={clubCards}
-          />
-        )
-      )}
-
-      {isSuccess && (
-        <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
-      )}
-      <Footer />
     </main>
   );
 }

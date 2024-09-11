@@ -1,4 +1,4 @@
-import HistoryComponentUpperSection from '@components/reservation-list/all/HistoryComponentUpperSection';
+import HistoryComponentUpperSection from '@components/all/HistoryComponentUpperSection';
 import ReviewLowerSection from './ReviewLowerSection';
 import { ReviewProps } from 'types/reservation-list/review/ReservationListReviewPageTypes';
 
@@ -6,9 +6,9 @@ export default function Review({
   imageUrls,
   clubName,
   clubAddress,
-  eventDate,
-  eventStartTime,
-  eventEndTime,
+  date,
+  startTime,
+  endTime,
   gameCount,
   adultCount,
   teenagerCount,
@@ -23,9 +23,9 @@ export default function Review({
         imageUrls={imageUrls}
         clubName={clubName}
         clubAddress={clubAddress}
-        eventDate={eventDate}
-        eventStartTime={eventStartTime}
-        eventEndTime={eventEndTime}
+        date={date}
+        startTime={startTime}
+        endTime={endTime}
         gameCount={gameCount}
         adultCount={adultCount}
         teenagerCount={teenagerCount}
@@ -34,7 +34,7 @@ export default function Review({
       <div className="w-full border-[1px] border-grey2" />
       <ReviewLowerSection
         userName={reservationUserName}
-        startTime={eventDate}
+        startTime={date}
         adultCount={adultCount || 0}
         teenagerCount={teenagerCount || 0}
         kidsCount={kidsCount || 0}

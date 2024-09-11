@@ -1,5 +1,4 @@
 'use client';
-import InfoCard from '@components/search/InfoCard';
 import GreyRecSVG from '@public/svg/greyRec.svg';
 import Orange1RecSVG from '@public/svg/orange1Rec.svg';
 import Orange2RecSVG from '@public/svg/orange2Rec.svg';
@@ -10,6 +9,7 @@ import { useGameReservationStore } from '@store/makeReservationInfo';
 import { set } from 'date-fns';
 import { useSelectedDate } from '@store/selectedDateStore';
 import { generateTimeSlots } from '@utils/generateTimeSlots';
+import InfoCard from '@components/all/InfoCard';
 
 export default function ResGameCard({
   startTime,

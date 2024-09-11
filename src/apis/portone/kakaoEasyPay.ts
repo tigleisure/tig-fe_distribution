@@ -3,7 +3,7 @@ import * as PortOne from '@portone/browser-sdk/v2';
 import { calculateTimeDiff } from '@utils/formatDate';
 import { CustomPaymentError } from './CustomPaymentError';
 
-export interface kakaoEasyPayBackendResponse {
+interface kakaoEasyPayBackendResponse {
   result: {
     resultMsg: string;
     resultCode: number;
