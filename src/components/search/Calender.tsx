@@ -1,6 +1,6 @@
 'use client';
 import { createCalendarList } from '@utils/calender';
-import { useEffect, useState } from 'react';
+import { use, useEffect, useState } from 'react';
 import { addMonths } from 'date-fns/addMonths';
 import { subMonths } from 'date-fns/subMonths';
 import { cn } from '@utils/cn';
@@ -14,6 +14,7 @@ import {
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
 import { useSelectedDate } from '@store/selectedDateStore';
+import { is } from 'date-fns/locale';
 
 const daysOfWeek = ['일', '월', '화', '수', '목', '금', '토'];
 
@@ -21,6 +22,7 @@ export default function Calender() {
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date());
   const selectedDate = useSelectedDate((state) => state.selectedDate);
   const setSelectedDate = useSelectedDate((state) => state.setSelectedDate);
+  const [isAcceptMonth, setIsAcceptMonth] = useState(true);
 
   const pathname = usePathname();
   const gameReservationInfo = useGameReservationStore(
@@ -46,6 +48,7 @@ export default function Calender() {
     setCalendarMonth(addMonths(calendarMonth, 1));
   };
   const handlePrevMonthButtonClick = () => {
+    setIsAcceptMonth(true);
     setCalendarMonth(subMonths(calendarMonth, 1));
   };
   const calendarList = createCalendarList(calendarMonth);
@@ -61,26 +64,34 @@ export default function Calender() {
     } else {
       setSearchInputInfo({ ...searchInputInfo, searchDate: formattedDate });
     }
-
-    if (date.getMonth() < calendarMonth.getMonth()) {
-      if (date.getMonth() === 0 && calendarMonth.getMonth() === 11) {
-        setCalendarMonth(addMonths(calendarMonth, 1));
-      } else {
-        setCalendarMonth(subMonths(calendarMonth, 1));
-      }
-    } else if (date.getMonth() > calendarMonth.getMonth()) {
-      if (date.getMonth() === 11 && calendarMonth.getMonth() === 0) {
-        setCalendarMonth(subMonths(calendarMonth, 1));
-      } else {
-        setCalendarMonth(addMonths(calendarMonth, 1));
-      }
-    }
+    // if (isAcceptMonth) {
+    //   if (date.getMonth() < calendarMonth.getMonth()) {
+    //     if (date.getMonth() === 0 && calendarMonth.getMonth() === 11) {
+    //       setCalendarMonth(addMonths(calendarMonth, 1));
+    //     } else {
+    //       setCalendarMonth(subMonths(calendarMonth, 1));
+    //     }
+    //   } else if (date.getMonth() > calendarMonth.getMonth()) {
+    //     if (date.getMonth() === 11 && calendarMonth.getMonth() === 0) {
+    //       setCalendarMonth(subMonths(calendarMonth, 1));
+    //     } else {
+    //       setCalendarMonth(addMonths(calendarMonth, 1));
+    //     }
+    //   }
+    // }
     setSelectedDate(formattedDate);
   };
 
   useEffect(() => {
-    setCalendarMonth(new Date(selectedDate));
+    if (isAcceptMonth) setCalendarMonth(new Date(selectedDate));
   }, [selectedDate]);
+
+  useEffect(() => {
+    const oneYearLater = formatDate(addMonths(new Date(), 10), 'yyyy-MM');
+    if (formatDate(calendarMonth, 'yyyy-MM') === oneYearLater) {
+      setIsAcceptMonth(false);
+    }
+  }, [calendarMonth]);
 
   return (
     <section className="w-full flex flex-col gap-[6px] items-center self-center">
@@ -91,8 +102,8 @@ export default function Calender() {
         <div className="title3 grey7">
           {calendarMonth.getFullYear()}년 {calendarMonth.getMonth() + 1}월
         </div>
-        <button onClick={handleNextMonthButtonClick}>
-          <CalenderRightSVG />
+        <button onClick={handleNextMonthButtonClick} disabled={!isAcceptMonth}>
+          <CalenderRightSVG fill={isAcceptMonth ? '#4D5256' : '#ffffff'} />
         </button>
       </div>
       <div className="w-full flex justify-center body4">

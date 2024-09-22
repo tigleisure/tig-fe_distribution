@@ -50,7 +50,7 @@ export default function Tab({
         <motion.div
           layoutId="underline"
           className={cn(
-            'w-full h-[1px] absolute bottom-0',
+            'w-full h-[2px] absolute bottom-0',
             {
               'bg-primary_orange1': currentTab === name,
               'bg-transparent': currentTab !== name,

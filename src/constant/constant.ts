@@ -20,6 +20,8 @@ export const homeleisureArray = [
   '야구',
   '스쿼시',
 ];
+
+export const mainArray = ['스포츠','문화']
 export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자 리뷰'];
 export const detailArrayWhenNoReview = ['기본정보', '편의시설'];
 

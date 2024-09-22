@@ -30,7 +30,7 @@ export const useGeolocation = (
   const selectedTab = useTab((state) => state.selectedTab);
 
   useEffect(() => {
-    if (selectedTab === '홈') {
+    if (selectedTab === '홈' || selectedTab === '문화' || selectedTab === '스포츠') {
       setClubCards(originalClubCards);
     } else {
       setClubCards(
