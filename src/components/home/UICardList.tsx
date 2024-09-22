@@ -5,7 +5,7 @@ import FootballSVG from '@public/svg/homeUI/football.svg';
 import GolfSVG from '@public/svg/homeUI/golf.svg';
 import PocketballSVG from '@public/svg/homeUI/pocketball.svg';
 import SquashSVG from '@public/svg/homeUI/squash.svg';
-import TabletennisSVG from '@public/svg/homeUI/tabletennis.svg';
+import TabletennisSVG from '@public/svg/homeUI/tableTennis.svg';
 import TennisSVG from '@public/svg/homeUI/tennis.svg';
 import Link from 'next/link';
 
@@ -22,7 +22,7 @@ interface UICardListProps {
 }
 
 export default function UICardList({ type }: UICardListProps) {
-  if (type === 'POCKET_BALL') { 
+  if (type === 'POCKET_BALL') {
     return (
       <Link
         className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
