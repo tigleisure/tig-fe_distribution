@@ -22,7 +22,7 @@ interface UICardListProps {
 }
 
 export default function UICardList({ type }: UICardListProps) {
-  if (type === 'POCKET_BALL') {
+  if (type === 'POCKET_BALL') { 
     return (
       <Link
         className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
