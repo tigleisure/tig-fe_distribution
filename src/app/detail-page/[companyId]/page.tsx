@@ -17,9 +17,7 @@ import { ReviewLowerSectionProps } from 'types/reservation-list/review/Reservati
 import DummyDetailImageSVG from '@public/svg/dummyDetailImage.svg';
 import LeftGreyArrow from '@public/svg/leftGreyArrow.svg';
 import RightGreyArrow from '@public/svg/rightGreyArrow.svg';
-import {
-  useGetSpecificClubInfo,
-} from '@apis/club/getSpecificClubInfo';
+import { useGetSpecificClubInfo } from '@apis/club/getSpecificClubInfo';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import { useGetSpecificClubInfoForLogin } from '@apis/club/getSpeicificClubInfoForLogin';
 import { useGetAllClubReview } from '@apis/detail-page/getAllClubReview';
@@ -317,6 +315,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
         avgRating={clubInfo.avgRating}
         ratingCount={clubInfo.ratingCount}
         reviewList={reviewList.result.reviews}
+        reviewSummary={reviewList.result.reviewSummary}
         // ref={visitedReviewRef}
       />
       <ResButtonCard

@@ -29,7 +29,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <PocketballSVG />
-        <div>포켓볼</div>
+        <div>당구</div>
       </Link>
     );
   }
@@ -51,7 +51,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <GolfSVG />
-        <div>스크린골프</div>
+        <div>골프</div>
       </Link>
     );
   }

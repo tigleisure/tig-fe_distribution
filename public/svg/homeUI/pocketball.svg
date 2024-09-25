@@ -1,27 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" viewBox="0 0 60 60" fill="none">
-<rect width="60" height="60" rx="30" fill="#FFF0D3"/>
-<path d="M37.2 12H22.8V44.4H37.2V12Z" fill="#FF6B00"/>
-<path d="M40.8 13.8H37.2V42.6H40.8V13.8Z" fill="#FF6B00"/>
-<path d="M40.8 42.6H44.4V39H40.8V42.6Z" fill="#FF6B00"/>
-<path d="M44.4 17.4H40.8V39H44.4V17.4Z" fill="#FF6B00"/>
-<path d="M37.2 46.2H40.8V42.6H37.2V46.2Z" fill="#FF6B00"/>
-<path d="M37.2 44.4H22.8V48H37.2V44.4Z" fill="#FF6B00"/>
-<path d="M44.4 21V39H48V21H44.4Z" fill="#FF6B00"/>
-<path d="M19.2 42.6H22.8L22.8 13.8H19.2L19.2 42.6Z" fill="#FF6B00"/>
-<path d="M19.2 39H15.6V42.6H19.2V39Z" fill="#FF6B00"/>
-<path d="M15.6 39H19.2L19.2 17.4H15.6L15.6 39Z" fill="#FF6B00"/>
-<path d="M22.8 42.6H19.2V46.2H22.8V42.6Z" fill="#FF6B00"/>
-<path d="M12 21L12 39H15.6V21H12Z" fill="#FF6B00"/>
-<path d="M35.4 34.5H39V25.5H35.4V34.5Z" fill="white"/>
-<path d="M21 34.5H24.6V25.5H21V34.5Z" fill="white"/>
-<path d="M37.2 22.8H34.5V21.9H25.5V22.8H22.8V37.2H25.5V38.1H34.5V37.2H37.2V22.8Z" fill="white"/>
-<path d="M31.8 24.6H28.2V26.4H31.8V24.6Z" fill="black"/>
-<path d="M31.8 29.1H28.2V30.9H31.8V29.1Z" fill="black"/>
-<path d="M31.8 33.6H28.2V35.4H31.8V33.6Z" fill="black"/>
-<path d="M33.6 33.6V30.9H31.8V33.6H33.6Z" fill="black"/>
-<path d="M28.2 33.6V30.9H26.4V33.6H28.2Z" fill="black"/>
-<path d="M33.6 29.1V26.4H31.8V29.1H33.6Z" fill="black"/>
-<path d="M28.2 29.1V26.4H26.4V29.1H28.2Z" fill="black"/>
-<path d="M36.264 42.6H39V40.098H36.264V42.6Z" fill="white"/>
-<path d="M38.064 40.8H40.8V38.298H38.064V40.8Z" fill="white"/>
+<svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="60" height="60" rx="30" fill="#F5F6F7"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M37.2 12H22.8V13.8H19.2V42.6H19.2V46.2H22.8V42.6H22.8V44.4V48H37.2V46.2H40.8V42.6L40.8 42.6V13.8H37.2V12ZM40.8 42.6V39H44.4V42.6H40.8ZM44.4 17.4H40.8V39H44.4L48 39V21H44.4L44.4 17.4ZM19.2 39H19.2V17.4H15.6V21H12V39H15.6H15.6V42.6H19.2V39Z" fill="#FF8E3C"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M34.5001 22.8H37.2001V25.5H39V34.5H37.2001V37.2H34.5001V38.1H25.5001V37.2H22.8001V34.5H21V25.5H22.8001V22.8H25.5001V21.9H34.5001V22.8Z" fill="white"/>
+<path d="M31.8 24.6H28.2V26.4H31.8V24.6Z" fill="#4A4A4A"/>
+<path d="M31.8 29.1H28.2V30.9H31.8V29.1Z" fill="#4A4A4A"/>
+<path d="M31.8 33.6H28.2V35.4H31.8V33.6Z" fill="#4A4A4A"/>
+<path d="M33.6001 33.6V30.9H31.8001V33.6H33.6001Z" fill="#4A4A4A"/>
+<path d="M28.2 33.6V30.9H26.4V33.6H28.2Z" fill="#4A4A4A"/>
+<path d="M33.6001 29.1V26.4H31.8001V29.1H33.6001Z" fill="#4A4A4A"/>
+<path d="M28.2 29.1V26.4H26.4V29.1H28.2Z" fill="#4A4A4A"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M38.9999 40.8H40.8V38.298H38.064V40.098H36.2639V42.6H38.9999V40.8Z" fill="white"/>
 </svg>

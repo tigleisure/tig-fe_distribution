@@ -1,4 +1,5 @@
 'use client';
+import useSubTab from '@store/subTabNumberStore';
 import useTab from '@store/tabNumberStore';
 import { cn } from '@utils/cn';
 import { motion } from 'framer-motion';
@@ -9,6 +10,7 @@ interface TabProps {
   name: string;
   className?: string;
   rounded?: boolean;
+  from?: string;
 }
 
 export default function Tab({
@@ -16,17 +18,65 @@ export default function Tab({
   defaultName,
   className,
   rounded = false,
+  from = '',
 }: TabProps) {
   const currentTab = useTab((state) => state.selectedTab);
   const setCurrentTab = useTab((state) => state.setSelectedTab);
+  const currentSubTab = useSubTab((state) => state.selectedTab);
+  const setCurrentSubTab = useSubTab((state) => state.setSelectedTab);
+
+  const HandleClick = () => {
+    if (from === 'searchSub') setCurrentSubTab(name);
+    else setCurrentTab(name);
+  };
 
   useEffect(() => {
-    setCurrentTab(defaultName);
+    if (from === 'searchSub') setCurrentSubTab(defaultName);
+    else setCurrentTab(defaultName);
 
     return () => {
-      setCurrentTab(defaultName);
+      if (from === 'searchSub') setCurrentSubTab(defaultName);
+      else setCurrentTab(defaultName);
     };
   }, []);
+
+  if (from === 'searchSub') {
+    return (
+      <div
+        className={cn(
+          'flex justify-center items-center relative cursor-pointer title3',
+          {
+            'text-primary_orange1': currentSubTab === name && !rounded,
+            'text-grey6': currentSubTab !== name && !rounded,
+            'text-white h-[30px] bg-primary_orange1 border border-primary_orange1':
+              currentSubTab === name && rounded,
+            'text-grey6 h-[30px] border border-grey3':
+              currentSubTab !== name && rounded,
+            'w-fit px-[24px] shrink-0': !rounded,
+            'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,
+          },
+          className
+        )}
+        onClick={HandleClick}
+      >
+        {name}
+        {!rounded && currentSubTab === name && (
+          <motion.div
+            layoutId="underline"
+            className={cn(
+              'w-full h-[2px] absolute bottom-0',
+              {
+                'bg-primary_orange1': currentSubTab === name,
+                'bg-transparent': currentSubTab !== name,
+              },
+              className
+            )}
+          />
+        )}
+      </div>
+    );
+  }
+
   return (
     <div
       className={cn(
@@ -43,7 +93,7 @@ export default function Tab({
         },
         className
       )}
-      onClick={() => setCurrentTab(name)}
+      onClick={HandleClick}
     >
       {name}
       {!rounded && currentTab === name && (

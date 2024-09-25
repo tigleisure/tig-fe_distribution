@@ -20,6 +20,22 @@ export const homeleisureArray = [
   '야구',
   '스쿼시',
 ];
+export const leisureArray = [
+  '당구',
+  '볼링',
+  '스크린골프',
+  '탁구',
+  '테니스',
+  '축구',
+  '야구',
+  '스쿼시',
+];
+
+export const golfArray = ['스크린골프', '골프연습장', '골프레슨', '필드 골프'];
+export const pocketballArray = ['중대', '대대', '포켓볼'];
+export const baseballArray = ['스크린야구', '야구연습장'];
+export const squashArray = ['스쿼시연습장', '스쿼시레슨', '원데이클래스'];
+export const tennisArray = ['테니스코트','테니스레슨'];
 
 export const mainArray = ['스포츠','문화']
 export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자 리뷰'];

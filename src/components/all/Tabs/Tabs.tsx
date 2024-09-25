@@ -31,6 +31,7 @@ export default function Tabs({
           name={tab}
           rounded={rounded}
           defaultName={tabArray[0]}
+          from={from}
         />
       ))}
     </section>

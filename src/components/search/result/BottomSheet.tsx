@@ -25,7 +25,7 @@ export default function BottomSheet({
 
   useEffect(() => {
     function updateSnapPoints() {
-      const calculateHeight = window.innerHeight - 141;
+      const calculateHeight = window.innerHeight - 231;
       setHeight(calculateHeight);
     }
     updateSnapPoints();

@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        primary_orange0: '#CC4D02',
         primary_orange1: '#FF6B00',
         primary_orange2: '#FFF0D3',
         secondary_green1: '#30FF6B',

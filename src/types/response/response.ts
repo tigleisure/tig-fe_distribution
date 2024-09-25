@@ -30,15 +30,26 @@ export interface Club {
   id: number;
   clubName: string;
   address: string;
+  ratingSum: number;
+  ratingCount: number;
+  avgRating: number;
   price: number;
   phoneNumber: string;
   snsLink: string;
   businessHours: string;
   latitude: number;
   longitude: number;
-  category: string;
-  type: string;
+  category:
+    | 'TENNIS'
+    | 'BALLING'
+    | 'POCKET_BALL'
+    | 'TABLE_TENNIS'
+    | 'SCREEN_GOLF';
+  type: 'GAME' | 'TIME';
   imageUrls: string[];
+  presignedImageUrls: string[];
+  isHeart: boolean;
+  amenities: null;
 }
 
 export interface NearestClubsByCategory {

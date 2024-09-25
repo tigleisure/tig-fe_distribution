@@ -14,86 +14,104 @@ interface VisitedReviewCardProps {
   avgRating: number;
   ratingCount: number;
   reviewList: ReviewLowerSectionProps[];
+  reviewSummary: string;
 }
 
 // eslint-disable-next-line react/display-name
 export const VisitedReviewCard = forwardRef<
   HTMLDivElement,
   VisitedReviewCardProps
->(({ avgRating, ratingCount, reviewList }: VisitedReviewCardProps, ref) => {
-  const reviewPages = Array.from(
-    { length: (reviewList.length - 1) / 4 + 1 },
-    (_, i) => i + 1
-  );
-  const [selectedReviewPage, setSelectedReviewPage] = useState(1);
-  const [renderingReviewList, setRenderingReviewList] = useState(
-    reviewList.slice(0, 4)
-  );
+>(
+  (
+    {
+      avgRating,
+      ratingCount,
+      reviewList,
+      reviewSummary,
+    }: VisitedReviewCardProps,
+    ref
+  ) => {
+    console.log(reviewSummary);
+    const reviewPages = Array.from(
+      { length: (reviewList.length - 1) / 4 + 1 },
+      (_, i) => i + 1
+    );
+    const [selectedReviewPage, setSelectedReviewPage] = useState(1);
+    const [renderingReviewList, setRenderingReviewList] = useState(
+      reviewList.slice(0, 4)
+    );
 
-  useEffect(() => {
-    const startIndex = (selectedReviewPage - 1) * 4;
-    const endIndex = startIndex + 4;
-    setRenderingReviewList(reviewList.slice(startIndex, endIndex));
-  }, [selectedReviewPage, reviewList]);
+    useEffect(() => {
+      const startIndex = (selectedReviewPage - 1) * 4;
+      const endIndex = startIndex + 4;
+      setRenderingReviewList(reviewList.slice(startIndex, endIndex));
+    }, [selectedReviewPage, reviewList]);
 
-  if (reviewList.length === 0) return <div className="pb-[78px]"></div>;
+    if (reviewList.length === 0) return <div className="pb-[78px]"></div>;
 
-  return (
-    <section className="flex flex-col w-full px-5 py-[40px] gap-6 pb-[118px]">
-      <div className="flex gap-[10px]">
-        <p className="headline2 text-grey7">방문자 리뷰</p>
-        <div className="flex gap-1 headline2 items-center text-primary_orange1">
-          <DetailPageStarSVG />
-          <p>{avgRating}</p>
-          <p>({ratingCount})</p>
-        </div>
-      </div>
-      <div className="w-full gap-[10px] flex flex-col">
-        {renderingReviewList.map((review, index) => (
-          <div
-            key={index + avgRating}
-            className="w-full rounded-[14px] border border-grey3 py-5 flex justify-center items-center"
-          >
-            <ReviewLowerSection {...review} />
+    return (
+      <section className="flex flex-col w-full px-5 py-[40px] gap-[10px] pb-[118px]">
+        <div className="flex gap-[10px] mb-[14px]">
+          <p className="headline2 text-grey7">방문자 리뷰</p>
+          <div className="flex gap-1 headline2 items-center text-primary_orange1">
+            <DetailPageStarSVG />
+            <p>{avgRating}</p>
+            <p>({ratingCount})</p>
           </div>
-        ))}
-      </div>
-      <div
-        className="w-fit flex self-center relative gap-1 justify-center"
-        ref={ref}
-      >
-        {selectedReviewPage === 1 ? (
-          <LeftGreyArrowSVG className="mr-[20px]" />
-        ) : (
-          <LeftBlackArrowSVG
-            className="mr-[20px]"
-            onClick={() => setSelectedReviewPage((prev) => prev - 1)}
-          />
-        )}
-        {reviewPages.map((number) => (
-          <button
-            className={cn(
-              'w-6 h-6 flex justify-center items-center title4 rounded-full',
-              {
-                'text-white bg-grey7': selectedReviewPage === number,
-                'text-grey7 bg-white': selectedReviewPage !== number,
-              }
-            )}
-            onClick={() => setSelectedReviewPage(number)}
-            key={number * 1000}
-          >
-            {number}
-          </button>
-        ))}
-        {selectedReviewPage === reviewPages.length ? (
-          <RightGreyArrowSVG className="ml-[20px]" />
-        ) : (
-          <RightBlackArrowSVG
-            className="ml-[20px]"
-            onClick={() => setSelectedReviewPage((prev) => prev + 1)}
-          />
-        )}
-      </div>
-    </section>
-  );
-});
+        </div>
+        <div className="w-full rounded-[14px] bg-[#D5FFE2] py-3 px-4 gap-[6px] flex flex-col">
+          <p className="title3 text-grey7">AI 리뷰분석</p>
+          {reviewSummary !== '' && (
+            <p className="body5 text-grey6">{reviewSummary}</p>
+          )}
+        </div>
+        <div className="w-full gap-[10px] flex flex-col mb-[14px]">
+          {renderingReviewList.map((review, index) => (
+            <div
+              key={index + avgRating}
+              className="w-full rounded-[14px] border border-grey3 py-5 flex justify-center items-center"
+            >
+              <ReviewLowerSection {...review} />
+            </div>
+          ))}
+        </div>
+        <div
+          className="w-fit flex self-center relative gap-1 justify-center"
+          ref={ref}
+        >
+          {selectedReviewPage === 1 ? (
+            <LeftGreyArrowSVG className="mr-[20px]" />
+          ) : (
+            <LeftBlackArrowSVG
+              className="mr-[20px]"
+              onClick={() => setSelectedReviewPage((prev) => prev - 1)}
+            />
+          )}
+          {reviewPages.map((number) => (
+            <button
+              className={cn(
+                'w-6 h-6 flex justify-center items-center title4 rounded-full',
+                {
+                  'text-white bg-grey7': selectedReviewPage === number,
+                  'text-grey7 bg-white': selectedReviewPage !== number,
+                }
+              )}
+              onClick={() => setSelectedReviewPage(number)}
+              key={number * 1000}
+            >
+              {number}
+            </button>
+          ))}
+          {selectedReviewPage === reviewPages.length ? (
+            <RightGreyArrowSVG className="ml-[20px]" />
+          ) : (
+            <RightBlackArrowSVG
+              className="ml-[20px]"
+              onClick={() => setSelectedReviewPage((prev) => prev + 1)}
+            />
+          )}
+        </div>
+      </section>
+    );
+  }
+);

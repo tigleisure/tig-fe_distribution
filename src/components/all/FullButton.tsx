@@ -371,7 +371,7 @@ export default function FullButton({
     <button
       onClick={(ev: ButtonMouseEvent) => handleClickFullButton(ev)}
       className={cn(
-        `w-full flex justify-center items-center rounded-md`,
+        `w-full flex justify-center items-center rounded-md active:bg-primary_orange0`,
         {
           'body4 h-[37px]': size === 'sm',
           'title3 h-[44px]': size === 'md',
