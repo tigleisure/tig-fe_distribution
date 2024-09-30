@@ -29,7 +29,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <PocketballSVG />
-        <div>당구</div>
+        <div className="body4">당구</div>
       </Link>
     );
   }
@@ -40,7 +40,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <BallingSVG />
-        <div>볼링</div>
+        <div className="body4">볼링</div>
       </Link>
     );
   }
@@ -51,7 +51,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <GolfSVG />
-        <div>골프</div>
+        <div className="body4">골프</div>
       </Link>
     );
   }
@@ -62,7 +62,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <TabletennisSVG />
-        <div>탁구</div>
+        <div className="body4">탁구</div>
       </Link>
     );
   }
@@ -73,7 +73,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <TennisSVG />
-        <div>테니스</div>
+        <div className="body4">테니스</div>
       </Link>
     );
   }
@@ -84,7 +84,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <FootballSVG />
-        <div>축구</div>
+        <div className="body4">축구</div>
       </Link>
     );
   }
@@ -95,7 +95,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <BaseballSVG />
-        <div>야구</div>
+        <div className="body4">야구</div>
       </Link>
     );
   }
@@ -106,7 +106,7 @@ export default function UICardList({ type }: UICardListProps) {
         href={`/home/${type}`}
       >
         <SquashSVG />
-        <div>스쿼시</div>
+        <div className="body4">스쿼시</div>
       </Link>
     );
   }

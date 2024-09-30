@@ -43,7 +43,7 @@ export default function FilterHeader() {
         setIsOpen(true);
       }}
     >
-      <p className="leading-[1.5]">{selected}</p>
+      <p className="leading-[1.5] title4 pt-[2px]">{selected}</p>
       <CategorySVG />
       {isOpen && (
         <motion.div

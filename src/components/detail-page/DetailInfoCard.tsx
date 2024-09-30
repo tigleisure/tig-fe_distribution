@@ -95,25 +95,27 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
         <div className="flex flex-col gap-[10px] body2 text-grey7">
           <div className="flex gap-2">
             <LocationPingSVG />
-            <p>{address}</p>
+            <p className="body2">{address}</p>
           </div>
           <div className="flex gap-2">
             <CardSVG />
-            <p>
+            <p className="body2">
               {type === 'TIME' ? '시간' : '게임'}당 {price.toLocaleString()}원
             </p>
           </div>
           <div className="flex gap-2" ref={ref}>
             <TimeSVG />
-            <p>{businessHours}</p>
+            <p className="body2">{businessHours}</p>
           </div>
           <div className="flex gap-2">
             <CallSVG />
-            <p>{phoneNumber}</p>
+            <p className="body2">{phoneNumber}</p>
           </div>
           <div className="flex gap-2">
             <SnsSVG />
-            {snsLink ? <Link href={snsLink}>{snsLink}</Link> : <p>-</p>}
+            <p className="body2">
+              {snsLink ? <Link href={snsLink}>{snsLink}</Link> : <p>-</p>}
+            </p>
           </div>
         </div>
       </section>
