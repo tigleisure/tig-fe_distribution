@@ -35,9 +35,9 @@ export const golfArray = ['스크린골프', '골프연습장', '골프레슨', 
 export const pocketballArray = ['중대', '대대', '포켓볼'];
 export const baseballArray = ['스크린야구', '야구연습장'];
 export const squashArray = ['스쿼시연습장', '스쿼시레슨', '원데이클래스'];
-export const tennisArray = ['테니스코트','테니스레슨'];
+export const tennisArray = ['테니스코트', '테니스레슨'];
 
-export const mainArray = ['스포츠','문화']
+export const mainArray = ['스포츠'];
 export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자 리뷰'];
 export const detailArrayWhenNoReview = ['기본정보', '편의시설'];
 
@@ -53,14 +53,14 @@ export const categoryMapKorToEng: { [key: string]: string } = {
 };
 
 export const categoryMapEngToKor: { [key: string]: string } = {
-POCKET_BALL: '당구',
-BALLING: '볼링',
-SCREEN_GOLF: '스크린골프',
-TABLE_TENNIS: '탁구',
-TENNIS: '테니스',
-FOOTBALL: '축구',
-BASEBALL: '야구',
-SQUASH: '스쿼시',
+  POCKET_BALL: '당구',
+  BALLING: '볼링',
+  SCREEN_GOLF: '스크린골프',
+  TABLE_TENNIS: '탁구',
+  TENNIS: '테니스',
+  FOOTBALL: '축구',
+  BASEBALL: '야구',
+  SQUASH: '스쿼시',
 };
 
 export const facilityMapEngToKor: { [key: string]: string } = {
