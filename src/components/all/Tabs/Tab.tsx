@@ -26,21 +26,23 @@ export default function Tab({
   const setCurrentSubTab = useSubTab((state) => state.setSelectedTab);
 
   const HandleClick = () => {
-    if (from === 'searchSub') setCurrentSubTab(name);
+    if (from === 'searchSub' || from === 'gameType') setCurrentSubTab(name);
     else setCurrentTab(name);
   };
 
   useEffect(() => {
-    if (from === 'searchSub') setCurrentSubTab(defaultName);
+    if (from === 'searchSub' || from === 'gameType')
+      setCurrentSubTab(defaultName);
     else setCurrentTab(defaultName);
 
     return () => {
-      if (from === 'searchSub') setCurrentSubTab(defaultName);
+      if (from === 'searchSub' || from === 'gameType')
+        setCurrentSubTab(defaultName);
       else setCurrentTab(defaultName);
     };
   }, []);
 
-  if (from === 'searchSub') {
+  if (from === 'searchSub' || from === 'gameType') {
     return (
       <div
         className={cn(
@@ -48,9 +50,9 @@ export default function Tab({
           {
             'text-primary_orange1': currentSubTab === name && !rounded,
             'text-grey6': currentSubTab !== name && !rounded,
-            'text-white h-[30px] bg-primary_orange1 border border-primary_orange1':
+            'text-white h-[34px] bg-primary_orange1 border border-primary_orange1':
               currentSubTab === name && rounded,
-            'text-grey6 h-[30px] border border-grey3':
+            'text-grey6 h-[34px] border border-grey3':
               currentSubTab !== name && rounded,
             'w-fit px-[24px] shrink-0': !rounded,
             'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,
@@ -84,9 +86,9 @@ export default function Tab({
         {
           'text-primary_orange1': currentTab === name && !rounded,
           'text-grey6': currentTab !== name && !rounded,
-          'text-white h-[30px] bg-primary_orange1 border border-primary_orange1':
+          'text-white h-[34px] bg-primary_orange1 border border-primary_orange1':
             currentTab === name && rounded,
-          'text-grey6 h-[30px] border border-grey3':
+          'text-grey6 h-[34px] border border-grey3':
             currentTab !== name && rounded,
           'w-fit px-[24px] shrink-0': !rounded,
           'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,

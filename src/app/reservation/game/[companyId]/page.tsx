@@ -18,6 +18,8 @@ import { useSearchParams } from 'next/navigation';
 import { addHours, formatDate } from 'date-fns';
 import { timeToMinutes } from '@utils/formatDate';
 import { useSelectedDate } from '@store/selectedDateStore';
+import GameTypeCard from '@components/reservation/ChooseGameType';
+import useTab from '@store/tabNumberStore';
 
 export default function Page({ params }: { params: { companyId: string } }) {
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
@@ -34,6 +36,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const setGameReservationInfo = useGameReservationStore(
     (state) => state.setGameReservationInfo
   );
+  const setTab = useTab((state) => state.setSelectedTab);
 
   useEffect(() => {
     if (isSuccess) {
@@ -46,6 +49,8 @@ export default function Page({ params }: { params: { companyId: string } }) {
         date: searchParam.get('date') || '',
       });
       setSelectedDate(searchParam.get('date') || '');
+      // API 수정되면 gameType에 맞게 초기화
+      setTab('당구');
     }
     // 언마운트될 때 다시 초기화
     return () => setGameReservationInfo(gameReservationInfoInitialState);
@@ -71,6 +76,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <ResDateCard />
       <ResGameCard startTime={startTime} endTime={endTime} />
       <ResPeopleCountCard />
+      <GameTypeCard />
       <GameCountCard />
       <RequestCard />
       <MakeResButtonCard

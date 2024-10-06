@@ -12,6 +12,7 @@ import {
   golfArray,
   pocketballArray,
   squashArray,
+  subtabArrays,
   tennisArray,
 } from '@constant/constant';
 import { formatDate, parse } from 'date-fns';
@@ -31,18 +32,7 @@ interface userCurrentPingPositionProp {
 export default function Page() {
   const tabArray = allleisureArray;
   const currentTab = useTab((state) => state.selectedTab);
-  const subtabArray =
-    currentTab === '스크린골프'
-      ? golfArray
-      : currentTab === '당구'
-      ? pocketballArray
-      : currentTab === '야구'
-      ? baseballArray
-      : currentTab === '스쿼시'
-      ? squashArray
-      : currentTab === '테니스'
-      ? tennisArray
-      : [];
+  const subtabArray = subtabArrays[currentTab] || [];
   const searchParams = useSearchParams();
   const { search, date, adultCount, teenagerCount, kidsCount, isKeyword } =
     Object.fromEntries(searchParams.entries());

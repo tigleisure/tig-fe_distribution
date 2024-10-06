@@ -37,6 +37,14 @@ export const baseballArray = ['스크린야구', '야구연습장'];
 export const squashArray = ['스쿼시연습장', '스쿼시레슨', '원데이클래스'];
 export const tennisArray = ['테니스코트', '테니스레슨'];
 
+export const subtabArrays: { [key: string]: string[] } = {
+  스크린골프: golfArray,
+  당구: pocketballArray,
+  야구: baseballArray,
+  스쿼시: squashArray,
+  테니스: tennisArray,
+};
+
 export const mainArray = ['스포츠'];
 export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자 리뷰'];
 export const detailArrayWhenNoReview = ['기본정보', '편의시설'];

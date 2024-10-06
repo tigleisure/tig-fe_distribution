@@ -3,7 +3,7 @@ import CategorySVG from '@public/svg/category.svg';
 import { cn } from '@utils/cn';
 import { set } from 'date-fns';
 import { useState, useEffect, useRef } from 'react';
-import { motion } from 'framer-motion';
+import { motion, Variants } from 'framer-motion';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 
 const filterOption = [
@@ -14,6 +14,15 @@ const filterOption = [
   '저가순',
   '고가순',
 ];
+
+const itemVariants: Variants = {
+  animate: {
+    opacity: 1,
+    y: 0,
+    transition: { type: 'spring', stiffness: 300, damping: 24 },
+  },
+  closed: { opacity: 0, y: 20, transition: { duration: 0.2 } },
+};
 
 export default function FilterHeader() {
   const [isOpen, setIsOpen] = useState(false);
@@ -43,18 +52,31 @@ export default function FilterHeader() {
         setIsOpen(true);
       }}
     >
-      <p className="leading-[1.5] title4 pt-[2px]">{selected}</p>
-      <CategorySVG />
+      <motion.div className="flex" whileTap={{ scale: 0.95 }}>
+        <p className="leading-[1.5] title4 pt-[2px]">{selected}</p>
+        <CategorySVG />
+      </motion.div>
       {isOpen && (
         <motion.div
           className="w-[92px] flex flex-col gap-3 p-5 bg-white shadow-filter absolute top-[20px] right-5 rounded-[12px] z-[300]"
           onClick={(e) => e.stopPropagation()}
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -20 }}
+          initial={{ clipPath: 'inset(10% 50% 90% 50% round 10px)' }}
+          animate={{ clipPath: 'inset(0% 0% 0% 0% round 10px)' }}
+          exit={{ clipPath: 'inset(10% 50% 90% 50% round 10px)' }}
+          transition={{
+            type: 'spring',
+            bounce: 0,
+            duration: 0.7,
+            delayChildren: 0.3,
+            staggerChildren: 0.05,
+          }}
         >
           {filterOption.map((filter) => (
-            <p
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 24 }}
               key={filter}
               className={cn('title4', {
                 'text-grey7': filter === selected,
@@ -66,7 +88,7 @@ export default function FilterHeader() {
               }}
             >
               {filter}
-            </p>
+            </motion.div>
           ))}
         </motion.div>
       )}

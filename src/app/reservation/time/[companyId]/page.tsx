@@ -19,6 +19,8 @@ import { Toaster } from 'react-hot-toast';
 import { useSearchParams } from 'next/navigation';
 import { useSelectedDate } from '@store/selectedDateStore';
 import { timeToMinutes } from '@utils/formatDate';
+import GameTypeCard from '@components/reservation/ChooseGameType';
+import useTab from '@store/tabNumberStore';
 
 const DUMMYPRICE = '10,000';
 
@@ -29,6 +31,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
   const searchParam = useSearchParams();
+  const setTab = useTab((state) => state.setSelectedTab);
 
   const timeReservationInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
@@ -51,6 +54,8 @@ export default function Page({ params }: { params: { companyId: string } }) {
         date: searchParam.get('date') || '',
       });
       setSelectedDate(searchParam.get('date') || '');
+      // API 수정되면 gameType에 맞게 초기화
+      setTab('당구');
     }
     // 언마운트될 때 다시 초기화
     return () => setTimeReservationInfo(timeReservationInfoInitialState);
@@ -70,7 +75,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
     setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
   }, [selectedDate]);
 
-
   if (!isSuccess) return <TigLoadingPage />;
   return (
     <main className="w-full h-full overflow-y-scroll flex flex-col ">
@@ -78,6 +82,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <ResDateCard />
       <RestimeCard startTime={startTime} endTime={endTime} />
       <ResPeopleCountCard />
+      <GameTypeCard />
       <RequestCard />
       <MakeResButtonCard
         clubName={clubName}

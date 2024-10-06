@@ -12,6 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
 import { formatDate } from 'date-fns';
+import { motion } from 'framer-motion';
 
 export default function ResultCard({
   clubName,
@@ -75,21 +76,28 @@ export default function ResultCard({
           />
         </div>
         {isEvent && <DiscountSVG className="absolute top-2 left-2" />}
-        {isHeartClicked ? (
-          <FillHeartSVG
-            className="absolute bottom-2 right-2 cursor-pointer"
-            onClick={(e: React.MouseEvent<SVGSVGElement>) => {
-              handleFillHeartClick(e);
-            }}
-          />
-        ) : (
-          <EmptyHeartSVG
-            className="absolute bottom-2 right-2 cursor-pointer"
-            onClick={(e: React.MouseEvent<SVGSVGElement>) => {
-              handleEmptyHeartClick(e);
-            }}
-          />
-        )}
+        <motion.div
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+          className="absolute bottom-2 right-2"
+        >
+          {isHeartClicked ? (
+            <FillHeartSVG
+              className=" cursor-pointer"
+              onClick={(e: React.MouseEvent<SVGSVGElement>) => {
+                handleFillHeartClick(e);
+              }}
+            />
+          ) : (
+            <EmptyHeartSVG
+              className="cursor-pointer"
+              onClick={(e: React.MouseEvent<SVGSVGElement>) => {
+                handleEmptyHeartClick(e);
+              }}
+            />
+          )}
+        </motion.div>
       </div>
       <div className="w-full flex flex-col justify-between h-full">
         <div className="w-full h-fit flex flex-col gap-[10px]">

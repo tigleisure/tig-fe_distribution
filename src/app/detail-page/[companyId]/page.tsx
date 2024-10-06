@@ -279,7 +279,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
           onClick={handleNextImage}
         />
         <div className="relative w-full h-full">
-          <AnimatePresence custom={back}>
+          <AnimatePresence custom={back} initial={false}>
             <motion.img
               key={imageCount}
               custom={back}

@@ -11,7 +11,7 @@ const chooseLists: ChooseCardProps[] = [
 export default function GameCountCard() {
   return (
     <section className="w-full flex flex-col p-5 mt-5 border-b border-grey2">
-      <InfoCard number={4} content="원하는 게임 수를 선택해주세요." />
+      <InfoCard number={5} content="원하는 게임 수를 선택해주세요." />
       <ChooseCard title="게임" />
     </section>
   );

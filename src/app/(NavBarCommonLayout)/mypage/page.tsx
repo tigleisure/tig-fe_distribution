@@ -38,7 +38,7 @@ export default function Page() {
   };
 
   return (
-    <>
+    <div className="w-full h-full overflow-y-scroll">
       <My />
       <Modal
         size="lg"
@@ -48,6 +48,6 @@ export default function Page() {
         secondButtonFunc={handleClickLogoutButton}
       />
       <Toaster position="bottom-center" containerStyle={{ bottom: '75px' }} />
-    </>
+    </div>
   );
 }
