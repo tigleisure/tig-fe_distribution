@@ -27,9 +27,8 @@ export default function Feedback() {
     <section className="w-eightNineWidth bg-grey1 p-5 flex flex-col gap-6 rounded-[12px] mb-10">
       <p className="text-grey7 title3">TIG에 소중한 의견을 남겨주세요!</p>
       <textarea
+        placeholder={"TIG는 고객 의견에 귀 기울일 준비가 되어있어요!\nex) 이런 기능이 있었으면 좋겠어요."}
         className="w-full h-[128px] rounded-[12px] border border-grey3 p-4 caption3"
-        placeholder="TIG는 고객 의견에 귀 기울일 준비가 되어있어요!
-                    ex) 이런 기능이 있었으면 좋겠어요."
         id="feedback"
         value={feedback}
         onChange={(e) => setFeedback(e.target.value)}
