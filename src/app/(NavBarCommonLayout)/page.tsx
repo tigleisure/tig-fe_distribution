@@ -1,4 +1,6 @@
 'use client';
+
+import { useEffect, useRef, useState } from 'react';
 import Modal from '@components/all/Modal';
 import Tabs from '@components/all/Tabs/Tabs';
 import { homeleisureArray, mainArray } from '@constant/constant';
@@ -12,14 +14,47 @@ import Footer from '@components/all/Footer/Footer';
 import UIList from '@components/home/UIList';
 
 export default function Home() {
+  const mainRef = useRef<HTMLDivElement>(null);
   const MAINARRAY = mainArray;
   const { mutate, isSuccess } = usePostHome();
   const { clubCards, recommendClubCards } = useGeolocation(mutate);
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  useEffect(() => {
+    const mainElement = mainRef.current;
+    if (!mainElement) return;
+
+    const controlNavbar = () => {
+      const currentScrollY = mainElement.scrollTop;
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false);
+      } else {
+        setIsVisible(true);
+      }
+      setLastScrollY(currentScrollY);
+    };
+
+    mainElement.addEventListener('scroll', controlNavbar);
+
+    return () => {
+      mainElement.removeEventListener('scroll', controlNavbar);
+    };
+  }, [lastScrollY]);
 
   return (
-    <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
+    <main
+      ref={mainRef}
+      className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]"
+    >
       <SearchHeader isHomeOrResultPage />
-      <Tabs tabArray={MAINARRAY} from="home" className="top-[58px]" />
+      <Tabs
+        tabArray={MAINARRAY}
+        from="home"
+        className={`absolute top-[58px] transition-transform duration-300 ease-in-out z-[9] ${
+          isVisible ? 'translate-y-0' : '-translate-y-300'
+        }`}
+      />
       {!isSuccess && <TigLoadingPage />}
       {isSuccess && (
         <>

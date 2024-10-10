@@ -58,7 +58,7 @@ export default function FilterHeader() {
       </motion.div>
       {isOpen && (
         <motion.div
-          className="w-[92px] flex flex-col gap-3 p-5 bg-white shadow-filter absolute top-[20px] right-5 rounded-[12px] z-[300]"
+          className="w-[94px] flex flex-col gap-3 p-5 bg-white shadow-md absolute top-[20px] right-5 rounded-[12px] z-[300] border"
           onClick={(e) => e.stopPropagation()}
           initial={{ clipPath: 'inset(10% 50% 90% 50% round 10px)' }}
           animate={{ clipPath: 'inset(0% 0% 0% 0% round 10px)' }}

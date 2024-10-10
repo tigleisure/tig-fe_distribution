@@ -54,6 +54,9 @@ const config: Config = {
       padding: {
         footerHorizontal: 'calc(100% * (1/18))',
       },
+      translate: {
+        '-300': '-300%',
+      },
     },
   },
   plugins: [],
