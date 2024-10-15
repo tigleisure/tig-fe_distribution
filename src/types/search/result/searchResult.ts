@@ -13,7 +13,10 @@ export interface ResultCardProps {
     | 'BALLING'
     | 'POCKET_BALL'
     | 'TABLE_TENNIS'
-    | 'SCREEN_GOLF';
+    | 'GOLF'
+    | 'FOOTBALL'
+    | 'SQUSH'
+    | 'BILLIARDS';
   isEvent?: boolean;
   isHeart?: boolean;
   imageUrls: string[];

@@ -15,7 +15,6 @@ import SearchHeader from '@components/all/SearchHeader';
 import ArrowSVG from '@public/svg/homeUI/arrow.svg';
 import HomeBannerSVG from '@public/svg/homeBanner.svg';
 import HomeCardList from '@components/home/HomeCardList';
-import { usePostHome } from '@apis/home/postHome';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import useGeolocation from '@hooks/home/useGeoLocation';
 import Footer from '@components/all/Footer/Footer';
@@ -26,6 +25,8 @@ import FilterHeader from '@components/search/result/FilterHeader';
 import ResultCard from '@components/all/ResultCard';
 import { set } from 'date-fns';
 import { is } from 'date-fns/locale';
+import { usePostHomeForUnlogin } from '@apis/home/postHomeForUnlogin';
+import { usePostHomeForLogin } from '@apis/home/postHomeForLogin';
 
 export default function Home({ params }: { params: { gametype: string } }) {
   const currentTab = useTab((state) => state.selectedTab);
@@ -44,8 +45,15 @@ export default function Home({ params }: { params: { gametype: string } }) {
       : [];
   const setCurrentTab = useTab((state) => state.setSelectedTab);
   const tabArray = leisureArray;
-  const { mutate, isSuccess } = usePostHome();
-  const { clubCards, recommendClubCards } = useGeolocation(mutate);
+  const { mutate: mutateForUnlogin, isSuccess: IsUnloginMuateSuccess } =
+    usePostHomeForUnlogin();
+  const { mutate: mutateForLogin, isSuccess: IsLoginMuateSuccess } =
+    usePostHomeForLogin();
+  const { clubCards, recommendClubCards } = useGeolocation(
+    mutateForUnlogin,
+    mutateForLogin
+  );
+  const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
   console.log(clubCards);
 
   useEffect(() => {

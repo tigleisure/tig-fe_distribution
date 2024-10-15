@@ -44,7 +44,10 @@ export interface Club {
     | 'BALLING'
     | 'POCKET_BALL'
     | 'TABLE_TENNIS'
-    | 'SCREEN_GOLF';
+    | 'GOLF'
+    | 'FOOTBALL'
+    | 'SQUSH'
+    | 'BILLIARDS';
   type: 'GAME' | 'TIME';
   imageUrls: string[];
   presignedImageUrls: string[];

@@ -11,9 +11,9 @@ import Link from 'next/link';
 
 interface UICardListProps {
   type:
-    | 'POCKET_BALL'
+    | 'BILLIARDS'
     | 'BALLING'
-    | 'SCREEN_GOLF'
+    | 'GOLF'
     | 'TABLE_TENNIS'
     | 'TENNIS'
     | 'FOOTBALL'
@@ -22,7 +22,7 @@ interface UICardListProps {
 }
 
 export default function UICardList({ type }: UICardListProps) {
-  if (type === 'POCKET_BALL') {
+  if (type === 'BILLIARDS') {
     return (
       <Link
         className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
@@ -44,7 +44,7 @@ export default function UICardList({ type }: UICardListProps) {
       </Link>
     );
   }
-  if (type === 'SCREEN_GOLF') {
+  if (type === 'GOLF') {
     return (
       <Link
         className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"

@@ -2,7 +2,7 @@ export const allleisureArray = [
   '전체',
   '당구',
   '볼링',
-  '스크린골프',
+  '골프',
   '탁구',
   '테니스',
   '축구',
@@ -13,7 +13,7 @@ export const homeleisureArray = [
   '홈',
   '당구',
   '볼링',
-  '스크린골프',
+  '골프',
   '탁구',
   '테니스',
   '축구',
@@ -23,7 +23,7 @@ export const homeleisureArray = [
 export const leisureArray = [
   '당구',
   '볼링',
-  '스크린골프',
+  '골프',
   '탁구',
   '테니스',
   '축구',
@@ -38,7 +38,7 @@ export const squashArray = ['스쿼시연습장', '스쿼시레슨', '원데이�
 export const tennisArray = ['테니스코트', '테니스레슨'];
 
 export const subtabArrays: { [key: string]: string[] } = {
-  스크린골프: golfArray,
+  골프: golfArray,
   당구: pocketballArray,
   야구: baseballArray,
   스쿼시: squashArray,
@@ -50,9 +50,9 @@ export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자
 export const detailArrayWhenNoReview = ['기본정보', '편의시설'];
 
 export const categoryMapKorToEng: { [key: string]: string } = {
-  당구: 'POCKET_BALL',
+  당구: 'BILLIARDS',
   볼링: 'BALLING',
-  스크린골프: 'SCREEN_GOLF',
+  골프: 'GOLF',
   탁구: 'TABLE_TENNIS',
   테니스: 'TENNIS',
   축구: 'FOOTBALL',
@@ -61,9 +61,9 @@ export const categoryMapKorToEng: { [key: string]: string } = {
 };
 
 export const categoryMapEngToKor: { [key: string]: string } = {
-  POCKET_BALL: '당구',
+  BILLIARDS: '당구',
   BALLING: '볼링',
-  SCREEN_GOLF: '스크린골프',
+  GOLF: '골프',
   TABLE_TENNIS: '탁구',
   TENNIS: '테니스',
   FOOTBALL: '축구',

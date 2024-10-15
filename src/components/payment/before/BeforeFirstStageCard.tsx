@@ -73,7 +73,7 @@ export default function BeforeFirstStageCard({
           <span className="title4 text-grey6">총 결제 금액</span>
           <div className="w-fit h-fit flex flex-col items-end gap-y-[6px]">
             <span className="headline2 text-status_red1">
-              {price.toLocaleString()}{' '}
+              {price && price.toLocaleString()}{' '}
               <span className="title3 text-status_red1">원</span>
             </span>
             <span className="caption4 text-grey3">세금 및 수수료 포함</span>

@@ -5,7 +5,17 @@ interface Result {
   clubName: string;
   address: string;
   price: 0;
-  businessHours: string;
+  category:
+    | 'TENNIS'
+    | 'BALLING'
+    | 'TABLE_TENNIS'
+    | 'GOLF'
+    | 'FOOTBALL'
+    | 'SQUSH'
+    | 'BILLIARDS'
+    | 'BASEBALL';
+  // 추후 제대로 설정해야 함
+  operatingHours: string[];
 }
 
 interface GetClubResInfoResponse {

@@ -4,7 +4,7 @@ const REFRESH_URL = '/api/v1/member/reissue';
 
 export const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BACKEND_DOMAIN,
-  timeout: 1000,
+  timeout: 5000,
   withCredentials: true,
 });
 

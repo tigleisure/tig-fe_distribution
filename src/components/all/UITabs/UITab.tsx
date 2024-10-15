@@ -86,8 +86,8 @@ export default function UITab({ name, defaultName, className }: TabProps) {
   if (name === '테니스') {
     return renderTab(name, TennisSVG, UnfillTennisSVG);
   }
-  if (name === '스크린골프') {
-    return renderTab(name, GolfSVG, UnfillGolfSVG, '골프');
+  if (name === '골프') {
+    return renderTab(name, GolfSVG, UnfillGolfSVG);
   }
   if (name === '축구') {
     return renderTab(name, FootballSVG, UnfillFootballSVG);

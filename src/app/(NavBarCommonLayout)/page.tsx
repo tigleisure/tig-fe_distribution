@@ -7,17 +7,20 @@ import { homeleisureArray, mainArray } from '@constant/constant';
 import SearchHeader from '@components/all/SearchHeader';
 import HomeBannerSVG from '@public/svg/homeBanner.svg';
 import HomeCardList from '@components/home/HomeCardList';
-import { usePostHome } from '@apis/home/postHome';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import useGeolocation from '@hooks/home/useGeoLocation';
 import Footer from '@components/all/Footer/Footer';
 import UIList from '@components/home/UIList';
+import { usePostHomeForUnlogin } from '@apis/home/postHomeForUnlogin';
+import { usePostHomeForLogin } from '@apis/home/postHomeForLogin';
 
 export default function Home() {
   const mainRef = useRef<HTMLDivElement>(null);
   const MAINARRAY = mainArray;
-  const { mutate, isSuccess } = usePostHome();
-  const { clubCards, recommendClubCards } = useGeolocation(mutate);
+  const { mutate: mutateForUnlogin, isSuccess:IsUnloginMuateSuccess } = usePostHomeForUnlogin();
+  const { mutate: mutateForLogin, isSuccess:IsLoginMuateSuccess } = usePostHomeForLogin();
+  const { clubCards, recommendClubCards } = useGeolocation(mutateForUnlogin, mutateForLogin);
+  const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 

@@ -21,6 +21,7 @@ import { useSelectedDate } from '@store/selectedDateStore';
 import { timeToMinutes } from '@utils/formatDate';
 import GameTypeCard from '@components/reservation/ChooseGameType';
 import useTab from '@store/tabNumberStore';
+import { categoryMapEngToKor } from '@constant/constant';
 
 const DUMMYPRICE = '10,000';
 
@@ -45,8 +46,16 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     if (isSuccess) {
-      setStartTime(data?.result.businessHours.slice(0, 5) || '10:00');
-      setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
+      setStartTime(
+        data?.result.operatingHours.length !== 0
+          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
+          : '10:00'
+      );
+      setEndTime(
+        data?.result.operatingHours.length !== 0
+          ? data?.result.operatingHours[0].slice(0, 5) || '20:00'
+          : '20:00'
+      );
       setClubName(data?.result.clubName || '');
       setAddress(data?.result.address || '');
       setTimeReservationInfo({
@@ -55,7 +64,8 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
       setSelectedDate(searchParam.get('date') || '');
       // API 수정되면 gameType에 맞게 초기화
-      setTab('당구');
+      console.log(categoryMapEngToKor[data?.result.category]);
+      setTab(categoryMapEngToKor[data?.result.category]);
     }
     // 언마운트될 때 다시 초기화
     return () => setTimeReservationInfo(timeReservationInfoInitialState);
@@ -64,15 +74,26 @@ export default function Page({ params }: { params: { companyId: string } }) {
   useEffect(() => {
     const now = formatDate(addHours(new Date(), 1), 'HH:00');
     if (
-      timeToMinutes(data?.result.businessHours?.slice(0, 5) || '10:00') <
-        timeToMinutes(now) &&
+      timeToMinutes(
+        data?.result.operatingHours.length !== 0
+          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
+          : '10:00'
+      ) < timeToMinutes(now) &&
       selectedDate.slice(0, 10) === formatDate(new Date(), 'yyyy-MM-dd')
     ) {
       setStartTime(now);
     } else {
-      setStartTime(data?.result.businessHours.slice(0, 5) || '10:00');
+      setStartTime(
+        data?.result.operatingHours.length !== 0
+          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
+          : '10:00'
+      );
     }
-    setEndTime(data?.result.businessHours.slice(8, 13) || '20:00');
+    setEndTime(
+      data?.result.operatingHours.length !== 0
+        ? data?.result.operatingHours[0].slice(0, 5) || '20:00'
+        : '20:00'
+    );
   }, [selectedDate]);
 
   if (!isSuccess) return <TigLoadingPage />;

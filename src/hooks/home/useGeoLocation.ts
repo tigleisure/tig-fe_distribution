@@ -11,7 +11,13 @@ import {
 } from 'types/response/response';
 
 export const useGeolocation = (
-  mutate: (
+  mutateForUnlogin: (
+    variables: PostHomePayload,
+    options?:
+      | MutateOptions<PostHomeResponse, Error, PostHomePayload, unknown>
+      | undefined
+  ) => void,
+  mutateForLogin: (
     variables: PostHomePayload,
     options?:
       | MutateOptions<PostHomeResponse, Error, PostHomePayload, unknown>
@@ -30,7 +36,11 @@ export const useGeolocation = (
   const selectedTab = useTab((state) => state.selectedTab);
 
   useEffect(() => {
-    if (selectedTab === '홈' || selectedTab === '문화' || selectedTab === '스포츠') {
+    if (
+      selectedTab === '홈' ||
+      selectedTab === '문화' ||
+      selectedTab === '스포츠'
+    ) {
       setClubCards(originalClubCards);
     } else {
       setClubCards(
@@ -51,6 +61,9 @@ export const useGeolocation = (
     };
 
     const fetchData = (latitude: number, longitude: number) => {
+      const mutate = localStorage.getItem('accessToken')
+        ? mutateForLogin
+        : mutateForUnlogin;
       mutate(
         { latitude, longitude },
         {

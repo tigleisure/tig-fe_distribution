@@ -16,7 +16,7 @@ export default function BeforeSecondStageFinalPriceCard({
       <div className="w-sevenEightWidth flex justify-between items-center">
         <span className="title4 text-grey4">예약 금액</span>
         <span className="body4 text-grey6">
-          {defaultPrice.toLocaleString()}원
+          {defaultPrice && defaultPrice.toLocaleString()}원
         </span>
       </div>
       <div className="w-sevenEightWidth flex justify-between items-center">

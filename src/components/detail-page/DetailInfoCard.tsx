@@ -100,7 +100,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           <div className="flex gap-2">
             <CardSVG />
             <p className="body2">
-              {type === 'TIME' ? '시간' : '게임'}당 {price.toLocaleString()}원
+              {type === 'TIME' ? '시간' : '게임'}당 {price && price.toLocaleString()}원
             </p>
           </div>
           <div className="flex gap-2" ref={ref}>
