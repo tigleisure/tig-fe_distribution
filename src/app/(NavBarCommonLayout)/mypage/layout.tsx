@@ -8,7 +8,6 @@ import Footer from '@components/all/Footer/Footer';
 export default function MyPageLayout({ children }: PropsWithChildren) {
   return (
     <div className="flex flex-col h-full pb-[54px] items-center">
-      <NoneArrowHeader title="마이페이지" />
       <CustomSuspense fallback={<TigLoadingPage />}>{children}</CustomSuspense>
     </div>
   );

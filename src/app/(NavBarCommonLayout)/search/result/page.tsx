@@ -86,10 +86,12 @@ export default function Page() {
         from="searchMain"
         className="w-full px-5 top-[58px]"
       />
+      <div className="absolute top-[148px] h-[52px] bg-white w-full z-[199]" />
+      <div className="absolute top-[148px]  h-[52px] title4 right-[58px] w-[42px] z-[301] bg-gradient-to-l from-white to-transparent"></div>
       <Tabs
         tabArray={subtabArray}
         from="searchSub"
-        className="w-full px-5 top-[148px]"
+        className="w-5/6 px-5 left-0 top-[148px]"
         rounded
       />
       <FilterHeader />

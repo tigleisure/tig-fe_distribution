@@ -7,6 +7,7 @@ import useModal from '@store/modalStore';
 import { useRouter } from 'next/navigation';
 import useLocalStorageState from '@store/localStorageAccessTokenStore';
 import { removeUserRefreshToken } from '@apis/mypage/removeRefreshToken';
+import NoneArrowHeader from '@components/all/NoneArrowHeader';
 
 export default function Page() {
   const setSelectedIsModalOpen = useModal(
@@ -39,6 +40,7 @@ export default function Page() {
 
   return (
     <div className="w-full h-full overflow-y-scroll">
+      <NoneArrowHeader title="마이페이지" />
       <My />
       <Modal
         size="lg"

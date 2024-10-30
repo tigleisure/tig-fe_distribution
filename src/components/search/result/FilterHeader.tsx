@@ -46,8 +46,7 @@ export default function FilterHeader() {
 
   return (
     <section
-      className="absolute top-[200px] flex justify-end h-[32px] title4 text-grey6 w-full pr-5 cursor-pointer z-[200] bg-white"
-      ref={ref}
+      className="absolute top-[148px] flex justify-end items-center h-[52px] title4 text-grey6 right-0 w-[88px] pr-5 cursor-pointer z-[400] bg-gradient-to-l from-white to-transparent"
       onClick={() => {
         setIsOpen(true);
       }}

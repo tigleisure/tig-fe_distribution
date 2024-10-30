@@ -2,7 +2,7 @@
 import ArrowLeftSVG from '@public/svg/arrowLeft.svg';
 import CloseSVG from '@public/svg/close.svg';
 import { cn } from '@utils/cn';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import useModal from '@store/modalStore';
 import { useIsCouponPageOpen } from '@store/couponStore';
 import useSearchModal from '@store/searchModalStore';
@@ -27,6 +27,7 @@ export default function Header({
   isSearchModal = false,
 }: HeaderProps) {
   const router = useRouter();
+  const pathname = usePathname();
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
   const setIsSearchModalOpen = useSearchModal(
     (state) => state.setSelectedIsSearchModalOpen
@@ -59,6 +60,11 @@ export default function Header({
             return;
           }
 
+          if (title === '쿠폰' && pathname === '/mypage/coupon') {
+            router.back();
+            return;
+          }
+
           if (title === '쿠폰') {
             setIsCouponPageOpen(false);
             return;
@@ -72,7 +78,6 @@ export default function Header({
             setIsSearchModalOpen(false);
             return;
           }
-
           router.back();
         }}
       >

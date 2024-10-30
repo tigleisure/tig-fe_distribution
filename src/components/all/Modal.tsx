@@ -75,7 +75,7 @@ const getCustomModalStyles = (size: 'sm' | 'lg'): ReactModal.Styles => ({
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
     width: '100%',
     height: '100vh',
-    zIndex: 201,
+    zIndex: 500,
     position: 'fixed',
     top: 0,
     left: 0,

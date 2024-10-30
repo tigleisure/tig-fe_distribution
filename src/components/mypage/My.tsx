@@ -6,6 +6,7 @@ import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import Image from 'next/image';
 import Feedback from './Feedback';
 import Footer from '@components/all/Footer/Footer';
+import MypageCard from './MypageCard';
 
 export default function My() {
   const setIsOpen = useModal((state) => state.setSelectedIsModalOpen);
@@ -27,6 +28,10 @@ export default function My() {
           <MyProfileDefaultImage />
         )}
 
+        <div className="w-full border border-grey3 h-[82px] rounded-[10px] flex">
+          <MypageCard isCoupon={false} />
+          <MypageCard isCoupon />
+        </div>
         <ProfileInformation />
       </div>
       <Feedback />
