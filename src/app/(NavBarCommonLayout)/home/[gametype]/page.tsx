@@ -95,10 +95,10 @@ export default function Home({ params }: { params: { gametype: string } }) {
           <div className="pt-[232px]"></div>
           {clubCards.map((clubCard, idx) => {
             if (idx === 0)
-              return <ResultCard key={clubCard.id} {...clubCard} isFirst />;
+              return <ResultCard key={clubCard.clubId} {...clubCard} isFirst />;
             if (idx === clubCards.length - 1)
-              return <ResultCard key={clubCard.id} {...clubCard} isLast />;
-            return <ResultCard key={clubCard.id} {...clubCard} />;
+              return <ResultCard key={clubCard.clubId} {...clubCard} isLast />;
+            return <ResultCard key={clubCard.clubId} {...clubCard} />;
           })}
           {/* <div className="w-full max-w-[640px] mt-[111px] mb-5">
             <HomeBannerSVG className="w-full h-auto" />

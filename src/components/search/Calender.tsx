@@ -82,9 +82,10 @@ export default function Calender() {
     setSelectedDate(formattedDate);
   };
 
-  useEffect(() => {
-    if (isAcceptMonth) setCalendarMonth(new Date(selectedDate));
-  }, [selectedDate]);
+  // 이거 없앴는데 뭐를 위해 만들었더라..?
+  // useEffect(() => {
+  //   if (isAcceptMonth) setCalendarMonth(new Date(selectedDate));
+  // }, [selectedDate]);
 
   useEffect(() => {
     const oneYearLater = formatDate(addMonths(new Date(), 10), 'yyyy-MM');

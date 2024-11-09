@@ -8,21 +8,24 @@ import DiscountSVG from '@public/svg/discount.svg';
 import Link from 'next/link';
 import { cn } from '@utils/cn';
 import { useEffect, useState } from 'react';
-import { useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
 import { formatDate } from 'date-fns';
 import { motion } from 'framer-motion';
+import { categoryMapEngToKor, subtabArrays } from '@constant/constant';
+import path from 'path';
+import { start } from 'repl';
 
 export default function ResultCard({
   clubName,
-  id,
   clubId,
   address,
   ratingSum,
   ratingCount,
   avgRating,
-  price,
+  category,
+  prices,
   type,
   isEvent = false,
   isHeart = false,
@@ -31,6 +34,9 @@ export default function ResultCard({
   isFirst = false,
 }: ResultCardProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const subtabArray = subtabArrays[categoryMapEngToKor[category]] || [];
+  console.log('subtabArray', subtabArray);
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
@@ -57,7 +63,18 @@ export default function ResultCard({
   return (
     <section
       onClick={() => {
-        router.push(`/detail-page/${clubId}?date=${searchParams.get('date')}`);
+        if (pathname.startsWith('/home')) {
+          router.push(
+            `/detail-page/${clubId}?date=${formatDate(
+              new Date(),
+              "yyyy-MM-dd'T'HH:mm:ss"
+            )}`
+          );
+        } else {
+          router.push(
+            `/detail-page/${clubId}?date=${searchParams.get('date')}`
+          );
+        }
       }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',
@@ -105,22 +122,33 @@ export default function ResultCard({
             <p className="title3 text-grey7">{clubName}</p>
             <p className="w-full body4 text-grey5 line-clamp-1">{address}</p>
           </div>
-          <div className="flex gap-[6px] h-[25px]">
-            <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center rounded-[4px]">
-              <StarSVG />
-              {avgRating}
-            </p>
-            <p className="caption3 text-grey5 flex items-center">
-              {ratingCount}명 평가
-            </p>
-          </div>
+          {ratingCount !== 0 && (
+            <div className="flex gap-[6px] h-[25px]">
+              <p className="bg-primary_orange2 text-primary_orange1 title4 gap-[2px] w-[44px] h-[25px] flex justify-center items-center rounded-[4px]">
+                <StarSVG />
+                {avgRating}
+              </p>
+              <p className="caption3 text-grey5 flex items-center">
+                {ratingCount}명 평가
+              </p>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-1">
           <p className="headline2 text-grey7">
-            {price && price.toLocaleString()}원
+            {prices &&
+              Math.min(
+                ...(prices as any[]).map((obj) => obj.price)
+              ).toLocaleString()}
+            원 ~
           </p>
           <p className="body4 text-grey4">
-            {type === 'GAME' ? '게임' : '시간'}당 가격
+            {subtabArray.map((item, index) => (
+              <span key={index} className="body4 text-grey4">
+                {item}
+                {index < subtabArray.length - 1 && ' · '}
+              </span>
+            ))}
           </p>
         </div>
       </div>

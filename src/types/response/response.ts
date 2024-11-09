@@ -27,13 +27,13 @@ export interface WishListResponse {
 }
 
 export interface Club {
-  id: number;
+  clubId: number;
   clubName: string;
   address: string;
   ratingSum: number;
   ratingCount: number;
   avgRating: number;
-  price: number;
+  prices: object[];
   phoneNumber: string;
   snsLink: string;
   businessHours: string;

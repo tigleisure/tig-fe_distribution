@@ -86,11 +86,13 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
               />
             )}
           </div>
-          <div className="flex gap-[4px] text-primary_orange1 headline2 mt-[6px]">
-            <DetailPageStarSVG />
-            <p>{avgRating}</p>
-            <p>({ratingCount})</p>
-          </div>
+          {ratingCount !== 0 && (
+            <div className="flex gap-[4px] text-primary_orange1 headline2 mt-[6px]">
+              <DetailPageStarSVG />
+              <p>{avgRating}</p>
+              <p>({ratingCount})</p>
+            </div>
+          )}
         </div>
         <div className="flex flex-col gap-[10px] body2 text-grey7">
           <div className="flex gap-2">
@@ -100,7 +102,8 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           <div className="flex gap-2">
             <CardSVG />
             <p className="body2">
-              {type === 'TIME' ? '시간' : '게임'}당 {price && price.toLocaleString()}원
+              {type === 'TIME' ? '시간' : '게임'}당{' '}
+              {price && price.toLocaleString()}원
             </p>
           </div>
           <div className="flex gap-2" ref={ref}>

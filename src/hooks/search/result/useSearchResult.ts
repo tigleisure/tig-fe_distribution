@@ -9,8 +9,14 @@ import useTab from '@store/tabNumberStore';
 import { useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import { formatDate } from 'date-fns';
+import { timeToMinutes } from '@utils/formatDate';
 
-export const useSearchResult = (search: string, isKeyword: string) => {
+export const useSearchResult = (
+  search: string,
+  isKeyword: string,
+  formatDayOfWeek: string
+  // time: string
+) => {
   const [isResult, setIsResult] = useState(false);
   const [recommendedResult, setRecommendedResult] = useState<ResultCardProps[]>(
     []
@@ -37,6 +43,7 @@ export const useSearchResult = (search: string, isKeyword: string) => {
     search,
     isKeyword
   );
+  console.log(loginUserSearchResult);
   const { data: unLoginUserSearchResult } =
     useGetUnLoginUserSearchedResult(search);
 
@@ -68,8 +75,21 @@ export const useSearchResult = (search: string, isKeyword: string) => {
 
   const selectedTab = useTab((state) => state.selectedTab);
 
+  const filterPlaces = (
+    places: ResultCardProps[], // 업체 배열
+    formatDayOfWeek: string
+    // time: string
+  ) => {
+    return places.filter((place) => {
+      return place.operatingHours?.some(
+        (hour) => hour.dayOfWeek === formatDayOfWeek
+      );
+    });
+  };
+
   const filterAndSortResults = () => {
-    let result = [...originalSearchResult];
+    let preResult = [...originalSearchResult];
+    let result = filterPlaces(preResult, formatDayOfWeek);
 
     if (selectedTab !== '전체') {
       result = result.filter(
@@ -84,9 +104,17 @@ export const useSearchResult = (search: string, isKeyword: string) => {
     } else if (selectedOption === '가까운순') {
       result.sort((a, b) => (a.distance || 0) - (b.distance || 0));
     } else if (selectedOption === '고가순') {
-      result.sort((a, b) => b.price - a.price);
+      result.sort(
+        (a, b) =>
+          Math.min(...(b.prices as any[]).map((obj) => obj.price)) -
+          Math.min(...(a.prices as any[]).map((obj) => obj.price))
+      );
     } else if (selectedOption === '저가순') {
-      result.sort((a, b) => a.price - b.price);
+      result.sort(
+        (a, b) =>
+          Math.min(...(a.prices as any[]).map((obj) => obj.price)) -
+          Math.min(...(b.prices as any[]).map((obj) => obj.price))
+      );
     } else if (selectedOption === '리뷰많은순') {
       result.sort((a, b) => b.ratingCount - a.ratingCount);
     }
@@ -107,9 +135,7 @@ export const useSearchResult = (search: string, isKeyword: string) => {
       setSearchInput({
         searchValue: '',
         searchDate: formatDate(new Date(), "yyyy-MM-dd'T'00:00:00"),
-        adultCount: 0,
-        teenagerCount: 0,
-        kidsCount: 0,
+        searchTime: '11:00',
       });
     };
   }, []);

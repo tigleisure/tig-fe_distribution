@@ -2,7 +2,6 @@
 import { ChooseCardProps } from 'types/search/SearchTypes';
 import ChooseCard from '../reservation/ChooseCard';
 import InfoCard from '../all/InfoCard';
-import { useSearchInputInfo } from '@store/searchInfoStore';
 import { useEffect } from 'react';
 
 const chooseLists: ChooseCardProps[] = [
@@ -12,17 +11,6 @@ const chooseLists: ChooseCardProps[] = [
 ];
 
 export default function PeopleCountCard() {
-  const inputSearchValue = useSearchInputInfo((state) => state.searchInput);
-  const setSearchCount = useSearchInputInfo((state) => state.setSearchInput);
-
-  useEffect(() => {
-    setSearchCount({
-      ...inputSearchValue,
-      adultCount: 0,
-      teenagerCount: 0,
-      kidsCount: 0,
-    });
-  }, []);
   return (
     <section className="w-full h-[337px] flex flex-col p-5 mt-5">
       <InfoCard number={4} content="인원을 선택해주세요." />

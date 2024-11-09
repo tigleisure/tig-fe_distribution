@@ -1,12 +1,13 @@
+import { operatingHour } from '@apis/reservation/getClubResInfo';
+
 export interface ResultCardProps {
   clubName: string;
-  id: number;
-  clubId?: number;
+  clubId: number;
   address: string;
   ratingSum: number; // 평점의 평균을 의미하는듯
   ratingCount: number; // 평점을 매긴 카운트
   avgRating: number;
-  price: number;
+  prices: object[];
   type: 'GAME' | 'TIME';
   category:
     | 'TENNIS'
@@ -25,4 +26,5 @@ export interface ResultCardProps {
   longitude?: number;
   isFirst?: boolean;
   distance?: number;
+  operatingHours?: operatingHour[];
 }

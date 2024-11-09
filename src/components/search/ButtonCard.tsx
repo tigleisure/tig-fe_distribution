@@ -40,15 +40,7 @@ export default function ButtonCard() {
           ? nearestDistrict
           : encodeURIComponent(inputValue.searchValue),
       date: inputValue.searchDate,
-      adultCount: String(
-        inputValue.adultCount === 0 &&
-          inputValue.teenagerCount === 0 &&
-          inputValue.kidsCount === 0
-          ? 1
-          : inputValue.adultCount
-      ),
-      teenagerCount: String(inputValue.teenagerCount),
-      kidsCount: String(inputValue.kidsCount),
+      // time: inputValue.searchTime + ':00',
       isKeyword: inputValue.searchValue === '' ? 'false' : 'true',
     };
     const queryString = new URLSearchParams(query).toString();

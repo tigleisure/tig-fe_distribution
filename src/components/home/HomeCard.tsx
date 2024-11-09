@@ -10,13 +10,13 @@ export default function HomeCard({
   address,
   category,
   imageUrls,
-  id,
+  clubId,
 }: Club) {
   const isEventCard = false;
   return (
     <Link
       className="w-[152px] flex flex-col gap-[6px] shrink-0"
-      href={`/detail-page/${id}?date=${formatDate(
+      href={`/detail-page/${clubId}?date=${formatDate(
         new Date(),
         "yyyy-MM-dd'T'HH:mm:ss"
       )}`}

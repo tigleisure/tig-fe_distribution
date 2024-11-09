@@ -5,7 +5,6 @@ import CountDownSVG from '@public/svg/countDown.svg';
 import CountUpSVG from '@public/svg/countUp.svg';
 import { ChooseCardProps } from 'types/search/SearchTypes';
 import { cn } from '@utils/cn';
-import { useSearchInputInfo } from '@store/searchInfoStore';
 import { usePathname } from 'next/navigation';
 import {
   useGameReservationStore,
@@ -15,15 +14,6 @@ import {
 export default function ChooseCard({ title, description }: ChooseCardProps) {
   const [count, setCount] = useState(0);
   const pathname = usePathname();
-
-  const inputSearchValue = useSearchInputInfo((state) => state.searchInput);
-  const setAdultSearchCount = useSearchInputInfo(
-    (state) => state.setSearchInput
-  );
-  const setTeenagerSearchCount = useSearchInputInfo(
-    (state) => state.setSearchInput
-  );
-  const setKidSearchCount = useSearchInputInfo((state) => state.setSearchInput);
 
   const inputGameResValue = useGameReservationStore(
     (state) => state.gameReservationInfo
@@ -52,7 +42,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   );
 
   const countDownHandler = () => {
-    if(count === 0) return;
+    if (count === 0) return;
     setCount((prev) => prev - 1);
     if (pathname.startsWith('/reservation/game')) {
       if (title === '성인') {
@@ -91,24 +81,6 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
         setKidGameResCount({
           ...inputGameResValue,
           gameCount: inputGameResValue.gameCount - 1,
-        });
-      }
-    } else {
-      // search
-      if (title === '성인') {
-        setAdultSearchCount({
-          ...inputSearchValue,
-          adultCount: inputSearchValue.adultCount - 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerSearchCount({
-          ...inputSearchValue,
-          teenagerCount: inputSearchValue.teenagerCount - 1,
-        });
-      } else if (title === '어린이') {
-        setKidSearchCount({
-          ...inputSearchValue,
-          kidsCount: inputSearchValue.kidsCount - 1,
         });
       }
     }
@@ -158,24 +130,6 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
         setKidTimeResCount({
           ...inputTimeResValue,
           kidsCount: inputTimeResValue.kidsCount + 1,
-        });
-      }
-    } else {
-      // search
-      if (title === '성인') {
-        setAdultSearchCount({
-          ...inputSearchValue,
-          adultCount: inputSearchValue.adultCount + 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerSearchCount({
-          ...inputSearchValue,
-          teenagerCount: inputSearchValue.teenagerCount + 1,
-        });
-      } else if (title === '어린이') {
-        setKidSearchCount({
-          ...inputSearchValue,
-          kidsCount: inputSearchValue.kidsCount + 1,
         });
       }
     }

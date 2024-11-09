@@ -125,10 +125,7 @@ export default function SearchModal() {
               router.push(
                 `/search/result?search=${
                   search.name
-                }&date=${search.createdAt.slice(
-                  0,
-                  19
-                )}&adultCount=1&teenagerCount=0&kidsCount=0`
+                }&date=${search.createdAt.slice(0, 19)}&isKeyword=true`
               );
             }}
           >
