@@ -32,6 +32,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
   const searchParam = useSearchParams();
+  console.log('searchParam', searchParam.get('date'));
   const setTab = useTab((state) => state.setSelectedTab);
 
   const timeReservationInfo = useTimeReservationStore(
@@ -46,14 +47,21 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     if (isSuccess) {
+      //이거 쿼리스트링이 아니라.. 선택한 날짜..
+      const filteredOperatingHours = data?.result.operatingHours.filter(
+        (hour) => {
+          return hour.dayOfWeek === searchParam.get('dayOfWeek');
+        }
+      );
+      console.log('filteredOperatingHours', searchParam.get('dayOfWeek'));
       setStartTime(
         data?.result.operatingHours.length !== 0
-          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
+          ? filteredOperatingHours[0]?.startTime.slice(0, 5) || '10:00'
           : '10:00'
       );
       setEndTime(
         data?.result.operatingHours.length !== 0
-          ? data?.result.operatingHours[0].slice(0, 5) || '20:00'
+          ? filteredOperatingHours[0]?.endTime.slice(0, 5) || '20:00'
           : '20:00'
       );
       setClubName(data?.result.clubName || '');
@@ -64,7 +72,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
       setSelectedDate(searchParam.get('date') || '');
       // API 수정되면 gameType에 맞게 초기화
-      console.log(categoryMapEngToKor[data?.result.category]);
       setTab(categoryMapEngToKor[data?.result.category]);
     }
     // 언마운트될 때 다시 초기화
@@ -73,27 +80,34 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     const now = formatDate(addHours(new Date(), 1), 'HH:00');
-    if (
-      timeToMinutes(
+    if (isSuccess) {
+      const filteredOperatingHours = data?.result.operatingHours.filter(
+        (hour) => {
+          return hour.dayOfWeek === searchParam.get('dayOfWeek');
+        }
+      );
+      if (
+        timeToMinutes(
+          data?.result.operatingHours.length !== 0
+            ? filteredOperatingHours[0]?.startTime.slice(0, 5) || '10:00'
+            : '10:00'
+        ) < timeToMinutes(now) &&
+        selectedDate.slice(0, 10) === formatDate(new Date(), 'yyyy-MM-dd')
+      ) {
+        setStartTime(now);
+      } else {
+        setStartTime(
+          data?.result.operatingHours.length !== 0
+            ? filteredOperatingHours[0]?.startTime.slice(0, 5) || '10:00'
+            : '10:00'
+        );
+      }
+      setEndTime(
         data?.result.operatingHours.length !== 0
-          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
-          : '10:00'
-      ) < timeToMinutes(now) &&
-      selectedDate.slice(0, 10) === formatDate(new Date(), 'yyyy-MM-dd')
-    ) {
-      setStartTime(now);
-    } else {
-      setStartTime(
-        data?.result.operatingHours.length !== 0
-          ? data?.result.operatingHours[0].slice(0, 5) || '10:00'
-          : '10:00'
+          ? filteredOperatingHours[0]?.endTime.slice(0, 5) || '20:00'
+          : '20:00'
       );
     }
-    setEndTime(
-      data?.result.operatingHours.length !== 0
-        ? data?.result.operatingHours[0].slice(0, 5) || '20:00'
-        : '20:00'
-    );
   }, [selectedDate]);
 
   if (!isSuccess) return <TigLoadingPage />;
