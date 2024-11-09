@@ -30,7 +30,7 @@ export const useDeleteFromWishList = () => {
       // 새로운 선택지 데이터로 낙관적 업데이트 실시
       const newOption = {
         ...prevWishlist,
-        result: prevWishlist.result.filter((item) => item.id !== clubId),
+        result: prevWishlist.result.filter((item) => item.clubId !== clubId),
       };
       queryClient.setQueryData(['wishlist'], newOption);
 
