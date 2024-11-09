@@ -15,7 +15,13 @@ interface Result {
     | 'BILLIARDS'
     | 'BASEBALL';
   // 추후 제대로 설정해야 함
-  operatingHours: string[];
+  operatingHours: operatingHour[];
+}
+
+export interface operatingHour {
+  dayOfWeek: 'MON' | 'TUE' | 'WED' | 'THU' | 'FRI' | 'SAT' | 'SUN';
+  startTime: string;
+  endTime: string;
 }
 
 interface GetClubResInfoResponse {

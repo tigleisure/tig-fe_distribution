@@ -1,5 +1,6 @@
 'use client';
 import FullButton from '@components/all/FullButton';
+import { formatDate } from 'date-fns';
 import { useRouter } from 'next/navigation';
 
 export default function ResButtonCard({
@@ -17,12 +18,17 @@ export default function ResButtonCard({
       router.push('/login');
       return;
     }
-
+    const resDate = new Date(date);
+    const formatDayOfWeek = formatDate(resDate, 'EEE').toUpperCase();
     if (type === 'GAME') {
-      router.push(`/reservation/game/${companyId}?date=${date}`);
+      router.push(
+        `/reservation/game/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
     } else {
       // type === 'TIME'
-      router.push(`/reservation/time/${companyId}?date=${date}`);
+      router.push(
+        `/reservation/time/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
     }
   };
   return (
