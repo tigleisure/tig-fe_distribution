@@ -1,10 +1,12 @@
 import { create } from 'zustand';
 
 interface couponDetail {
-  discountPrice: number;
-  couponDescription: string;
+  discount: number;
+  description: string;
   isValid: boolean;
-  couponExpireDate: string;
+  expireDate: string;
+  couponId: number;
+  name: string;
 }
 
 interface Store {

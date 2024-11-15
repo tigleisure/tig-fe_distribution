@@ -8,6 +8,7 @@ import { useTimeReservationStore } from '@store/makeReservationInfo';
 import { useSelectedDate } from '@store/selectedDateStore';
 import { generateTimeSlots } from '@utils/generateTimeSlots';
 import InfoCard from '@components/all/InfoCard';
+import { start } from 'repl';
 
 export default function RestimeCard({
   startTime,
@@ -16,6 +17,7 @@ export default function RestimeCard({
   startTime: string;
   endTime: string;
 }) {
+  console.log(startTime, endTime);
   const [timeSlotList, setTimeSlotList] = useState<string[]>([]);
   const [selectedIdx, setSelectedIdx] = useState<boolean[]>([]);
   // MVP에서는 선택불가능한 시간 없음
@@ -34,7 +36,7 @@ export default function RestimeCard({
   const setTime = useTimeReservationStore(
     (state) => state.setTimeReservationInfo
   );
-  
+
   const handleSelect = (idx: number) => {
     // 하나라도 클릭된게 있다면
     // 새로 클릭된게 그전 클릭보다 인덱스(클릭 된 인덱스 중 마지막)가 크다면
@@ -121,7 +123,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
-                isEven={(idx % 2) === 1}
+                isEven={idx % 2 === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isFirst
@@ -134,7 +136,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
-                isEven={(idx % 2) === 1}
+                isEven={idx % 2 === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isAfternoon
@@ -147,7 +149,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
-                isEven={(idx % 2) === 1}
+                isEven={idx % 2 === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 isLast
@@ -160,7 +162,7 @@ export default function RestimeCard({
               <TimeSelectCard
                 key={time}
                 time={time}
-                isEven={(idx % 2) === 1}
+                isEven={idx % 2 === 1}
                 disable={DUMMYISDISABLE[idx]}
                 selected={selectedIdx[idx]}
                 idx={idx}

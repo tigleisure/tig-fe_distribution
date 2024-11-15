@@ -22,6 +22,7 @@ export interface TBCReservationItemProps {
   clubPhoneNumber: string;
   reviewId: number;
   userName: string;
+  gameDescription: string;
 }
 export interface TBCReservationListResponse {
   result: TBCReservationItemProps[];

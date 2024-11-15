@@ -16,6 +16,9 @@ interface reservationRequestBodyProp {
   message: string;
   userName: string;
   phoneNumber: string;
+  gameDescription: string;
+  couponId: number;
+  provider: string;
 }
 
 interface reservationResponseBodyProp {
@@ -35,6 +38,7 @@ interface reservationResponseBodyProp {
     clubName: string;
     clubAddress: string;
     reservationId: number;
+    couponId: number;
   };
   resultCode: number;
   resultMsg: string;

@@ -12,7 +12,7 @@ export interface ReservationDetailProps {
   reservationId: string;
   userName: string;
   phoneNumber: string;
-  updateAt: string;
+  updatedAt: string;
   provider: string;
   price: number;
   feePrice: number;
@@ -21,4 +21,5 @@ export interface ReservationDetailProps {
   paymentId: string;
   message: string;
   clubId: string;
+  gameDescription: string;
 }

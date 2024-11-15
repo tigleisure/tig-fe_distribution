@@ -5,6 +5,7 @@ import {
   useGameReservationStore,
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
+import { usePriceStore } from '@store/priceStore';
 import { convertToNextDayIfNextDay } from '@utils/formatDate';
 import { usePathname, useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -23,6 +24,7 @@ export default function MakeResButtonCard({
   const pathname = usePathname();
   const clubId = pathname.split('/').at(-1);
   const [toastId, setToastId] = useState<string | null>(null);
+  const price = usePriceStore((state) => state.price);
   const timeResInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
@@ -35,11 +37,7 @@ export default function MakeResButtonCard({
     }
     const id = toast.custom(
       <ToastUI
-        message={
-          type === 'GAME'
-            ? '게임 수, 시작 시간, 인원을 선택해주세요'
-            : '시작 및 종료 시간, 인원을 선택해주세요'
-        }
+        message="시작 시간, 원하는 게임을 선택해주세요"
         iswarning={true}
       />,
       {
@@ -51,77 +49,46 @@ export default function MakeResButtonCard({
     return;
   };
 
+  const curPrice = usePriceStore((state) => state.price);
+
   const handleReservation = () => {
-    if (pathname.startsWith('/reservation/game')) {
-      if (
-        !clubId ||
-        !gameResInfo.startTime ||
-        !gameResInfo.gameCount ||
-        (gameResInfo.adultCount === 0 &&
-          gameResInfo.teenagerCount === 0 &&
-          gameResInfo.kidsCount === 0)
-      ) {
-        handleWrongSubmit('GAME');
-        return; // clubId가 undefined, null, ''과 같은 경우
-      }
-      const calculateDate = convertToNextDayIfNextDay(
-        gameResInfo.startTime?.slice(11, 16) || '',
-        clubStartTime,
-        gameResInfo.date
-      );
-
-      const query = {
-        gameType: 'GAME',
-        date: calculateDate,
-        startTime: gameResInfo.startTime,
-        gameCount: String(gameResInfo.gameCount),
-        request: gameResInfo.request,
-        // price: '금액 by BE',
-        adultCount: String(gameResInfo.adultCount),
-        teenagerCount: String(gameResInfo.teenagerCount),
-        kidsCount: String(gameResInfo.kidsCount),
-        clubName: clubName,
-        address: address,
-      };
-      const queryString = new URLSearchParams(query).toString();
-      router.push(`/payment/before/${clubId}?${queryString}`);
-    } else {
-      if (
-        !clubId ||
-        !timeResInfo.startTime ||
-        !timeResInfo.endTime ||
-        (timeResInfo.adultCount === 0 &&
-          timeResInfo.teenagerCount === 0 &&
-          timeResInfo.kidsCount === 0)
-      ) {
-        handleWrongSubmit('TIME');
-        return; // clubId가 undefined, null, ''과 같은 경우
-      }
-      const calculateDate = convertToNextDayIfNextDay(
-        timeResInfo.startTime?.slice(11, 16) || '',
-        clubStartTime,
-        timeResInfo.date
-      );
-
-      const query = {
-        gameType: 'TIME',
-        date: calculateDate,
-        startTime: timeResInfo.startTime,
-        endTime: timeResInfo.endTime,
-        request: timeResInfo.request,
-        // price: '금액 by BE',
-        adultCount: String(timeResInfo.adultCount),
-        teenagerCount: String(timeResInfo.teenagerCount),
-        kidsCount: String(timeResInfo.kidsCount),
-        clubName: clubName,
-        address: address,
-      };
-      const queryString = new URLSearchParams(query).toString();
-      router.push(`/payment/before/${clubId}?${queryString}`);
+    // 그냥 GAME으로 통일
+    // console.log(clubId, gameResInfo.startTime, curPrice);
+    if (!clubId || !gameResInfo.startTime || curPrice === 0) {
+      handleWrongSubmit('GAME');
+      return; // clubId가 undefined, null, ''과 같은 경우
     }
+    const calculateDate = convertToNextDayIfNextDay(
+      gameResInfo.startTime?.slice(11, 16) || '',
+      clubStartTime,
+      gameResInfo.date
+    );
+
+    const query = {
+      gameType: 'GAME',
+      date: calculateDate,
+      startTime: gameResInfo.startTime,
+      gameCount: String(gameResInfo.gameCount),
+      request: gameResInfo.request,
+      // price: '금액 by BE',
+      adultCount: String(gameResInfo.adultCount),
+      teenagerCount: String(gameResInfo.teenagerCount),
+      kidsCount: String(gameResInfo.kidsCount),
+      clubName: clubName,
+      address: address,
+      gameDescription: gameResInfo.gameDescription,
+    };
+    const queryString = new URLSearchParams(query).toString();
+    router.push(`/payment/before/${clubId}?${queryString}`);
   };
   return (
-    <section className="h-[78px] w-full flex justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">
+    <section className="h-[78px] w-full flex  gap-[10px] justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">
+      <div className="w-[100px] h-full flex flex-col justify-between p-1">
+        <p className="title4 text-grey8">총 결제금액</p>
+        <p className="title3 text-primary_orange1">
+          {price.toLocaleString()}원
+        </p>
+      </div>
       <FullButton
         bgColor="primary_orange1"
         color="white"

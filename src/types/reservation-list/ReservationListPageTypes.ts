@@ -9,6 +9,7 @@ export interface HistoryInProgressItemProps {
   adultCount?: number;
   teenagerCount?: number;
   kidsCount?: number;
+  gameDescription: string;
   status: 'CONFIRMED' | 'TBC' | 'DECLINED' | 'CANCELED' | 'DONE' | 'REVIEWED';
   reservationId: number;
   paymentId: string | null;
@@ -21,9 +22,9 @@ export interface HistoryInAdminItemProps
     HistoryInProgressItemProps,
     'status' | 'handleChangeCancelPaymentId' | 'handleChangeCancelReservationId'
   > {
-    userName: string;
-    clubPhoneNumber: string;
-  }
+  userName: string;
+  clubPhoneNumber: string;
+}
 
 export interface HistoryComponentUpperSectionProps
   extends Omit<
@@ -78,4 +79,5 @@ export interface ReservationItemProps {
   reviewId: number;
   message: string;
   imageUrls: string[];
+  gameDescription: string;
 }

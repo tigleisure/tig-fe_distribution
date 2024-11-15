@@ -8,8 +8,9 @@ interface MakeReservationInfoProps {
   teenagerCount: number;
   kidsCount: number;
   request: string;
+  gameDescription: string;
 }
-interface MakeGameReservationInfoProps extends MakeReservationInfoProps {
+export interface MakeGameReservationInfoProps extends MakeReservationInfoProps {
   gameCount: number;
 }
 interface MakeTimeReservationInfoProps extends MakeReservationInfoProps {
@@ -34,6 +35,7 @@ export const gameReservationInfoInitialState: MakeGameReservationInfoProps = {
   kidsCount: 0,
   request: '',
   gameCount: 0,
+  gameDescription: '',
 };
 
 export const useGameReservationStore = create<GameReservationStore>((set) => ({
@@ -49,6 +51,7 @@ export const timeReservationInfoInitialState = {
   teenagerCount: 0,
   kidsCount: 0,
   request: '',
+  gameDescription: '',
 };
 export const useTimeReservationStore = create<TimeReservationStore>((set) => ({
   timeReservationInfo: timeReservationInfoInitialState,

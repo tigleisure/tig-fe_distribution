@@ -14,6 +14,7 @@ interface BeforeFirstStageCardProps {
   endTime?: string;
   gameCount?: number;
   price: number;
+  gameDescription: string;
 }
 
 export default function BeforeFirstStageCard({
@@ -27,6 +28,7 @@ export default function BeforeFirstStageCard({
   endTime,
   gameCount,
   price,
+  gameDescription,
 }: BeforeFirstStageCardProps) {
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex justify-center bg-white mt-[30px] py-5">
@@ -43,6 +45,17 @@ export default function BeforeFirstStageCard({
           </span>
         </div>
         <div className="w-full flex justify-between items-center">
+          <span className="title4 text-grey4">이용 시간</span>
+          <span className="body4 text-grey6">
+            {/* {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
+              ? '오전'
+              : '오후'}{' '} */}
+            {extractOnlyTime(startTime) + ' 시작'}
+            {/* {endTime === '' ? '시작' : '- '} */}
+            {/* {endTime ? extractOnlyTime(endTime) : null} */}
+          </span>
+        </div>
+        {/* <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey4">인원</span>
           <span className="body4 text-grey6">
             {adultCount !== 0 && `성인 ${adultCount}명`}
@@ -51,16 +64,10 @@ export default function BeforeFirstStageCard({
             {teenagerCount !== 0 && kidsCount !== 0 && ', '}
             {kidsCount !== 0 && `어린이 ${kidsCount}명`}
           </span>
-        </div>
+        </div> */}
         <div className="w-full flex justify-between items-center">
-          <span className="title4 text-grey4">이용 시간</span>
-          <span className="body4 text-grey6">
-            {/* {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
-              ? '오전'
-              : '오후'}{' '} */}
-            {extractOnlyTime(startTime)} {endTime === '' ? '시작' : '- '}
-            {endTime ? extractOnlyTime(endTime) : null}
-          </span>
+          <span className="title4 text-grey4">게임</span>
+          <span className="body4 text-grey6">{gameDescription}</span>
         </div>
         {endTime === '' && gameCount !== 0 && (
           <div className="w-full flex justify-between items-center">

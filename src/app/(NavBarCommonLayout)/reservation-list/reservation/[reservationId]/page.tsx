@@ -40,9 +40,10 @@ export default function Page({
     provider: '',
     message: '',
     imageUrls: ['/png/dummyImage.png'],
-    updateAt: '2024-01-01T00:00:00',
+    updatedAt: '2024-01-01T00:00:00',
     feePrice: 0,
     couponDiscountPrice: 0,
+    gameDescription: '',
   });
   const setIsModalOpen = useModal((state) => state.setSelectedIsModalOpen);
   const [isLoading, setIsLoading] = useState(true);
@@ -68,6 +69,41 @@ export default function Page({
       setIsModalOpen(false);
     };
   }, []);
+
+  const handleSecondButtonClick = async () => {
+    // 결제 금액이 있는 경우 결제 취소 로직
+    if ((data?.price || 0) > 0) {
+      const cancelPortOneResponse = await cancelPortOnePayment(
+        data.paymentId as string,
+        '고객에 의한 예약 취소입니다'
+      );
+
+      if (cancelPortOneResponse.status !== 'SUCCEEDED') {
+        alert(
+          '결제 취소 요청이 실패했습니다! TIG 팀에 문의주시면 감사하겠습니다'
+        );
+        return;
+      }
+    }
+
+    // 예약 취소 요청
+    cancelReservationMutation.mutate(Number(data.reservationId) as number, {
+      onSuccess(successData) {
+        queryClient.invalidateQueries({
+          queryKey: ['userReservationList'],
+        });
+
+        if (successData.resultCode === 200) {
+          router.replace('/');
+        } else {
+          handleSendTigCancelFailToDiscord(
+            Number(data.reservationId) as number,
+            data.paymentId as string
+          );
+        }
+      },
+    });
+  };
 
   const cancelReservationMutation = useDeleteUserSpecificReservation();
 
@@ -95,36 +131,7 @@ export default function Page({
           button2Content="취소하기"
           title="예약을 취소하시겠습니까?"
           subTitle="예약 취소 시 수수료가 발생할 수 있습니다"
-          secondButtonFunc={async () => {
-            const cancelPortOneResponse = await cancelPortOnePayment(
-              data.paymentId as string,
-              '고객에 의한 예약 취소입니다'
-            );
-
-            if (cancelPortOneResponse.status !== 'SUCCEEDED') {
-              alert(
-                '결제 취소 요청이 실패했습니다! TIG 팀에 문의주시면 감사하겠습니다'
-              );
-            } else {
-              cancelReservationMutation.mutate(Number(data.reservationId), {
-                onSuccess(successData, variables, context) {
-                  // 성공적인 tig 예약 취소가 이루어짐.
-                  queryClient.invalidateQueries({
-                    queryKey: ['userReservationList'],
-                  });
-                  if (successData.resultCode === 200) {
-                    router.replace('/');
-                  } else {
-                    // Discord로 기획 쪽에 알리는 로직
-                    handleSendTigCancelFailToDiscord(
-                      Number(data.reservationId) as number,
-                      data.paymentId as string
-                    );
-                  }
-                },
-              });
-            }
-          }}
+          secondButtonFunc={handleSecondButtonClick}
         />
       </main>
     </div>

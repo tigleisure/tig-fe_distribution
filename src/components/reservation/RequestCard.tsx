@@ -41,7 +41,7 @@ export default function RequestCard() {
       <article className="w-full flex justify-between">
         <div className="w-fit gap-2 flex">
           <p className="w-[18px] h-[18px] rounded-full bg-primary_orange1 text-white title4 flex justify-center items-center pr-[1px] pt-[1px]">
-            {pathname.startsWith('/reservation/game') ? '6' : '5'}
+            {4}
           </p>
           <p className="title3 text-grey7">요청 사항이 있다면 남겨주세요.</p>
         </div>

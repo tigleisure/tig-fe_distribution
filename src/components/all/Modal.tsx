@@ -10,7 +10,7 @@ interface ModalProps {
   button2Content?: string;
   title: string;
   subTitle?: string;
-  secondButtonFunc?: () => void;
+  secondButtonFunc?: (() => void) | (() => Promise<void>) | void;
 }
 
 export default function Modal({

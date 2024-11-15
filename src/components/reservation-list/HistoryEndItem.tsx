@@ -17,6 +17,7 @@ export default function HistoryEndItem({
   reservationId,
   reviewId,
   imageUrls,
+  gameDescription,
 }: HistoryEndItemProps) {
   return (
     <Link
@@ -34,6 +35,7 @@ export default function HistoryEndItem({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
         imageUrls={imageUrls}
+        gameDescription={gameDescription}
       />
       {status === 'DONE' && (
         <FullButton

@@ -6,7 +6,10 @@ import {
   usePaymentFirstStage,
   usePaymentSecondStage,
 } from '@store/paymentInfoStore';
-import { useIsCouponPageOpen } from '@store/couponStore';
+import {
+  useIsCouponPageOpen,
+  useSelectedCouponNumber,
+} from '@store/couponStore';
 import useModal from '@store/modalStore';
 import { isValidPhoneNumber } from '@utils/validationCheck';
 import toast from 'react-hot-toast';
@@ -20,6 +23,8 @@ import makePaymentId from '@utils/makePaymentId';
 import { CustomPaymentError } from '@apis/portone/CustomPaymentError';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import ToastUI, { toastUIDuration } from './ToastUI';
+import { stat } from 'fs';
+import { se } from 'date-fns/locale';
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   size: 'sm' | 'md' | 'lg';
@@ -93,6 +98,10 @@ export default function FullButton({
 
   const setSelectedIsModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
+  );
+
+  const selectedCouponNumber = useSelectedCouponNumber(
+    (state) => state.selectedCouponNumber
   );
 
   const [toastId, setToastId] = useState<string | null>(null);
@@ -197,6 +206,57 @@ export default function FullButton({
 
       // 이제 해당 정보를 백엔드로 전송하면 됨
 
+      // 0원 결제인 경우 포트원 결제 없이 진행
+      if (
+        secondStageInfoObject.price -
+          secondStageInfoObject.couponDiscountPrice <=
+          0 &&
+        data &&
+        sendingData?.reservationData?.clubId &&
+        sendingData.reservationData.memberId
+      ) {
+        console.log('0원 결제');
+        const customPaymentId = makePaymentId(
+          data.result.id,
+          new Date().toLocaleString()
+        );
+
+        postReservationMutation.mutate(
+          {
+            adultCount: firstStageInfoObject.adultCount,
+            teenagerCount: firstStageInfoObject.teenagerCount,
+            kidsCount: firstStageInfoObject.kidsCount,
+            date: firstStageInfoObject.date,
+            startTime: firstStageInfoObject.startTime,
+            endTime:
+              firstStageInfoObject.endTime !== ''
+                ? firstStageInfoObject.endTime
+                : undefined,
+            gameCount: firstStageInfoObject.gameCount,
+            message: firstStageInfoObject.message,
+            price:
+              secondStageInfoObject.price -
+              secondStageInfoObject.couponDiscountPrice,
+            status: 'TBC',
+            clubId: sendingData.reservationData?.clubId as number,
+            paymentId: customPaymentId,
+            phoneNumber: secondStageInfoObject.phoneNumber,
+            userName: secondStageInfoObject.userName,
+            gameDescription: firstStageInfoObject.message,
+            couponId: selectedCouponNumber,
+            provider: secondStageInfoObject.paymentMethod === 'kakaoPayment' ? 'KAKAOPAY' : 'TOSSPAY'
+          },
+          {
+            onSuccess(data) {
+              // 현재 data가 null값이 오는 중
+
+              router.replace(`/payment/after/${data.result.reservationId}`);
+            },
+          }
+        );
+        return;
+      }
+
       if (
         secondStageInfoObject.paymentMethod === 'kakaoPayment' &&
         data &&
@@ -224,6 +284,9 @@ export default function FullButton({
             userName: secondStageInfoObject.userName,
             phoneNumber: secondStageInfoObject.phoneNumber,
             memberId: sendingData.reservationData.memberId,
+            couponId: selectedCouponNumber,
+            gameDescription: firstStageInfoObject.message,
+            provider: secondStageInfoObject.paymentMethod
           }
         )
           .then((response) => {
@@ -243,12 +306,19 @@ export default function FullButton({
                   message: firstStageInfoObject.message,
                   price:
                     secondStageInfoObject.price -
-                    secondStageInfoObject.couponDiscountPrice,
+                      secondStageInfoObject.couponDiscountPrice >
+                    0
+                      ? secondStageInfoObject.price -
+                        secondStageInfoObject.couponDiscountPrice
+                      : 0,
                   status: 'TBC',
                   clubId: sendingData.reservationData?.clubId as number,
                   paymentId: customPaymentId,
                   phoneNumber: secondStageInfoObject.phoneNumber,
                   userName: secondStageInfoObject.userName,
+                  gameDescription: firstStageInfoObject.message,
+                  couponId: selectedCouponNumber,
+                  provider: 'KAKAOPAY'
                 },
                 {
                   onSuccess(data) {
@@ -308,6 +378,9 @@ export default function FullButton({
             userName: secondStageInfoObject.userName,
             memberId: sendingData.reservationData.memberId,
             phoneNumber: secondStageInfoObject.phoneNumber,
+            couponId: selectedCouponNumber,
+            gameDescription: firstStageInfoObject.message,
+            provider: secondStageInfoObject.paymentMethod
           }
         )
           .then((response) => {
@@ -327,13 +400,20 @@ export default function FullButton({
                   message: firstStageInfoObject.message,
                   price:
                     secondStageInfoObject.price -
-                    secondStageInfoObject.couponDiscountPrice,
+                      secondStageInfoObject.couponDiscountPrice >
+                    0
+                      ? secondStageInfoObject.price -
+                        secondStageInfoObject.couponDiscountPrice
+                      : 0,
                   status: 'TBC',
                   clubId: sendingData.reservationData?.clubId as number,
                   paymentId: customPaymentId,
                   phoneNumber: secondStageInfoObject.phoneNumber,
 
                   userName: secondStageInfoObject.userName,
+                  gameDescription: firstStageInfoObject.message,
+                  couponId: selectedCouponNumber,
+                  provider: 'TOSSPAY'
                 },
                 {
                   onSuccess(data) {

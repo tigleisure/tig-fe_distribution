@@ -30,7 +30,9 @@ export default function BeforeSecondStageFinalPriceCard({
         <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey6">총 결제 금액</span>
           <div className=" flex items-center headline2 text-status_red1">
-            {(defaultPrice - couponDiscountPrice).toLocaleString()}
+            {defaultPrice - couponDiscountPrice > 0
+              ? (defaultPrice - couponDiscountPrice).toLocaleString()
+              : 0}
             <span className="title3 text-status_red1">원</span>
           </div>
         </div>

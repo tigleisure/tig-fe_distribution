@@ -1,18 +1,74 @@
-import InfoCard from '@components/all/InfoCard';
-import ChooseCard from '@components/reservation/ChooseCard';
-import { ChooseCardProps } from 'types/search/SearchTypes';
+import CountDownSVG from '@public/svg/countDown.svg';
+import CountUpSVG from '@public/svg/countUp.svg';
+import { useGameReservationStore } from '@store/makeReservationInfo';
+import { usePriceStore } from '@store/priceStore';
+import { cn } from '@utils/cn';
+import { useState } from 'react';
 
-const chooseLists: ChooseCardProps[] = [
-  { title: '성인', description: '만 19세 이상' },
-  { title: '청소년', description: '만 14세 ~ 만 18세' },
-  { title: '어린이', description: '만 13세 이하' },
-];
+export default function GameCountCard({
+  name,
+  price,
+}: {
+  name: string;
+  price: number;
+}) {
+  const [count, setCount] = useState(0);
+  const totalPrice = usePriceStore((state) => state.price);
+  const setPrice = usePriceStore((state) => state.setPrice);
+  const gameResInfo = useGameReservationStore(
+    (state) => state.gameReservationInfo
+  );
+  const setGameResInfo = useGameReservationStore(
+    (state) => state.setGameReservationInfo
+  );
+  const countDownHandler = () => {
+    if (count === 0) return;
+    setCount((prev) => prev - 1);
+    const updatePrice = totalPrice - price;
+    setPrice(updatePrice);
+    if (count === 1) {
+      setGameResInfo({ ...gameResInfo, gameDescription: '' });
+    }
+  };
 
-export default function GameCountCard() {
+  const countUpHandler = () => {
+    setCount((prev) => prev + 1);
+    const updatePrice = totalPrice + price;
+    setPrice(updatePrice);
+    setGameResInfo({ ...gameResInfo, gameDescription: name });
+  };
   return (
-    <section className="w-full flex flex-col p-5 mt-5 border-b border-grey2">
-      <InfoCard number={5} content="원하는 게임 수를 선택해주세요." />
-      <ChooseCard title="게임" />
+    <section
+      className={cn(
+        'w-full flex py-4 px-3 rounded-[12px] h-[95px] justify-between items-center border border-grey3',
+        {
+          'border-grey3': count === 0,
+          'border-primary_orange1 bg-[#FFF0D3]/20': count > 0,
+        }
+      )}
+    >
+      <div className="flex flex-col h-full justify-between">
+        <p className="title2 text-grey7">{name}</p>
+        <div className="flex justify-between items-center w-[100px]">
+          <CountDownSVG
+            fill={count === 0 ? '#CED3D6' : '#878D91'}
+            className="cursor-pointer select-none"
+            onClick={countDownHandler}
+          />
+          <p className="body2 text-grey6 select-none">{count}</p>
+          <CountUpSVG
+            fill="#878D91"
+            className="cursor-pointer select-none"
+            onClick={countUpHandler}
+          />
+        </div>
+      </div>
+      <div className="flex flex-col h-full justify-end">
+        <p className="headline2 text-primary_orange1">
+          {price.toLocaleString()}
+          <span className="title3 text-primary_orange1">원</span>
+        </p>
+      </div>
     </section>
   );
 }

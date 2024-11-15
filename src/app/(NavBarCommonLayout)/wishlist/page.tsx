@@ -43,7 +43,7 @@ export default function Page() {
             from="wishlist"
             className="w-full px-5 top-[58px]"
           />
-          {filteredWishList ? (
+          {filteredWishList.length > 0 ? (
             <main className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
               {filteredWishList.map((wishListData) => (
                 <ResultCard

@@ -28,6 +28,9 @@ const handleTossEasyPay = async (
     userName: string;
     phoneNumber: string;
     memberId: number;
+    couponId: number;
+    provider: string;
+    gameDescription: string;
   }
 ): Promise<tossEasyPayBackendResponse> => {
   const clubDataResonse = await fetch(
@@ -56,7 +59,10 @@ const handleTossEasyPay = async (
     clubPrice: clubData.result.price,
     paymentPrice: paymentPrice.toString(),
     userName: reservationData.userName,
-    phoneNumnber: reservationData.phoneNumber,
+    phoneNumber: reservationData.phoneNumber,
+    couponId: reservationData.couponId.toString(),
+    provider: reservationData.provider,
+    gameDescription: reservationData.gameDescription,
   };
 
   const queryString = new URLSearchParams(query).toString();

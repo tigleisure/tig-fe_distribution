@@ -72,11 +72,16 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     if (isSuccess) {
+      console.log(formatDate(new Date(selectedDate), 'EEE').toUpperCase());
       const filteredOperatingHours = data?.result.operatingHours.filter(
         (hour) => {
-          return hour.dayOfWeek === searchParam.get('dayOfWeek');
+          return (
+            hour.dayOfWeek ===
+            formatDate(new Date(selectedDate), 'EEE').toUpperCase()
+          );
         }
       );
+      console.log(filteredOperatingHours);
       const now = formatDate(addHours(new Date(), 1), 'HH:00');
       if (
         timeToMinutes(
@@ -107,9 +112,9 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <Header buttonType="back" isCenter title="예약하기" />
       <ResDateCard />
       <ResGameCard startTime={startTime} endTime={endTime} />
-      <ResPeopleCountCard />
-      <GameTypeCard />
-      <GameCountCard />
+      {/* <ResPeopleCountCard /> */}
+      {/* <GameTypeCard /> */}
+      {/* <GameCountCard /> */}
       <RequestCard />
       <MakeResButtonCard
         clubName={clubName}

@@ -18,6 +18,7 @@ export default function HistoryInProgressItem({
   reservationId,
   paymentId,
   imageUrls,
+  gameDescription,
   handleChangeCancelPaymentId,
   handleChangeCancelReservationId,
 }: HistoryInProgressItemProps) {
@@ -39,6 +40,7 @@ export default function HistoryInProgressItem({
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
         imageUrls={imageUrls}
+        gameDescription={gameDescription}
       />
       {status === 'TBC' && (
         <div className="w-full h-fit flex gap-[10px]">

@@ -27,6 +27,9 @@ const handleKakaokEasyPay = async (
     userName: string;
     memberId: number;
     phoneNumber: string;
+    couponId: number;
+    provider: string;
+    gameDescription: string;
   }
 ): Promise<kakaoEasyPayBackendResponse> => {
   const clubDataResonse = await fetch(
@@ -56,7 +59,10 @@ const handleKakaokEasyPay = async (
     clubPrice: clubData.result.price,
     paymentPrice: paymentPrice.toString(),
     userName: reservationData.userName,
-    phoneNumnber: reservationData.phoneNumber,
+    phoneNumber: reservationData.phoneNumber,
+    couponId: reservationData.couponId.toString(),
+    provider: reservationData.provider,
+    gameDescription: reservationData.gameDescription,
   };
 
   const queryString = new URLSearchParams(query).toString();

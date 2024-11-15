@@ -89,3 +89,19 @@ export const convertToNextDayIfNextDay = (
   }
   return date;
 };
+
+// 24시간을 더하는 함수
+export function add24Hours(timeStr: string) {
+  // '02:00' 형식의 문자열에서 시간을 추출
+  const [hours, minutes] = timeStr.split(':').map(Number);
+
+  // 24시간을 더하기
+  const newHours = hours + 24;
+
+  // 새로운 시간을 문자열로 포맷
+  const result = `${newHours.toString().padStart(2, '0')}:${minutes
+    .toString()
+    .padStart(2, '0')}`;
+
+  return result;
+}

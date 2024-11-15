@@ -21,6 +21,11 @@ import { useGetUserInfo } from '@apis/mypage/getUserInfo';
 import { useGetSpecificClubInfo } from '@apis/club/getSpecificClubInfo';
 import { calculateTimeDiff } from '@utils/formatDate';
 import { useRouter } from 'next/navigation';
+import { start } from 'repl';
+import { generateTimeSlots } from '@utils/generateTimeSlots';
+import { formatDate, set } from 'date-fns';
+import { usePriceStore } from '@store/priceStore';
+import { format } from 'path';
 
 interface searchParamsProps {
   adultCount: string | undefined;
@@ -34,6 +39,7 @@ interface searchParamsProps {
   address: string | undefined;
   gameType: string | undefined;
   request: string | undefined;
+  gameDescription: string | undefined;
 }
 
 export default function Page({
@@ -43,6 +49,34 @@ export default function Page({
   params: { clubId: string };
   searchParams: searchParamsProps;
 }) {
+  console.log('rendring');
+  const router = useRouter();
+  const price = usePriceStore((state) => state.price);
+  // 금액이슈 일단보류..
+  const formatDayOfWeek = formatDate(new Date(), 'EEE').toUpperCase();
+  const isFromReservationPage = usePriceStore(
+    (state) => state.isFromReservation
+  );
+  const setPrice = usePriceStore((state) => state.setPrice);
+  const setIsFromReservation = usePriceStore(
+    (state) => state.setIsFromReservation
+  );
+  useEffect(() => {
+    if (!isFromReservationPage) {
+      router.replace(
+        `/reservation/game/${params.clubId}?date=${formatDate(
+          new Date(),
+          "yyyy-MM-dd'T'HH:mm:ss"
+        )}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    return () => {
+      console.log('unmount');
+      setPrice(0);
+      setIsFromReservation(false);
+    };
+  }, []);
+
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
   );
@@ -79,7 +113,14 @@ export default function Page({
   const clubSpecificInfoResponse = useGetSpecificClubInfo(params.clubId);
 
   const reservationSearchParmasObject = searchParams;
-  const router = useRouter();
+  // 시간타입에 대한 로직 짜보기
+  const startTime =
+    reservationSearchParmasObject.startTime?.slice(11, 16) || '10:00';
+  const endTime =
+    reservationSearchParmasObject.endTime?.slice(11, 16) || '12:00';
+  const generatedTimeSlots = generateTimeSlots(startTime, endTime);
+  // const priceTable = clubSpecificInfoResponse.data?.result.price as string[];
+  // const programPriceTable = priceTable.
 
   useEffect(() => {
     const firstStageObjData: paymentFirstStageInfoProps = {
@@ -100,7 +141,7 @@ export default function Page({
         : '',
       endTime: reservationSearchParmasObject.endTime
         ? reservationSearchParmasObject.endTime
-        : '',
+        : '2024-11-13T00:00:00',
       gameCount: reservationSearchParmasObject.gameCount
         ? reservationSearchParmasObject.gameCount
         : 0,
@@ -110,23 +151,10 @@ export default function Page({
       clubAddress: reservationSearchParmasObject.address
         ? reservationSearchParmasObject.address
         : '',
-      // TIME 타입이면 종료시간 - 시작 시간을 빼서 가격과 곱하고, GAME 타입이면 게임 카운트를 가격에 곱해 계산. type 검사는 쿼리 스트링, 백엔드 api 응답 데이터 이중 검사
-      price: clubSpecificInfoResponse.data?.result.price
-        ? reservationSearchParmasObject.gameType === 'TIME' &&
-          clubSpecificInfoResponse.data.result.type === 'TIME'
-          ? clubSpecificInfoResponse.data?.result.price *
-            calculateTimeDiff(
-              reservationSearchParmasObject.endTime as string,
-              reservationSearchParmasObject.startTime as string
-            )
-          : reservationSearchParmasObject.gameType === 'GAME' &&
-            clubSpecificInfoResponse.data.result.type === 'GAME' &&
-            reservationSearchParmasObject.gameCount
-          ? clubSpecificInfoResponse.data?.result.price *
-            reservationSearchParmasObject.gameCount
-          : 0
-        : 0,
-      message: reservationSearchParmasObject.request || ''
+      // 추후 제대로 설정해야 함
+      price: price,
+      message: reservationSearchParmasObject.request || '',
+      gameDescription: reservationSearchParmasObject.gameDescription || '',
     };
 
     setFirstStageInfoObject(firstStageObjData);
@@ -143,21 +171,7 @@ export default function Page({
         userName: userInfoResponse.data.result.name,
         phoneNumber: userInfoResponse.data.result.phoneNumber,
         couponDiscountPrice: 0,
-        price: clubSpecificInfoResponse.data?.result.price
-          ? reservationSearchParmasObject.gameType === 'TIME' &&
-            clubSpecificInfoResponse.data.result.type === 'TIME'
-            ? clubSpecificInfoResponse.data?.result.price *
-              calculateTimeDiff(
-                reservationSearchParmasObject.endTime as string,
-                reservationSearchParmasObject.startTime as string
-              )
-            : reservationSearchParmasObject.gameType === 'GAME' &&
-              clubSpecificInfoResponse.data.result.type === 'GAME' &&
-              reservationSearchParmasObject.gameCount
-            ? clubSpecificInfoResponse.data?.result.price *
-              reservationSearchParmasObject.gameCount
-            : 0
-          : 0,
+        price: price,
         paymentMethod: null,
       };
     }
@@ -165,30 +179,31 @@ export default function Page({
   }, [userInfoResponse.data, clubSpecificInfoResponse.data]);
 
   // 해당 페이지로 들어왔는데, 쿼리스트링에 있는 type과 백엔드에 물어본 업체의 gameType 정보가 다르면 결제하면 안되므로 강제로 홈으로 리다이렉트
-  useEffect(() => {
-    if (
-      clubSpecificInfoResponse.data?.result.type === 'TIME' &&
-      reservationSearchParmasObject.gameType === 'GAME'
-    ) {
-      router.replace('/');
-    }
-    if (
-      clubSpecificInfoResponse.data?.result.type === 'GAME' &&
-      reservationSearchParmasObject.gameType === 'TIME'
-    ) {
-      router.replace('/');
-    }
-  }, [
-    clubSpecificInfoResponse.data?.result.type,
-    reservationSearchParmasObject,
-  ]);
+  // useEffect(() => {
+  //   if (
+  //     clubSpecificInfoResponse.data?.result.type === 'TIME' &&
+  //     reservationSearchParmasObject.gameType === 'GAME'
+  //   ) {
+  //     router.replace('/');
+  //   }
+  //   if (
+  //     clubSpecificInfoResponse.data?.result.type === 'GAME' &&
+  //     reservationSearchParmasObject.gameType === 'TIME'
+  //   ) {
+  //     router.replace('/');
+  //   }
+  // }, [
+  //   clubSpecificInfoResponse.data?.result.type,
+  //   reservationSearchParmasObject,
+  // ]);
 
   useEffect(() => {
     return () => {
-      setSelectedIsModalOpen(false)
+      setSelectedIsModalOpen(false);
       setReservationStageState(1);
-    }
+    };
   }, []);
+  console.log('secondStageObject', secondStageInfoObject);
 
   return !isCouponPageOpen ? (
     <main className="w-full h-full flex flex-col items-center bg-grey1 pb-[100px] overflow-y-scroll">
@@ -205,7 +220,7 @@ export default function Page({
       )}
 
       {reservationStageState === 2 && (
-        <BeforeSecondStageCard {...secondStageInfoObject}  />
+        <BeforeSecondStageCard {...secondStageInfoObject} />
       )}
 
       {reservationStageState === 1 && (
@@ -226,10 +241,20 @@ export default function Page({
             size="lg"
             color="white"
             bgColor="primary_orange1"
-            content={`${(
+            content={
               secondStageInfoObject.price -
-              secondStageInfoObject.couponDiscountPrice
-            ).toLocaleString()}원 결제하기`}
+                secondStageInfoObject.couponDiscountPrice >
+              0
+                ? `${(
+                    secondStageInfoObject.price -
+                    secondStageInfoObject.couponDiscountPrice
+                  ).toLocaleString()}원 결제하기`
+                : '0원 결제하기'
+            }
+            // content={`${(
+            //   secondStageInfoObject.price -
+            //   secondStageInfoObject.couponDiscountPrice
+            // ).toLocaleString()}원 결제하기`}
             clickTask="request-payment"
             sendingData={{
               reservationData: {

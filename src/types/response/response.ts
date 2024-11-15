@@ -110,3 +110,16 @@ export interface RecentSearchResponse {
   resultCode: number;
   resultMsg: string;
 }
+
+export interface Coupon {
+  discount: number;
+  name: string;
+  description: string;
+  expireDate: string;
+  couponId: number;
+}
+export interface CouponResponse {
+  result: Coupon[];
+  resultCode: number;
+  resultMsg: string;
+}

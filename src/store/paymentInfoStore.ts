@@ -12,6 +12,7 @@ export interface paymentFirstStageInfoProps {
   gameCount?: number;
   price: number;
   message: string;
+  gameDescription: string;
 }
 
 interface paymentFirstStageStore {
@@ -33,6 +34,7 @@ export const usePaymentFirstStage = create<paymentFirstStageStore>((set) => ({
     gameCount: 0,
     price: 0,
     message: '',
+    gameDescription: '',
   },
   setFirstStageInfoObject: (status: paymentFirstStageInfoProps) =>
     set({ firstStageInfoObject: status }),

@@ -319,6 +319,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
         // ref={visitedReviewRef}
       />
       <ResButtonCard
+        category={clubInfo.category}
         companyId={params.companyId}
         type={clubInfo.type || 'TIME'}
         date={searchParams.get('date') || ''}

@@ -1,7 +1,7 @@
 import NullImageSVG from '@public/svg/nullImage.svg';
 import SmallCalendarSVG from '@public/svg/smallCalendar.svg';
 import SmallClockSVG from '@public/svg/smallClock.svg';
-import SmallPersonSVG from '@public/svg/smallPerson.svg';
+import TicketSVG from '@public/svg/ticket.svg';
 import { HistoryComponentUpperSectionProps } from 'types/reservation-list/ReservationListPageTypes';
 import { cn } from '@utils/cn';
 import {
@@ -22,6 +22,7 @@ export default function HistoryComponentUpperSection({
   kidsCount,
   className,
   imageUrls,
+  gameDescription,
   ...props
 }: HistoryComponentUpperSectionProps) {
   return (
@@ -59,23 +60,13 @@ export default function HistoryComponentUpperSection({
               {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
                 ? '오전'
                 : '오후'}{' '}
-              {extractOnlyTime(startTime)} {gameCount ? '시작, ' : '~ '}
-              {!gameCount
-                ? parseInt(extractOnlyTime(endTime).slice(0, 2)) <= 12
-                  ? `오전 ${extractOnlyTime(endTime)}`
-                  : `오후 ${extractOnlyTime(endTime)}`
-                : `${gameCount}게임`}
-              {}
+              {extractOnlyTime(startTime)} 시작
             </span>
           </div>
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
-            <SmallPersonSVG />
+            <TicketSVG />
             <span className="body4 text-grey7 txt-overflow-ellipsis">
-              {adultCount !== 0 && `성인 ${adultCount}명`}
-              {adultCount !== 0 && (teenagerCount || kidsCount) !== 0 && ', '}
-              {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}
-              {teenagerCount !== 0 && kidsCount !== 0 && ', '}
-              {kidsCount !== 0 && `어린이 ${kidsCount}명`}
+              {gameDescription}
             </span>
           </div>
         </div>

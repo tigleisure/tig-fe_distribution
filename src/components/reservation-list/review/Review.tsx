@@ -16,6 +16,7 @@ export default function Review({
   reservationUserName,
   rating,
   rateContent,
+  gameDescription,
 }: ReviewProps) {
   return (
     <div className="mt-5 p-5 rounded-[10px] w-eightNineWidth h-fit flex flex-col items-center gap-y-5 bg-white shadow-myPageLogoutButton">
@@ -30,6 +31,7 @@ export default function Review({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
+        gameDescription={gameDescription}
       />
       <div className="w-full border-[1px] border-grey2" />
       <ReviewLowerSection

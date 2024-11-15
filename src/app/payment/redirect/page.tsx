@@ -78,6 +78,9 @@ export default function PaymentRedirect({
             paymentId: searchParams.paymentId as string,
             userName: searchParams.userName as string,
             phoneNumber: searchParams.phoneNumber as string,
+            couponId: parseInt(searchParams.couponId as string),
+            provider: searchParams.provider === 'kakaoPayment' ? 'KAKAOPAY' : 'TOSSPAY',
+            gameDescription: searchParams.gameDescription as string,
           },
           {
             onSuccess(data, variables, context) {

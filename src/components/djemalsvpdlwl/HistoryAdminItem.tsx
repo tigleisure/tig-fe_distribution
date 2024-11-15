@@ -18,6 +18,7 @@ export default function HistoryInAdminItem({
   kidsCount,
   reservationId,
   clubPhoneNumber,
+  gameDescription
 }: HistoryInAdminItemProps) {
   const { mutate: confirmReservation } = useConfirmReservation();
   const { mutate: declineReservation } = useDeclineReservation();
@@ -36,6 +37,7 @@ export default function HistoryInAdminItem({
         adultCount={adultCount}
         teenagerCount={teenagerCount}
         kidsCount={kidsCount}
+        gameDescription={gameDescription}
       />
       <p className="body4">예약자 이름: {userName}</p>
       <p className="body4">업체 번호: {clubPhoneNumber}</p>
