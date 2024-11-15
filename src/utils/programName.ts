@@ -82,4 +82,3 @@ export function getProgramDescription(programName: string): string {
   );
 }
 
-// console.log(getProgramDescription('FOOTBALL_FIELD')); // "축구장 대여"

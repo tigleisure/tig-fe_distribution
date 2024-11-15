@@ -49,7 +49,6 @@ export default function Page({
   params: { clubId: string };
   searchParams: searchParamsProps;
 }) {
-  console.log('rendring');
   const router = useRouter();
   const price = usePriceStore((state) => state.price);
   const formatDayOfWeek = formatDate(new Date(), 'EEE').toUpperCase();
@@ -70,7 +69,6 @@ export default function Page({
       );
     }
     return () => {
-      console.log('unmount');
       setPrice(0);
       setIsFromReservation(false);
     };
@@ -202,7 +200,6 @@ export default function Page({
       setReservationStageState(1);
     };
   }, []);
-  console.log('secondStageObject', secondStageInfoObject);
 
   return !isCouponPageOpen ? (
     <main className="w-full h-full flex flex-col items-center bg-grey1 pb-[100px] overflow-y-scroll">

@@ -31,7 +31,6 @@ export const VisitedReviewCard = forwardRef<
     }: VisitedReviewCardProps,
     ref
   ) => {
-    console.log(reviewSummary);
     const reviewPages = Array.from(
       { length: (reviewList.length - 1) / 4 + 1 },
       (_, i) => i + 1

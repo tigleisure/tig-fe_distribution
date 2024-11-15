@@ -71,7 +71,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
       setSelectedDate(searchParam.get('date') || '');
       // API 수정되면 gameType에 맞게 초기화
-      console.log(data?.result.category);
       setTab(data?.result.category);
       const originalPrices = data?.result.prices as TennisPrice[];
       setOriginalPrices(originalPrices);
@@ -95,7 +94,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
           );
         }
       );
-      console.log(filteredOperatingHours);
       const now = formatDate(addHours(new Date(), 1), 'HH:00');
       if (
         timeToMinutes(

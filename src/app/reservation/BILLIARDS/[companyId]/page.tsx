@@ -67,7 +67,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
       setSelectedDate(searchParam.get('date') || '');
       // API 수정되면 gameType에 맞게 초기화
-      console.log(data?.result.category);
       setTab(data?.result.category);
     }
     // 언마운트될 때 다시 초기화
@@ -76,7 +75,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
 
   useEffect(() => {
     if (isSuccess) {
-      console.log(formatDate(new Date(selectedDate), 'EEE').toUpperCase());
       const filteredOperatingHours = data?.result.operatingHours.filter(
         (hour) => {
           return (
@@ -85,7 +83,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
           );
         }
       );
-      console.log(filteredOperatingHours);
       const now = formatDate(addHours(new Date(), 1), 'HH:00');
       if (
         timeToMinutes(

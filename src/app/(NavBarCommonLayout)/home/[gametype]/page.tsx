@@ -54,7 +54,6 @@ export default function Home({ params }: { params: { gametype: string } }) {
     mutateForLogin
   );
   const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
-  console.log(clubCards);
 
   useEffect(() => {
     setCurrentTab(categoryMapEngToKor[params.gametype]);

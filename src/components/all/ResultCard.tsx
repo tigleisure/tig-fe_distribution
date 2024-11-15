@@ -36,7 +36,6 @@ export default function ResultCard({
   const router = useRouter();
   const pathname = usePathname();
   const subtabArray = subtabArrays[categoryMapEngToKor[category]] || [];
-  console.log('subtabArray', subtabArray);
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();

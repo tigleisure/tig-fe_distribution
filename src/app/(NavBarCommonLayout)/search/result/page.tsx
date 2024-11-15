@@ -40,7 +40,6 @@ export default function Page() {
   const parsedDate = parse(date, "yyyy-MM-dd'T'HH:mm:ss", new Date());
   const formattedDate = formatDate(parsedDate, 'M.dd (EEE)', { locale: ko });
   const formatDayOfWeek = formatDate(parsedDate, 'EEE').toUpperCase();
-  console.log(formatDayOfWeek);
   const {
     currentLocation,
     filteredSearchResult,

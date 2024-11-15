@@ -74,7 +74,6 @@ export const useGeolocation = (
             setNearestClubsByCategory(data.result[0].nearestClubsByCategory);
           },
           onError: (error) => {
-            console.log(error);
           },
         }
       );

@@ -12,7 +12,6 @@ export default function BallingCard({
   prices: BallingPrice[];
   isWeek: boolean;
 }) {
-  console.log(prices);
   return (
     <section className="w-full flex flex-col p-5 mt-5 border-b border-grey2">
       <InfoCard number={3} content="원하는 게임을 인원 수 만큼 선택해주세요." />

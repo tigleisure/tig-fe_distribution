@@ -74,7 +74,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
       });
       setSelectedDate(searchParam.get('date') || '');
       // API 수정되면 gameType에 맞게 초기화
-      console.log(data?.result.category);
       setTab(data?.result.category);
       const originalPrices = data?.result.prices as BallingPrice[];
       setOriginalPrices(originalPrices);
@@ -98,7 +97,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
           );
         }
       );
-      console.log(filteredOperatingHours);
       const now = formatDate(addHours(new Date(), 1), 'HH:00');
       if (
         timeToMinutes(
@@ -127,7 +125,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
           formatDate(new Date(selectedDate), 'EEE').toUpperCase()
       );
       // gamecard에서 시간을 선택하면 선택한 시간이 포함된 price객체만을 필터링
-      console.log('dateFilterPrices', dateFilterPrices);
       setPrices(
         dateFilterPrices.filter((prices, idx) => {
           const startTime =
@@ -152,7 +149,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
               : add24Hours(
                   gameReservationInfo.startTime?.slice(11, 16) || '10:00'
                 );
-          console.log('time', startTime, endTime, selectTime);
           return (
             timeToMinutes(startTime) <= timeToMinutes(selectTime) &&
             timeToMinutes(endTime) >= timeToMinutes(selectTime)

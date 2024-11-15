@@ -214,7 +214,6 @@ export default function FullButton({
         sendingData?.reservationData?.clubId &&
         sendingData.reservationData.memberId
       ) {
-        console.log('0원 결제');
         const customPaymentId = makePaymentId(
           data.result.id,
           new Date().toLocaleString()

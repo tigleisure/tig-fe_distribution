@@ -32,7 +32,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
   const [clubName, setClubName] = useState('');
   const [address, setAddress] = useState('');
   const searchParam = useSearchParams();
-  console.log('searchParam', searchParam.get('date'));
   const setTab = useTab((state) => state.setSelectedTab);
 
   const timeReservationInfo = useTimeReservationStore(
@@ -53,7 +52,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
           return hour.dayOfWeek === searchParam.get('dayOfWeek');
         }
       );
-      console.log('filteredOperatingHours', searchParam.get('dayOfWeek'));
       setStartTime(
         data?.result.operatingHours.length !== 0
           ? filteredOperatingHours[0]?.startTime.slice(0, 5) || '10:00'

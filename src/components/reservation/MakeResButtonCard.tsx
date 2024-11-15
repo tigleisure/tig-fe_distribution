@@ -56,7 +56,6 @@ export default function MakeResButtonCard({
 
   const handleReservation = () => {
     // 그냥 GAME으로 통일
-    // console.log(clubId, gameResInfo.startTime, curPrice);
     if (!clubId || !gameResInfo.startTime || curPrice === 0) {
       handleWrongSubmit('GAME');
       return; // clubId가 undefined, null, ''과 같은 경우

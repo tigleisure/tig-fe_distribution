@@ -41,7 +41,6 @@ export default function CouponPage() {
       const newCouponList = data.result.map((coupon: any) => {
         return { ...coupon, isValid: true };
       });
-      console.log(newCouponList);
       setCouponList(newCouponList);
     }
   }, [data]);

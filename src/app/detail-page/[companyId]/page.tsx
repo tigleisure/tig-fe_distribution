@@ -68,7 +68,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
     useGetSpecificClubInfoForLogin(params.companyId);
   const { data: reviewList } = useGetAllClubReview(params.companyId);
   const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
-  console.log(clubInfo);
   const detailtabArrayWhenNoReview = detailArrayWhenNoReview;
   const detailtabArrayWhenReview = detailArrayWhenReview;
   // const detailInfoRef = useRef<HTMLDivElement>(null);
@@ -212,7 +211,6 @@ export default function Page({ params }: { params: { companyId: string } }) {
       scrollRef.current.forEach((ref, idx) => {
         const topOffset = (ref?.offsetTop ?? 0) - 50;
         const scrollTop = mainRef.current?.scrollTop ?? 0;
-        console.log(scrollTop, topOffset);
 
         if (scrollTop > topOffset) {
           if (idx === 0) setSelectedTab('기본정보');

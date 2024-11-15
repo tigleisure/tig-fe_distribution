@@ -30,12 +30,10 @@ export default function PriceCard({
   useEffect(() => {
     if (category === 'BALLING') {
       const ballingPrices = prices as BallingPrice[];
-      console.log('ballingPrices', ballingPrices);
       const todayBallingPrices = ballingPrices.filter(
         (price) =>
           price.dayOfWeek === formatDate(new Date(date), 'EEE').toUpperCase()
       );
-      console.log('todayBallingPrices', todayBallingPrices);
       const updatedPriceList: PriceItem[] = todayBallingPrices.map((price) => {
         return {
           description: `${

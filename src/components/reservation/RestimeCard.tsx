@@ -17,7 +17,6 @@ export default function RestimeCard({
   startTime: string;
   endTime: string;
 }) {
-  console.log(startTime, endTime);
   const [timeSlotList, setTimeSlotList] = useState<string[]>([]);
   const [selectedIdx, setSelectedIdx] = useState<boolean[]>([]);
   // MVP에서는 선택불가능한 시간 없음

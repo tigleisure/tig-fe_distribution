@@ -43,7 +43,6 @@ export const useSearchResult = (
     search,
     isKeyword
   );
-  console.log(loginUserSearchResult);
   const { data: unLoginUserSearchResult } =
     useGetUnLoginUserSearchedResult(search);
 
