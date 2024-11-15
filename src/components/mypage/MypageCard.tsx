@@ -14,7 +14,7 @@ export default function MypageCard({ isCoupon }: MypageCardProps) {
   const reservationList = data.result.filter(
     (reservationItem) =>
       reservationItem.status === 'DONE' || reservationItem.status === 'REVIEWED'
-  );tionList);
+  );
   return (
     <Link
       className="w-6/12 flex flex-col gap-[2px] items-center justify-center h-full cursor-pointer"
