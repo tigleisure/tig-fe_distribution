@@ -45,7 +45,7 @@ export default function BeforeFirstStageCard({
           </span>
         </div>
         <div className="w-full flex justify-between items-center">
-          <span className="title4 text-grey4">이용 시간</span>
+          <span className="title4 text-grey4">시작 시간</span>
           <span className="body4 text-grey6">
             {/* {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
               ? '오전'

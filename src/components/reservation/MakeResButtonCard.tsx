@@ -31,6 +31,9 @@ export default function MakeResButtonCard({
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
   );
+  const setIsFromReservationPage = usePriceStore(
+    (state) => state.setIsFromReservation
+  );
   const handleWrongSubmit = (type: 'GAME' | 'TIME') => {
     if (toastId !== null) {
       toast.remove(toastId);
@@ -79,6 +82,7 @@ export default function MakeResButtonCard({
       gameDescription: gameResInfo.gameDescription,
     };
     const queryString = new URLSearchParams(query).toString();
+    setIsFromReservationPage(true);
     router.push(`/payment/before/${clubId}?${queryString}`);
   };
   return (

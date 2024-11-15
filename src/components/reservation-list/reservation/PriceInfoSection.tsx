@@ -16,7 +16,10 @@ export default function PriceInfoSection({
         <div className="w-full flex justify-between items-center">
           <span className="caption2 text-grey4">예약 금액</span>
           <span className="caption2 text-grey6">
-            {reservationPrice.toLocaleString()}원
+            {(
+              Number(reservationPrice) + Number(couponDiscountPrice)
+            ).toLocaleString()}
+            원
           </span>
         </div>
         <div className="w-full flex justify-between items-center">
@@ -28,7 +31,7 @@ export default function PriceInfoSection({
         <div className="w-full flex justify-between items-center">
           <span className="caption2 text-grey4">쿠폰 할인</span>
           <span className="caption2 text-grey6">
-            {couponDiscountPrice.toLocaleString()}원
+            {Number(couponDiscountPrice).toLocaleString()}원
           </span>
         </div>
       </div>

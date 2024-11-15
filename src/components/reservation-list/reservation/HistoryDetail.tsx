@@ -73,7 +73,7 @@ export default function HistoryDetail({
         couponDiscountPrice={couponDiscountPrice}
       />
       <div className="w-full border-[1px] border-grey2" />
-      <TotalPriceSection totalPrice={price + feePrice - couponDiscountPrice} />
+      <TotalPriceSection totalPrice={price + feePrice} />
       <div className="w-full border-[1px] border-grey2" />
       <RequestMessageSection message={message} />
       <div className="w-full border-[1px] border-grey2" />

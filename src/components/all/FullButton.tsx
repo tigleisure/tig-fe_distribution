@@ -83,7 +83,6 @@ export default function FullButton({
   const firstStageInfoObject = usePaymentFirstStage(
     (state) => state.firstStageInfoObject
   );
-
   const secondStageInfoObject = usePaymentSecondStage(
     (state) => state.secondStageInfoObject
   );
@@ -234,17 +233,19 @@ export default function FullButton({
                 : undefined,
             gameCount: firstStageInfoObject.gameCount,
             message: firstStageInfoObject.message,
-            price:
-              secondStageInfoObject.price -
-              secondStageInfoObject.couponDiscountPrice,
+            price: secondStageInfoObject.price -
+            secondStageInfoObject.couponDiscountPrice,
             status: 'TBC',
             clubId: sendingData.reservationData?.clubId as number,
             paymentId: customPaymentId,
             phoneNumber: secondStageInfoObject.phoneNumber,
             userName: secondStageInfoObject.userName,
-            gameDescription: firstStageInfoObject.message,
+            gameDescription: firstStageInfoObject.gameDescription,
             couponId: selectedCouponNumber,
-            provider: secondStageInfoObject.paymentMethod === 'kakaoPayment' ? 'KAKAOPAY' : 'TOSSPAY'
+            provider:
+              secondStageInfoObject.paymentMethod === 'kakaoPayment'
+                ? 'KAKAOPAY'
+                : 'TOSSPAY',
           },
           {
             onSuccess(data) {
@@ -285,8 +286,8 @@ export default function FullButton({
             phoneNumber: secondStageInfoObject.phoneNumber,
             memberId: sendingData.reservationData.memberId,
             couponId: selectedCouponNumber,
-            gameDescription: firstStageInfoObject.message,
-            provider: secondStageInfoObject.paymentMethod
+            gameDescription: firstStageInfoObject.gameDescription,
+            provider: secondStageInfoObject.paymentMethod,
           }
         )
           .then((response) => {
@@ -316,9 +317,9 @@ export default function FullButton({
                   paymentId: customPaymentId,
                   phoneNumber: secondStageInfoObject.phoneNumber,
                   userName: secondStageInfoObject.userName,
-                  gameDescription: firstStageInfoObject.message,
+                  gameDescription: firstStageInfoObject.gameDescription,
                   couponId: selectedCouponNumber,
-                  provider: 'KAKAOPAY'
+                  provider: 'KAKAOPAY',
                 },
                 {
                   onSuccess(data) {
@@ -379,8 +380,8 @@ export default function FullButton({
             memberId: sendingData.reservationData.memberId,
             phoneNumber: secondStageInfoObject.phoneNumber,
             couponId: selectedCouponNumber,
-            gameDescription: firstStageInfoObject.message,
-            provider: secondStageInfoObject.paymentMethod
+            gameDescription: firstStageInfoObject.gameDescription,
+            provider: secondStageInfoObject.paymentMethod,
           }
         )
           .then((response) => {
@@ -411,9 +412,9 @@ export default function FullButton({
                   phoneNumber: secondStageInfoObject.phoneNumber,
 
                   userName: secondStageInfoObject.userName,
-                  gameDescription: firstStageInfoObject.message,
+                  gameDescription: firstStageInfoObject.gameDescription,
                   couponId: selectedCouponNumber,
-                  provider: 'TOSSPAY'
+                  provider: 'TOSSPAY',
                 },
                 {
                   onSuccess(data) {

@@ -123,7 +123,6 @@ export default function Page({
         <HistoryDetail
           {...data}
           feePrice={0} // 추후에 백엔드에서 보내줄 필요가 있음
-          couponDiscountPrice={0} // 백엔드에서 보내줄 필요가 있음
         />
         <Modal
           size="lg"

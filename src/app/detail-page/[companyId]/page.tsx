@@ -46,7 +46,7 @@ const initialInofo: clubInfoProps = {
   ratingSum: 0,
   ratingCount: 0,
   avgRating: 0,
-  price: 0,
+  prices: [],
   isHeart: false,
   phoneNumber: '000-0000-0000',
   snsLink: 'https://dummy.link',
@@ -58,6 +58,7 @@ const initialInofo: clubInfoProps = {
   imageUrls: ['https://dummy.link'],
   presignedImageUrls: [],
   amenities: [],
+  operatingHours: [],
 };
 
 export default function Page({ params }: { params: { companyId: string } }) {
@@ -67,6 +68,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
     useGetSpecificClubInfoForLogin(params.companyId);
   const { data: reviewList } = useGetAllClubReview(params.companyId);
   const [clubInfo, setClubInfo] = useState<clubInfoProps>(initialInofo);
+  console.log(clubInfo);
   const detailtabArrayWhenNoReview = detailArrayWhenNoReview;
   const detailtabArrayWhenReview = detailArrayWhenReview;
   // const detailInfoRef = useRef<HTMLDivElement>(null);
@@ -301,6 +303,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       {/* <div className='w-sevenEightWidth h-[80px] bg-primary_orange2 rounded-[10px] mt-[10px] mx-auto'/> */}
       <DetailInfoCard
         {...clubInfo}
+        date={searchParams.get('date') || ''}
         ref={(element) => {
           scrollRef.current[1] = element;
         }}

@@ -1,3 +1,5 @@
+import { PricesInfo, operatingHour } from '@apis/reservation/getClubResInfo';
+
 export interface clubInfoProps {
   id: string;
   clubName: string;
@@ -5,7 +7,7 @@ export interface clubInfoProps {
   ratingSum: number;
   ratingCount: number;
   avgRating: number;
-  price: number;
+  prices: PricesInfo;
   phoneNumber: string;
   snsLink: string;
   businessHours: string;
@@ -17,4 +19,5 @@ export interface clubInfoProps {
   imageUrls: string[];
   presignedImageUrls: string[];
   amenities: string[];
+  operatingHours: operatingHour[];
 }

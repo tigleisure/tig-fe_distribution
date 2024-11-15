@@ -13,6 +13,9 @@ import { useDeleteFromWishList } from '@apis/wishlist/deleteFromWishlist';
 import { useAddToWishList } from '@apis/wishlist/addToWishList';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { PricesInfo, operatingHour } from '@apis/reservation/getClubResInfo';
+import { formatDate } from 'date-fns';
+import PriceCard from './PriceCard';
 
 interface DetailInfoCardProps {
   id: string;
@@ -23,10 +26,12 @@ interface DetailInfoCardProps {
   address: string;
   isHeart: boolean;
   type: 'TIME' | 'GAME';
-  price: number;
+  prices: PricesInfo;
   businessHours: string;
   phoneNumber: string;
   snsLink: string | null;
+  operatingHours: operatingHour[];
+  date: string;
 }
 
 // eslint-disable-next-line react/display-name
@@ -42,13 +47,20 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
       isHeart,
       businessHours,
       type,
-      price,
+      prices,
       phoneNumber,
       snsLink = '/',
+      operatingHours = [],
+      date,
     },
     ref
   ) => {
     const router = useRouter();
+    const todayOperatingHour = operatingHours.find(
+      (operatingHour) =>
+        operatingHour.dayOfWeek ===
+        formatDate(new Date(date), 'EEE').toUpperCase()
+    );
     const { mutate: deleteFromWishList } = useDeleteFromWishList();
     const { mutate: addToWishList } = useAddToWishList();
     const [isHeartClicked, setIsHeartClicked] = useState(false);
@@ -99,16 +111,19 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
             <LocationPingSVG />
             <p className="body2">{address}</p>
           </div>
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <CardSVG />
             <p className="body2">
               {type === 'TIME' ? '시간' : '게임'}당{' '}
               {price && price.toLocaleString()}원
             </p>
-          </div>
+          </div> */}
           <div className="flex gap-2" ref={ref}>
             <TimeSVG />
-            <p className="body2">{businessHours}</p>
+            <p className="body2">
+              {todayOperatingHour?.startTime.slice(0, 5) || ''} ~{' '}
+              {todayOperatingHour?.endTime.slice(0, 5) || ''}
+            </p>
           </div>
           <div className="flex gap-2">
             <CallSVG />
@@ -121,6 +136,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
             </p>
           </div>
         </div>
+        <PriceCard prices={prices} category={category} date={date}/>
       </section>
     );
   }

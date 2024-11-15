@@ -52,7 +52,6 @@ export default function Page({
   console.log('rendring');
   const router = useRouter();
   const price = usePriceStore((state) => state.price);
-  // 금액이슈 일단보류..
   const formatDayOfWeek = formatDate(new Date(), 'EEE').toUpperCase();
   const isFromReservationPage = usePriceStore(
     (state) => state.isFromReservation
@@ -64,10 +63,10 @@ export default function Page({
   useEffect(() => {
     if (!isFromReservationPage) {
       router.replace(
-        `/reservation/game/${params.clubId}?date=${formatDate(
+        `/detail-page/${params.clubId}?date=${formatDate(
           new Date(),
           "yyyy-MM-dd'T'HH:mm:ss"
-        )}&dayOfWeek=${formatDayOfWeek}`
+        )}`
       );
     }
     return () => {
