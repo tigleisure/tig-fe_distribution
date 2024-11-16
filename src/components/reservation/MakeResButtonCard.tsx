@@ -25,6 +25,7 @@ export default function MakeResButtonCard({
   const clubId = pathname.split('/').at(-1);
   const [toastId, setToastId] = useState<string | null>(null);
   const price = usePriceStore((state) => state.price);
+  const getPriceStackLength = usePriceStore((state) => state.getPriceStackLength);
   const timeResInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
@@ -78,7 +79,7 @@ export default function MakeResButtonCard({
       kidsCount: String(gameResInfo.kidsCount),
       clubName: clubName,
       address: address,
-      gameDescription: gameResInfo.gameDescription,
+      gameDescription: gameResInfo.gameDescription + ', ' + getPriceStackLength() + '회',
     };
     const queryString = new URLSearchParams(query).toString();
     setIsFromReservationPage(true);

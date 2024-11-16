@@ -3,7 +3,7 @@ import CountUpSVG from '@public/svg/countUp.svg';
 import { useGameReservationStore } from '@store/makeReservationInfo';
 import { usePriceStore } from '@store/priceStore';
 import { cn } from '@utils/cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function GameCountDistinWeekCard({
   name,
@@ -14,8 +14,13 @@ export default function GameCountDistinWeekCard({
   price: number;
   isWeek: boolean;
 }) {
-  const [count, setCount] = useState(0);
   const totalPrice = usePriceStore((state) => state.price);
+  const pushPrice = usePriceStore((state) => state.pushPrice);
+  const popPrice = usePriceStore((state) => state.popPrice);
+  const getPriceStackLength = usePriceStore(
+    (state) => state.getPriceStackLength
+  );
+  const [count, setCount] = useState(getPriceStackLength());
   const setPrice = usePriceStore((state) => state.setPrice);
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
@@ -25,20 +30,27 @@ export default function GameCountDistinWeekCard({
   );
   const countDownHandler = () => {
     if (count === 0) return;
-    setCount((prev) => prev - 1);
+    setCount(getPriceStackLength() - 1);
     const updatePrice = totalPrice - price;
-    setPrice(updatePrice);
+    // setPrice(updatePrice);
+    popPrice();
     if (count === 1) {
       setGameResInfo({ ...gameResInfo, gameDescription: '' });
     }
   };
 
   const countUpHandler = () => {
-    setCount((prev) => prev + 1);
+    setCount(getPriceStackLength() + 1);
     const updatePrice = totalPrice + price;
-    setPrice(updatePrice);
+    // setPrice(updatePrice);
+    pushPrice(price);
     setGameResInfo({ ...gameResInfo, gameDescription: name });
   };
+
+  useEffect(() => {
+    setCount(getPriceStackLength());
+  }, [totalPrice]);
+
   return (
     <section
       className={cn(
@@ -52,10 +64,13 @@ export default function GameCountDistinWeekCard({
       <div className="flex flex-col h-full justify-between">
         <div className="flex gap-1 h-[22px]">
           <p
-            className={cn('w-[30px] rounded-[6px] body4 flex justify-center items-center ', {
-              'bg-[#30FF6B]/20': !isWeek,
-              'bg-[#F45858]/20': isWeek,
-            })}
+            className={cn(
+              'w-[30px] rounded-[6px] body4 flex justify-center items-center ',
+              {
+                'bg-[#30FF6B]/20': !isWeek,
+                'bg-[#F45858]/20': isWeek,
+              }
+            )}
           >
             {isWeek ? '주말' : '평일'}
           </p>

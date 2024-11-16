@@ -39,7 +39,7 @@ export default function ResGameCard({
   };
   return (
     <section className="w-full px-5 py-[40px] gap-6 flex flex-col border-b border-grey2">
-      <InfoCard number={2} content="시간을 선택해주세요." />
+      <InfoCard number={2} content="시작 시간을 선택해주세요." />
       <div className="w-full flex gap-[10px] flex-wrap h-fit">
         {timeSlotList.map((time, index) => (
           <GameSelectCard

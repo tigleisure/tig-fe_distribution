@@ -68,12 +68,14 @@ export default function HistoryDetail({
       <PaymentInfoSection paymentTime={paymentTime} payMethod={payMethod} />
       <div className="w-full border-[1px] border-grey2" />
       <PriceInfoSection
-        reservationPrice={price}
-        feePrice={feePrice}
+        reservationPrice={
+          (Number(price) + Number(couponDiscountPrice)) * (10 / 11)
+        }
+        feePrice={(Number(price) + Number(couponDiscountPrice)) * (1 / 11)}
         couponDiscountPrice={couponDiscountPrice}
       />
       <div className="w-full border-[1px] border-grey2" />
-      <TotalPriceSection totalPrice={price + feePrice} />
+      <TotalPriceSection totalPrice={price} />
       <div className="w-full border-[1px] border-grey2" />
       <RequestMessageSection message={message} />
       <div className="w-full border-[1px] border-grey2" />

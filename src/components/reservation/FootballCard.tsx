@@ -14,10 +14,12 @@ export default function FootballCard({ prices }: { prices: SoccerPrice[] }) {
             <GameCountCard
               key={idx}
               name={
-                getProgramDescription(price.programName) +
-                ' ' +
-                price.duration +
-                '분'
+                price.duration === -1
+                  ? getProgramDescription(price.programName)
+                  : getProgramDescription(price.programName) +
+                    ' ' +
+                    price.duration +
+                    '분'
               }
               price={price.price}
             />

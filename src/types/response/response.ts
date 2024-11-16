@@ -92,6 +92,12 @@ export interface UserInfoResponse {
   resultMsg: string;
 }
 
+export interface CouponIssueResponse {
+  result: {};
+  resultCode: number;
+  resultMsg: string;
+}
+
 // 현재 백엔드에서 response로 보내주는 실제로는 200 statusCode이지만 실패를 의미하는 응답 인터페이스
 export interface noDataServerErrorResponse {
   status: 500;

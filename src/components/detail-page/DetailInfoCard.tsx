@@ -129,12 +129,12 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
             <CallSVG />
             <p className="body2">{phoneNumber}</p>
           </div>
-          <div className="flex gap-2">
+          {/* <div className="flex gap-2">
             <SnsSVG />
             <p className="body2">
               {snsLink ? <Link href={snsLink}>{snsLink}</Link> : <p>-</p>}
             </p>
-          </div>
+          </div> */}
         </div>
         <PriceCard prices={prices} category={category} date={date}/>
       </section>

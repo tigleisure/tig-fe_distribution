@@ -86,7 +86,7 @@ export default function Home({ params }: { params: { gametype: string } }) {
             <div className="absolute top-[58px] left-[72px] z-[400] flex flex-col w-fit animate-bounce">
               <ArrowSVG className="ml-5" />
               <div className="relative top-[-1px] bg-grey6 text-white z-[400] body5 rounded-[30px] px-[10px] py-1">
-                원하는 위치와 시간을 설정해보세요!
+                원하는 날짜와 시간을 설정해보세요!
               </div>
             </div>
           )}

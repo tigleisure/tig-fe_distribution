@@ -149,7 +149,7 @@ export default function Page({
         ? reservationSearchParmasObject.address
         : '',
       // 추후 제대로 설정해야 함
-      price: price,
+      price: price * 1.1,
       message: reservationSearchParmasObject.request || '',
       gameDescription: reservationSearchParmasObject.gameDescription || '',
     };
@@ -168,7 +168,7 @@ export default function Page({
         userName: userInfoResponse.data.result.name,
         phoneNumber: userInfoResponse.data.result.phoneNumber,
         couponDiscountPrice: 0,
-        price: price,
+        price: price * 1.1,
         paymentMethod: null,
       };
     }

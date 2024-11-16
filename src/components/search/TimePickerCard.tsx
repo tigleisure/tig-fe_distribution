@@ -24,7 +24,7 @@ export default function TimePickerCard() {
 
   return (
     <section className="w-full flex flex-col gap-5 p-5 mb-[100px]">
-      <InfoCard number={3} content="시간을 선택해주세요." />
+      <InfoCard number={3} content="시작 시간을 선택해주세요." />
       <div className="w-full h-[160px] flex justify-center items-center title2">
         <Swiper
           className="h-[200px] overflow-hidden"

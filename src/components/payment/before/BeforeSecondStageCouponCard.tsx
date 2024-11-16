@@ -45,7 +45,7 @@ export default function BeforeSecondStageCouponCard({
             </button>
           )}
         </div>
-        <span className="body4 text-grey6">-{couponDiscountPrice}원</span>
+        <span className="body4 text-grey6">-{couponDiscountPrice.toLocaleString()}원</span>
       </div>
     </div>
   );

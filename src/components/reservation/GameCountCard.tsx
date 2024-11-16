@@ -3,7 +3,7 @@ import CountUpSVG from '@public/svg/countUp.svg';
 import { useGameReservationStore } from '@store/makeReservationInfo';
 import { usePriceStore } from '@store/priceStore';
 import { cn } from '@utils/cn';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function GameCountCard({
   name,
@@ -12,8 +12,13 @@ export default function GameCountCard({
   name: string;
   price: number;
 }) {
-  const [count, setCount] = useState(0);
   const totalPrice = usePriceStore((state) => state.price);
+  const pushPrice = usePriceStore((state) => state.pushPrice);
+  const popPrice = usePriceStore((state) => state.popPrice);
+  const getPriceStackLength = usePriceStore(
+    (state) => state.getPriceStackLength
+  );
+  const [count, setCount] = useState(getPriceStackLength());
   const setPrice = usePriceStore((state) => state.setPrice);
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
@@ -23,20 +28,27 @@ export default function GameCountCard({
   );
   const countDownHandler = () => {
     if (count === 0) return;
-    setCount((prev) => prev - 1);
+    setCount(getPriceStackLength() - 1);
     const updatePrice = totalPrice - price;
-    setPrice(updatePrice);
+    // setPrice(updatePrice);
+    popPrice();
     if (count === 1) {
       setGameResInfo({ ...gameResInfo, gameDescription: '' });
     }
   };
 
   const countUpHandler = () => {
-    setCount((prev) => prev + 1);
+    setCount(getPriceStackLength() + 1);
     const updatePrice = totalPrice + price;
-    setPrice(updatePrice);
+    // setPrice(updatePrice);
+    pushPrice(price);
     setGameResInfo({ ...gameResInfo, gameDescription: name });
   };
+
+  useEffect(() => {
+    setCount(getPriceStackLength());
+  }, [totalPrice]);
+
   return (
     <section
       className={cn(

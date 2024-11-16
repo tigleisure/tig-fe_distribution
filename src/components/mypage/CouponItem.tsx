@@ -1,3 +1,5 @@
+import { formatReservationShowingDate } from '@utils/formatDate';
+
 interface CouponItemProps {
   discount: number;
   description: string;
@@ -13,6 +15,7 @@ export function CouponItem({
   expireDate,
   couponId,
 }: CouponItemProps) {
+  const date = formatReservationShowingDate(expireDate);
   return (
     <section className="w-eightNineWidth h-fit rounded-[10px] flex flex-col items-center gap-y-5 bg-white mb-[10px] py-5 hover:cursor-pointer">
       <div className="w-sevenEightWidth flex justify-start items-center title1">
@@ -24,7 +27,7 @@ export function CouponItem({
         </span>
       </div>
       <div className="w-sevenEightWidth flex justify-start items-center body4">
-        {expireDate}까지 사용 가능
+        {expireDate.slice(0, 4)}.{date} 까지 사용 가능
       </div>
     </section>
   );

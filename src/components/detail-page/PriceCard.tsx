@@ -8,6 +8,8 @@ import {
   TennisPrice,
 } from '@apis/reservation/getClubResInfo';
 import { getProgramDescription } from '@utils/programName';
+import InfoSvg from '@public/svg/mypage/info.svg';
+import ArrowSvg from '@public/svg/mypage/arrow.svg';
 import { formatDate } from 'date-fns';
 import { useState, useEffect } from 'react';
 
@@ -107,6 +109,12 @@ export default function PriceCard({
     ) {
       const todayFootballPrices = prices as SoccerPrice[];
       const updatedPriceList: PriceItem[] = todayFootballPrices.map((price) => {
+        if (price.duration === -1) {
+          return {
+            description: `${getProgramDescription(price.programName)}`,
+            price: price.price,
+          };
+        }
         return {
           description: `${getProgramDescription(price.programName)} ${
             price.duration
@@ -162,9 +170,41 @@ export default function PriceCard({
     }
   }, [prices, category, date]);
 
+  const [isHover, setIsHover] = useState(false);
+
   return (
     <div className="w-full bg-[#FFFBF2]/50 flex flex-col px-3 py-5 gap-5 rounded-[14px]">
-      <p className="title3 text-grey7">가격표</p>
+      <div className="w-full gap-2 flex relative">
+        <p className="title3 text-grey7">가격표</p>
+        {category === 'BILLIARDS' && (
+          <p
+            className="self-end cursor-pointer"
+            onMouseEnter={() => {
+              setIsHover(true);
+            }}
+            onMouseLeave={() => {
+              setIsHover(false);
+            }}
+          >
+            <InfoSvg className="relative top-[-1px]" />
+          </p>
+        )}
+        {isHover && category === 'BILLIARDS' && (
+          <div className="absolute z-[100] top-[20px] flex flex-col">
+            <ArrowSvg className="ml-[46px]" />
+            <div className="relative top-[-1px] rounded-[12px] bg-grey6 text-white flex flex-col justify-between h-[76px] px-[10px] py-1">
+              <p className="title4">
+                중대와 대대는 당구대 크기 차이로 나뉘어요!
+              </p>
+              <p className="title4">
+                중대 : 2.540mm X 1.270mm
+                <br />
+                대대 : 2.844mm X 1.4222mm
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
       <div className="w-full flex flex-col gap-[6px]">
         {priceList.map((price, idx) => (
           <div

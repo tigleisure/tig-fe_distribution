@@ -30,10 +30,10 @@ const bannerArray: React.FunctionComponent<React.SVGProps<SVGSVGElement>>[] = [
 
 const bannerLinkArray = [
   'https://tigleisure.com/',
-  'https://www.notion.so/3-000-2a2677fd096047a8b715219db39cd15d?pvs=4',
-  'https://www.notion.so/10-000-5-87053ece85e2448e9744d89465dbffde?pvs=4',
-  'https://www.notion.so/10-000-5-87053ece85e2448e9744d89465dbffde?pvs=4',
-  'https://www.notion.so/3-000-won-discount-coupon-policy-74d16e4cb53c4c90bac604ebd03599b4?pvs=4',
+  'https://longing-scallop-dfd.notion.site/3-000-2a2677fd096047a8b715219db39cd15d?pvs=4',
+  'https://longing-scallop-dfd.notion.site/10-000-5-87053ece85e2448e9744d89465dbffde?pvs=4',
+  'https://longing-scallop-dfd.notion.site/10-000-5-87053ece85e2448e9744d89465dbffde?pvs=4',
+  'https://longing-scallop-dfd.notion.site/3-000-won-discount-coupon-policy-74d16e4cb53c4c90bac604ebd03599b4?pvs=4',
 ];
 
 export default function Home() {
