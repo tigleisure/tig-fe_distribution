@@ -3,9 +3,7 @@ import ChooseCard from '@components/reservation/ChooseCard';
 import { ChooseCardProps } from 'types/search/SearchTypes';
 
 const chooseLists: ChooseCardProps[] = [
-  { title: '성인', description: '만 19세 이상' },
-  { title: '청소년', description: '만 14세 ~ 만 18세' },
-  { title: '어린이', description: '만 13세 이하' },
+  { title: '참여 인원', description: '모든 연령대 가능 (어린이, 청소년, 성인 포함)' },
 ];
 
 export default function ResPeopleCountCard() {

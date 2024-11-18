@@ -47,6 +47,7 @@ export default function Page() {
       )
     : [];
 
+
   const setSelectedIsModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
   );
@@ -101,7 +102,7 @@ export default function Page() {
         <>
           <HistoryHead
             totalCount={reservationList.length}
-            inProgressCount={reservationList.length}
+            inProgressCount={inProgressReservationList.length}
             completedCount={endReservationList.length}
             historyHeadState={historyHeadState}
             handleHeadState={setHistoryHeadState}

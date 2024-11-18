@@ -15,12 +15,13 @@ export default function GameCountDistinWeekCard({
   isWeek: boolean;
 }) {
   const totalPrice = usePriceStore((state) => state.price);
+  const [updatePrice, setUpdatePrice] = useState(0);
   const pushPrice = usePriceStore((state) => state.pushPrice);
   const popPrice = usePriceStore((state) => state.popPrice);
   const getPriceStackLength = usePriceStore(
     (state) => state.getPriceStackLength
   );
-  const [count, setCount] = useState(getPriceStackLength());
+  const [count, setCount] = useState(0);
   const setPrice = usePriceStore((state) => state.setPrice);
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
@@ -30,9 +31,9 @@ export default function GameCountDistinWeekCard({
   );
   const countDownHandler = () => {
     if (count === 0) return;
-    setCount(getPriceStackLength() - 1);
+    setCount((prev) => prev - 1);
     const updatePrice = totalPrice - price;
-    // setPrice(updatePrice);
+    setUpdatePrice(updatePrice);
     popPrice();
     if (count === 1) {
       setGameResInfo({ ...gameResInfo, gameDescription: '' });
@@ -40,16 +41,28 @@ export default function GameCountDistinWeekCard({
   };
 
   const countUpHandler = () => {
-    setCount(getPriceStackLength() + 1);
+    setCount((prev) => prev + 1);
     const updatePrice = totalPrice + price;
-    // setPrice(updatePrice);
+    setUpdatePrice(updatePrice);
     pushPrice(price);
     setGameResInfo({ ...gameResInfo, gameDescription: name });
   };
 
   useEffect(() => {
-    setCount(getPriceStackLength());
+    if (totalPrice === 0) {
+      setCount(0);
+    }
   }, [totalPrice]);
+
+  useEffect(() => {
+    if (totalPrice !== updatePrice) {
+      if (price === totalPrice) {
+        setCount(1);
+      } else {
+        setCount(0);
+      }
+    }
+  }, [updatePrice, totalPrice]);
 
   return (
     <section

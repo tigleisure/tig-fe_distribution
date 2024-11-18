@@ -44,95 +44,95 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   const countDownHandler = () => {
     if (count === 0) return;
     setCount((prev) => prev - 1);
-    if (pathname.startsWith('/reservation/game')) {
-      if (title === '성인') {
-        setAdultGameResCount({
-          ...inputGameResValue,
-          adultCount: inputGameResValue.adultCount - 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerGameResCount({
-          ...inputGameResValue,
-          teenagerCount: inputGameResValue.teenagerCount - 1,
-        });
-      } else if (title === '어린이') {
-        setKidGameResCount({
-          ...inputGameResValue,
-          kidsCount: inputGameResValue.kidsCount - 1,
-        });
-      }
-    } else if (pathname.startsWith('/reservation/time')) {
-      if (title === '성인') {
-        setAdultTimeResCount({
-          ...inputTimeResValue,
-          adultCount: inputTimeResValue.adultCount - 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerTimeResCount({
-          ...inputTimeResValue,
-          teenagerCount: inputTimeResValue.teenagerCount - 1,
-        });
-      } else if (title === '어린이') {
-        setKidTimeResCount({
-          ...inputTimeResValue,
-          kidsCount: inputTimeResValue.kidsCount - 1,
-        });
-      } else if (title === '게임') {
-        setKidGameResCount({
-          ...inputGameResValue,
-          gameCount: inputGameResValue.gameCount - 1,
-        });
-      }
-    }
+    // if (pathname.startsWith('/reservation/game')) {
+    //   if (title === '성인') {
+    setAdultGameResCount({
+      ...inputGameResValue,
+      adultCount: inputGameResValue.adultCount - 1,
+    });
+    //   } else if (title === '청소년') {
+    //     setTeenagerGameResCount({
+    //       ...inputGameResValue,
+    //       teenagerCount: inputGameResValue.teenagerCount - 1,
+    //     });
+    //   } else if (title === '어린이') {
+    //     setKidGameResCount({
+    //       ...inputGameResValue,
+    //       kidsCount: inputGameResValue.kidsCount - 1,
+    //     });
+    //   }
+    // } else if (pathname.startsWith('/reservation/time')) {
+    //   if (title === '성인') {
+    //     setAdultTimeResCount({
+    //       ...inputTimeResValue,
+    //       adultCount: inputTimeResValue.adultCount - 1,
+    //     });
+    //   } else if (title === '청소년') {
+    //     setTeenagerTimeResCount({
+    //       ...inputTimeResValue,
+    //       teenagerCount: inputTimeResValue.teenagerCount - 1,
+    //     });
+    //   } else if (title === '어린이') {
+    //     setKidTimeResCount({
+    //       ...inputTimeResValue,
+    //       kidsCount: inputTimeResValue.kidsCount - 1,
+    //     });
+    //   } else if (title === '게임') {
+    //     setKidGameResCount({
+    //       ...inputGameResValue,
+    //       gameCount: inputGameResValue.gameCount - 1,
+    //     });
+    //   }
+    // }
   };
 
   const countUpHandler = () => {
     setCount((prev) => prev + 1);
-    if (pathname.startsWith('/reservation/game')) {
-      if (title === '성인') {
-        setAdultGameResCount({
-          ...inputGameResValue,
-          adultCount: inputGameResValue.adultCount + 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerGameResCount({
-          ...inputGameResValue,
-          teenagerCount: inputGameResValue.teenagerCount + 1,
-        });
-      } else if (title === '어린이') {
-        setKidGameResCount({
-          ...inputGameResValue,
-          kidsCount: inputGameResValue.kidsCount + 1,
-        });
-      } else if (title === '어린이') {
-        setKidGameResCount({
-          ...inputGameResValue,
-          kidsCount: inputGameResValue.kidsCount + 1,
-        });
-      } else if (title === '게임') {
-        setKidGameResCount({
-          ...inputGameResValue,
-          gameCount: inputGameResValue.gameCount + 1,
-        });
-      }
-    } else if (pathname.startsWith('/reservation/time')) {
-      if (title === '성인') {
-        setAdultTimeResCount({
-          ...inputTimeResValue,
-          adultCount: inputTimeResValue.adultCount + 1,
-        });
-      } else if (title === '청소년') {
-        setTeenagerTimeResCount({
-          ...inputTimeResValue,
-          teenagerCount: inputTimeResValue.teenagerCount + 1,
-        });
-      } else if (title === '어린이') {
-        setKidTimeResCount({
-          ...inputTimeResValue,
-          kidsCount: inputTimeResValue.kidsCount + 1,
-        });
-      }
-    }
+    // if (pathname.startsWith('/reservation/game')) {
+    //   if (title === '성인') {
+    setAdultGameResCount({
+      ...inputGameResValue,
+      adultCount: inputGameResValue.adultCount + 1,
+    });
+    //   } else if (title === '청소년') {
+    //     setTeenagerGameResCount({
+    //       ...inputGameResValue,
+    //       teenagerCount: inputGameResValue.teenagerCount + 1,
+    //     });
+    //   } else if (title === '어린이') {
+    //     setKidGameResCount({
+    //       ...inputGameResValue,
+    //       kidsCount: inputGameResValue.kidsCount + 1,
+    //     });
+    //   } else if (title === '어린이') {
+    //     setKidGameResCount({
+    //       ...inputGameResValue,
+    //       kidsCount: inputGameResValue.kidsCount + 1,
+    //     });
+    //   } else if (title === '게임') {
+    //     setKidGameResCount({
+    //       ...inputGameResValue,
+    //       gameCount: inputGameResValue.gameCount + 1,
+    //     });
+    //   }
+    // } else if (pathname.startsWith('/reservation/time')) {
+    //   if (title === '성인') {
+    //     setAdultTimeResCount({
+    //       ...inputTimeResValue,
+    //       adultCount: inputTimeResValue.adultCount + 1,
+    //     });
+    //   } else if (title === '청소년') {
+    //     setTeenagerTimeResCount({
+    //       ...inputTimeResValue,
+    //       teenagerCount: inputTimeResValue.teenagerCount + 1,
+    //     });
+    //   } else if (title === '어린이') {
+    //     setKidTimeResCount({
+    //       ...inputTimeResValue,
+    //       kidsCount: inputTimeResValue.kidsCount + 1,
+    //     });
+    //   }
+    // }
   };
 
   return (
@@ -143,12 +143,12 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
       })}
     >
       <div
-        className={cn('flex flex-col justify-between h-full', {
+        className={cn('flex flex-col justify-center h-full ', {
           'justify-center': title === '게임',
         })}
       >
         <p className="title3 text-grey7">{title}</p>
-        {description && <p className="body4 text-grey5">{description}</p>}
+        {/* {description && <p className="body4 text-grey5">{description}</p>} */}
       </div>
       <div className="flex justify-between items-center w-[100px]">
         <CountDownSVG

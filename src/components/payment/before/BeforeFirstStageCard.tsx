@@ -55,16 +55,12 @@ export default function BeforeFirstStageCard({
             {/* {endTime ? extractOnlyTime(endTime) : null} */}
           </span>
         </div>
-        {/* <div className="w-full flex justify-between items-center">
+        <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey4">인원</span>
           <span className="body4 text-grey6">
-            {adultCount !== 0 && `성인 ${adultCount}명`}
-            {adultCount !== 0 && (teenagerCount || kidsCount) !== 0 && ', '}
-            {teenagerCount !== 0 && `청소년 ${teenagerCount}명`}
-            {teenagerCount !== 0 && kidsCount !== 0 && ', '}
-            {kidsCount !== 0 && `어린이 ${kidsCount}명`}
+            {adultCount !== 0 && `${adultCount}명`}
           </span>
-        </div> */}
+        </div>
         <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey4">게임</span>
           <span className="body4 text-grey6">{gameDescription}</span>

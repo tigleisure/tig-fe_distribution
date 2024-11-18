@@ -62,7 +62,7 @@ export default function ResultCard({
   return (
     <section
       onClick={() => {
-        if (pathname.startsWith('/home')) {
+        if (pathname.startsWith('/home') || pathname.startsWith('/wishlist')) {
           router.push(
             `/detail-page/${clubId}?date=${formatDate(
               new Date(),

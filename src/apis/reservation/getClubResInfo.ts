@@ -11,7 +11,7 @@ interface Result {
     | 'TABLE_TENNIS'
     | 'GOLF'
     | 'FOOTBALL'
-    | 'SQUSH'
+    | 'SQUASH'
     | 'BILLIARDS'
     | 'BASEBALL';
   // 추후 제대로 설정해야 함
@@ -94,5 +94,6 @@ export const useGetClubResInfo = (clubId: string) => {
   return useQuery({
     queryKey: ['clubResInfo', clubId],
     queryFn: () => getClubResInfo(clubId),
+    refetchOnWindowFocus: true,
   });
 };

@@ -17,7 +17,7 @@ import {
   useGetClubResInfo,
 } from '@apis/reservation/getClubResInfo';
 import { Toaster } from 'react-hot-toast';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { addHours, formatDate } from 'date-fns';
 import { add24Hours, timeToMinutes } from '@utils/formatDate';
 import { useSelectedDate } from '@store/selectedDateStore';
@@ -26,8 +26,10 @@ import FootballCard from '@components/reservation/FootballCard';
 import { usePriceStore } from '@store/priceStore';
 import TennisCard from '@components/reservation/TennisCard';
 import GolfCard from '@components/reservation/GolfCard';
+import ResPeopleCountCard from '@components/reservation/ResPeopleCountCard';
 
 export default function Page({ params }: { params: { companyId: string } }) {
+  const router = useRouter();
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -46,6 +48,10 @@ export default function Page({ params }: { params: { companyId: string } }) {
   );
   const setTab = useTab((state) => state.setSelectedTab);
   const setPrice = usePriceStore((state) => state.setPrice);
+
+  if(isSuccess && data?.result.category !== 'GOLF') {
+    router.replace('/');
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -155,14 +161,14 @@ export default function Page({ params }: { params: { companyId: string } }) {
         })
       );
     }
-  }, [selectedDate, gameReservationInfo]);
+  }, [selectedDate, gameReservationInfo, originalPrices]);
 
   return (
     <main className="w-full h-full overflow-y-scroll flex flex-col ">
       <Header buttonType="back" isCenter title="예약하기" />
       <ResDateCard />
       <ResGameCard startTime={startTime} endTime={endTime} />
-      {/* <ResPeopleCountCard /> */}
+      <ResPeopleCountCard />
       {/* <GameTypeCard /> */}
       <GolfCard
         prices={prices}

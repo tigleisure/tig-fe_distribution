@@ -25,7 +25,9 @@ export default function MakeResButtonCard({
   const clubId = pathname.split('/').at(-1);
   const [toastId, setToastId] = useState<string | null>(null);
   const price = usePriceStore((state) => state.price);
-  const getPriceStackLength = usePriceStore((state) => state.getPriceStackLength);
+  const getPriceStackLength = usePriceStore(
+    (state) => state.getPriceStackLength
+  );
   const timeResInfo = useTimeReservationStore(
     (state) => state.timeReservationInfo
   );
@@ -41,7 +43,7 @@ export default function MakeResButtonCard({
     }
     const id = toast.custom(
       <ToastUI
-        message="시작 시간, 원하는 게임을 선택해주세요"
+        message="시작 시간, 참여 인원, 원하는 게임을 선택해주세요"
         iswarning={true}
       />,
       {
@@ -57,7 +59,12 @@ export default function MakeResButtonCard({
 
   const handleReservation = () => {
     // 그냥 GAME으로 통일
-    if (!clubId || !gameResInfo.startTime || curPrice === 0) {
+    if (
+      !clubId ||
+      !gameResInfo.startTime ||
+      curPrice === 0 ||
+      gameResInfo.adultCount === 0
+    ) {
       handleWrongSubmit('GAME');
       return; // clubId가 undefined, null, ''과 같은 경우
     }
@@ -79,7 +86,9 @@ export default function MakeResButtonCard({
       kidsCount: String(gameResInfo.kidsCount),
       clubName: clubName,
       address: address,
-      gameDescription: gameResInfo.gameDescription + ', ' + getPriceStackLength() + '회',
+      gameDescription:
+        gameResInfo.gameDescription + ', ' + getPriceStackLength() + '회',
+      message: gameResInfo.request,
     };
     const queryString = new URLSearchParams(query).toString();
     setIsFromReservationPage(true);

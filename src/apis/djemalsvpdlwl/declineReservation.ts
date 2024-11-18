@@ -1,22 +1,11 @@
+import { instance } from '@apis/instance';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { NoMeaningfulResultResponse } from 'types/response/response';
 
 export const declineReservation = async (
   reservationId: number
 ): Promise<NoMeaningfulResultResponse> => {
-  const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/reservation/decline/${reservationId}`,
-    {
-      method: 'POST',
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error(`Failed to decline ${reservationId} reservation!`);
-  }
-
-  const data = await response.json();
-  return data;
+  return instance.post(`/api/v1/reservation/decline/${reservationId}`);
 };
 
 export const useDeclineReservation = () => {

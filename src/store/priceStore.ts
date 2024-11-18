@@ -4,6 +4,7 @@ interface Store {
   price: number;
   priceStack: number[];
   isFromReservation: boolean;
+  isPriceChanged: boolean;
   setPrice: (value: number) => void;
   setIsFromReservation: (value: boolean) => void;
   pushPrice: (value: number) => void;
@@ -16,6 +17,7 @@ export const usePriceStore = create<Store>((set, get) => ({
   price: 0,
   priceStack: [],
   isFromReservation: false,
+  isPriceChanged: false,
 
   // 기존 메서드
   setPrice: (value) => set({ price: value }),
@@ -24,7 +26,11 @@ export const usePriceStore = create<Store>((set, get) => ({
   // 스택에 가격 추가
   pushPrice: (value) => {
     const currentStack = get().priceStack;
-    const updatedStack = [...currentStack, value];
+    const topPrice = currentStack[currentStack.length - 1];
+
+    // 새로운 값이 top 값과 다르면 스택을 비우고 새로운 값만 추가
+    const updatedStack =
+      topPrice !== value ? [value] : [...currentStack, value];
     const newPrice = updatedStack.reduce((acc, cur) => acc + cur, 0);
 
     set({ priceStack: updatedStack, price: newPrice });

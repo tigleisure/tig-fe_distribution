@@ -1,7 +1,7 @@
 import { PricesInfo, operatingHour } from '@apis/reservation/getClubResInfo';
 
 export interface clubInfoProps {
-  id: string;
+  clubId: string;
   clubName: string;
   address: string;
   ratingSum: number;

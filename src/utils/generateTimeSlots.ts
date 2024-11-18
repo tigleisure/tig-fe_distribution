@@ -1,5 +1,5 @@
 export const generateTimeSlots = (start: string, end: string) => {
-  if (start === '00:00' && end === '24:00') {
+  if (start === '00:00' && end === '00:00') {
     end = '23:30';
   } else if (end === '24:00') {
     end = '00:00';
@@ -8,6 +8,10 @@ export const generateTimeSlots = (start: string, end: string) => {
   const timeSlots = [];
   let [startHour, startMinute] = start.split(':').map(Number);
   let [endHour, endMinute] = end.split(':').map(Number);
+
+  if (endHour > 12 && startHour > endHour) {
+    return [];
+  }
 
   let endNextDay =
     startHour > endHour || (startHour === endHour && startMinute > endMinute);

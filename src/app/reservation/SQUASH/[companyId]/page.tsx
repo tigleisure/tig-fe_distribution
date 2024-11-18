@@ -16,7 +16,7 @@ import {
   useGetClubResInfo,
 } from '@apis/reservation/getClubResInfo';
 import { Toaster } from 'react-hot-toast';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { addHours, formatDate } from 'date-fns';
 import { timeToMinutes } from '@utils/formatDate';
 import { useSelectedDate } from '@store/selectedDateStore';
@@ -25,8 +25,10 @@ import FootballCard from '@components/reservation/FootballCard';
 import { usePriceStore } from '@store/priceStore';
 import BaseballCard from '@components/reservation/BaseballCard';
 import SquashCard from '@components/reservation/SquashCard';
+import ResPeopleCountCard from '@components/reservation/ResPeopleCountCard';
 
 export default function Page({ params }: { params: { companyId: string } }) {
+  const router = useRouter();
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
   const prices = data?.result.prices as SquashPrice[];
   const [startTime, setStartTime] = useState('');
@@ -44,6 +46,10 @@ export default function Page({ params }: { params: { companyId: string } }) {
   );
   const setTab = useTab((state) => state.setSelectedTab);
   const setPrice = usePriceStore((state) => state.setPrice);
+
+  if(isSuccess && data?.result.category !== 'SQUASH') {
+    router.replace('/');
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -117,7 +123,7 @@ export default function Page({ params }: { params: { companyId: string } }) {
       <Header buttonType="back" isCenter title="예약하기" />
       <ResDateCard />
       <ResGameCard startTime={startTime} endTime={endTime} />
-      {/* <ResPeopleCountCard /> */}
+      <ResPeopleCountCard />
       {/* <GameTypeCard /> */}
       <SquashCard prices={prices} />
       <RequestCard />

@@ -29,11 +29,7 @@ export default function RequestCard() {
     if (e.target.value.length > 100) return;
     setInputValue(e.target.value);
     setInputLength(e.target.value.length);
-    if (pathname.startsWith('/reservation/game')) {
-      setInputGameResValue({ ...inputGameResValue, request: e.target.value });
-    } else {
-      InputGameResValue({ ...inputTimeResValue, request: e.target.value });
-    }
+    setInputGameResValue({ ...inputGameResValue, request: e.target.value });
   };
 
   return (

@@ -10,6 +10,7 @@ import { set } from 'date-fns';
 import { useSelectedDate } from '@store/selectedDateStore';
 import { generateTimeSlots } from '@utils/generateTimeSlots';
 import InfoCard from '@components/all/InfoCard';
+import { usePriceStore } from '@store/priceStore';
 
 export default function ResGameCard({
   startTime,
@@ -29,9 +30,11 @@ export default function ResGameCard({
   const setSelectedStartTime = useGameReservationStore(
     (state) => state.setGameReservationInfo
   );
+  const clearPrice = usePriceStore((state) => state.clearPriceStack);
 
   const handleSelect = (idx: number) => {
     setSelectedIdx(idx);
+    clearPrice();
     setSelectedStartTime({
       ...GameReservationInfo,
       startTime: `${selectedDate.slice(0, 11)}${timeSlotList[idx]}:00`,

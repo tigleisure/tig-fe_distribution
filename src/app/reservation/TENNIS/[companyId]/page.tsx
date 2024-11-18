@@ -16,7 +16,7 @@ import {
   useGetClubResInfo,
 } from '@apis/reservation/getClubResInfo';
 import { Toaster } from 'react-hot-toast';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { addHours, formatDate } from 'date-fns';
 import { timeToMinutes } from '@utils/formatDate';
 import { useSelectedDate } from '@store/selectedDateStore';
@@ -24,8 +24,10 @@ import useTab from '@store/tabNumberStore';
 import FootballCard from '@components/reservation/FootballCard';
 import { usePriceStore } from '@store/priceStore';
 import TennisCard from '@components/reservation/TennisCard';
+import ResPeopleCountCard from '@components/reservation/ResPeopleCountCard';
 
 export default function Page({ params }: { params: { companyId: string } }) {
+  const router = useRouter();
   const { data, isSuccess } = useGetClubResInfo(params.companyId);
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
@@ -44,6 +46,10 @@ export default function Page({ params }: { params: { companyId: string } }) {
   );
   const setTab = useTab((state) => state.setSelectedTab);
   const setPrice = usePriceStore((state) => state.setPrice);
+
+  if (isSuccess && data?.result.category !== 'TENNIS') {
+    router.replace('/');
+  }
 
   useEffect(() => {
     if (isSuccess) {
@@ -124,16 +130,22 @@ export default function Page({ params }: { params: { companyId: string } }) {
         )
       );
     }
-  }, [selectedDate]);
+  }, [selectedDate, originalPrices]);
 
   return (
     <main className="w-full h-full overflow-y-scroll flex flex-col ">
       <Header buttonType="back" isCenter title="예약하기" />
       <ResDateCard />
       <ResGameCard startTime={startTime} endTime={endTime} />
-      {/* <ResPeopleCountCard /> */}
+      <ResPeopleCountCard />
       {/* <GameTypeCard /> */}
-      <TennisCard prices={prices} isWeek={new Date(selectedDate).getDay()===0 || new Date(selectedDate).getDay()===6}/>
+      <TennisCard
+        prices={prices}
+        isWeek={
+          new Date(selectedDate).getDay() === 0 ||
+          new Date(selectedDate).getDay() === 6
+        }
+      />
       <RequestCard />
       <MakeResButtonCard
         clubName={clubName}

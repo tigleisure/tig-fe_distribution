@@ -18,7 +18,7 @@ import { formatDate } from 'date-fns';
 import PriceCard from './PriceCard';
 
 interface DetailInfoCardProps {
-  id: string;
+  clubId: string;
   category: string;
   clubName: string;
   avgRating: number;
@@ -38,7 +38,7 @@ interface DetailInfoCardProps {
 export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
   (
     {
-      id,
+      clubId,
       category,
       clubName,
       avgRating,
@@ -69,11 +69,11 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
         router.push('/login');
         return;
       }
-      addToWishList(parseInt(id));
+      addToWishList(parseInt(clubId));
       setIsHeartClicked(true);
     };
     const handleFillHeartClick = () => {
-      deleteFromWishList(parseInt(id));
+      deleteFromWishList(parseInt(clubId));
       setIsHeartClicked(false);
     };
     useEffect(() => {
@@ -136,7 +136,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
             </p>
           </div> */}
         </div>
-        <PriceCard prices={prices} category={category} date={date}/>
+        <PriceCard prices={prices} category={category} date={date} />
       </section>
     );
   }

@@ -40,7 +40,7 @@ function debounce(func: () => void, wait: number) {
 }
 
 const initialInofo: clubInfoProps = {
-  id: '0',
+  clubId: '0',
   clubName: 'Dummy',
   address: 'Dummy',
   ratingSum: 0,
