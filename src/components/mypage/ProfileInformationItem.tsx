@@ -23,9 +23,13 @@ export default function ProfileInformationItem({
   const { mutate: changeNameMutate } = useChangeUserName();
 
   const handleChangeInputData = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setInputData(ev.target.value);
-    if (labelName === '휴대폰번호')
+    if (labelName === '휴대폰번호') {
+      if (ev.target.value.length > 13) return;
       setInputData(formatPhoneNumber(ev.target.value));
+    } else {
+      if (ev.target.value.length > 25) return;
+      setInputData(ev.target.value);
+    }
   };
 
   const handleSaveNewInputData = (data: string) => {

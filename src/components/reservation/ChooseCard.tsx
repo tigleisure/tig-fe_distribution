@@ -139,7 +139,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
     <article
       className={cn('h-[70px] w-full py-4 flex justify-between', {
         'mt-1': title === '성인' || title === '게임',
-        'border-b border-grey2': title !== '어린이' && title !== '게임',
+        // 'border-b border-grey2': title !== '어린이' && title !== '게임',
       })}
     >
       <div

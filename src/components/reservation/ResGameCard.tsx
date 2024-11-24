@@ -44,16 +44,22 @@ export default function ResGameCard({
     <section className="w-full px-5 py-[40px] gap-6 flex flex-col border-b border-grey2">
       <InfoCard number={2} content="시작 시간을 선택해주세요." />
       <div className="w-full flex gap-[10px] flex-wrap h-fit">
-        {timeSlotList.map((time, index) => (
-          <GameSelectCard
-            key={`${time}+game`}
-            idx={index}
-            onClick={handleSelect}
-            disable={DUMMYISDISABLE[index]}
-            selected={selectedIdx === index ? true : false}
-            time={timeSlotList[index]}
-          ></GameSelectCard>
-        ))}
+        {timeSlotList.length !== 0 ? (
+          timeSlotList.map((time, index) => (
+            <GameSelectCard
+              key={`${time}+game`}
+              idx={index}
+              onClick={handleSelect}
+              disable={DUMMYISDISABLE[index]}
+              selected={selectedIdx === index ? true : false}
+              time={timeSlotList[index]}
+            ></GameSelectCard>
+          ))
+        ) : (
+          <div className="w-full flex justify-center items-center title2 text-grey4 py-[22px]">
+            예약 가능한 시간이 없습니다.
+          </div>
+        )}
       </div>
     </section>
   );

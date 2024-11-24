@@ -13,7 +13,6 @@ export default function HomeCard({
   clubId,
 }: Club) {
   const isEventCard = false;
-  console.log('imageUrls', imageUrls);
   return (
     <Link
       className="w-[152px] flex flex-col gap-[6px] shrink-0"

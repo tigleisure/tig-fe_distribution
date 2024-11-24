@@ -165,7 +165,7 @@ export default function FullButton({
       ev.preventDefault();
     }
 
-    if (clickTask === 'request-payment') {
+    if (clickTask === 'request-payment') { // 실결제 연동
       if (
         secondStageInfoObject.phoneNumber === '' ||
         secondStageInfoObject.userName === ''

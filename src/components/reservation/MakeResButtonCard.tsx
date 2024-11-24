@@ -8,7 +8,7 @@ import {
 import { usePriceStore } from '@store/priceStore';
 import { convertToNextDayIfNextDay } from '@utils/formatDate';
 import { usePathname, useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast from 'react-hot-toast';
 
 export default function MakeResButtonCard({
@@ -25,6 +25,7 @@ export default function MakeResButtonCard({
   const clubId = pathname.split('/').at(-1);
   const [toastId, setToastId] = useState<string | null>(null);
   const price = usePriceStore((state) => state.price);
+  const clearPrice = usePriceStore((state) => state.clearPriceStack);
   const getPriceStackLength = usePriceStore(
     (state) => state.getPriceStackLength
   );
@@ -94,6 +95,11 @@ export default function MakeResButtonCard({
     setIsFromReservationPage(true);
     router.push(`/payment/before/${clubId}?${queryString}`);
   };
+
+  useEffect(() => {
+    clearPrice();
+  },[]);
+
   return (
     <section className="h-[78px] w-full flex  gap-[10px] justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">
       <div className="w-[100px] h-full flex flex-col justify-between p-1">
