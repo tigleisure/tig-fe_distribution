@@ -13,7 +13,7 @@ export default function ObserveRouteLogin() {
     const fullPath = `${pathName}${searchParams.toString() ? `?${searchParams.toString()}` : ''}`;
 
     // 로그인 페이지에서 저장된 이전 페이지가 있다면 이전 페이지를 sessionStorage에 저장
-    if (pathName === '/login' && previousPage.current) {
+    if ((pathName === '/login' || pathName.startsWith('/search')) && previousPage.current) {
       sessionStorage.setItem('prev', previousPage.current);
       return;
     }

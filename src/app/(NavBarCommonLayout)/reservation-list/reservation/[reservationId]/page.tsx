@@ -44,6 +44,7 @@ export default function Page({
     feePrice: 0,
     couponDiscountPrice: 0,
     gameDescription: '',
+    couponId: -1,
   });
   const setIsModalOpen = useModal((state) => state.setSelectedIsModalOpen);
   const [isLoading, setIsLoading] = useState(true);
@@ -87,22 +88,28 @@ export default function Page({
     }
 
     // 예약 취소 요청
-    cancelReservationMutation.mutate(Number(data.reservationId) as number, {
-      onSuccess(successData) {
-        queryClient.invalidateQueries({
-          queryKey: ['userReservationList'],
-        });
-
-        if (successData.resultCode === 200) {
-          router.replace('/');
-        } else {
-          handleSendTigCancelFailToDiscord(
-            Number(data.reservationId) as number,
-            data.paymentId as string
-          );
-        }
+    cancelReservationMutation.mutate(
+      {
+        reservationId: Number(data.reservationId) as number,
+        couponId: data.couponId || -1,
       },
-    });
+      {
+        onSuccess(successData) {
+          queryClient.invalidateQueries({
+            queryKey: ['userReservationList'],
+          });
+
+          if (successData.resultCode === 200) {
+            router.replace('/');
+          } else {
+            handleSendTigCancelFailToDiscord(
+              Number(data.reservationId) as number,
+              data.paymentId as string
+            );
+          }
+        },
+      }
+    );
   };
 
   const cancelReservationMutation = useDeleteUserSpecificReservation();

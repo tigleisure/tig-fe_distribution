@@ -68,9 +68,7 @@ export default function HistoryDetail({
       <PaymentInfoSection paymentTime={paymentTime} payMethod={payMethod} />
       <div className="w-full border-[1px] border-grey2" />
       <PriceInfoSection
-        reservationPrice={
-          (Number(price) + Number(couponDiscountPrice)) * (10 / 11)
-        }
+        reservationPrice={Number(price) + Number(couponDiscountPrice)}
         feePrice={(Number(price) + Number(couponDiscountPrice)) * (1 / 11)}
         couponDiscountPrice={couponDiscountPrice}
       />

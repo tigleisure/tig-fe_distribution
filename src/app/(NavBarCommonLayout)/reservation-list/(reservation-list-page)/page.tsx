@@ -47,7 +47,6 @@ export default function Page() {
       )
     : [];
 
-
   const setSelectedIsModalOpen = useModal(
     (state) => state.setSelectedIsModalOpen
   );
@@ -72,22 +71,30 @@ export default function Page() {
     }
 
     // 예약 취소 요청
-    cancelReservationMutation.mutate(cancelReservationId as number, {
-      onSuccess(data) {
-        queryClient.invalidateQueries({
-          queryKey: ['userReservationList'],
-        });
-
-        if (data.resultCode === 200) {
-          router.replace('/');
-        } else {
-          handleSendTigCancelFailToDiscord(
-            cancelReservationId as number,
-            cancelPaymentId as string
-          );
-        }
+    cancelReservationMutation.mutate(
+      {
+        reservationId: cancelReservationId as number,
+        couponId: data.result.find(
+          (res) => res.reservationId === cancelReservationId
+        )?.couponId || -1,
       },
-    });
+      {
+        onSuccess(data) {
+          queryClient.invalidateQueries({
+            queryKey: ['userReservationList'],
+          });
+
+          if (data.resultCode === 200) {
+            router.replace('/');
+          } else {
+            handleSendTigCancelFailToDiscord(
+              cancelReservationId as number,
+              cancelPaymentId as string
+            );
+          }
+        },
+      }
+    );
   };
 
   useEffect(() => {

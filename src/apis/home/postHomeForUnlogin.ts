@@ -6,13 +6,11 @@ export const postHomeForUnlogin = async (
   payload: PostHomePayload
 ): Promise<PostHomeResponse> => {
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/home`,
+    `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/home?latitude=${payload.latitude}&longitude=${payload.longitude}`,
     {
-      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(payload),
     }
   );
 

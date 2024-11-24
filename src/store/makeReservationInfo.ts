@@ -30,7 +30,7 @@ interface TimeReservationStore {
 export const gameReservationInfoInitialState: MakeGameReservationInfoProps = {
   date: formatDate(new Date(), "yyyy-MM-dd'T'HH:mm:ss"),
   startTime: null,
-  adultCount: 0,
+  adultCount: 1,
   teenagerCount: 0,
   kidsCount: 0,
   request: '',

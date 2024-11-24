@@ -19,14 +19,16 @@ import TigLoadingPage from '@components/all/TigLoadingPage';
 import useGeolocation from '@hooks/home/useGeoLocation';
 import Footer from '@components/all/Footer/Footer';
 import useTab from '@store/tabNumberStore';
-import { use, useEffect, useState } from 'react';
+import { use, useCallback, useEffect, useState } from 'react';
 import UITabs from '@components/all/UITabs/UITabs';
 import FilterHeader from '@components/search/result/FilterHeader';
 import ResultCard from '@components/all/ResultCard';
 import { set } from 'date-fns';
-import { is } from 'date-fns/locale';
+import { is, se } from 'date-fns/locale';
 import { usePostHomeForUnlogin } from '@apis/home/postHomeForUnlogin';
 import { usePostHomeForLogin } from '@apis/home/postHomeForLogin';
+import { useFilterOptionStore } from '@store/filterOptionStore';
+import { Club } from 'types/response/response';
 
 export default function Home({ params }: { params: { gametype: string } }) {
   const currentTab = useTab((state) => state.selectedTab);
@@ -53,7 +55,37 @@ export default function Home({ params }: { params: { gametype: string } }) {
     mutateForUnlogin,
     mutateForLogin
   );
+  const [renderingClubCards, setRenderingClubCards] =
+    useState<Club[]>(clubCards);
   const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
+  const selectedOption = useFilterOptionStore((state) => state.filterOption);
+  const filtering = useCallback(() => {
+    let sortedCards = [...clubCards];
+    if (selectedOption === '추천순') {
+      // 추천순 로직 (기본 순서 유지)
+    } else if (selectedOption === '인기순') {
+      sortedCards.sort((a, b) => b.avgRating - a.avgRating);
+    } else if (selectedOption === '가까운순') {
+    } else if (selectedOption === '고가순') {
+      sortedCards.sort(
+        (a, b) =>
+          Math.max(...(b.prices as any[]).map((obj) => obj.price)) -
+          Math.max(...(a.prices as any[]).map((obj) => obj.price))
+      );
+    } else if (selectedOption === '저가순') {
+      sortedCards.sort(
+        (a, b) =>
+          Math.min(...(a.prices as any[]).map((obj) => obj.price)) -
+          Math.min(...(b.prices as any[]).map((obj) => obj.price))
+      );
+    } else if (selectedOption === '리뷰많은순') {
+      sortedCards.sort((a, b) => b.ratingCount - a.ratingCount);
+    }
+    setRenderingClubCards(sortedCards);
+  }, [selectedOption, clubCards]);
+  useEffect(() => {
+    filtering();
+  }, [selectedOption, clubCards]);
 
   useEffect(() => {
     setCurrentTab(categoryMapEngToKor[params.gametype]);
@@ -76,12 +108,12 @@ export default function Home({ params }: { params: { gametype: string } }) {
             from="searchMain"
             className="w-full px-5 top-[58px]"
           />
-          <Tabs
+          {/* <Tabs
             tabArray={subtabArray}
             from="searchSub"
             className="w-full px-5 top-[148px]"
             rounded
-          />
+          /> */}
           {isShowBounce && (
             <div className="absolute top-[58px] left-[72px] z-[400] flex flex-col w-fit animate-bounce">
               <ArrowSVG className="ml-5" />
@@ -91,8 +123,8 @@ export default function Home({ params }: { params: { gametype: string } }) {
             </div>
           )}
           <FilterHeader />
-          <div className="pt-[232px]"></div>
-          {clubCards.map((clubCard, idx) => {
+          <div className="pt-[180px]"></div>
+          {renderingClubCards.map((clubCard, idx) => {
             if (idx === 0)
               return <ResultCard key={clubCard.clubId} {...clubCard} isFirst />;
             if (idx === clubCards.length - 1)

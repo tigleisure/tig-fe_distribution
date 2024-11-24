@@ -22,4 +22,5 @@ export interface ReservationDetailProps {
   message: string;
   clubId: string;
   gameDescription: string;
+  couponId: number | null;
 }

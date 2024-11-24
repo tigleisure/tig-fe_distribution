@@ -80,4 +80,5 @@ export interface ReservationItemProps {
   message: string;
   imageUrls: string[];
   gameDescription: string;
+  couponId: number;
 }

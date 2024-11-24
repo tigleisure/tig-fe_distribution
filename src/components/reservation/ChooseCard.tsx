@@ -12,7 +12,7 @@ import {
 } from '@store/makeReservationInfo';
 
 export default function ChooseCard({ title, description }: ChooseCardProps) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(1);
   const pathname = usePathname();
 
   const inputGameResValue = useGameReservationStore(

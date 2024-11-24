@@ -121,7 +121,8 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
           <div className="flex gap-2" ref={ref}>
             <TimeSVG />
             <p className="body2">
-              {todayOperatingHour?.startTime.slice(0, 5) || ''} ~{' '}
+              {todayOperatingHour?.startTime.slice(0, 5) || ''}
+              {todayOperatingHour && ' ~ '}{' '}
               {todayOperatingHour?.endTime.slice(0, 5) || ''}
             </p>
           </div>

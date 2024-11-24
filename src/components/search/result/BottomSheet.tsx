@@ -20,6 +20,7 @@ export default function BottomSheet({
 }: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
+  const [initialSnap, setInitialSnap] = useState<number>(1);
   // const ref = useRef<SheetRef>();
   // const snapTo = (i: number) => ref.current?.snapTo(i);
 
@@ -35,6 +36,14 @@ export default function BottomSheet({
     };
   }, []);
 
+  useEffect(() => {
+    console.log(sessionStorage.getItem('prev')?.slice(0, 7));
+    console.log(sessionStorage.getItem('prev')?.slice(0, 7) === '/detail')
+
+    if (sessionStorage.getItem('prev')?.slice(0, 7) === '/detail')
+      setInitialSnap(0);
+  },[]);
+
   return (
     <Sheet
       className="mx-auto w-full min-w-[360px] max-w-[480px] !z-[150]"
@@ -42,7 +51,7 @@ export default function BottomSheet({
       isOpen={true}
       // close 할일은 없지만 필수로 넣어야 함
       onClose={() => setOpen(false)}
-      initialSnap={1}
+      initialSnap={initialSnap}
       // 0: full screen, 1: 컨텐츠 한 개만, 2: 바텀시트 헤더만
       snapPoints={[height, 234, 74]}
     >

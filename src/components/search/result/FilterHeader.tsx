@@ -46,7 +46,7 @@ export default function FilterHeader() {
 
   return (
     <section
-      className="absolute top-[148px] flex justify-end items-center h-[52px] title4 text-grey6 right-0 w-[88px] pr-5 cursor-pointer z-[400] bg-gradient-to-l from-white to-transparent"
+      className="absolute top-[148px] flex justify-end items-center h-[52px] title4 text-grey6 right-0 w-[108px] pr-5 cursor-pointer z-[400] bg-gradient-to-l from-white to-transparent"
       onClick={() => {
         setIsOpen(true);
       }}
@@ -57,6 +57,7 @@ export default function FilterHeader() {
       </motion.div>
       {isOpen && (
         <motion.div
+          ref={ref}
           className="w-[94px] flex flex-col gap-3 p-5 bg-white shadow-md absolute top-[40px] right-5 rounded-[12px] z-[300] border"
           onClick={(e) => e.stopPropagation()}
           initial={{ clipPath: 'inset(10% 50% 90% 50% round 10px)' }}
@@ -81,7 +82,7 @@ export default function FilterHeader() {
                 'text-grey7': filter === selected,
                 'text-grey4': filter !== selected,
               })}
-              onClick={() => {
+              onClick={(e) => {
                 setSelected(filter);
                 setIsOpen(false);
               }}
