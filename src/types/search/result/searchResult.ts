@@ -7,7 +7,7 @@ export interface ResultCardProps {
   ratingSum: number; // 평점의 평균을 의미하는듯
   ratingCount: number; // 평점을 매긴 카운트
   avgRating: number;
-  prices: object[];
+  prices: any;
   type: 'GAME' | 'TIME';
   category:
     | 'TENNIS'

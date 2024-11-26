@@ -1,94 +1,82 @@
-import { categoryMapEngToKor, categoryMapKorToEng } from '@constant/constant';
+import { useQuery } from '@tanstack/react-query';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import useTab from '@store/tabNumberStore';
-import { MutateOptions } from '@tanstack/react-query';
-import { set } from 'date-fns';
-import { useEffect, useState } from 'react';
-import { PostHomePayload } from 'types/payload/payload';
-import {
-  Club,
-  NearestClubsByCategory,
-  PostHomeResponse,
-} from 'types/response/response';
+import { categoryMapKorToEng } from '@constant/constant';
+import { getHomeForUnlogin } from '@apis/home/getHomeForUnlogin';
+import { getHomeForLogin } from '@apis/home/getHomeForLogin';
 
-export const useGeolocation = (
-  mutateForUnlogin: (
-    variables: PostHomePayload,
-    options?:
-      | MutateOptions<PostHomeResponse, Error, PostHomePayload, unknown>
-      | undefined
-  ) => void,
-  mutateForLogin: (
-    variables: PostHomePayload,
-    options?:
-      | MutateOptions<PostHomeResponse, Error, PostHomePayload, unknown>
-      | undefined
-  ) => void
-) => {
-  const [originalClubCards, setOriginalClubCards] = useState<Club[]>([]);
-  const [nearestClubsByCategory, setNearestClubsByCategory] =
-    useState<NearestClubsByCategory>({});
-  const [clubCards, setClubCards] = useState<Club[]>([]);
-  const [recommendClubCards, setRecommendClubCards] = useState<Club[]>([]);
-  // 이벤트용 클럽 카드
-  // const [originalEventClubCards, setOriginalEventClubCards] = useState<
-  //   Club[]
-  // >([]);
+export const useGeolocation = () => {
+  const [location, setLocation] = useState({
+    latitude: 37.5665,
+    longitude: 126.978,
+  });
   const selectedTab = useTab((state) => state.selectedTab);
+  const {
+    data: homeData,
+    refetch,
+    isSuccess,
+  } = useQuery({
+    queryKey: ['homeData', location.latitude, location.longitude],
+    queryFn: async () => {
+      const api = localStorage.getItem('accessToken')
+        ? getHomeForLogin
+        : getHomeForUnlogin;
+      return api(location);
+    },
+    refetchOnWindowFocus: true,
+    staleTime: 1000 * 60 * 5, // 5분 동안 캐시 유지
+  });
 
-  useEffect(() => {
-    if (
-      selectedTab === '홈' ||
-      selectedTab === '문화' ||
-      selectedTab === '스포츠'
-    ) {
-      setClubCards(originalClubCards);
+  const { originalClubCards, nearestClubsByCategory, recommendClubCards } =
+    useMemo(() => {
+      if (!homeData)
+        return {
+          originalClubCards: [],
+          nearestClubsByCategory: {},
+          recommendClubCards: [],
+        };
+      const result = homeData.result[0];
+      return {
+        originalClubCards: result.nearestClubs,
+        nearestClubsByCategory: result.nearestClubsByCategory,
+        recommendClubCards: result.recommendedClubs,
+      };
+    }, [homeData]);
+
+  const clubCards = useMemo(() => {
+    if (['홈', '문화', '스포츠'].includes(selectedTab)) {
+      return originalClubCards;
     } else {
-      setClubCards(
-        nearestClubsByCategory[categoryMapKorToEng[selectedTab]] || []
-      );
+      return nearestClubsByCategory[categoryMapKorToEng[selectedTab]] || [];
     }
   }, [selectedTab, originalClubCards, nearestClubsByCategory]);
 
+  const handleSuccess = useCallback((position: GeolocationPosition) => {
+    const { latitude, longitude } = position.coords;
+    setLocation({ latitude, longitude });
+  }, []);
+
+  const handleError = useCallback(() => {
+    // If error occurs, use default Sinchon coordinates
+    setLocation({ latitude: 37.5665, longitude: 126.978 });
+  }, []);
+
   useEffect(() => {
-    const handleSuccess = (position: GeolocationPosition) => {
-      const { latitude, longitude } = position.coords;
-      fetchData(latitude, longitude);
-    };
-
-    const handleError = () => {
-      // 에러 발생하면 신촌 좌표 전송
-      fetchData(37.5665, 126.978);
-    };
-
-    const fetchData = (latitude: number, longitude: number) => {
-      const mutate = localStorage.getItem('accessToken')
-        ? mutateForLogin
-        : mutateForUnlogin;
-      mutate(
-        { latitude, longitude },
-        {
-          onSuccess: (data) => {
-            setOriginalClubCards(data.result[0].nearestClubs);
-            setClubCards(data.result[0].nearestClubs);
-            setRecommendClubCards(data.result[0].recommendedClubs);
-            setNearestClubsByCategory(data.result[0].nearestClubsByCategory);
-          },
-          onError: (error) => {
-          },
-        }
-      );
-    };
-
-    fetchData(37.5665, 126.978);
-
     navigator.geolocation.getCurrentPosition(handleSuccess, handleError, {
       timeout: 5000,
     });
-  }, []);
+  }, [handleSuccess, handleError]);
+
+  useEffect(() => {
+    if (location.latitude && location.longitude) {
+      refetch();
+    }
+  }, [location, refetch]);
 
   return {
     clubCards,
     recommendClubCards,
+    isSuccess,
   };
 };
 

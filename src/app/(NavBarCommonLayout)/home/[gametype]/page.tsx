@@ -25,8 +25,6 @@ import FilterHeader from '@components/search/result/FilterHeader';
 import ResultCard from '@components/all/ResultCard';
 import { set } from 'date-fns';
 import { is, se } from 'date-fns/locale';
-import { usePostHomeForUnlogin } from '@apis/home/postHomeForUnlogin';
-import { usePostHomeForLogin } from '@apis/home/postHomeForLogin';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 import { Club } from 'types/response/response';
 
@@ -47,17 +45,9 @@ export default function Home({ params }: { params: { gametype: string } }) {
       : [];
   const setCurrentTab = useTab((state) => state.setSelectedTab);
   const tabArray = leisureArray;
-  const { mutate: mutateForUnlogin, isSuccess: IsUnloginMuateSuccess } =
-    usePostHomeForUnlogin();
-  const { mutate: mutateForLogin, isSuccess: IsLoginMuateSuccess } =
-    usePostHomeForLogin();
-  const { clubCards, recommendClubCards } = useGeolocation(
-    mutateForUnlogin,
-    mutateForLogin
-  );
+  const { clubCards, isSuccess } = useGeolocation();
   const [renderingClubCards, setRenderingClubCards] =
     useState<Club[]>(clubCards);
-  const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
   const selectedOption = useFilterOptionStore((state) => state.filterOption);
   const filtering = useCallback(() => {
     let sortedCards = [...clubCards];
@@ -101,7 +91,7 @@ export default function Home({ params }: { params: { gametype: string } }) {
     <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
       <SearchHeader isHomeOrResultPage />
       {!isSuccess && <TigLoadingPage />}
-      {isSuccess && (
+      {
         <>
           <UITabs
             tabArray={tabArray}
@@ -143,7 +133,7 @@ export default function Home({ params }: { params: { gametype: string } }) {
           {/* <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} /> */}
           {/* <Footer /> */}
         </>
-      )}
+      }
     </main>
   );
 }

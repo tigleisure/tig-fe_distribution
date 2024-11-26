@@ -1,8 +1,8 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery, useSuspenseQuery } from '@tanstack/react-query';
 import { PostHomePayload } from 'types/payload/payload';
 import { PostHomeResponse } from 'types/response/response';
 
-export const postHomeForUnlogin = async (
+export const getHomeForUnlogin = async (
   payload: PostHomePayload
 ): Promise<PostHomeResponse> => {
   const response = await fetch(
@@ -20,8 +20,4 @@ export const postHomeForUnlogin = async (
 
   const data: PostHomeResponse = await response.json();
   return data;
-};
-
-export const usePostHomeForUnlogin = () => {
-  return useMutation({ mutationFn: postHomeForUnlogin });
 };

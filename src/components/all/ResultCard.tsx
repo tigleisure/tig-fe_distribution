@@ -16,6 +16,7 @@ import { motion } from 'framer-motion';
 import { categoryMapEngToKor, subtabArrays } from '@constant/constant';
 import path from 'path';
 import { start } from 'repl';
+import { getProgramDescription } from '@utils/programName';
 
 export default function ResultCard({
   clubName,
@@ -36,6 +37,14 @@ export default function ResultCard({
   const router = useRouter();
   const pathname = usePathname();
   const subtabArray = subtabArrays[categoryMapEngToKor[category]] || [];
+  console.log(prices);
+  const containCategory = prices.map((price: any) => getProgramDescription(price.programName));
+  const uniqueProgramNames = Array.from(new Set(containCategory));
+  console.log(subtabArray);
+  console.log(uniqueProgramNames);
+  const filterSubtabArray = subtabArray.filter((item) =>
+    uniqueProgramNames.includes(item)
+  );
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
@@ -142,10 +151,10 @@ export default function ResultCard({
             원 ~
           </p>
           <p className="body4 text-grey4">
-            {subtabArray.map((item, index) => (
+            {filterSubtabArray.map((item, index) => (
               <span key={index} className="body4 text-grey4">
                 {item}
-                {index < subtabArray.length - 1 && ' · '}
+                {index < filterSubtabArray.length - 1 && ' · '}
               </span>
             ))}
           </p>

@@ -1,3 +1,5 @@
+import { table } from 'console';
+
 export const allleisureArray = [
   '전체',
   '당구',
@@ -31,11 +33,23 @@ export const leisureArray = [
   '스쿼시',
 ];
 
-export const golfArray = ['스크린골프', '골프연습장', '골프레슨', '필드 골프'];
+export const golfArray = [
+  '스크린 골프',
+  '골프 연습장',
+  '골프 레슨',
+  '필드 골프',
+];
 export const pocketballArray = ['중대', '대대', '포켓볼'];
 export const baseballArray = ['스크린야구', '야구연습장'];
-export const squashArray = ['스쿼시연습장', '스쿼시레슨', '원데이클래스'];
-export const tennisArray = ['테니스코트', '테니스레슨'];
+export const squashArray = [
+  '스쿼시 연습장',
+  '스쿼시 레슨',
+  '스쿼시 원데이 클래스',
+];
+export const tennisArray = ['테니스 코트', '테니스 레슨', '테니스 볼 머신'];
+export const footballArray = ['축구장 대여', '축구 볼머신'];
+export const tabletennisArray = ['단식', '복식', '일일권', '시간권'];
+export const balling = ['일반 볼링', '락볼링'];
 
 export const subtabArrays: { [key: string]: string[] } = {
   골프: golfArray,
@@ -43,6 +57,9 @@ export const subtabArrays: { [key: string]: string[] } = {
   야구: baseballArray,
   스쿼시: squashArray,
   테니스: tennisArray,
+  축구: footballArray,
+  탁구: tabletennisArray,
+  볼링: balling,
 };
 
 export const mainArray = ['스포츠'];

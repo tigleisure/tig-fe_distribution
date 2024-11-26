@@ -15,8 +15,6 @@ import TigLoadingPage from '@components/all/TigLoadingPage';
 import useGeolocation from '@hooks/home/useGeoLocation';
 import Footer from '@components/all/Footer/Footer';
 import UIList from '@components/home/UIList';
-import { usePostHomeForUnlogin } from '@apis/home/postHomeForUnlogin';
-import { usePostHomeForLogin } from '@apis/home/postHomeForLogin';
 import { is } from 'date-fns/locale';
 import { useRouter } from 'next/navigation';
 
@@ -64,15 +62,7 @@ export default function Home() {
   }, [isBannerClicked]);
   const mainRef = useRef<HTMLDivElement>(null);
   const MAINARRAY = mainArray;
-  const { mutate: mutateForUnlogin, isSuccess: IsUnloginMuateSuccess } =
-    usePostHomeForUnlogin();
-  const { mutate: mutateForLogin, isSuccess: IsLoginMuateSuccess } =
-    usePostHomeForLogin();
-  const { clubCards, recommendClubCards } = useGeolocation(
-    mutateForUnlogin,
-    mutateForLogin
-  );
-  const isSuccess = IsUnloginMuateSuccess || IsLoginMuateSuccess;
+  const { clubCards, recommendClubCards, isSuccess } = useGeolocation();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
