@@ -37,14 +37,18 @@ export default function ResultCard({
   const router = useRouter();
   const pathname = usePathname();
   const subtabArray = subtabArrays[categoryMapEngToKor[category]] || [];
-  console.log(prices);
-  const containCategory = prices.map((price: any) => getProgramDescription(price.programName));
-  const uniqueProgramNames = Array.from(new Set(containCategory));
-  console.log(subtabArray);
-  console.log(uniqueProgramNames);
-  const filterSubtabArray = subtabArray.filter((item) =>
-    uniqueProgramNames.includes(item)
-  );
+  let renderingSubtabArray = subtabArray;
+  if (prices) {
+    const containCategory = prices.map((price: any) =>
+      getProgramDescription(price.programName)
+    );
+    const uniqueProgramNames = Array.from(new Set(containCategory));
+    const filterSubtabArray = subtabArray.filter((item) =>
+      uniqueProgramNames.includes(item)
+    );
+    renderingSubtabArray = filterSubtabArray;
+  }
+
   const [isHeartClicked, setIsHeartClicked] = useState(isHeart);
   const { mutate: deleteFromWishList } = useDeleteFromWishList();
   const { mutate: addToWishList } = useAddToWishList();
@@ -151,10 +155,10 @@ export default function ResultCard({
             원 ~
           </p>
           <p className="body4 text-grey4">
-            {filterSubtabArray.map((item, index) => (
+            {renderingSubtabArray.map((item, index) => (
               <span key={index} className="body4 text-grey4">
                 {item}
-                {index < filterSubtabArray.length - 1 && ' · '}
+                {index < renderingSubtabArray.length - 1 && ' · '}
               </span>
             ))}
           </p>
