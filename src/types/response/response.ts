@@ -129,3 +129,22 @@ export interface CouponResponse {
   resultCode: number;
   resultMsg: string;
 }
+
+export interface IssueCouponResponse {
+  result: {
+    code: string;
+  };
+  resultCode: number;
+  resultMsg: string;
+}
+
+export interface Feedback {
+  memberName: string;
+  message: string;
+}
+
+export interface FeedbackListResponse {
+  result: Feedback[];
+  resultCode: number;
+  resultMsg: string;
+}
