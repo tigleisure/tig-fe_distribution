@@ -6,6 +6,7 @@ import { cn } from '@utils/cn';
 import FullButton from '@components/all/FullButton';
 import ChevronDownSVG from '@public/svg/chevronDown.svg';
 import { useGetCoupon } from '@apis/payment/before/getCoupon';
+import { formatReservationShowingDate } from '@utils/formatDate';
 
 interface couponDetail {
   discount: number;
@@ -122,6 +123,7 @@ function CouponItem({
   handleCancelCoupon,
   couponIndex,
 }: couponItemDetail) {
+  const date = formatReservationShowingDate(expireDate);
   return (
     <section
       className={cn(
@@ -191,7 +193,7 @@ function CouponItem({
           }
         )}
       >
-        {expireDate}까지 사용 가능
+        {expireDate.slice(0, 4)}.{date}까지 사용 가능
       </div>
     </section>
   );
