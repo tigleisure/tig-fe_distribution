@@ -10,8 +10,8 @@ import { Suspense } from 'react';
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: 'TIG | 티그',
-  description: '쉽고 편리한 여가 예약 플랫폼',
+  title: '티그',
+  description: '쉽고 편리한 여가 예약 플랫폼, 티그',
   icons: {
     icon: '/svg/tig.svg',
   },
@@ -23,6 +23,7 @@ export const metadata: Metadata = {
       },
     ],
     type: 'website',
+    url: 'https://tigleisure.com',
   },
   formatDetection: {
     telephone: false,

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://tigleisure.com</loc>
@@ -14,20 +15,91 @@
   <url>
     <loc>https://tigleisure.com/search</loc>
     <lastmod>2024-12-01T15:00:00.021Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/search/result</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://tigleisure.com/reservation-list</loc>
     <lastmod>2024-12-01T15:00:00.021Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://tigleisure.com/wishlist</loc>
     <lastmod>2024-12-01T15:00:00.021Z</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
-  
+  <url>
+    <loc>https://tigleisure.com/mypage</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/mypage/coupon</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/mypage/review</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/SQUASH</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/TENNIS</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/BASEBALL</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/FOOTBALL</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/BILLIARDS</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/TABLE_TENNIS</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/GOLF</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/home/BALLING</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
