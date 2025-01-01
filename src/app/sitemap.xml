@@ -1,0 +1,33 @@
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://tigleisure.com</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>1</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/login</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/search</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/reservation-list</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://tigleisure.com/wishlist</loc>
+    <lastmod>2024-12-01T15:00:00.021Z</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+</urlset>

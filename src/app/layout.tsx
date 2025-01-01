@@ -28,6 +28,9 @@ export const metadata: Metadata = {
     telephone: false,
     email: false,
   },
+  verification: {
+    google: 'KQwY2GiXDthatwkTYIgC_dR9eeNVpbitvB6RZOYqdk8',
+  },
 };
 
 export const viewport: Viewport = {
