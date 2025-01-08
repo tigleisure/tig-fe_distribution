@@ -23,6 +23,7 @@ import { useEffect, useState } from 'react';
 import UITabs from '@components/all/UITabs/UITabs';
 import useTab from '@store/tabNumberStore';
 import useSubTab from '@store/subTabNumberStore';
+import { useLocation } from '@hooks/useLocation';
 
 interface userCurrentPingPositionProp {
   latitude: number;
@@ -33,6 +34,7 @@ export default function Page() {
   const tabArray = allleisureArray;
   const currentTab = useTab((state) => state.selectedTab);
   const subtabArray = subtabArrays[currentTab] || [];
+  const { location } = useLocation();
   const searchParams = useSearchParams();
   const { search, date, time, isKeyword } = Object.fromEntries(
     searchParams.entries()
@@ -52,25 +54,9 @@ export default function Page() {
   const [isCurrentLocationUIClicked, setIsCurrentLocationUIClicked] =
     useState<boolean>(false);
 
-  const [userCurrentPingPosition, setUserCurrentPingPosition] =
-    useState<userCurrentPingPositionProp>({
-      // 일단 초깃값은 신촌좌표로
-      latitude: 37.55527,
-      longitude: 126.9366,
-    });
-
   const handleClickCurrentLocationUIButton = () => {
     setIsCurrentLocationUIClicked((prev) => !prev);
   };
-
-  useEffect(() => {
-    navigator.geolocation.getCurrentPosition((position) => {
-      setUserCurrentPingPosition({
-        latitude: position.coords.latitude,
-        longitude: position.coords.longitude,
-      });
-    });
-  }, []);
 
   return (
     <main className="w-full h-full flex justify-center items-center text-[200px]">
@@ -91,9 +77,7 @@ export default function Page() {
             latitude: result.latitude || 0,
             longitude: result.longitude || 0,
           }))}
-          userCurrentPingPosition={
-            userCurrentPingPosition as userCurrentPingPositionProp
-          }
+          userCurrentPingPosition={location}
           currentLatitude={currentLocation.latitude}
           currentLongitude={currentLocation.longitude}
           isCurrentLocationUIClicked={isCurrentLocationUIClicked}

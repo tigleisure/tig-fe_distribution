@@ -39,7 +39,7 @@ export default function Page() {
   };
 
   return (
-    <div className="w-full h-full overflow-y-scroll">
+    <div className="w-full shadow-mainShadow">
       <NoneArrowHeader title="마이페이지" />
       <My />
       <Modal
