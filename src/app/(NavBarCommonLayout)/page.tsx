@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import Modal from '@components/all/Modal';
 import Tabs from '@components/all/Tabs/Tabs';
 import { homeleisureArray, mainArray } from '@constant/constant';
@@ -35,6 +35,14 @@ const bannerLinkArray = [
 ];
 
 export default function Home() {
+  return (
+    <Suspense fallback={<TigLoadingPage />}>
+      <HomeContent />
+    </Suspense>
+  );
+}
+
+function HomeContent() {
   const [currentBanner, setCurrentBanner] = useState(0);
   const [isBannerClicked, setIsBannerClicked] = useState(false);
   const router = useRouter();
@@ -60,19 +68,18 @@ export default function Home() {
 
     return () => clearInterval(timer);
   }, [isBannerClicked]);
-  const mainRef = useRef<HTMLDivElement>(null);
   const MAINARRAY = mainArray;
   const { clubCards, recommendClubCards, isSuccess } = useGeolocation();
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
-    const mainElement = mainRef.current;
-    if (!mainElement) return;
+    if (typeof window === 'undefined') return;
 
     const controlNavbar = () => {
-      const currentScrollY = mainElement.scrollTop;
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+      const currentScrollY = document.documentElement.scrollTop;
+      console.log(currentScrollY);
+      if (currentScrollY > lastScrollY) {
         setIsVisible(false);
       } else {
         setIsVisible(true);
@@ -80,23 +87,20 @@ export default function Home() {
       setLastScrollY(currentScrollY);
     };
 
-    mainElement.addEventListener('scroll', controlNavbar);
+    window.addEventListener('scroll', controlNavbar);
 
     return () => {
-      mainElement.removeEventListener('scroll', controlNavbar);
+      window.removeEventListener('scroll', controlNavbar);
     };
   }, [lastScrollY]);
 
   return (
-    <main
-      ref={mainRef}
-      className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]"
-    >
-      <SearchHeader isHomeOrResultPage />
+    <main className="w-full flex flex-col pb-[40px] bg-white">
+      <SearchHeader isHomeOrResultPage className="sticky" />
       <Tabs
         tabArray={MAINARRAY}
         from="home"
-        className={`absolute top-[58px] transition-transform duration-300 ease-in-out z-[9] ${
+        className={`stickytransition-transform duration-300 ease-in-out z-[9] top-[58px] ${
           isVisible ? 'translate-y-0' : '-translate-y-300'
         }`}
       />
@@ -104,7 +108,7 @@ export default function Home() {
       {isSuccess && (
         <>
           <div
-            className="relative w-full max-w-[640px] mt-[111px] mb-5 cursor-pointer"
+            className="relative w-full max-w-[640px] mb-5 cursor-pointer"
             onMouseDown={() => setIsBannerClicked(true)}
             onMouseUp={() => setIsBannerClicked(false)}
             onMouseLeave={() => setIsBannerClicked(false)}

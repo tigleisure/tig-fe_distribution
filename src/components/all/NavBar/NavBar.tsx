@@ -37,7 +37,7 @@ export default function NavBar() {
     },
   ];
   return (
-    <section className="w-full h-[54px] bg-white flex justify-around items-center border-t absolute bottom-0 z-[200]">
+    <section className="w-full h-[54px] bg-white flex justify-around items-center border-t fixed bottom-0 z-[200] max-w-[480px] min-w-[360px]">
       {NavLists.map((navItem) => (
         <NavItem
           key={navItem.path}

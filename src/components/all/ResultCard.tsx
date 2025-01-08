@@ -91,8 +91,8 @@ export default function ResultCard({
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',
         {
-          'pb-[60px] h-fit': isLast,
-          'pt-[0] h-fit': isFirst,
+          // 'pb-[60px] h-fit': isLast,
+          // 'pt-[0] h-fit': isFirst,
         }
       )}
     >

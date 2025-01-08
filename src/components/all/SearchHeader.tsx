@@ -9,16 +9,23 @@ interface SearchHeaderProps {
   placeholder?: string;
   result?: boolean;
   isHomeOrResultPage?: boolean;
+  className?: string;
 }
 
 export default function SearchHeader({
   placeholder = '위치나 장소 검색',
   result = false,
   isHomeOrResultPage = false,
+  className,
 }: SearchHeaderProps) {
   const router = useRouter();
   return (
-    <section className="w-full h-fit pt-4 pb-[2px] px-4 bg-white flex items-center gap-4 absolute top-0 z-10">
+    <section
+      className={cn(
+        'w-full h-fit pt-4 pb-[2px] px-4 bg-white flex items-center gap-4 absolute top-0 z-10',
+        className
+      )}
+    >
       <Link href={'/'} className="shrink-0 cursor-pointer">
         <TigSVG />
       </Link>

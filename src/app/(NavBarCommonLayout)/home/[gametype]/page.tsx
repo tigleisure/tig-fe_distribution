@@ -88,22 +88,21 @@ export default function Home({ params }: { params: { gametype: string } }) {
   }, []);
 
   return (
-    <main className="h-full w-full flex flex-col overflow-y-scroll pb-[40px]">
-      <SearchHeader isHomeOrResultPage />
-      {!isSuccess && <TigLoadingPage />}
+    <main className="w-full flex flex-col pb-[40px]">
+      <SearchHeader isHomeOrResultPage className="sticky" />
       {
         <>
           <UITabs
             tabArray={tabArray}
             from="searchMain"
-            className="w-full px-5 top-[58px]"
+            className="w-full px-5 top-[58px] sticky"
           />
           {/* <Tabs
             tabArray={subtabArray}
             from="searchSub"
             className="w-full px-5 top-[148px]"
             rounded
-          /> */}
+            /> */}
           {isShowBounce && (
             <div className="absolute top-[58px] left-[72px] z-[400] flex flex-col w-fit animate-bounce">
               <ArrowSVG className="ml-5" />
@@ -112,8 +111,8 @@ export default function Home({ params }: { params: { gametype: string } }) {
               </div>
             </div>
           )}
-          <FilterHeader />
-          <div className="pt-[180px]"></div>
+          <FilterHeader className="sticky" />
+          {!isSuccess && <TigLoadingPage />}
           {renderingClubCards.map((clubCard, idx) => {
             if (idx === 0)
               return <ResultCard key={clubCard.clubId} {...clubCard} isFirst />;

@@ -17,7 +17,7 @@ export default function Tabs({
   return (
     <section
       className={cn(
-        'w-full flex h-[52px] overflow-x-scroll absolute bg-white z-[300]',
+        'w-full flex h-[52px] overflow-x-scroll sticky bg-white z-[300] top-0',
         {
           'items-center gap-[6px]': rounded,
           'border-b border-grey2': !rounded,
