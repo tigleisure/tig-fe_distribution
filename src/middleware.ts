@@ -4,9 +4,15 @@ import type { NextRequest } from 'next/server';
 export function middleware(request: NextRequest) {
   // Check if the request is for the home page
   // Get all cookies
-  console.log('url', request.url);
-  console.log('pathname', request.nextUrl.pathname);
   const cookies = request.cookies;
+  if (request.nextUrl.pathname === '/mypage') {
+    // Check if the user is logged in
+    const isLoggedIn = cookies.has('refreshToken');
+    if (!isLoggedIn) {
+      // Redirect the user to the login page
+      return NextResponse.redirect(new URL('/login', request.url));
+    }
+  }
 
   // Log all cookies
   console.log('Cookies for home request:', cookies.getAll());

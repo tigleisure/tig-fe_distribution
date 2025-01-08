@@ -39,6 +39,8 @@ export const useSearchResult = (
   const isBottomSheetOpen = useBottomSheetStore(
     (state) => state.isBottomSheetOpen
   );
+  
+  // 이것도 토큰여부를 확인할 수 있다면 두 요청 중 하나만 보내면 좋을 거 같아
   const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(
     search,
     isKeyword

@@ -47,6 +47,7 @@ const config: Config = {
         writingReviewInput: '0 0 0 1px #CED3D6 inset',
         paymentSelection: '0 0 0  1px #000000 inset',
         locationButton: '0 5px 20px rgba(0, 0, 0, 0.1)',
+        mainShadow: '0 5px 20px rgba(0, 0, 0, 0.1)',
       },
       screens: {
         resultTab: '440px',
