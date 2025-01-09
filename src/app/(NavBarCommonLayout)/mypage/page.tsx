@@ -19,11 +19,11 @@ export default function Page() {
     (state) => state.setLocalStorageAccessTokenState
   );
 
-  useEffect(() => {
-    if (localStorage.getItem('accessToken') === null) {
-      router.replace('/login');
-    }
-  }, [router]);
+  // useEffect(() => {
+  //   if (localStorage.getItem('accessToken') === null) {
+  //     router.replace('/login');
+  //   }
+  // }, [router]);
 
   useEffect(() => {
     return () => setSelectedIsModalOpen(false);
