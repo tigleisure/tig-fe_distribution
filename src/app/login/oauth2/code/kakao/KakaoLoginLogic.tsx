@@ -22,7 +22,7 @@ export default function KakaoLoginLogic() {
     async function sendAuthCodeToBackend() {
       try {
         const response = await fetch(
-          `https://api.tigleisure.com/callback?code=${authCode}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/callback?code=${authCode}`,
           {
             credentials: 'include',
           }

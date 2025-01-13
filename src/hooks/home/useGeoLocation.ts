@@ -19,7 +19,7 @@ export const useGeolocation = () => {
   const { location } = useLocation();
   const selectedTab = useTab((state) => state.selectedTab);
 
-  const { data: homeData, isSuccess } = useSuspenseQuery({
+  const { data: homeData } = useSuspenseQuery({
     queryKey: ['homeData', location.latitude, location.longitude],
     queryFn: async () => {
       const api = localStorage.getItem('accessToken')
@@ -58,7 +58,6 @@ export const useGeolocation = () => {
   return {
     clubCards,
     recommendClubCards,
-    isSuccess,
   };
 };
 

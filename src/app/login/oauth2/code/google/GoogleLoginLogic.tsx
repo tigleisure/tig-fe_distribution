@@ -22,7 +22,7 @@ export default function GoogleLoginLogic() {
     async function sendAuthCodeToBackend() {
       try {
         const response = await fetch(
-          `https://api.tigleisure.com/google/callback?code=${authCode}`,
+          `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/google/callback?code=${authCode}`,
           {
             credentials: 'include',
           }

@@ -4,8 +4,9 @@ import { useCallback, useEffect, useState } from 'react';
 import useGeolocation from './useGeoLocation';
 
 export const useHomeCards = () => {
-  const { clubCards, isSuccess } = useGeolocation();
-  const [renderingClubCards, setRenderingClubCards] = useState<Club[]>(clubCards);
+  const { clubCards } = useGeolocation();
+  const [renderingClubCards, setRenderingClubCards] =
+    useState<Club[]>(clubCards);
   const selectedOption = useFilterOptionStore((state) => state.filterOption);
 
   const filtering = useCallback(() => {
@@ -39,6 +40,5 @@ export const useHomeCards = () => {
 
   return {
     renderingClubCards,
-    isSuccess
   };
 };

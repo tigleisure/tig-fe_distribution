@@ -25,7 +25,7 @@ export default function HistoryInAdminItem({
   return (
     <Link
       href={`/reservation-list/reservation/${reservationId}`}
-      className="w-eightNineWidth h-fit p-5 gap-y-2 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
+      className="w-full h-fit p-5 gap-y-2 flex flex-col justify-between items-center shadow-myPageLogoutButton rounded-[10px]"
     >
       <HistoryComponentUpperSection
         clubName={clubName}

@@ -33,7 +33,7 @@ export default function HistoryComponentUpperSection({
     >
       <div className="relative w-[106px] h-[106px] rounded-[10px] overflow-hidden">
         <Image
-          src={imageUrls ? imageUrls[0] : '/png/dummyImage.png'}
+          src={imageUrls ? imageUrls[0] : 'https://dr1gzgtk6yo4q.cloudfront.net/331/1.jpeg'}
           alt="업체 사진"
           fill
         />
