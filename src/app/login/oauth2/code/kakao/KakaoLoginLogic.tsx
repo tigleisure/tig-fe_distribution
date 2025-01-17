@@ -33,13 +33,13 @@ export default function KakaoLoginLogic() {
           const data: kakaoLoginResponseProp = await response.json();
           // TODO: 토큰으로 변경 시 필요 x, 구글에도 적용해야 함
           // localStorage.setItem('accessToken', data.result.accessToken);
-          setCookie('accessToken', data.result.accessToken);
           if (
             process.env.NEXT_PUBLIC_DEVELOPMENT_MODE &&
             process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'
           ) {
-            router.push(sessionStorage.getItem('prev') || '/');
+            setCookie('accessToken', data.result.accessToken);
           }
+          router.push(sessionStorage.getItem('prev') || '/');
         } else {
           throw new Error(
             '인증 코드를 기반으로 로그인 하는 데에 실패했습니다!'
