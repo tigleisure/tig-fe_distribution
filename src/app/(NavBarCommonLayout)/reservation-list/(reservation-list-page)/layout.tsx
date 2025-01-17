@@ -1,7 +1,12 @@
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, Suspense } from 'react';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import CustomSuspense from '@providers/CustomSuspense';
+import {
+  HydrationBoundary,
+  QueryClient,
+  dehydrate,
+} from '@tanstack/react-query';
 
 export default function ReservationListLayout({ children }: PropsWithChildren) {
   return (
