@@ -1,6 +1,6 @@
 'use client';
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClient, QueryClientProvider, defaultShouldDehydrateQuery } from '@tanstack/react-query';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -9,6 +9,12 @@ function makeQueryClient() {
         // SSR에서는 클라이언트에서 즉시 refetch하는 것을 피하기 위해
         // staleTime을 0보다 크게 설정하는 것이 좋다.
         staleTime: 60 * 1000,
+      },
+      dehydrate: {
+        // include pending queries in dehydration
+        shouldDehydrateQuery: (query) =>
+          defaultShouldDehydrateQuery(query) ||
+          query.state.status === 'pending',
       },
     },
   });

@@ -8,19 +8,27 @@ import { ReservationItemProps } from 'types/reservation-list/ReservationListPage
 import NoneResultUI from '@components/all/NoneResultUI/NoneResultUI';
 import Modal from '@components/all/Modal';
 import useModal from '@store/modalStore';
-import { useGetReservationList } from '@apis/reservation-list/getUserReservationList';
 import { useRouter } from 'next/navigation';
 import cancelPortOnePayment from '@apis/portone/cancelPayment';
 import { useDeleteUserSpecificReservation } from '@apis/reservation-list/reservation/deleteUserSpecificReservation';
-import { useQueryClient } from '@tanstack/react-query';
+import {
+  useQuery,
+  useQueryClient,
+  useSuspenseQuery,
+} from '@tanstack/react-query';
 import handleSendTigCancelFailToDiscord from '@apis/discord/sendBackendCancelFailMessageToDiscord';
 
-export default function ReservationListPage() {
+export default function ReservationListPage({
+  reservationList,
+}: {
+  reservationList: ReservationItemProps[];
+}) {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const { data } = useGetReservationList();
-  const reservationList = data.result;
+  // const { data } = useGetReservationList();
+  // console.log(data);
+  // const reservationList = data.result;
   const cancelReservationMutation = useDeleteUserSpecificReservation();
 
   const [historyHeadState, setHistoryHeadState] = useState<
@@ -73,8 +81,9 @@ export default function ReservationListPage() {
       {
         reservationId: cancelReservationId as number,
         couponId:
-          data.result.find((res) => res.reservationId === cancelReservationId)
-            ?.couponId || -1,
+          reservationList.find(
+            (res) => res.reservationId === cancelReservationId
+          )?.couponId || -1,
       },
       {
         onSuccess(data) {

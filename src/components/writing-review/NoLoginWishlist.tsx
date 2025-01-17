@@ -1,3 +1,4 @@
+'use client';
 import NonLoginIconSVG from '@public/svg/nonLogin/nonLoginIcon.svg';
 import { useRouter } from 'next/navigation';
 

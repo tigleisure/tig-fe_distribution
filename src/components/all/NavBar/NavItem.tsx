@@ -15,38 +15,38 @@ export default function NavItem({
   // const [localStorageAccessToken, setLocalStorageAccessToken] = useState<
   //   string | null
   // >(null);
-  const localStorageAccessTokenState = useLocalStorageState(
-    (state) => state.localStorageAccessTokenState
-  );
+  // const localStorageAccessTokenState = useLocalStorageState(
+  //   (state) => state.localStorageAccessTokenState
+  // );
 
-  const setLocalStoraeAccessTokenState = useLocalStorageState(
-    (state) => state.setLocalStorageAccessTokenState
-  );
+  // const setLocalStoraeAccessTokenState = useLocalStorageState(
+  //   (state) => state.setLocalStorageAccessTokenState
+  // );
 
-  useEffect(() => {
-    setLocalStoraeAccessTokenState(localStorage.getItem('accessToken'));
-  }, []);
+  // useEffect(() => {
+  //   setLocalStoraeAccessTokenState(localStorage.getItem('accessToken'));
+  // }, []);
 
-  const targetPath =
-    path !== '/mypage'
-      ? path
-      : localStorageAccessTokenState === null
-      ? '/login'
-      : '/mypage';
+  // const targetPath =
+  //   path !== '/mypage'
+  //     ? path
+  //     : localStorageAccessTokenState === null
+  //     ? '/login'
+  //     : '/mypage';
 
   const isActive =
     pathname === '/'
-      ? pathname === targetPath
+      ? pathname === path
         ? true
         : false
-      : targetPath === '/'
+      : path === '/'
       ? false
-      : pathname?.startsWith(targetPath)
+      : pathname?.startsWith(path)
       ? true
       : false;
 
   return (
-    <Link href={targetPath} className="cursor-pointer">
+    <Link href={path} className="cursor-pointer">
       {isActive ? <ActiveIcon /> : <InactiveIcon />}
     </Link>
   );
