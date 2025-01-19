@@ -16,7 +16,6 @@ export default function WishListPage() {
   const { data: wishList } = useSuspenseQuery<WishListResponse>({
     queryKey: ['wishlist'],
   });
-  console.log(wishList);
   const selectedTab = useTab((state) => state.selectedTab);
   const [filteredWishList, setFilteredWishList] = useState<ResultCardProps[]>(
     wishList.result
