@@ -33,7 +33,11 @@ export default function HistoryComponentUpperSection({
     >
       <div className="relative w-[106px] h-[106px] rounded-[10px] overflow-hidden">
         <Image
-          src={imageUrls ? imageUrls[0] : 'https://dr1gzgtk6yo4q.cloudfront.net/331/1.jpeg'}
+          src={
+            imageUrls
+              ? imageUrls[0]
+              : 'https://dr1gzgtk6yo4q.cloudfront.net/331/1.jpeg'
+          }
           alt="업체 사진"
           fill
         />
@@ -51,8 +55,7 @@ export default function HistoryComponentUpperSection({
           <div className="w-full h-fit flex justify-start items-center gap-x-[6px]">
             <SmallCalendarSVG />
             <span className="body4 text-grey7">
-              {formatReservationShowingDate(date)}
-              {' '}
+              {formatReservationShowingDate(startTime)}{' '}
               {parseInt(extractOnlyTime(startTime).slice(0, 2)) <= 12
                 ? '오전'
                 : '오후'}{' '}

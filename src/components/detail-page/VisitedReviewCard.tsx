@@ -58,7 +58,7 @@ export const VisitedReviewCard = forwardRef<
             <p>({ratingCount})</p>
           </div>
         </div>
-        {reviewSummary !== '' && (
+        {reviewSummary !== null && (
           <div className="w-full rounded-[14px] bg-[#D5FFE2] py-3 px-4 gap-[6px] flex flex-col">
             <p className="title3 text-grey7">AI 리뷰분석</p>
             <p className="body5 text-grey6">{reviewSummary}</p>

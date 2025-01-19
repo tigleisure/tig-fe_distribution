@@ -30,11 +30,17 @@ export default function Page() {
   }, [setSelectedIsModalOpen]);
 
   const handleClickLogoutButton = (): void => {
-    removeUserRefreshToken().then((response) =>
-      localStorage.removeItem('accessToken')
-    );
-    // 추후에 refreshToken도 무효화시켜달라는 백엔드 API가 필요
-    setLocalStoraeAccessTokenState(null);
+    if (
+      process.env.NEXT_PUBLIC_DEVELOPMENT_MODE &&
+      process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'
+    ) {
+      removeUserRefreshToken().then((response) =>
+        localStorage.removeItem('accessToken')
+      );
+      setLocalStoraeAccessTokenState(null);
+    } else {
+      removeUserRefreshToken();
+    }
     router.replace('/');
   };
 

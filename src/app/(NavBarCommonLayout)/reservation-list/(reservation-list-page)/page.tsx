@@ -5,7 +5,7 @@ import { getUserResListFetch } from '@apis/reservation-list/getUserResListFetch'
 
 export default async function Page() {
   const cookieStore = cookies();
-  const refreshToken = cookieStore.get('refreshToken');
+  const refreshToken = cookieStore.get('accessToken');
 
   if (!refreshToken) {
     return <NonLoginReservationList />;

@@ -72,13 +72,13 @@ export default function MakeResButtonCard({
     const calculateDate = convertToNextDayIfNextDay(
       gameResInfo.startTime?.slice(11, 16) || '',
       clubStartTime,
-      gameResInfo.date
+      gameResInfo.startTime
     );
 
     const query = {
       gameType: 'GAME',
-      date: calculateDate,
-      startTime: gameResInfo.startTime,
+      date: gameResInfo.date,
+      startTime: calculateDate,
       gameCount: String(gameResInfo.gameCount),
       request: gameResInfo.request,
       // price: '금액 by BE',

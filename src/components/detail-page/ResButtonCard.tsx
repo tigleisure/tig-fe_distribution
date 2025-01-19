@@ -18,10 +18,6 @@ export default function ResButtonCard({
 }) {
   const router = useRouter();
   const handleReservation = () => {
-    if (!localStorage.getItem('accessToken')) {
-      router.push('/login');
-      return;
-    }
     const resDate = new Date(date);
     const formatDayOfWeek = formatDate(resDate, 'EEE').toUpperCase();
     // if (type === 'GAME') {

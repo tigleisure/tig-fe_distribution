@@ -9,6 +9,7 @@ export const getUserResListFetch =
         headers: {
           Cookie: cookies().toString(),
         },
+        cache: 'no-store',
       }
     );
     console.log(cookies().toString());

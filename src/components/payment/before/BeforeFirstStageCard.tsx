@@ -41,7 +41,7 @@ export default function BeforeFirstStageCard({
         <div className="w-full flex justify-between items-center">
           <span className="title4 text-grey4">날짜</span>
           <span className="body4 text-grey6">
-            {formatReservationShowingDate(date)}
+            {formatReservationShowingDate(startTime)}
           </span>
         </div>
         <div className="w-full flex justify-between items-center">

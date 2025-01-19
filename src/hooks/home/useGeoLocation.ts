@@ -15,16 +15,14 @@ export interface HomeData {
 }
 
 // cookie를 까봐서 RT가 있는지 없는지 확인해서 요청을 결정하면 되지 않을까?
-export const useGeolocation = () => {
+export const useGeolocation = (isLogin: boolean) => {
   const { location } = useLocation();
   const selectedTab = useTab((state) => state.selectedTab);
 
   const { data: homeData } = useSuspenseQuery({
     queryKey: ['homeData', location.latitude, location.longitude],
     queryFn: async () => {
-      const api = localStorage.getItem('accessToken')
-        ? getHomeForLogin
-        : getHomeForUnlogin;
+      const api = isLogin ? getHomeForLogin : getHomeForUnlogin;
       return api(location);
     },
     refetchOnWindowFocus: true,

@@ -13,9 +13,8 @@ import { useSuspenseQuery } from '@tanstack/react-query';
 import { getWishList } from '@apis/wishlist/getWishList';
 
 export default function WishListPage() {
-  const { data: wishList } = useSuspenseQuery({
+  const { data: wishList } = useSuspenseQuery<WishListResponse>({
     queryKey: ['wishlist'],
-    queryFn: () => getWishList(),
   });
   console.log(wishList);
   const selectedTab = useTab((state) => state.selectedTab);

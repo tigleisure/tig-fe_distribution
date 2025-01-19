@@ -79,13 +79,15 @@ export const convertToNextDayIfNextDay = (
   clubStartTime: string,
   date: string
 ) => {
+  console.log(reservationStartTime, clubStartTime, date);
   if (timeToMinutes(reservationStartTime) < timeToMinutes(clubStartTime)) {
     const newDate = new Date(date.slice(0, 10));
     const returnNextDay = format(
       new Date(newDate.setDate(newDate.getDate() + 1)),
       'yyyy-MM-dd'
     );
-    return `${returnNextDay}T00:00:00`;
+    console.log(returnNextDay);
+    return `${returnNextDay}T${reservationStartTime}:00`;
   }
   return date;
 };

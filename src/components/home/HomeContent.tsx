@@ -9,9 +9,9 @@ import UIList from '@components/home/UIList';
 import HomeBanner from '@components/home/HomeBanner';
 import { useScroll } from '@hooks/useScroll';
 
-export default function HomeContent() {
+export default function HomeContent({ isLogin }: { isLogin: boolean }) {
   const MAINARRAY = mainArray;
-  const { clubCards, recommendClubCards } = useGeolocation();
+  const { clubCards, recommendClubCards } = useGeolocation(isLogin);
   const { isVisible } = useScroll();
 
   return (

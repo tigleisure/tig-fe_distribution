@@ -3,8 +3,8 @@ import { useFilterOptionStore } from '@store/filterOptionStore';
 import { useCallback, useEffect, useState } from 'react';
 import useGeolocation from './useGeoLocation';
 
-export const useHomeCards = () => {
-  const { clubCards } = useGeolocation();
+export const useHomeCards = (isLogin: boolean) => {
+  const { clubCards } = useGeolocation(isLogin);
   const [renderingClubCards, setRenderingClubCards] =
     useState<Club[]>(clubCards);
   const selectedOption = useFilterOptionStore((state) => state.filterOption);
