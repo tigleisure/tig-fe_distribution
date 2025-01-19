@@ -28,7 +28,7 @@ export default function Layout({ children }: PropsWithChildren) {
       <Suspense
         fallback={
           <div className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">
-            {[...Array(5)].map((_, index) => (
+            {[...Array(7)].map((_, index) => (
               <WishListItemSkeleton key={index} />
             ))}
           </div>

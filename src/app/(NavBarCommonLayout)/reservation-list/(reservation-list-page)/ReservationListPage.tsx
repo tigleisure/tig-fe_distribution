@@ -155,7 +155,7 @@ export default function ReservationListPage({
       <CustomSuspense
         fallback={
           <main className="w-full max-h-reservationListMain pt-5 pb-10 flex flex-col top-[117px] absolute justify-start items-center gap-y-[10px] overflow-y-scroll">
-            {[1, 2, 3, 4].map((index) => (
+            {[...Array(7)].map((index) => (
               <HistoryInProgressItemSkeleton key={index} />
             ))}
           </main>
