@@ -21,7 +21,7 @@ export default function HomeContent({
   const { isVisible } = useScroll();
 
   return (
-    <main className="w-full flex flex-col pb-[40px] bg-white shadow-mainShadow">
+    <>
       <SearchHeader isHomeOrResultPage className="sticky" />
       <Tabs
         tabArray={MAINARRAY}
@@ -34,6 +34,6 @@ export default function HomeContent({
       <HomeCardList title="근처에서 즐길 수 있는 스포츠예요" Card={clubCards} />
       <HomeCardList title="이런 스포츠 어때요?" Card={recommendClubCards} />
       <Footer />
-    </main>
+    </>
   );
 }

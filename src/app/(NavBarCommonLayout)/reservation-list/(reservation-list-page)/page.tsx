@@ -14,6 +14,9 @@ export default async function Page() {
   // 서버 사이드에서 직접 데이터를 가져옴
   const data = await getUserResListFetch();
   const reservationList = data.result;
-
-  return <ReservationListPage reservationList={reservationList} />;
+  return (
+    <div className="w-full h-full flex flex-col shadow-mainShadow">
+      <ReservationListPage reservationList={reservationList} />
+    </div>
+  );
 }
