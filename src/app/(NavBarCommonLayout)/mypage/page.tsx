@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import useLocalStorageState from '@store/localStorageAccessTokenStore';
 import { removeUserRefreshToken } from '@apis/mypage/removeRefreshToken';
 import NoneArrowHeader from '@components/all/NoneArrowHeader';
+import { setCookie } from 'cookies-next';
 
 export default function Page() {
   const setSelectedIsModalOpen = useModal(
@@ -34,14 +35,14 @@ export default function Page() {
       process.env.NEXT_PUBLIC_DEVELOPMENT_MODE &&
       process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'
     ) {
-      removeUserRefreshToken().then((response) =>
-        localStorage.removeItem('accessToken')
+      await removeUserRefreshToken().then((response) =>
+        setCookie('accessToken', '', { expires: new Date(0), path: '/' })
       );
       setLocalStoraeAccessTokenState(null);
     } else {
-      removeUserRefreshToken();
+      await removeUserRefreshToken();
     }
-    router.replace('/');
+    window.location.href = '/';
   };
 
   return (
