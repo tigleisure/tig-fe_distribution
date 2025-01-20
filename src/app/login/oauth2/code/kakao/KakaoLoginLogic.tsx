@@ -58,7 +58,7 @@ export default function KakaoLoginLogic() {
     }
   }, []);
   return (
-    <div className="w-full h-full flex justify-center items-center">
+    <div className="w-full h-full flex justify-center items-center shadow-mainShadow">
       <Lottie animationData={TigLoadingAnimation} style={{ width: '20.8%' }} />
     </div>
   );

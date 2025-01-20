@@ -15,7 +15,7 @@ export default async function Page() {
   const data = await getUserResListFetch();
   const reservationList = data.result;
   return (
-    <div className="w-full h-full flex flex-col shadow-mainShadow">
+    <div className="w-full h-full flex flex-col">
       <ReservationListPage reservationList={reservationList} />
     </div>
   );

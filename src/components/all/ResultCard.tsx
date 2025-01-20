@@ -60,7 +60,7 @@ export default function ResultCard({
   };
   const handleEmptyHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
     e.stopPropagation();
-    if (!localStorage.getItem('accessToken')) {
+    if (isHeart === null) {
       router.push('/login');
       return;
     }

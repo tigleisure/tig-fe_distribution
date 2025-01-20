@@ -65,7 +65,7 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
     const { mutate: addToWishList } = useAddToWishList();
     const [isHeartClicked, setIsHeartClicked] = useState(false);
     const handleEmptyHeartClick = () => {
-      if (!localStorage.getItem('accessToken')) {
+      if (isHeart === null) {
         router.push('/login');
         return;
       }

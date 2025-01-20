@@ -29,7 +29,7 @@ export default function Page() {
     return () => setSelectedIsModalOpen(false);
   }, [setSelectedIsModalOpen]);
 
-  const handleClickLogoutButton = (): void => {
+  const handleClickLogoutButton = async (): Promise<void> => {
     if (
       process.env.NEXT_PUBLIC_DEVELOPMENT_MODE &&
       process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'

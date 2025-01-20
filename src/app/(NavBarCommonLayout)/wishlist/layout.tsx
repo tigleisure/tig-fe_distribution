@@ -13,18 +13,17 @@ export default function Layout({ children }: PropsWithChildren) {
   const accessToken = cookieStore.get('accessToken');
 
   if (!accessToken) {
-    return <NoLoginWishList />;
+    return (
+      <div className="flex flex-col h-full pb-[54px] items-center shadow-mainShadow">
+        <NoneArrowHeader title="위시리스트" />
+        <NoLoginWishList />
+      </div>
+    );
   }
 
   return (
-    <div className="flex flex-col h-full pb-[54px] items-center">
+    <div className="flex flex-col h-full pb-[54px] items-center shadow-mainShadow">
       <NoneArrowHeader title="위시리스트" />
-      <Tabs
-        tabArray={allleisureArray}
-        rounded
-        from="wishlist"
-        className="w-full px-5 top-[58px]"
-      />
       <Suspense
         fallback={
           <div className="w-full max-h-wishListMain absolute top-[120px] pb-10 overflow-y-scroll">

@@ -19,7 +19,7 @@ export interface ResultCardProps {
     | 'SQUSH'
     | 'BILLIARDS';
   isEvent?: boolean;
-  isHeart?: boolean;
+  isHeart?: boolean | null;
   imageUrls: string[];
   isLast?: boolean;
   latitude?: number;
