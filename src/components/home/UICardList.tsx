@@ -1,4 +1,3 @@
-'use client';
 import BallingSVG from '@public/svg/homeUI/balling.svg';
 import BaseballSVG from '@public/svg/homeUI/baseball.svg';
 import FootballSVG from '@public/svg/homeUI/football.svg';

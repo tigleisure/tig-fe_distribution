@@ -4,7 +4,7 @@ import NoneArrowHeader from '@components/all/NoneArrowHeader';
 export default function ReservationListLayout({ children }: PropsWithChildren) {
   return (
     <>
-      <div className="flex flex-col h-full pb-[54px] items-center">
+      <div className="flex flex-col h-full pb-[54px] items-center shadow-mainShadow">
         <NoneArrowHeader title="예약내역" />
         {children}
       </div>
