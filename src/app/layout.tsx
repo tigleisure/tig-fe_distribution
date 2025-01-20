@@ -28,6 +28,7 @@ export const metadata: Metadata = {
   formatDetection: {
     telephone: false,
     email: false,
+    address: false,
   },
   verification: {
     google: 'KQwY2GiXDthatwkTYIgC_dR9eeNVpbitvB6RZOYqdk8',

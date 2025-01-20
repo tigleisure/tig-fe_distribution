@@ -9,6 +9,7 @@ export const getWishList = async (
       headers: {
         Cookie: cookie ?? '',
       },
+      cache: 'no-store',
     }
   );
   return res.json();

@@ -31,10 +31,10 @@ export default function HomeGameTypepage({
   }, []);
 
   return (
-    <main className="w-full flex flex-col pb-[40px] shadow-mainShadow relative">
+    <main className="w-full flex flex-col pb-[40px] shadow-mainShadow">
       <SearchHeader isHomeOrResultPage className="sticky" />
       {isShowBounce && (
-        <div className="absolute top-[58px] left-[72px] z-[400] flex flex-col w-fit animate-bounce">
+        <div className="fixed left-[calc(50%-240px+72px)] top-[58px] z-[400] flex flex-col w-fit animate-bounce">
           <ArrowSVG className="ml-5" />
           <div className="relative top-[-1px] bg-grey6 text-white z-[400] body5 rounded-[30px] px-[10px] py-1">
             원하는 날짜와 시간을 설정해보세요!

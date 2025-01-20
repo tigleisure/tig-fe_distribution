@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import Lottie from 'lottie-react';
 import TigLoadingAnimation from '@public/lottie/TigLoadingAnimation.json';
+import { setCookie } from 'cookies-next';
 
 interface GoogleLoginResponseProp {
   result: {
@@ -30,7 +31,12 @@ export default function GoogleLoginLogic() {
 
         if (response.ok) {
           const data: GoogleLoginResponseProp = await response.json();
-          localStorage.setItem('accessToken', data.result.accessToken);
+          if (
+            process.env.NEXT_PUBLIC_DEVELOPMENT_MODE &&
+            process.env.NEXT_PUBLIC_DEVELOPMENT_MODE === 'true'
+          ) {
+            setCookie('accessToken', data.result.accessToken);
+          }
           router.push(sessionStorage.getItem('prev') || '/');
         } else {
           throw new Error(

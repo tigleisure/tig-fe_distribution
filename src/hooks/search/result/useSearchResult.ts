@@ -14,7 +14,8 @@ import { timeToMinutes } from '@utils/formatDate';
 export const useSearchResult = (
   search: string,
   isKeyword: string,
-  formatDayOfWeek: string
+  formatDayOfWeek: string,
+  isLogin: boolean
   // time: string
 ) => {
   const [isResult, setIsResult] = useState(false);
@@ -39,7 +40,7 @@ export const useSearchResult = (
   const isBottomSheetOpen = useBottomSheetStore(
     (state) => state.isBottomSheetOpen
   );
-  
+
   // 이것도 토큰여부를 확인할 수 있다면 두 요청 중 하나만 보내면 좋을 거 같아
   const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(
     search,
@@ -51,7 +52,7 @@ export const useSearchResult = (
   const setSearchInput = useSearchInputInfo((state) => state.setSearchInput);
 
   useEffect(() => {
-    if (localStorage.getItem('accessToken')) {
+    if (isLogin) {
       setCurrentLocation({
         latitude: loginUserSearchResult?.result.avgLatitude || 37.55527,
         longitude: loginUserSearchResult?.result.avgLongitude || 126.9366,

@@ -59,12 +59,12 @@ export default function ResultCard({
     setIsHeartClicked(false);
   };
   const handleEmptyHeartClick = (e: React.MouseEvent<SVGSVGElement>) => {
+    addToWishList(clubId || 0);
     e.stopPropagation();
     if (isHeart === null) {
       router.push('/login');
       return;
     }
-    addToWishList(clubId || 0);
     setIsHeartClicked(true);
   };
 
