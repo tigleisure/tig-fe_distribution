@@ -1,18 +1,25 @@
 import { WishListResponse } from 'types/response/response';
 
 export const getWishList = async (
-  cookie?: string
+  cookies: string
 ): Promise<WishListResponse> => {
-  const res = await fetch(
+  const response = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/wishlist`,
     {
       headers: {
-        Cookie: cookie ?? '',
+        'Content-Type': 'application/json',
+        Cookie: cookies,
       },
+      credentials: 'include',
       cache: 'no-store',
     }
   );
-  return res.json();
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch wishlist');
+  }
+
+  return response.json();
 };
 
 // export const useGetWishList = () => {

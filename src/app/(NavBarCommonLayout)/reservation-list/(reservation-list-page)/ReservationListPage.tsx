@@ -114,6 +114,7 @@ export default function ReservationListPage({
       {
         onSuccess(data) {
           queryClient.invalidateQueries({ queryKey: ['userReservationList'] });
+          // queryClient.invalidateQueries({ queryKey: ['userInfo'] });
 
           if (data.resultCode === 200) {
             router.replace('/');

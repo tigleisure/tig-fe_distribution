@@ -20,6 +20,16 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
+  experimental: {
+    staleTimes: {
+      dynamic: 0,
+    },
+  },
+  // logging: {
+  //   fetches: {
+  //     fullUrl: true,
+  //   },
+  // },
 };
 
 export default nextConfig;

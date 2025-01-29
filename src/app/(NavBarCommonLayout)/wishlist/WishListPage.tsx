@@ -12,9 +12,10 @@ import { WishListResponse } from 'types/response/response';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import { getWishList } from '@apis/wishlist/getWishList';
 
-export default function WishListPage() {
+export default function WishListPage({ cookies }: { cookies: string }) {
   const { data: wishList } = useSuspenseQuery<WishListResponse>({
     queryKey: ['wishlist'],
+    queryFn: () => getWishList(cookies),
   });
   const selectedTab = useTab((state) => state.selectedTab);
   const [filteredWishList, setFilteredWishList] = useState<ResultCardProps[]>(

@@ -12,6 +12,5 @@ export const getUserResListFetch =
         cache: 'no-store',
       }
     );
-    console.log(cookies().toString());
     return res.json();
   };
