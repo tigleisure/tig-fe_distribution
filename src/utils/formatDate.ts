@@ -107,3 +107,14 @@ export function add24Hours(timeStr: string) {
 
   return result;
 }
+
+export function formatDateKor(date: Date | null) {
+  if (!date) return '';
+  const days = ['일', '월', '화', '수', '목', '금', '토'];
+  return `${date.getMonth() + 1}.${date.getDate()}(${days[date.getDay()]})`;
+}
+
+export function formatTime(time: string | null) {
+  if (!time) return '';
+  return time;
+}

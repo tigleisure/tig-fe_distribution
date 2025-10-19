@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 50 50" fill="none">
+<rect x="0.5" y="0.5" width="49" height="49" rx="24.5" fill="#F5F6F7"/>
+<rect x="0.5" y="0.5" width="49" height="49" rx="24.5" stroke="#FF6B00"/>
+<path d="M20 13.5713H22.5V16.4287H27.5V13.5713H30V10H32.5V12.1426H35V13.9287H37.5V16.4287H40V18.9287H42.5V28.9277H40V27.5H37.5V25.7139H35V24.2852H32.5V40H30V39.999H27.5V40H22.5V39.999H20V40H17.1426V24.2852H15V25.7139H12.5V27.5H10V28.9277H7.5V18.9287H10V16.4287H12.5V13.9287H15V12.1426H17.1426V10H20V13.5713ZM28.5713 10V11.7852H21.7861V10H28.5713Z" fill="#8B5CD3"/>
+<rect width="1.42856" height="4.64283" transform="matrix(-1 0 0 1 32.1445 18.571)" fill="white"/>
+<rect width="1.42856" height="4.64283" transform="matrix(-1 0 0 1 19.6445 18.571)" fill="white"/>
+<rect width="1.42856" height="2.14285" transform="matrix(-1 0 0 1 33.5703 16.4282)" fill="white"/>
+<rect width="1.42856" height="2.14285" transform="matrix(-1 0 0 1 18.2148 16.4282)" fill="white"/>
+</svg>

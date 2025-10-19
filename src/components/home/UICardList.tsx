@@ -6,6 +6,12 @@ import PocketballSVG from '@public/svg/homeUI/pocketball.svg';
 import SquashSVG from '@public/svg/homeUI/squash.svg';
 import TabletennisSVG from '@public/svg/homeUI/tableTennis.svg';
 import TennisSVG from '@public/svg/homeUI/tennis.svg';
+import GolfCourseSVG from '@public/svg/homeUI/golfCourse.svg';
+import PensionSVG from '@public/svg/homeUI/pension.svg';
+import BusSVG from '@public/svg/homeUI/bus.svg';
+import OutletCafeSVG from '@public/svg/homeUI/outletCafe.svg';
+import LunchBoxSVG from '@public/svg/homeUI/lunchBox.svg';
+import GroupUniformSVG from '@public/svg/homeUI/groupUniform.svg';
 import Link from 'next/link';
 
 interface UICardListProps {
@@ -17,7 +23,13 @@ interface UICardListProps {
     | 'TENNIS'
     | 'FOOTBALL'
     | 'BASEBALL'
-    | 'SQUASH';
+    | 'SQUASH'
+    | 'GOLF_COURSE'
+    | 'PENSION'
+    | 'BUS'
+    | 'CATERING'
+    | 'LUNCH_BOX'
+    | 'GROUP_UNIFORM';
 }
 
 export default function UICardList({ type }: UICardListProps) {
@@ -106,6 +118,72 @@ export default function UICardList({ type }: UICardListProps) {
       >
         <SquashSVG />
         <div className="body4">스쿼시</div>
+      </Link>
+    );
+  }
+  if (type === 'GOLF_COURSE') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <GolfCourseSVG />
+        <div className="body4">골프장</div>
+      </Link>
+    );
+  }
+  if (type === 'PENSION') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <PensionSVG />
+        <div className="body4">펜션</div>
+      </Link>
+    );
+  }
+  if (type === 'BUS') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <BusSVG />
+        <div className="body4">버스</div>
+      </Link>
+    );
+  }
+  if (type === 'CATERING') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <OutletCafeSVG />
+        <div className="body4">출장뷔페</div>
+      </Link>
+    );
+  }
+  if (type === 'LUNCH_BOX') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <LunchBoxSVG />
+        <div className="body4">도시락</div>
+      </Link>
+    );
+  }
+  if (type === 'GROUP_UNIFORM') {
+    return (
+      <Link
+        className="flex items-center gap-1 flex-col body4 text-grey6 cursor-pointer"
+        href={`/home/${type}`}
+      >
+        <GroupUniformSVG />
+        <div className="body4">단체복</div>
       </Link>
     );
   }

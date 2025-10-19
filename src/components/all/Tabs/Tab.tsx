@@ -92,6 +92,7 @@ export default function Tab({
             currentTab !== name && rounded,
           'w-fit px-[24px] shrink-0': !rounded,
           'w-fit rounded-[50px] px-[14px] py-[10px] shrink-0': rounded,
+          'w-1/2': from === 'search',
         },
         className
       )}

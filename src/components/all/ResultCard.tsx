@@ -33,6 +33,10 @@ export default function ResultCard({
   imageUrls = [],
   isLast = false,
   isFirst = false,
+  name,
+  id,
+  from = 'sports',
+  price,
 }: ResultCardProps) {
   const router = useRouter();
   const pathname = usePathname();
@@ -77,21 +81,21 @@ export default function ResultCard({
       onClick={() => {
         if (pathname.startsWith('/home') || pathname.startsWith('/wishlist')) {
           router.push(
-            `/detail-page/${clubId}?date=${formatDate(
+            `/detail-page/${clubId || id}?date=${formatDate(
               new Date(),
               "yyyy-MM-dd'T'HH:mm:ss"
-            )}`
+            )}&from=${from}`
           );
         } else {
           router.push(
-            `/detail-page/${clubId}?date=${searchParams.get('date')}`
+            `/detail-page/${clubId || id}?date=${searchParams.get('date')}&from=${from}`
           );
         }
       }}
       className={cn(
         'w-full h-[168px] flex gap-4 p-5 border-b border-grey2 max-w-[480px] min-w-[360px] cursor-pointer bg-white',
         {
-          // 'pb-[60px] h-fit': isLast,
+          'mb-[60px]': isLast,
           // 'pt-[0] h-fit': isFirst,
         }
       )}
@@ -131,7 +135,7 @@ export default function ResultCard({
       <div className="w-full flex flex-col justify-between h-full">
         <div className="w-full h-fit flex flex-col gap-[10px]">
           <div className="w-full flex flex-col gap-1">
-            <p className="title3 text-grey7">{clubName}</p>
+            <p className="title3 text-grey7">{clubName || name}</p>
             <p className="w-full body4 text-grey5 line-clamp-1">{address}</p>
           </div>
           {ratingCount !== 0 && (
@@ -148,7 +152,8 @@ export default function ResultCard({
         </div>
         <div className="flex flex-col gap-1">
           <p className="headline2 text-grey7">
-            {prices &&
+            {from === 'package' && Number(price).toLocaleString()}
+            {from === 'sports' && prices &&
               Math.min(
                 ...(prices as any[]).map((obj) => obj.price)
               ).toLocaleString()}

@@ -46,6 +46,7 @@ export const useGeolocation = (isLogin: boolean) => {
       };
     }, [homeData]);
 
+  // 패키지 탭일 때는 클럽 데이터를 사용하지 않음
   const clubCards = useMemo(() => {
     if (['홈', '문화', '스포츠'].includes(selectedTab)) {
       return originalClubCards;

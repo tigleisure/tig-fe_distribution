@@ -10,6 +10,7 @@ import {
   useGameReservationStore,
   useTimeReservationStore,
 } from '@store/makeReservationInfo';
+import { usePriceStore } from '@store/priceStore';
 
 export default function ChooseCard({ title, description }: ChooseCardProps) {
   const [count, setCount] = useState(1);
@@ -41,8 +42,11 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
     (state) => state.setTimeReservationInfo
   );
 
+  const clearPrice = usePriceStore((state) => state.clearPriceStack);
+
   const countDownHandler = () => {
     if (count === 0) return;
+    clearPrice();
     setCount((prev) => prev - 1);
     // if (pathname.startsWith('/reservation/game')) {
     //   if (title === '성인') {
@@ -87,6 +91,7 @@ export default function ChooseCard({ title, description }: ChooseCardProps) {
   };
 
   const countUpHandler = () => {
+    clearPrice();
     setCount((prev) => prev + 1);
     // if (pathname.startsWith('/reservation/game')) {
     //   if (title === '성인') {

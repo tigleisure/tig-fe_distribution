@@ -63,6 +63,36 @@ export default function ResButtonCard({
         `/reservation/BALLING/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
       );
     }
+    else if (category === 'BUS') {
+      router.push(
+        `/reservation/BUS/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    else if (category === 'CATERING') {
+      router.push(
+        `/reservation/CATERING/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    else if (category === 'LUNCH_BOX') {
+      router.push(
+        `/reservation/LUNCH_BOX/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    else if (category === 'GROUP_UNIFORM') {
+      router.push(
+        `/reservation/GROUP_UNIFORM/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    else if (category === 'PENSION') {
+      router.push(
+        `/reservation/PENSION/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
+    else if (category === 'GOLF_COURSE') {
+      router.push(
+        `/reservation/GOLF_COURSE/${companyId}?date=${date}&dayOfWeek=${formatDayOfWeek}`
+      );
+    }
   };
   return (
     <section className="h-[78px] w-full flex justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">
@@ -76,3 +106,4 @@ export default function ResButtonCard({
     </section>
   );
 }
+

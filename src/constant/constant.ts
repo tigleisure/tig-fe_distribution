@@ -1,5 +1,3 @@
-import { table } from 'console';
-
 export const allleisureArray = [
   '전체',
   '당구',
@@ -62,7 +60,7 @@ export const subtabArrays: { [key: string]: string[] } = {
   볼링: balling,
 };
 
-export const mainArray = ['스포츠'];
+export const mainArray = ['스포츠', '패키지'];
 export const detailArrayWhenReview = ['기본정보', '편의시설', '방문자 리뷰'];
 export const detailArrayWhenNoReview = ['기본정보', '편의시설'];
 
@@ -107,4 +105,52 @@ export const facilityMapEngToKor: { [key: string]: string } = {
   ENTRANCE_WHEELCHAIR_ACCESSIBLE: '출입구 휠체어 이용 가능',
   SEAT_WHEELCHAIR_ACCESSIBLE: '좌석 휠체어 가능',
   DISABLED_PARKING: '장애인 주차 구역',
+};
+
+/************************* 패키지 관련 상수 *************************/
+export const allpackageArray = [
+  '전체',
+  '골프장',
+  '펜션',
+  '버스',
+  '출장뷔페',
+  '도시락',
+  '단체복',
+];
+
+export const homepackageArray = [
+  '홈',
+  '골프장',
+  '펜션',
+  '버스',
+  '출장뷔페',
+  '도시락',
+  '단체복',
+];
+
+export const packageArray = [
+  '골프장',
+  '펜션',
+  '버스',
+  '출장뷔페',
+  '도시락',
+  '단체복',
+];
+
+export const packageArrayMapKorToEng: { [key: string]: string } = {
+  골프장: 'GOLF_COURSE',
+  펜션: 'PENSION',
+  버스: 'BUS',
+  출장뷔페: 'CATERING',
+  도시락: 'LUNCH_BOX',
+  단체복: 'GROUP_UNIFORM',
+};
+
+export const packageArrayMapEngToKor: { [key: string]: string } = {
+  GOLF_COURSE: '골프장',
+  PENSION: '펜션',
+  BUS: '버스',
+  CATERING: '출장뷔페',
+  LUNCH_BOX: '도시락',
+  GROUP_UNIFORM: '단체복',
 };

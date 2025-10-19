@@ -145,7 +145,7 @@ const customModalStyles: ReactModal.Styles = {
     backgroundColor: 'white',
     width: '100%',
     height: '100vh',
-    zIndex: '10',
+    zIndex: '1000',
     position: 'fixed',
     top: '0',
     left: '0',

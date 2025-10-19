@@ -3,14 +3,16 @@ import CountUpSVG from '@public/svg/countUp.svg';
 import { useGameReservationStore } from '@store/makeReservationInfo';
 import { usePriceStore } from '@store/priceStore';
 import { cn } from '@utils/cn';
-import { useEffect, useState } from 'react';
+import { ComponentType, useEffect, useState } from 'react';
 
 export default function GameCountCard({
   name,
   price,
+  from = 'sports',
 }: {
   name: string;
   price: number;
+  from?: 'sports' | 'package';
 }) {
   const totalPrice = usePriceStore((state) => state.price);
   const pushPrice = usePriceStore((state) => state.pushPrice);
@@ -20,6 +22,7 @@ export default function GameCountCard({
   const gameResInfo = useGameReservationStore(
     (state) => state.gameReservationInfo
   );
+  console.log(gameResInfo);
   const setGameResInfo = useGameReservationStore(
     (state) => state.setGameReservationInfo
   );
@@ -34,7 +37,8 @@ export default function GameCountCard({
 
   const countUpHandler = () => {
     setCount((prev) => prev + 1);
-    pushPrice({ name, price });
+    if (from === 'sports') pushPrice({ name, price });
+    else pushPrice({ name, price: price * gameResInfo.adultCount });
     setGameResInfo({ ...gameResInfo, gameDescription: name });
   };
 
@@ -50,6 +54,39 @@ export default function GameCountCard({
     }
   }, [getTopItemName()]);
 
+  return from === 'sports' ? (
+    <SportsCard
+      name={name}
+      price={price}
+      count={count}
+      countDownHandler={countDownHandler}
+      countUpHandler={countUpHandler}
+    />
+  ) : (
+    <PackageCard
+      name={name}
+      price={price}
+      count={count}
+      countUpHandler={countUpHandler}
+    />
+  );
+}
+
+type SportsCardProps = {
+  name: string;
+  price: number;
+  count: number;
+  countDownHandler: () => void;
+  countUpHandler: () => void;
+};
+
+function SportsCard({
+  name,
+  price,
+  count,
+  countDownHandler,
+  countUpHandler,
+}: SportsCardProps) {
   return (
     <section
       className={cn(
@@ -77,6 +114,38 @@ export default function GameCountCard({
         </div>
       </div>
       <div className="flex flex-col h-full justify-end">
+        <p className="headline2 text-primary_orange1">
+          {price.toLocaleString()}
+          <span className="title3 text-primary_orange1">원</span>
+        </p>
+      </div>
+    </section>
+  );
+}
+
+type PackageCardProps = {
+  name: string;
+  price: number;
+  count: number;
+  countUpHandler: () => void;
+};
+
+function PackageCard({ name, price, count, countUpHandler }: PackageCardProps) {
+  return (
+    <section
+      className={cn(
+        'w-full flex p-4 rounded-[12px] h-[64px] justify-between items-center border border-grey3',
+        {
+          'border-grey3': count === 0,
+          'border-primary_orange1 bg-[#FFF0D3]/20': count > 0,
+        }
+      )}
+      onClick={countUpHandler}
+    >
+      <div className="flex flex-col h-full justify-center">
+        <p className="title2 text-grey7">{name}</p>
+      </div>
+      <div className="flex flex-col h-full justify-center">
         <p className="headline2 text-primary_orange1">
           {price.toLocaleString()}
           <span className="title3 text-primary_orange1">원</span>

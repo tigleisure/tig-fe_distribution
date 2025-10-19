@@ -56,11 +56,15 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
     ref
   ) => {
     const router = useRouter();
-    const todayOperatingHour = operatingHours.find(
-      (operatingHour) =>
-        operatingHour.dayOfWeek ===
-        formatDate(new Date(date), 'EEE').toUpperCase()
-    );
+    console.log('operatingHours', operatingHours);
+    const todayOperatingHour =
+      operatingHours && operatingHours.length > 0
+        ? operatingHours.find(
+            (operatingHour) =>
+              operatingHour.dayOfWeek ===
+              formatDate(new Date(date), 'EEE').toUpperCase()
+          )
+        : undefined;
     const { mutate: deleteFromWishList } = useDeleteFromWishList();
     const { mutate: addToWishList } = useAddToWishList();
     const [isHeartClicked, setIsHeartClicked] = useState(false);
@@ -118,14 +122,16 @@ export const DetailInfoCard = forwardRef<HTMLDivElement, DetailInfoCardProps>(
               {price && price.toLocaleString()}원
             </p>
           </div> */}
-          <div className="flex gap-2" ref={ref}>
-            <TimeSVG />
-            <p className="body2">
-              {todayOperatingHour?.startTime.slice(0, 5) || ''}
-              {todayOperatingHour && ' ~ '}{' '}
-              {todayOperatingHour?.endTime.slice(0, 5) || ''}
-            </p>
-          </div>
+          {operatingHours.length > 0 ? (
+            <div className="flex gap-2" ref={ref}>
+              <TimeSVG />
+              <p className="body2">
+                {todayOperatingHour?.startTime.slice(0, 5) || ''}
+                {todayOperatingHour && ' ~ '}{' '}
+                {todayOperatingHour?.endTime.slice(0, 5) || ''}
+              </p>
+            </div>
+          ) : null}
           <div className="flex gap-2">
             <CallSVG />
             <p className="body2">{phoneNumber}</p>

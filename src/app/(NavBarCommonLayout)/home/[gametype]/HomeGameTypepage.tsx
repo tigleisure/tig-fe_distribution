@@ -5,10 +5,16 @@ import SearchHeader from '@components/all/SearchHeader';
 import TigLoadingPage from '@components/all/TigLoadingPage';
 import ArrowSVG from '@public/svg/homeUI/arrow.svg';
 import useTab from '@store/tabNumberStore';
-import { categoryMapEngToKor, leisureArray } from '@constant/constant';
+import {
+  categoryMapEngToKor,
+  packageArrayMapEngToKor,
+  leisureArray,
+  packageArray,
+} from '@constant/constant';
 import CustomSuspense from '@providers/CustomSuspense';
 import FilterHeader from '@components/search/result/FilterHeader';
 import HomeCardContent from '@components/home/HomeCardContent';
+import PackageCardContent from '@components/home/PackageCardContent';
 
 export default function HomeGameTypepage({
   params,
@@ -20,9 +26,21 @@ export default function HomeGameTypepage({
   const [isShowBounce, setIsShowBounce] = useState(true);
   const setCurrentTab = useTab((state) => state.setSelectedTab);
 
+  // 스포츠 카테고리인지 패키지 카테고리인지 확인
+  const isPackageCategory = Object.keys(packageArrayMapEngToKor).includes(
+    params.gametype
+  );
+  const isSportsCategory = Object.keys(categoryMapEngToKor).includes(
+    params.gametype
+  );
+
   useEffect(() => {
-    setCurrentTab(categoryMapEngToKor[params.gametype]);
-  }, [params.gametype, setCurrentTab]);
+    if (isSportsCategory) {
+      setCurrentTab(categoryMapEngToKor[params.gametype]);
+    } else if (isPackageCategory) {
+      setCurrentTab(packageArrayMapEngToKor[params.gametype]);
+    }
+  }, [params.gametype, setCurrentTab, isSportsCategory, isPackageCategory]);
 
   useEffect(() => {
     setTimeout(() => {
@@ -31,7 +49,7 @@ export default function HomeGameTypepage({
   }, []);
 
   return (
-    <main className="w-full flex flex-col pb-[40px] shadow-mainShadow">
+    <main className="w-full flex flex-col pb-[40px] shadow-mainShadow min-h-[100dvh]">
       <SearchHeader isHomeOrResultPage className="sticky" />
       {isShowBounce && (
         <div className="fixed left-[calc(50%-240px+72px)] top-[58px] z-[400] flex flex-col w-fit animate-bounce">
@@ -42,13 +60,17 @@ export default function HomeGameTypepage({
         </div>
       )}
       <UITabs
-        tabArray={leisureArray}
+        tabArray={isPackageCategory ? packageArray : leisureArray}
         from="searchMain"
         className="w-full px-5 top-[58px] sticky"
       />
       <FilterHeader className="sticky" />
       <CustomSuspense fallback={<TigLoadingPage />}>
-        <HomeCardContent isLogin={isLogin} />
+        {isPackageCategory ? (
+          <PackageCardContent isLogin={isLogin} />
+        ) : (
+          <HomeCardContent isLogin={isLogin} />
+        )}
       </CustomSuspense>
     </main>
   );

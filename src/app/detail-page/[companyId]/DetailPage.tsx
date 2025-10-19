@@ -28,6 +28,7 @@ import { cn } from '@utils/cn';
 import { AnimatePresence, motion } from 'framer-motion';
 import { set } from 'date-fns';
 import { clubInfoProps } from 'types/all/ClubInfoTypes';
+import { useGetAllPackageReview } from '@apis/detail-page/getAllPackageReview';
 
 const servicesIcon = ['wifi', 'wifi', 'wifi', 'wifi'];
 const services = ['무선 인터넷', '무선 인터넷', '무선 인터넷', '무선 인터넷'];
@@ -67,11 +68,17 @@ const initialInofo: clubInfoProps = {
 export default function DetailPage({
   params,
   info,
+  from = 'sports',
 }: {
   params: { companyId: string };
   info: clubInfoProps;
+  from?: 'sports' | 'package';
 }) {
-  const { data: reviewList } = useGetAllClubReview(params.companyId);
+  const { data: clubReviewList } = useGetAllClubReview(params.companyId);
+  const { data: packageReviewList } = useGetAllPackageReview(params.companyId);
+  // package는 리뷰API가 없어 임시 분기처리
+  const finalReviewData =
+    from === 'sports' ? clubReviewList : packageReviewList;
   const detailtabArrayWhenNoReview = detailArrayWhenNoReview;
   const detailtabArrayWhenReview = detailArrayWhenReview;
   // const detailInfoRef = useRef<HTMLDivElement>(null);
@@ -191,14 +198,16 @@ export default function DetailPage({
         scroll.removeEventListener('scroll', debouncedChangeNavBtn);
       }
     };
-  }, [mainRef.current]);
+  }, [setSelectedTab]);
 
   return (
     <div className="w-full h-full overflow-y-scroll" ref={mainRef}>
       <Header buttonType="back" title={info.clubName} />
       <Tabs
         tabArray={
-          reviewList.result.reviews.length === 0
+          from === 'package'
+            ? detailtabArrayWhenNoReview
+            : finalReviewData.result.reviews.length === 0
             ? detailtabArrayWhenNoReview
             : detailtabArrayWhenReview
         }
@@ -266,13 +275,21 @@ export default function DetailPage({
           scrollRef.current[2] = element;
         }}
       />
-      <VisitedReviewCard
-        avgRating={info.avgRating}
-        ratingCount={info.ratingCount}
-        reviewList={reviewList.result.reviews}
-        reviewSummary={reviewList.result.reviewSummary}
-        // ref={visitedReviewRef}
-      />
+        <VisitedReviewCard
+          avgRating={info.avgRating}
+          ratingCount={info.ratingCount}
+          reviewList={finalReviewData.result.reviews.map(review => ({
+            rating: review.rating,
+            contents: review.contents,
+            userName: review.userName,
+            adultCount: 'adultCount' in review ? review.adultCount : 0,
+            teenagerCount: 'teenagerCount' in review ? review.teenagerCount : 0,
+            kidsCount: 'kidsCount' in review ? review.kidsCount : 0,
+            startTime: 'startTime' in review ? review.startTime : '',
+          }))}
+          reviewSummary={finalReviewData.result.reviewSummary || ''}
+          // ref={visitedReviewRef}
+        />
       <ResButtonCard
         category={info.category}
         companyId={params.companyId}

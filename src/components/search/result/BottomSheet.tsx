@@ -10,6 +10,7 @@ interface BottomSheetProps {
   handleMyLocation?: () => void;
   date: string;
   handleClickCurrentLocationUIButton: () => void;
+  from: string;
 }
 
 export default function BottomSheet({
@@ -17,6 +18,7 @@ export default function BottomSheet({
   handleMyLocation,
   date,
   handleClickCurrentLocationUIButton,
+  from,
 }: BottomSheetProps) {
   const [isOpen, setOpen] = useState(false);
   const [height, setHeight] = useState<number>(500);
@@ -26,7 +28,8 @@ export default function BottomSheet({
 
   useEffect(() => {
     function updateSnapPoints() {
-      const calculateHeight = window.innerHeight - 199;
+      const calculateHeight =
+        from === 'sports' ? window.innerHeight - 199 : window.innerHeight - 159;
       setHeight(calculateHeight);
     }
     updateSnapPoints();
@@ -38,11 +41,14 @@ export default function BottomSheet({
 
   useEffect(() => {
     console.log(sessionStorage.getItem('prev')?.slice(0, 7));
-    console.log(sessionStorage.getItem('prev')?.slice(0, 7) === '/detail')
+    console.log(sessionStorage.getItem('prev')?.slice(0, 7) === '/detail');
 
-    if (sessionStorage.getItem('prev')?.slice(0, 7) === '/detail')
+    if (
+      sessionStorage.getItem('prev')?.slice(0, 7) === '/detail' ||
+      from === 'package'
+    )
       setInitialSnap(0);
-  },[]);
+  }, []);
 
   return (
     <Sheet

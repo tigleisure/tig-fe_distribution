@@ -1,13 +1,15 @@
 'use client';
 import React, { use, useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import InfoCard from '../all/InfoCard';
-import { set } from 'date-fns';
 import { useSearchInputInfo } from '@store/searchInfoStore';
 
-export default function TimePickerCard() {
+interface TimePickerCardProps {
+  onTimeSelect?: (time: string) => void;
+}
+
+export default function TimePickerCard({ onTimeSelect }: TimePickerCardProps) {
   const hours = Array.from({ length: 24 }, (_, i) => i);
-  const minutes = [0, 30];
+  const minutes = [0, 10, 20, 30, 40, 50];
   const [selectedHour, setSelectedHour] = useState<number>(11);
   const [selectedMinute, setSelectedMinute] = useState<number>(0);
   const searchInputInfo = useSearchInputInfo((state) => state.searchInput);
@@ -16,60 +18,86 @@ export default function TimePickerCard() {
   );
 
   useEffect(() => {
+    const time = `${hours[selectedHour].toString().padStart(2, '0')}:${minutes[
+      selectedMinute
+    ]
+      .toString()
+      .padStart(2, '0')}`;
     setSearchInputInfo({
       ...searchInputInfo,
-      searchTime: `${hours[selectedHour]}:${minutes[selectedMinute]}`,
+      searchTime: time,
     });
+    onTimeSelect?.(time);
   }, [selectedHour, selectedMinute]);
 
   return (
-    <section className="w-full flex flex-col gap-5 p-5 mb-[100px]">
-      <InfoCard number={3} content="시작 시간을 선택해주세요." />
-      <div className="w-full h-[160px] flex justify-center items-center title2">
-        <Swiper
-          className="h-[200px] overflow-hidden"
-          direction={'vertical'}
-          slidesPerView={7}
-          initialSlide={selectedHour}
-          freeMode
-          slideToClickedSlide
-          loop={true}
-          mousewheel
-          centeredSlides={true}
-          onSlideChange={(swiper) => setSelectedHour(swiper.realIndex)}
-        >
-          {hours.map((hour, idx) => (
-            <SwiperSlide
-              key={hour + 'hour'}
-              className={`h-[40px] w-[50px] flex justify-center items-center cursor-pointer ${
-                idx === selectedHour ? 'text-black' : 'text-grey4'
-              }`}
-            >
-              {hour}
-            </SwiperSlide>
-          ))}
-        </Swiper>
-        :
-        <Swiper
-          className="h-[200px] overflow-scroll"
-          direction={'vertical'}
-          slidesPerView={7}
-          initialSlide={selectedMinute}
-          slideToClickedSlide={true}
-          centeredSlides={true}
-          onSlideChange={(swiper) => setSelectedMinute(swiper.realIndex)}
-        >
-          {minutes.map((minute, idx) => (
-            <SwiperSlide
-              key={minute + 'minute'}
-              className={`h-[40px] w-[50px] flex justify-center items-center cursor-pointer ${
-                idx === selectedMinute ? 'text-black' : 'text-grey4'
-              }`}
-            >
-              {minute}
-            </SwiperSlide>
-          ))}
-        </Swiper>
+    <section className="w-full flex flex-col items-center">
+      <div
+        className="relative w-full flex justify-center items-center"
+        style={{ height: 200 }}
+      >
+        {/* 중앙 강조 라인 오버레이 */}
+        <div
+          className="pointer-events-none absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[40px] w-full bg-orange-50 rounded-lg z-1"
+          style={{ background: '#FFF6EC' }}
+        />
+        {/* Swiper 영역 */}
+        <div className="flex w-full justify-center items-center gap-2">
+          <Swiper
+            className="h-[200px] overflow-hidden"
+            direction={'vertical'}
+            slidesPerView={5}
+            initialSlide={selectedHour}
+            freeMode
+            slideToClickedSlide
+            loop={true}
+            mousewheel
+            centeredSlides={true}
+            onSlideChange={(swiper) => setSelectedHour(swiper.realIndex)}
+            style={{ width: 80 }}
+          >
+            {hours.map((hour, idx) => (
+              <SwiperSlide
+                key={hour + 'hour'}
+                className={`h-[40px] flex justify-center items-center cursor-pointer text-2xl font-semibold transition-colors duration-200 ${
+                  idx === selectedHour
+                    ? 'text-primary_orange1 z-20'
+                    : 'text-grey4 z-0'
+                }`}
+              >
+                {hour.toString().padStart(2, '0')}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+          <span className="text-2xl font-bold text-primary_orange1 z-20">
+            :
+          </span>
+          <Swiper
+            className="h-[200px] overflow-hidden"
+            direction={'vertical'}
+            slidesPerView={5}
+            initialSlide={selectedMinute}
+            freeMode
+            loop={true}
+            slideToClickedSlide={true}
+            centeredSlides={true}
+            onSlideChange={(swiper) => setSelectedMinute(swiper.realIndex)}
+            style={{ width: 80 }}
+          >
+            {minutes.map((minute, idx) => (
+              <SwiperSlide
+                key={minute + 'minute'}
+                className={`h-[40px] flex justify-center items-center cursor-pointer text-2xl font-semibold transition-colors duration-200 ${
+                  idx === selectedMinute
+                    ? 'text-primary_orange1 z-20'
+                    : 'text-grey4 z-0'
+                }`}
+              >
+                {minute.toString().padStart(2, '0')}
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
       </div>
     </section>
   );

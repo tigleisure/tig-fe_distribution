@@ -30,6 +30,21 @@ export default function PriceCard({
   const [priceList, setPriceList] = useState<PriceItem[]>([]);
 
   useEffect(() => {
+    // 패키지 상세: 운영시간 없이 모든 가격 노출
+    if (
+      Array.isArray(prices) &&
+      prices.length > 0 &&
+      typeof (prices as any[])[0]?.programName === 'string' &&
+      (prices as any[]).every((p) => (p as any).duration === -1)
+    ) {
+      const updated: PriceItem[] = (prices as any[]).map((p) => ({
+        description: String((p as any).programName),
+        price: Number((p as any).price) || 0,
+      }));
+      setPriceList(updated);
+      return;
+    }
+
     if (category === 'BALLING') {
       const ballingPrices = prices as BallingPrice[];
       const todayBallingPrices = ballingPrices.filter(

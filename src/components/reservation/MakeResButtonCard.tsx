@@ -15,13 +15,16 @@ export default function MakeResButtonCard({
   clubName,
   address,
   clubStartTime,
+  from = 'sports',
 }: {
   clubName: string;
   address: string;
   clubStartTime: string;
+  from?: 'sports' | 'package';
 }) {
   const router = useRouter();
   const pathname = usePathname();
+  const gameType = pathname.split('/').at(-2);
   const clubId = pathname.split('/').at(-1);
   const [toastId, setToastId] = useState<string | null>(null);
   const price = usePriceStore((state) => state.price);
@@ -59,8 +62,66 @@ export default function MakeResButtonCard({
   const curPrice = usePriceStore((state) => state.price);
 
   const handleReservation = () => {
-    // 그냥 GAME으로 통일
-    if (
+    // 업체가 들어옴에 따라 게임별로 분류
+    if (gameType === 'PENSION') {
+      if (
+        !clubId ||
+        !gameResInfo.date ||
+        !gameResInfo.endDate ||
+        // curPrice === 0 펜션은 가격이 0원이어도 예약 가능(임시)
+        gameResInfo.adultCount === 0
+      ) {
+        handleWrongSubmit('GAME');
+        return;
+      }
+    } else if (gameType === 'BUS') {
+      if (
+        !clubId ||
+        !gameResInfo.date ||
+        !gameResInfo.departureDate ||
+        !gameResInfo.departurePlace ||
+        !gameResInfo.returnPlace
+        // curPrice === 0 버스는 가격이 0원이어도 예약 가능(임시)
+      ) {
+        console.log(gameResInfo);
+        handleWrongSubmit('GAME');
+        return;
+      }
+    } else if (gameType === 'CATERING') {
+      if (
+        !clubId ||
+        !gameResInfo.date ||
+        !gameResInfo.receiptDate ||
+        !gameResInfo.deliveryAddress
+        // curPrice === 0 버스는 가격이 0원이어도 예약 가능(임시)
+      ) {
+        console.log(gameResInfo);
+        handleWrongSubmit('GAME');
+        return;
+      }
+    } else if (gameType === 'LUNCH_BOX') {
+      if (
+        !clubId ||
+        !gameResInfo.date ||
+        !gameResInfo.receiptDate ||
+        !gameResInfo.deliveryAddress
+        // curPrice === 0 버스는 가격이 0원이어도 예약 가능(임시)
+      ) {
+        console.log(gameResInfo);
+        handleWrongSubmit('GAME');
+        return;
+      }
+    } else if (gameType === 'GROUP_UNIFORM') {
+      if (
+        !clubId ||
+        !gameResInfo.deliveryAddress
+        // curPrice === 0 버스는 가격이 0원이어도 예약 가능(임시)
+      ) {
+        console.log(gameResInfo);
+        handleWrongSubmit('GAME');
+        return;
+      }
+    } else if (
       !clubId ||
       !gameResInfo.startTime ||
       curPrice === 0 ||
@@ -69,15 +130,18 @@ export default function MakeResButtonCard({
       handleWrongSubmit('GAME');
       return; // clubId가 undefined, null, ''과 같은 경우
     }
+
     const calculateDate = convertToNextDayIfNextDay(
       gameResInfo.startTime?.slice(11, 16) || '',
       clubStartTime,
-      gameResInfo.startTime
+      gameResInfo.startTime || ''
     );
 
     const query = {
-      gameType: 'GAME',
+      gameType: gameType || '',
       date: gameResInfo.date,
+      // 펜션용
+      endDate: gameResInfo.endDate || '',
       startTime: calculateDate,
       gameCount: String(gameResInfo.gameCount),
       request: gameResInfo.request,
@@ -88,8 +152,17 @@ export default function MakeResButtonCard({
       clubName: clubName,
       address: address,
       gameDescription:
-        gameResInfo.gameDescription + ', ' + getPriceStackLength() + '회',
+        from === 'sports'
+          ? gameResInfo.gameDescription + ', ' + getPriceStackLength() + '회'
+          : gameResInfo.gameDescription,
       message: gameResInfo.request,
+      travelType: gameResInfo.travelType,
+      departureDate: gameResInfo.departureDate || '',
+      returnDate: gameResInfo.returnDate || '',
+      departurePlace: gameResInfo.departurePlace || '',
+      returnPlace: gameResInfo.returnPlace || '',
+      receiptDate: gameResInfo.receiptDate || '',
+      deliveryAddress: gameResInfo.deliveryAddress || '',
     };
     const queryString = new URLSearchParams(query).toString();
     setIsFromReservationPage(true);
@@ -98,7 +171,7 @@ export default function MakeResButtonCard({
 
   useEffect(() => {
     clearPrice();
-  },[]);
+  }, []);
 
   return (
     <section className="h-[78px] w-full flex  gap-[10px] justify-center items-center px-5 py-[14px] absolute bottom-0 bg-white shadow-absoluteButton">

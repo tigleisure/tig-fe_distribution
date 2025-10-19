@@ -35,6 +35,7 @@ const handleKakaokEasyPay = async (
   const clubDataResonse = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_DOMAIN}/api/v1/club/guest/${reservationData.clubId}`
   );
+  // TODO: 패키지 정보 추가
   const clubData = await clubDataResonse.json();
   // redirect로 보낼 query string임
   const query = {

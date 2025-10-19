@@ -17,7 +17,13 @@ export interface ResultCardProps {
     | 'GOLF'
     | 'FOOTBALL'
     | 'SQUSH'
-    | 'BILLIARDS';
+    | 'BILLIARDS'
+    | 'BUS'
+    | 'CATERING'
+    | 'LUNCH_BOX'
+    | 'GROUP_UNIFORM'
+    | 'PENSION'
+    | 'GOLF_COURSE';
   isEvent?: boolean;
   isHeart?: boolean | null;
   imageUrls: string[];
@@ -27,4 +33,8 @@ export interface ResultCardProps {
   isFirst?: boolean;
   distance?: number;
   operatingHours?: operatingHour[];
+  name?: string;
+  id?: number;
+  from?: 'sports' | 'package';
+  price?: string;
 }

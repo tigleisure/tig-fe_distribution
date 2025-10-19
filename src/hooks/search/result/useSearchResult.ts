@@ -1,12 +1,14 @@
 import { useGetLoginUserSearchedResult } from '@apis/search/getLoginUserSearchedResult';
 import { useGetUnLoginUserSearchedResult } from '@apis/search/getUnLoginUserSearchedResult';
-import { categoryMapEngToKor } from '@constant/constant';
+import { useGetLoginUserPackageSearchedResult } from '@apis/search/getLoginUserPackageSearchedResult';
+import { useGetUnLoginUserPackageSearchedResult } from '@apis/search/getUnLoginUserPackageSearchedResult';
+import { categoryMapEngToKor, packageArrayMapEngToKor } from '@constant/constant';
 import { useBottomSheetStore } from '@store/bottomSheetStore';
 import { useFilterOptionStore } from '@store/filterOptionStore';
 import { usePinCardIndexStore } from '@store/pinCardIndexStore';
 import { useSearchInputInfo } from '@store/searchInfoStore';
 import useTab from '@store/tabNumberStore';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { ResultCardProps } from 'types/search/result/searchResult';
 import { formatDate } from 'date-fns';
 import { timeToMinutes } from '@utils/formatDate';
@@ -15,8 +17,8 @@ export const useSearchResult = (
   search: string,
   isKeyword: string,
   formatDayOfWeek: string,
-  isLogin: boolean
-  // time: string
+  isLogin: boolean,
+  from: 'sports' | 'package'
 ) => {
   const [isResult, setIsResult] = useState(false);
   const [recommendedResult, setRecommendedResult] = useState<ResultCardProps[]>(
@@ -42,12 +44,26 @@ export const useSearchResult = (
   );
 
   // 이것도 토큰여부를 확인할 수 있다면 두 요청 중 하나만 보내면 좋을 거 같아
-  const { data: loginUserSearchResult } = useGetLoginUserSearchedResult(
+  // 훅은 조건 없이 항상 같은 순서로 호출
+  const { data: loginUserSportsSearchResult } = useGetLoginUserSearchedResult(
     search,
     isKeyword
   );
-  const { data: unLoginUserSearchResult } =
+  const { data: loginUserPackageSearchResult } =
+    useGetLoginUserPackageSearchedResult(search, isKeyword);
+  const { data: unLoginUserSportsSearchResult } =
     useGetUnLoginUserSearchedResult(search);
+  const { data: unLoginUserPackageSearchResult } =
+    useGetUnLoginUserPackageSearchedResult(search);
+
+  const loginUserSearchResult =
+    from === 'sports'
+      ? loginUserSportsSearchResult
+      : loginUserPackageSearchResult;
+  const unLoginUserSearchResult =
+    from === 'sports'
+      ? unLoginUserSportsSearchResult
+      : unLoginUserPackageSearchResult;
 
   const setSearchInput = useSearchInputInfo((state) => state.setSearchInput);
 
@@ -73,7 +89,7 @@ export const useSearchResult = (
         setRecommendedResult(unLoginUserSearchResult?.result.searchList || []);
       }
     }
-  }, [loginUserSearchResult, unLoginUserSearchResult]);
+  }, [isLogin, loginUserSearchResult, unLoginUserSearchResult]);
 
   const selectedTab = useTab((state) => state.selectedTab);
 
@@ -89,48 +105,88 @@ export const useSearchResult = (
     });
   };
 
-  const filterAndSortResults = () => {
+  const filterAndSortResults = useCallback(() => {
     let preResult = [...originalSearchResult];
-    let result = filterPlaces(preResult, formatDayOfWeek);
+    // 스포츠일 때만 요일(시간) 기반 필터링을 적용하고, 패키지에서는 전체 결과를 사용
+    let result =
+      from === 'sports' ? filterPlaces(preResult, formatDayOfWeek) : preResult;
 
-    if (selectedTab !== '전체') {
-      result = result.filter(
-        (item) => categoryMapEngToKor[item.category] === selectedTab
-      );
+    // 안전한 값 추출 유틸
+    const getAvgRating = (item: ResultCardProps) =>
+      Number.isFinite(item.avgRating) ? item.avgRating : 0;
+    const getRatingCount = (item: ResultCardProps) =>
+      Number.isFinite(item.ratingCount) ? item.ratingCount : 0;
+    const getDistance = (item: ResultCardProps) =>
+      Number.isFinite(item.distance as number) && (item.distance as number) > 0
+        ? (item.distance as number)
+        : Number.POSITIVE_INFINITY; // 가까운순에서 거리 없음은 가장 뒤로
+    const getMinPrice = (item: ResultCardProps) => {
+      try {
+        if (from === 'package') {
+          const price = Number(item.price);
+          return Number.isFinite(price) ? price : Number.POSITIVE_INFINITY;
+        } else {
+          const priceList = Array.isArray(item.prices) ? (item.prices as any[]) : [];
+          if (priceList.length === 0) return Number.POSITIVE_INFINITY;
+          const candidates = priceList
+            .map((obj: any) => Number(obj?.price))
+            .filter((v) => Number.isFinite(v));
+          if (candidates.length === 0) return Number.POSITIVE_INFINITY;
+          return Math.min(...candidates);
+        }
+      } catch (_) {
+        return Number.POSITIVE_INFINITY;
+      }
+    };
+
+    if (from === 'sports') {
+      if (selectedTab !== '전체') {
+        result = result.filter(
+          (item) => categoryMapEngToKor[item.category] === selectedTab
+        );
+      }
+    }
+    console.log(result);
+
+    if (from === 'package') {
+      if (selectedTab !== '전체') {
+        result = result.filter(
+          (item) => packageArrayMapEngToKor[item.category] === selectedTab
+        );
+      }
+      console.log(result);
     }
 
     if (selectedOption === '추천순') {
       setFilteredSearchResult(result);
     } else if (selectedOption === '인기순') {
-      result.sort((a, b) => b.avgRating - a.avgRating);
+      result.sort((a, b) => getAvgRating(b) - getAvgRating(a));
     } else if (selectedOption === '가까운순') {
-      result.sort((a, b) => (a.distance || 0) - (b.distance || 0));
+      result.sort((a, b) => getDistance(a) - getDistance(b));
     } else if (selectedOption === '고가순') {
-      result.sort(
-        (a, b) =>
-          Math.min(...(b.prices as any[]).map((obj) => obj.price)) -
-          Math.min(...(a.prices as any[]).map((obj) => obj.price))
-      );
+      result.sort((a, b) => getMinPrice(b) - getMinPrice(a));
     } else if (selectedOption === '저가순') {
-      result.sort(
-        (a, b) =>
-          Math.min(...(a.prices as any[]).map((obj) => obj.price)) -
-          Math.min(...(b.prices as any[]).map((obj) => obj.price))
-      );
+      result.sort((a, b) => getMinPrice(a) - getMinPrice(b));
     } else if (selectedOption === '리뷰많은순') {
-      result.sort((a, b) => b.ratingCount - a.ratingCount);
+      result.sort((a, b) => getRatingCount(b) - getRatingCount(a));
     }
 
     setFilteredSearchResult(result);
-  };
+  }, [
+    originalSearchResult,
+    from,
+    formatDayOfWeek,
+    selectedTab,
+    selectedOption,
+  ]);
 
   useEffect(() => {
     filterAndSortResults();
-  }, [selectedOption, selectedTab, originalSearchResult]);
+  }, [filterAndSortResults]);
 
   useEffect(() => {
     setIsBottomSheetOpen(true);
-  }, [selectedTab]);
+  }, [selectedTab, setIsBottomSheetOpen]);
 
   useEffect(() => {
     return () => {
@@ -140,7 +196,7 @@ export const useSearchResult = (
         searchTime: '11:00',
       });
     };
-  }, []);
+  }, [setSearchInput]);
 
   const handleMyLocation = () => {
     navigator.geolocation.getCurrentPosition((position) => {

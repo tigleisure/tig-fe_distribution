@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="w-full h-[25%] px-footerHorizontal flex flex-col justify-center gap-y-[15px] py-[30px] bg-grey2">
+    <footer className="w-full h-[25%] px-footerHorizontal flex flex-col justify-center gap-y-[15px] py-[30px] bg-grey2 mt-auto">
       <span className="body3 text-grey7">주식회사 징고</span>
       <div className="flex flex-col gap-y-[2px]">
         <div className="flex flex-start items-center gap-x-[10px]">

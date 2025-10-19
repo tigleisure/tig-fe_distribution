@@ -5,12 +5,14 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { useGetUserNearestDistrict } from '@apis/search/getNearestDistrict';
 import { da } from 'date-fns/locale';
+import useTab from '@store/tabNumberStore';
 
 export default function ButtonCard() {
   const inputValue = useSearchInputInfo((state) => state.searchInput);
   const router = useRouter();
   const [nearestDistrict, setNearestDistrict] = useState<string>('신촌');
   const nearestDistrictMutation = useGetUserNearestDistrict();
+  const currentTab = useTab((state) => state.selectedTab);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition((position) => {
@@ -42,6 +44,7 @@ export default function ButtonCard() {
       date: inputValue.searchDate,
       // time: inputValue.searchTime + ':00',
       isKeyword: inputValue.searchValue === '' ? 'false' : 'true',
+      from: currentTab === '스포츠' ? 'sports' : 'package',
     };
     const queryString = new URLSearchParams(query).toString();
     router.push(`/search/result?${queryString}`);

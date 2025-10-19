@@ -40,6 +40,14 @@ interface searchParamsProps {
   gameType: string | undefined;
   request: string | undefined;
   gameDescription: string | undefined;
+  endDate: string | undefined;
+  travelType: string | undefined;
+  departureDate: string | undefined;
+  returnDate: string | undefined;
+  departurePlace: string | undefined;
+  returnPlace: string | undefined;
+  receiptDate: string | undefined;
+  deliveryAddress: string | undefined;
 }
 
 export default function Page({
@@ -56,23 +64,24 @@ export default function Page({
     (state) => state.isFromReservation
   );
   const setPrice = usePriceStore((state) => state.setPrice);
-  const setIsFromReservation = usePriceStore(
-    (state) => state.setIsFromReservation
-  );
-  useEffect(() => {
-    if (!isFromReservationPage) {
-      router.replace(
-        `/detail-page/${params.clubId}?date=${formatDate(
-          new Date(),
-          "yyyy-MM-dd'T'HH:mm:ss"
-        )}`
-      );
-    }
-    return () => {
-      setPrice(0);
-      setIsFromReservation(false);
-    };
-  }, []);
+  // 예약 페이지에서 온 것이 아니라면 홈으로 리다이렉트
+  // const setIsFromReservation = usePriceStore(
+  //   (state) => state.setIsFromReservation
+  // );
+  // useEffect(() => {
+  //   if (!isFromReservationPage) {
+  //     router.replace(
+  //       `/detail-page/${params.clubId}?date=${formatDate(
+  //         new Date(),
+  //         "yyyy-MM-dd'T'HH:mm:ss"
+  //       )}`
+  //     );
+  //   }
+  //   return () => {
+  //     setPrice(0);
+  //     setIsFromReservation(false);
+  //   };
+  // }, []);
 
   const reservationStageState = useReservationStage(
     (state) => state.reservationStage
@@ -147,6 +156,33 @@ export default function Page({
         : '',
       clubAddress: reservationSearchParmasObject.address
         ? reservationSearchParmasObject.address
+        : '',
+      gameType: reservationSearchParmasObject.gameType
+        ? reservationSearchParmasObject.gameType
+        : '',
+      endDate: reservationSearchParmasObject.endDate
+        ? reservationSearchParmasObject.endDate
+        : '',
+      travelType: reservationSearchParmasObject.travelType
+        ? reservationSearchParmasObject.travelType
+        : '',
+      departureDate: reservationSearchParmasObject.departureDate
+        ? reservationSearchParmasObject.departureDate
+        : '',
+      returnDate: reservationSearchParmasObject.returnDate
+        ? reservationSearchParmasObject.returnDate
+        : '',
+      departurePlace: reservationSearchParmasObject.departurePlace
+        ? reservationSearchParmasObject.departurePlace
+        : '',
+      returnPlace: reservationSearchParmasObject.returnPlace
+        ? reservationSearchParmasObject.returnPlace
+        : '',
+      receiptDate: reservationSearchParmasObject.receiptDate
+        ? reservationSearchParmasObject.receiptDate
+        : '',
+      deliveryAddress: reservationSearchParmasObject.deliveryAddress
+        ? reservationSearchParmasObject.deliveryAddress
         : '',
       // 추후 제대로 설정해야 함
       price: price,

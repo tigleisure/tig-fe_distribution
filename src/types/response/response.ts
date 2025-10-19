@@ -55,8 +55,39 @@ export interface Club {
   amenities: null;
 }
 
+export interface Package {
+  id: number;
+  name: string;
+  address: string;
+  ratingSum: number;
+  ratingCount: number;
+  avgRating: number;
+  // prices: object[];
+  price: number;
+  phoneNumber: string;
+  snsLink: string;
+  businessHours: string;
+  latitude: number;
+  longitude: number;
+  category:
+    | 'BUS'
+    | 'CATERING'
+    | 'LUNCH_BOX'
+    | 'GROUP_UNIFORM'
+    | 'PENSION'
+    | 'GOLF_COURSE';
+  type: 'GAME' | 'TIME';
+  imageUrls: string[];
+  presignedImageUrls: string[];
+  isHeart: boolean;
+  amenities: null;
+}
 export interface NearestClubsByCategory {
   [key: string]: Club[];
+}
+
+export interface RandomPackagesByCategory {
+  [key: string]: Package[];
 }
 
 interface Result {
@@ -65,6 +96,20 @@ interface Result {
   recommendedClubs: Club[];
   nearestClubsByCategory: NearestClubsByCategory;
 }
+
+interface Result2 {
+  popularPackages: Package[];
+  recommendedPackages: Package[];
+  randomPackages: Package[];
+  randomPackagesByCategory: RandomPackagesByCategory;
+}
+
+export interface PostHomeResponse2 {
+  result: Result2[];
+  resultCode: number;
+  resultMsg: string;
+}
+
 export interface PostHomeResponse {
   result: Result[];
   resultCode: number;

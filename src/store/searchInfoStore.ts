@@ -9,7 +9,9 @@ interface SearchInputProps {
 
 interface Store {
   searchInput: SearchInputProps;
-  setSearchInput: (status: SearchInputProps) => void;
+  setSearchInput: (
+    status: SearchInputProps | ((prev: SearchInputProps) => SearchInputProps)
+  ) => void;
 }
 
 export const useSearchInputInfo = create<Store>((set) => ({
@@ -18,5 +20,9 @@ export const useSearchInputInfo = create<Store>((set) => ({
     searchTime: '00:00',
     searchDate: formatDate(new Date(), "yyyy-MM-dd'T'00:00:00"),
   },
-  setSearchInput: (status: SearchInputProps) => set({ searchInput: status }),
+  setSearchInput: (status) =>
+    set((state) => ({
+      searchInput:
+        typeof status === 'function' ? status(state.searchInput) : status,
+    })),
 }));
